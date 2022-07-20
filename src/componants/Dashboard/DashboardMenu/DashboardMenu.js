@@ -20,11 +20,11 @@ const DashboardMenu = () => {
             <ul>
                 <li><FaQrcode/> <span> Dashboard</span></li>
                 <li><FaUserAlt/> <span> Profile</span></li>
-                <li><FaHandshake/> <span> Balance transfer</span></li>
-                <li><FaMoneyCheckAlt/> <span> Balance request</span></li>
-                <li><FaMobileAlt/> <span> Mobile recharge</span></li>
-                <li><NavLink to='generation'><FaUsersCog/> <span> Generation</span></NavLink></li>
-                <li><FaDonate/> <span> Withdraw </span></li>
+                <li><NavLink to='/balance_transfer'><FaHandshake/> <span> Balance transfer</span></NavLink></li>
+                <li><NavLink to='/balance_request'><FaMoneyCheckAlt/> <span> Balance request</span></NavLink></li>
+                <li><NavLink to='/mobile_recharge'><FaMobileAlt/> <span> Mobile recharge</span></NavLink></li>
+                <li><NavLink to='/generation'><FaUsersCog/> <span> Generation</span></NavLink></li>
+                <li><FaDonate/><NavLink to='/withdraw'><span> Withdraw </span></NavLink></li>
                 <li><BiLogOut/> <span> Log Out</span></li>
                 
             </ul>

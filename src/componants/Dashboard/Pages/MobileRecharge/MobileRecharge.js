@@ -81,31 +81,43 @@ const MobileRecharge = () => {
                             <th>Phone Number</th>
                             <th>SIM Provider</th>
                             <th>Amount of Tk</th>
+                            <th>Recharge Status</th>
+                            <th>Date of Recharge</th>
                         </tr>
                         <tr>
                             <td>02445523</td>
                             <td>Robi</td>
                             <td>50tk</td>
+                            <td>Pending</td>
+                            <td>12-04-2022</td>
                         </tr>
                         <tr>
                             <td>02445523</td>
                             <td>Grameenphone</td>
                             <td>100tk</td>
+                            <td>Apporoved</td>
+                            <td>12-04-2022</td>
                         </tr>
                         <tr>
                             <td>02445523</td>
                             <td>Robi</td>
                             <td>50tk</td>
+                            <td>Apporoved</td>
+                            <td>12-04-2022</td>
                         </tr>
                         <tr>
                             <td>02445523</td>
                             <td>Grameenphone</td>
                             <td>50tk</td>
+                            <td>Apporoved</td>
+                            <td>12-04-2022</td>
                         </tr>
                         <tr>
                             <td>02445523</td>
                             <td>banglalink</td>
                             <td>70tk</td>
+                            <td>Apporoved</td>
+                            <td>12-04-2022</td>
                         </tr>
 
                     </table>
