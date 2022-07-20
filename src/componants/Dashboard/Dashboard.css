@@ -1,0 +1,23 @@
+.dashboard-section{
+    /* background-color: #E9EBEC; */
+    /* background-color: magenta; */
+    background-color: #000;
+
+    min-height: 100vh;
+}
+.dashboard-container{
+    display: grid;
+    grid-template-columns: .3fr 1fr;
+    grid-row-gap: 5px;
+    grid-column-gap: 15px;
+
+}
+.dashboard-container div{
+    /* background-color: #fff; */
+    /* background-color: violet; */
+    background-color: #1F2944;
+
+}
+.dashboard-menu{
+    height: 100vh;
+}

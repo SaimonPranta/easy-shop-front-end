@@ -1,0 +1,23 @@
+.dashboard-menu ul{
+    margin: 0;
+    padding: o;
+}
+.dashboard-menu ul li{
+    margin: 0;
+    padding: o;
+    list-style: none;
+    padding: 5px;
+    font-weight: 500;
+    /* color: #BD009D; */
+    color: #fff;
+    cursor: pointer;
+    border-bottom: 1px solid #fff;
+}
+.dashboard-menu ul li a{
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    color: #fff;
+
+}
+

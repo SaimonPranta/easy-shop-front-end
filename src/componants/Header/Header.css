@@ -1,0 +1,8 @@
+.menu-icons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.menu-icons span{
+    margin: 0 5px;
+}

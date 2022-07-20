@@ -1,0 +1,88 @@
+.balance-transfer-section{
+    width: 70%;
+    height: 100%;
+}
+.balance-transfer-section div{
+    padding: 10px;
+    height: 100%;
+    width: 100%;
+    background: #485068 !important;
+
+}
+.balance-transfer-section h4{
+    background-color: purple;
+    font-size: 1rem;
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 0;
+}
+
+.balance-transfer-section from div{
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+}
+.balance-transfer-section from input{
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    width: 300px;
+    display: block;
+    color: #fff;
+}
+.balance-transfer-section from select{
+    outline: none;
+    border: 1px solid rgba(95, 84, 84, 0.719);
+    border-bottom:0px;
+    border-right:0px;
+    width: 300px;
+    display: block;
+}
+.balance-transfer-section from input[type=submit]{
+    /* background-color: #01A6A0; */
+    background-color: purple;
+    margin: auto;
+    border: none;
+    width: 150px;
+    color: #fff;
+    border-radius: 5px ;
+}
+
+/* Balance Transfer History Section */
+.balance-transfer-history-section{
+    width: 70%;
+    height: 100%;
+}
+.balance-transfer-history-section{
+    width: 70%;
+    height: 100%;
+}
+.balance-transfer-history-section h4{
+    background-color: purple;
+    font-size: 1rem;
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 0;
+}
+.balance-transfer-history-section div{
+    background: #485068;
+    padding: 10px;
+    height: 100%;
+    width: 100%;
+
+
+}
+.balance-transfer-history-section div table{
+    margin: auto;
+}
+.balance-transfer-history-section div table tr th{
+    border: 1px solid rgba(255, 255, 255, 0.774);
+    background-color: #485068;
+    font-weight: 500;
+    padding: 3px 5px;
+}
+.balance-transfer-history-section div table tr td{
+    border: 1px solid rgba(255, 255, 255, 0.774);
+    padding: 3px 5px;
+    color: #fff;
+}

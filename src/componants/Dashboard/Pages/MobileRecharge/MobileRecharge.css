@@ -1,0 +1,46 @@
+.sim-provider-section{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    /* justify-content: space-around; */
+    align-items: center;
+}
+.sim-contianer{
+    display: flex;
+    align-items: center;
+}
+.sim-provider-section div{
+    display: flex;
+    align-items: center;
+    justify-content: left;
+}
+.sim-provider-section div img{
+    height: 25px;
+    width: 25px;
+    margin: 0;
+    padding: 0;
+
+}
+.sim-provider-section{
+    box-sizing: border-box;
+}
+.sim-provider-section div input{
+    height: 20px;
+    width: 20px;
+    margin: 0;
+    padding: 0;
+}
+.sim-status{
+    display: flex;
+    align-items: center;
+}
+.sim-status div input{
+    height: 20px;
+    width: 20px;
+}
+.sim-status div{
+    display: flex;
+    justify-content: space-around;
+}
+.sim-status div div{
+   width: 150px;
+}

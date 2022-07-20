@@ -1,0 +1,29 @@
+.top-header a{
+    text-decoration: none;
+    margin: 8px;
+}
+
+.help-section{
+    position: relative;
+}
+.help-section .help-menu{
+    cursor: pointer;
+}
+.help-section .help-sub-section{
+    position: absolute;
+    top: 25px;
+    right: 0px;
+    display: flex;
+    flex-direction: column;
+    border: .1px solid #a1aab3;
+    display: none;
+    z-index: 552;
+    background-color: #fff;
+}
+.help-section .help-control{
+    display: flex;
+}
+
+.top-header-user div{
+    float: right;
+}
