@@ -29,17 +29,17 @@ const Header = () => {
                         <ul className="navbar-nav ms-auto mb-2 mb-lg-0">
                             <li className="nav-item">
                                 {/* <a className="nav-link active" aria-current="page" href="#">HOME</a> */}
-                                <NavLink className="nav-link active" aria-current="page" to="/">HOME</NavLink>
+                                <NavLink to="/" className="nav-link active" aria-current="page" >HOME</NavLink>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">PRODUCTS</a>
+                                {/* <a className="nav-link" href="#">PRODUCTS</a> */}
+                                <NavLink to="/" className="nav-link" aria-current="page" >PRODUCTS</NavLink>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">ABOUT US</a>
+                                {/* <a className="nav-link" href="#">ABOUT US</a> */}
+                                <NavLink to="/about_us" className="nav-link active" aria-current="page" >ABOUT US</NavLink>
                             </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">CONTACTs</a>
-                            </li>
+                            
                             <li className="nav-item menu-icons">
                                 <span>{loaveIcon}</span>
                                 <span>{cartIcon}</span>

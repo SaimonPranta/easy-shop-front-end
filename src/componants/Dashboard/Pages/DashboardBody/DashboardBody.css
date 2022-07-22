@@ -3,7 +3,6 @@
     height: 100px;
     margin: 30px auto;
     border: 1px solid #fff;
-
 }
 .balnce-section div p{
     margin: 0;
@@ -41,4 +40,38 @@
 }
 .withdraw-notice p{
     color: blue;
+}
+.balance-transfer-section .dashboard-user-info{
+    width: 70%;
+    height: 100%;
+    margin: 30px auto;
+    border: 1px solid #3A476B;
+    background-color: #fff !important;
+    color: #3A476B;
+    margin-bottom: 0px;
+}
+.dashboard-user-info h5{
+    padding: 0;
+    margin: 0;
+    padding-left: 10px;
+    
+}
+.dashboard-user-info p{
+    padding: 0;
+    margin: 0;
+    padding-left: 10px;
+    
+}
+.dashboard-user-info span{
+    width: initial;
+    padding-left: 10px;
+}
+.dashboard-user-info div{
+    background-color: rgb(238, 222, 222) !important;
+    border: 1px solid #287DB6;
+    padding: 0;
+    margin-top: 5px;
+}
+.dashboard-user-info div p{
+    
 }

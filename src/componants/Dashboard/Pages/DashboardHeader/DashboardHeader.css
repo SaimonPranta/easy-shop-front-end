@@ -1,0 +1,16 @@
+.dashbord-header div{
+    background-color: #1F2944;
+    color: wheat;
+    padding: 5px;
+}
+.dashbord-nav-items ul li a{
+    color: #fff !important;
+}
+
+.navbar-light .navbar-toggler-icon {
+    background-image: url('../../../../assets/images/nav_icon/icons8-menu-48.png') !important;
+} 
+.dashbord-control-icon svg{
+    height: 26px;
+    width: 26px;
+}

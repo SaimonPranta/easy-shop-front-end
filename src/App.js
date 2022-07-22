@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import './App.css';
+import AboutUs from './componants/AboutUs/AboutUs';
 import Dashboard from './componants/Dashboard/Dashboard';
 import BalanceRequest from './componants/Dashboard/Pages/BalanceRequest/index';
 import BalanceTransfer from './componants/Dashboard/Pages/BalanceTransfer/Index';
@@ -20,6 +21,7 @@ function App() {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home />}></Route>
+          <Route path="/about_us" element={<AboutUs />}></Route>
           <Route path="/registration" element={<Registration />}></Route>
           <Route path="/login" element={<Login />}></Route>
           <Route path="/dashboard" element={<Dashboard />}></Route>
