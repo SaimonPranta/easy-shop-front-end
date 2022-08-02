@@ -3,10 +3,10 @@ import './Registration.css';
 import Header from '../Header/Header';
 import { Link } from 'react-router-dom';
 import inputHandler from '../../Functions/inputHandler';
+import cookieExpires from '../../Functions/cookieExpires';
 
 const Registation = () => {
     const [inputUser, setInputUser] = useState({});
-    const [condition, setCondition] = useState({});
 
     const fromInputHandler = (e) => {
         inputHandler(e, inputUser, setInputUser)
@@ -24,10 +24,14 @@ const Registation = () => {
                     }
                 })
                 .then( res => res.json() )
-                .then( data => console.log(data) )
+                .then( data => {
+                    document.cookie = `token = ${data.token}; ${cookieExpires(3)}; path=/`;
+                    console.log(data) 
+                })
             }
         }
     }
+
     
     return (
         <div className='container'>

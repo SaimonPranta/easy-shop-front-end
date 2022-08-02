@@ -14,7 +14,7 @@ const MobileRecharge = () => {
             <div className='balance-transfer-section m-auto'>
                 <h4>MOBILE RECHARGE</h4>
                 <div>
-                    <from>
+                    <form>
                         <div>
                             <label>Phone Number</label>
                             <input type="text" name="amount" placeholder='Your Phone Number' />
@@ -69,7 +69,7 @@ const MobileRecharge = () => {
                         <div>
                             <input type="submit" value="Submit" />
                         </div>
-                    </from>
+                    </form>
                 </div>
             </div>
 

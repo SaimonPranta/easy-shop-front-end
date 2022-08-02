@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createContext, useContext } from 'react';
 import './DashboardMenu.css';
 import { NavLink } from 'react-router-dom';
 
@@ -13,15 +13,25 @@ import { FaDonate } from "react-icons/fa";
 import { FaHandshake } from "react-icons/fa";
 import { FaUnlockAlt } from "react-icons/fa";
 import { FaUserEdit } from "react-icons/fa";
-
+import { userContext } from '../../../App';
 
 
 
 
 const DashboardMenu = () => {
+    const [user, setUser] = useContext(userContext)
     const handleSubMenu = () => {
         document.getElementById('sub-menu').classList.toggle("active-sub-menu");
     }
+    const hanleLogOut = () => {
+        console.log("hell log out")
+        document.cookie = "token=";
+        setUser({})
+    }
+
+    console.log("from context provider", user)
+
+
     return (
         <>
             <ul>
@@ -36,8 +46,8 @@ const DashboardMenu = () => {
                 <li><NavLink to='/balance_request'><FaMoneyCheckAlt /> <span> Balance request</span></NavLink></li>
                 <li><NavLink to='/mobile_recharge'><FaMobileAlt /> <span> Mobile recharge</span></NavLink></li>
                 <li><NavLink to='/generation'><FaUsersCog /> <span> Generation</span></NavLink></li>
-                <li><FaDonate /><NavLink to='/withdraw'><span> Withdraw </span></NavLink></li>
-                <li><BiLogOut /> <span> Log Out</span></li>
+                <li><NavLink to='/withdraw'><FaDonate /><span> Withdraw </span></NavLink></li>
+                <li><a onClick={hanleLogOut}><BiLogOut /> <span> Log Out</span></a></li>
             </ul>
         </>
     );

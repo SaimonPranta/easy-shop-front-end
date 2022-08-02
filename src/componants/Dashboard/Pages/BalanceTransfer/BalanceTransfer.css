@@ -19,12 +19,12 @@
     margin-bottom: 0;
 }
 
-.balance-transfer-section from div{
+.balance-transfer-section form div{
     display: flex;
     justify-content: space-between;
     margin: 5px 0;
 }
-.balance-transfer-section from input{
+.balance-transfer-section form input{
     outline: none;
     border: none;
     border-radius: 3px;
@@ -32,10 +32,10 @@
     display: block;
     color: #000;
 }
-.balance-transfer-section from input:focus{
+.balance-transfer-section form input:focus{
     color: blueviolet;
 }
-.balance-transfer-section from select{
+.balance-transfer-section form select{
     outline: none;
     border: 1px solid rgba(95, 84, 84, 0.719);
     border-bottom:0px;
@@ -43,7 +43,7 @@
     width: 300px;
     display: block;
 }
-.balance-transfer-section from input[type=submit]{
+.balance-transfer-section form input[type=submit]{
     /* background-color: #01A6A0; */
     background-color: purple;
     margin: auto;

@@ -18,3 +18,9 @@
 .dashboard-menu{
     height: 100vh;
 }
+.resposeContainer{
+    height: 50px !important;
+    width: 100%;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}

@@ -24,7 +24,7 @@ const BalanceRequest = () => {
             <div className='balance-transfer-section m-auto'>
                 <h4>CREATE BALANCE REQUEST</h4>
                 <div>
-                    <from>
+                    <form>
                         <div className='payment-provider-section'>
                             <div>
                                 <img src={bkashLogo} alt="logo"></img>
@@ -61,7 +61,7 @@ const BalanceRequest = () => {
                         <div>
                             <input type="submit" value="Submit" />
                         </div>
-                    </from>
+                    </form>
                 </div>
             </div>
 

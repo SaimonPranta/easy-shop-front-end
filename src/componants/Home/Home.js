@@ -1,4 +1,5 @@
 import React from 'react';
+import TestingConponant from '../../TestingConponant/TestingConponant';
 import Header from '../Header/Header';
 import TopHeader from '../TopHeader/TopHeader';
 import Slider from './Slider/Slider';
@@ -9,6 +10,7 @@ const Home = () => {
             <TopHeader/>
             <Header/>
             <Slider/>
+            <TestingConponant/>
         </div>
     );
 };

@@ -1,29 +1,75 @@
-import React from 'react';
+import React, { useState } from 'react';
+import inputHandler from '../../../../Functions/inputHandler';
 
 const ChangePassword = () => {
+    const [condition, setConditon] = useState({})
+    const [user, setUser] = useState({});
+
+    const cooki = document.cookie.split("=")[1];
+
+    const handleUpdateInput = (e) => {
+        inputHandler(e, user, setUser)
+    };
+
+    const userPasswordChangeHandle = (e) => {
+        e.preventDefault()
+        if (user.oldPassword && user.newPassword && user.confirmPassword) {
+            if (user.newPassword == user.confirmPassword) {
+                fetch("http://localhost:8000/passwordReset", {
+                    method: "PATCH",
+                    body: JSON.stringify(user),
+                    headers: {
+                        'content-type': 'application/json; charset=UTF-8',
+                        authorization: `Bearer ${cooki}`
+                    }
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        setConditon(data);
+                        setTimeout(() => {
+                            setConditon({})
+                        }, 7000);
+                    })
+            } else {
+                setConditon({ failed: "Confirm password doesn't match, please try again." });
+                setTimeout(() => {
+                    setConditon({})
+                }, 7000);
+            }
+        }
+    }
+
     return (
         <div className='text-white'>
             <div className='balance-transfer-section m-auto'>
                 <h4>CHANGE PASSWORD</h4>
                 <div>
-                    <from>
+                    <form onSubmit={userPasswordChangeHandle}>
                         <div>
                             <label>Old Password</label>
-                            <input type="password" name="amount" placeholder='Old Password' />
+                            <input type="password" value={user.oldPassword ? user.oldPassword : ""} name="oldPassword" placeholder='Old Password' onChange={handleUpdateInput} />
                         </div>
                         <div>
                             <label>New Password</label>
-                            <input type="password" name="amount" placeholder='New Password' />
+                            <input type="password" value={user.newPassword ? user.newPassword : ""} name="newPassword" placeholder='New Password' onChange={handleUpdateInput} />
                         </div>
                         <div>
                             <label>Confirm Password</label>
-                            <input type="password" name="amount" placeholder='Confirm Password' />
+                            <input type="password" value={user.confirmPassword ? user.confirmPassword : ""} name="confirmPassword" placeholder='Confirm Password' onChange={handleUpdateInput} />
                         </div>
 
                         <div>
                             <input type="submit" value="Submit" />
                         </div>
-                    </from>
+                        <div className='resposeContainer'>
+                            {
+                                !condition.failed && condition.sucess && <p className='sucess'>{condition.sucess}</p>
+                            }
+                            {
+                                !condition.sucess && condition.failed && <p className='warning'>{condition.failed}</p>
+                            }
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

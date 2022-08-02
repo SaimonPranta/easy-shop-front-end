@@ -66,18 +66,7 @@
     cursor: pointer;
     text-decoration: underline;
 }
-/* .socil-container::before{
-    content: "Or";
-    margin: 50%;
-    transform: translateX(-50%);
-}
-.socil-container::after{
-    content: "_____________ ";
-    background-color: red;
-    left: 0;
-    height: 5px;
-    width: 50px;
-} */
+
 .slocil-after{
     position: relative;
     text-align: center;
@@ -106,6 +95,7 @@
 }
 .warning{
     color: rgb(255, 217, 0);
+    text-align:left;
 }
 .sucess{
     color: green;
