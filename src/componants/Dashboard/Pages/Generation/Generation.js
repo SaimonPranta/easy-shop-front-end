@@ -1,27 +1,40 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { userContext } from '../../../../App';
 import './Generation.css';
 
 const Generation = () => {
+    const [user, setUser] = useContext(userContext);
+    const [userCount, setUserCount] = useState(0)
+
+    if (user._id) {
+        setTimeout(() => {
+            const totalUser = Math.floor(user.generation_1.length) + Math.floor(user.generation_2.length) + Math.floor(user.generation_3.length) + Math.floor(user.generation_4.length) + Math.floor(user.generation_5.length) + Math.floor(user.generation_6.length) + Math.floor(user.generation_7.length) + Math.floor(user.generation_8.length) + Math.floor(user.generation_9.length) + Math.floor(user.generation_10.length);
+            setUserCount(totalUser)
+        }, 2000);
+    }
+
+
     return (
         <div className='generation-section m-3 text-white'>
             <div className='generation-top-section'>
-                <div><h5>Your Reffer Number</h5> <span>0122934348</span></div>
-                <div><h5>Your Upline Reffer Number</h5> <span>0122934348</span></div>
-                <div><h5>Total Generation Members</h5> <span>144</span></div>
+                <div><h5>Your Reffer Number</h5> <span>{user._id}</span></div>
+                <div><h5>Your Upline Reffer Number</h5> <span>{user.referNumber}</span></div>
+                <div><h5>Total Generation Members</h5> <span>{userCount}</span></div>
             </div>
             <div className='generation-title mt-2'>
                 <h4>Generation Status</h4>
             </div>
             <div className='generation-items'>
-                <div><h5>1st Generation</h5> <span>50</span> <button>view list</button></div>
-                <div><h5>2nd Generation</h5> <span>299</span> <button>view list</button></div>
-                <div><h5>3rd Generation</h5> <span>87</span> <button>view list</button></div>
-                <div><h5>4th Generation</h5> <span>140</span> <button>view list</button></div>
-                <div><h5>5th Generation</h5> <span>330</span> <button>view list</button></div>
-                <div><h5>6th Generation</h5> <span>219</span> <button>view list</button></div>
-                <div><h5>7th Generation</h5> <span>187</span> <button>view list</button></div>
-                <div><h5>9th Generation</h5> <span>70</span> <button>view list</button></div><div><h5>1st Generation</h5> <span>50</span> <button>view list</button></div>
-                <div><h5>10th Generation</h5> <span>59</span> <button>view list</button></div>
+                <div><h5>1st Generation</h5> <span>{user.generation_1 ? user.generation_1.length : 0}</span> <button>view list</button></div>
+                <div><h5>2nd Generation</h5> <span>{user.generation_2 ? user.generation_2.length : 0}</span> <button>view list</button></div>
+                <div><h5>3rd Generation</h5> <span>{user.generation_3 ? user.generation_3.length : 0}</span> <button>view list</button></div>
+                <div><h5>4th Generation</h5> <span>{user.generation_4 ? user.generation_4.length : 0}</span> <button>view list</button></div>
+                <div><h5>5th Generation</h5> <span>{user.generation_5 ? user.generation_5.length : 0}</span> <button>view list</button></div>
+                <div><h5>6th Generation</h5> <span>{user.generation_6 ? user.generation_6.length : 0}</span> <button>view list</button></div>
+                <div><h5>7th Generation</h5> <span>{user.generation_7 ? user.generation_7.length : 0}</span> <button>view list</button></div>
+                <div><h5>8th Generation</h5> <span>{user.generation_8 ? user.generation_8.length : 0}</span> <button>view list</button></div>
+                <div><h5>9th Generation</h5> <span>{user.generation_9 ? user.generation_9.length : 0}</span> <button>view list</button></div>
+                <div><h5>10th Generation</h5> <span>{user.generation_10 ? user.generation_10.length : 0}</span> <button>view list</button></div>
             </div>
         </div>
     );

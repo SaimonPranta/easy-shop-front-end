@@ -31,10 +31,12 @@ const BalanceTransfer = () => {
         if (inputFildName === "amount") {
             const floorValue = Math.floor(inputFildValue)
             currentInput[inputFildName] = floorValue
-        }else{
+            setBalanceInfo(currentInput)
+        } else {
             currentInput[inputFildName] = inputFildValue
+            setBalanceInfo(currentInput)
         }
-        
+
         setBalanceInfo(currentInput);
         if (user.balance <= currentInput.amount) {
             setMessage({ failed: "The provided ammount are higher than your balance." });
@@ -64,21 +66,21 @@ const BalanceTransfer = () => {
                     })
                         .then(res => res.json())
                         .then(data => {
-                            setBalanceInfo({})
                             if (data.data) {
                                 const updatedUser = { ...data.data }
                                 setUser(updatedUser);
                             }
                             if (data.sucess) {
-                                setMessage({sucess: data.sucess});
+                                setBalanceInfo({})
+                                setMessage({ sucess: data.sucess });
                                 setTimeout(() => {
-                                    setConditon({})
+                                    setMessage({})
                                 }, 7000);
                             }
                             if (data.failed) {
-                                setMessage({failed: data.failed});
+                                setMessage({ failed: data.failed });
                                 setTimeout(() => {
-                                    setConditon({})
+                                    setMessage({})
                                 }, 7000);
                             }
                         })
@@ -91,8 +93,7 @@ const BalanceTransfer = () => {
         }
 
     };
-    console.log(message)
-    
+
 
     return (
         <div className='text-white'>

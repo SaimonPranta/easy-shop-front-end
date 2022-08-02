@@ -1,12 +1,22 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import './BalanceRequest.css';
 import bkashLogo from '../../../../assets/images/payment_porvider_logo/bkash.jpg';
 import nagadLogo from '../../../../assets/images/payment_porvider_logo/nogod.jpg';
 import rocketLogo from '../../../../assets/images/payment_porvider_logo/dutch-bangla-rocket-logo.png';
 import { FiCopy } from "react-icons/fi";
+import { userContext } from '../../../../App';
 
 
 const BalanceRequest = () => {
+    const [requestInfo, setRequestInfo] = useState({});
+    const [message, setMessage] = useState({});
+    const [user, setUser] = useContext(userContext);
+
+
+    const cooki = document.cookie.split("=")[1];
+
+
+
     const copyText = (e) => {
         const copyBtn = e.target.parentNode.parentNode.childNodes[1];
         const copedNotice = e.target.parentNode.parentNode.childNodes[2];
@@ -17,34 +27,106 @@ const BalanceRequest = () => {
         setTimeout(() => {
             copedNotice.classList.remove('active-notice');
         }, 2000);
+    };
 
-    }
+    const handleUpdateInput = (e) => {
+        const currentInput = { ...requestInfo }
+        const inputFildName = e.target.name;
+        const inputFildValue = e.target.value;
+        if (inputFildName === "amount") {
+            const floorValue = Math.floor(inputFildValue)
+            currentInput[inputFildName] = floorValue
+            setRequestInfo(currentInput)
+        } else {
+            currentInput[inputFildName] = inputFildValue
+            setRequestInfo(currentInput)
+        }
+        setRequestInfo(currentInput)
+    };
+
+    const balanceTransferHandle = (e) => {
+        e.preventDefault();
+        const providerValue = document.getElementById("porvider").value;
+        console.log(providerValue)
+        if (!requestInfo.provider) {
+            requestInfo["provider"] = providerValue;
+        }
+        if (requestInfo.provider && requestInfo.amount && requestInfo.number) {
+            if (requestInfo.amount >= 10) {
+                setMessage({})
+                fetch("http://localhost:8000/balance_request", {
+                    method: "POST",
+                    body: JSON.stringify(requestInfo),
+                    headers: {
+                        'content-type': 'application/json; charset=UTF-8',
+                        authorization: `Bearer ${cooki}`
+                    }
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.data) {
+                            const updatedUser = { ...data.data }
+                            setUser(updatedUser);
+                        }
+                        if (data.sucess) {
+                            setRequestInfo({})
+                            setMessage({ sucess: data.sucess });
+                            setTimeout(() => {
+                                setMessage({})
+                            }, 7000);
+                        }
+                        if (data.failed) {
+                            setMessage({ failed: data.failed });
+                            setTimeout(() => {
+                                setMessage({})
+                            }, 7000);
+                        }
+                    })
+
+            } else {
+                setMessage({ failed: "Sorry, you can't send money less then 10tk." })
+                setTimeout(() => {
+                    setMessage({})
+                }, 7000);
+            }
+        } else {
+            setMessage({ failed: "Please fill the form and try angain" })
+            setTimeout(() => {
+                setMessage({})
+            }, 7000);
+        }
+
+    };
+
+
+
+
     return (
         <div className='text-white'>
             <div className='balance-transfer-section m-auto'>
                 <h4>CREATE BALANCE REQUEST</h4>
                 <div>
-                    <form>
+                    <form onSubmit={balanceTransferHandle}>
                         <div className='payment-provider-section'>
                             <div>
                                 <img src={bkashLogo} alt="logo"></img>
-                                <input type='text' value='01882589901'/>
-                                <span className='copy-btn'><FiCopy onClick={copyText}/></span>
+                                <input type='text' value='01882589901' />
+                                <span className='copy-btn'><FiCopy onClick={copyText} /></span>
                             </div>
                             <div>
                                 <img src={nagadLogo} alt="logo"></img>
-                                <input type='text' value='01882589901'/>
-                                <span className='copy-btn'><FiCopy onClick={copyText}/></span>
+                                <input type='text' value='01882589901' />
+                                <span className='copy-btn'><FiCopy onClick={copyText} /></span>
                             </div>
                             <div>
                                 <img src={rocketLogo} alt="logo"></img>
-                                <input type='text' value='01882589901'/>
-                                <span className='copy-btn'><FiCopy onClick={copyText}/></span>
+                                <input type='text' value='01882589901' />
+                                <span className='copy-btn'><FiCopy onClick={copyText} /></span>
                             </div>
                         </div>
                         <div>
                             <label>Select Payment Method</label>
-                            <select>
+                            <select name='provider' onClick={handleUpdateInput} id="porvider">
                                 <option value="Bkash">bKash</option>
                                 <option value="Rocket">Rocket</option>
                                 <option value="Nagad">Nagad</option>
@@ -52,14 +134,22 @@ const BalanceRequest = () => {
                         </div>
                         <div>
                             <label>Phone Number</label>
-                            <input type="text" name="amount" placeholder='Your Phone Number' />
+                            <input type="text" name="number" placeholder='Your Phone Number' value={requestInfo.number ? requestInfo.number : ""} onChange={handleUpdateInput} />
                         </div>
                         <div>
                             <label>Amount of TK</label>
-                            <input type="text" name="amount" placeholder='amount of TK' />
+                            <input type="numbe" name="amount" placeholder='amount of TK' value={requestInfo.amount ? requestInfo.amount : ""} onChange={handleUpdateInput} />
                         </div>
                         <div>
                             <input type="submit" value="Submit" />
+                        </div>
+                        <div className='resposeContainer'>
+                            {
+                                !message.failed && message.sucess && <p className='sucess'>{message.sucess}</p>
+                            }
+                            {
+                                !message.sucess && message.failed && <p className='warning'>{message.failed}</p>
+                            }
                         </div>
                     </form>
                 </div>
@@ -69,49 +159,29 @@ const BalanceRequest = () => {
                 <h4>BALANCE REQUEST HISTORY</h4>
                 <div>
                     <table>
-                        <tr>
-                            <th>Paymented Method</th>
-                            <th>Requested Number</th>
-                            <th>Requested Amount</th>
-                            <th>SIM Provider</th>
-                            <th>Request Date</th>
-                        </tr>
-                        <tr>
-                            <td>bKash</td>
-                            <td>02445523</td>
-                            <td>50tk</td>
-                            <td>Robi</td>
-                            <td>12-4-20222</td>
-                        </tr>
-                        <tr>
-                            <td>Nagad</td>
-                            <td>02445523</td>
-                            <td>100tk</td>
-                            <td>Grameenphone</td>
-                            <td>12-4-20222</td>
-                        </tr>
-                        <tr>
-                            <td>bKash</td>
-                            <td>02445523</td>
-                            <td>150tk</td>
-                            <td>Robi</td>
-                            <td>12-4-20222</td>
-                        </tr>
-                        <tr>
-                            <td>Rocket</td>
-                            <td>02445523</td>
-                            <td>50tk</td>
-                            <td>Grameenphone</td>
-                            <td>12-4-20222</td>
-                        </tr>
-                        <tr>
-                            <td>bKash</td>
-                            <td>02445523</td>
-                            <td>70tk</td>
-                            <td>banglalink</td>
-                            <td>12-4-20222</td>
-                        </tr>
+                        <thead>
+                            <tr>
+                                <th>Paymented Method</th>
+                                <th>Requested Number</th>
+                                <th>Requested Amount</th>
+                                <th>Request Date</th>
+                                <th>Request Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                user && user.balanceRequestInfo && user.balanceRequestInfo.map((reqInfo) => {
+                                    return <tr key={reqInfo.requestID}>
+                                        <td>{reqInfo.provider}</td>
+                                        <td>{reqInfo.number}</td>
+                                        <td>{reqInfo.amount}</td>
+                                        <td>{reqInfo.date}</td>
+                                        <td>{reqInfo.apporoval ? "Approved" : "Pending"}</td>
+                                    </tr>
+                                })
+                            }
 
+                        </tbody>
                     </table>
                 </div>
             </div>
