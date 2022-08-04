@@ -1,7 +1,7 @@
 import React from 'react';
 import DashboardMenu from '../../DashboardMenu/DashboardMenu';
 import DashboardHeader from '../DashboardHeader/DashboardHeader';
-import BalanceRequest from './BalanceRequest';
+import RankHistory from './RankHistory';
 
 const index = () => {
     return (
@@ -12,7 +12,7 @@ const index = () => {
                     <DashboardMenu />
                 </div>
                 <div>
-                    <BalanceRequest />
+                    <RankHistory />
                 </div>
             </div>
         </div>

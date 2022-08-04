@@ -10,13 +10,15 @@
 
 }
 .balnce-section div:nth-child(1){
-    background-color: #8C43AC !important;
+    /* background-color: #8C43AC !important; */
+    background-color: indigo !important;
 }
 .balnce-section div:nth-child(2){
-    background-color: #287DB6 !important;
+    /* background-color: #287DB6 !important; */
+    background-color:green !important;
 }
 .balnce-section div:nth-child(3){
-    background-color: #287DB6 !important;
+    background-color: green !important;
 }
 .balnce-section div:nth-child(1) svg{
     background-color: #8C43AC !important;

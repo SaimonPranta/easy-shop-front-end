@@ -1,45 +1,123 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
 import './MobileRecharge.css';
 import robi from '../../../../assets/images/sim_porvider_logo/robi.jpg';
 import gp from '../../../../assets/images/sim_porvider_logo//grameenphone.jpg';
 import banglalink from '../../../../assets/images/sim_porvider_logo/banglalink.jpg';
 import airtel from '../../../../assets/images/sim_porvider_logo/airtel.jpg';
 import teletalk from '../../../../assets/images/sim_porvider_logo/teletalk.jpg';
+import { userContext } from '../../../../App';
 
 
 
 const MobileRecharge = () => {
+    const [input, setInput] = useState({});
+    const [message, setMessage] = useState({});
+    const [user, setUser] = useContext(userContext);
+
+    const cooki = document.cookie.split("=")[1];
+
+
+    const handleUpdateInput = (e) => {
+        const currentInput = { ...input }
+        const inputFildName = e.target.name;
+        const inputFildValue = e.target.value;
+        if (inputFildName === "amount") {
+            const floorValue = Math.floor(inputFildValue)
+            currentInput[inputFildName] = floorValue
+            setInput(currentInput)
+        } else {
+            currentInput[inputFildName] = inputFildValue
+            setInput(currentInput)
+        }
+        setInput(currentInput)
+    };
+
+    const mobileRechargeHandler = (e) => {
+        e.preventDefault();
+        const amountValue = document.getElementById("amount").value;
+        if (!input.amount) {
+            input["amount"] = amountValue;
+        }
+        if (input.simProvider && input.amount && input.number && input.simStatus) {
+            if (input.amount >= 10) {
+                setMessage({})
+                fetch("http://localhost:8000/mobile_rechare", {
+                    method: "POST",
+                    body: JSON.stringify(input),
+                    headers: {
+                        'content-type': 'application/json; charset=UTF-8',
+                        authorization: `Bearer ${cooki}`
+                    }
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.data) {
+                            const updatedUser = { ...data.data }
+                            setUser(updatedUser);
+                        }
+                        if (data.sucess) {
+                            setInput({})
+                            setMessage({ sucess: data.sucess });
+                            setTimeout(() => {
+                                setMessage({})
+                            }, 7000);
+                        }
+                        if (data.failed) {
+                            setMessage({ failed: data.failed });
+                            setTimeout(() => {
+                                setMessage({})
+                            }, 7000);
+                        }
+                    })
+
+            } else {
+                setMessage({ failed: "Sorry, you can't send money less then 10tk." })
+                setTimeout(() => {
+                    setMessage({})
+                }, 7000);
+            }
+        } else {
+            setMessage({ failed: "Please fill the form and try angain" })
+            setTimeout(() => {
+                setMessage({})
+            }, 7000);
+        }
+
+    };
+
+    console.log(input)
+
     return (
         <div className='text-white'>
             <div className='balance-transfer-section m-auto'>
                 <h4>MOBILE RECHARGE</h4>
                 <div>
-                    <form>
+                    <form onSubmit={mobileRechargeHandler}>
                         <div>
                             <label>Phone Number</label>
-                            <input type="text" name="amount" placeholder='Your Phone Number' />
+                            <input type="text" name="number" value={input.number ? input.number : ""} placeholder='Your Phone Number' onChange={handleUpdateInput} />
                         </div>
                         <div className='sim-contianer'>
                             <label>Select SIM Provider</label>
                             <div className='sim-provider-section'>
                                 <div>
-                                    <input type='radio' name="sim_provider" />
+                                    <input type='radio' name="simProvider" value="robi" onChange={handleUpdateInput} />
                                     <img src={robi} alt="logo"></img>
                                 </div>
                                 <div>
-                                    <input type='radio' name="sim_provider" />
+                                    <input type='radio' name="simProvider" value="grameenphone" onChange={handleUpdateInput} />
                                     <img src={gp} alt="logo"></img>
                                 </div>
                                 <div>
-                                    <input type='radio' name="sim_provider" />
+                                    <input type='radio' name="simProvider" value="banglalink" onChange={handleUpdateInput} />
                                     <img src={banglalink} alt="logo"></img>
                                 </div>
                                 <div>
-                                    <input type='radio' name="sim_provider" />
+                                    <input type='radio' name="simProvider" value="airtel" onChange={handleUpdateInput} />
                                     <img src={airtel} alt="logo"></img>
                                 </div>
                                 <div>
-                                    <input type='radio' name="sim_provider" />
+                                    <input type='radio' name="simProvider" value="teletalk" onChange={handleUpdateInput} />
                                     <img src={teletalk} alt="logo"></img>
                                 </div>
                             </div>
@@ -48,18 +126,18 @@ const MobileRecharge = () => {
                             <label className=''>Select SIM Status</label>
                             <div className=''>
                                 <div>
-                                    <input type="radio" name="sim-status" />
+                                    <input type="radio" value='Prepaid' name="simStatus" onChange={handleUpdateInput} />
                                     <label>Prepaid SIM</label>
                                 </div>
                                 <div>
-                                    <input type="radio" name="sim-status" />
+                                    <input type="radio" value="Postpaid" name="simStatus" onChange={handleUpdateInput} />
                                     <label>Postpaid SIM</label>
                                 </div>
                             </div>
                         </div>
                         <div>
                             <label>Select Amount of TK</label>
-                            <select>
+                            <select name='amount' onChange={handleUpdateInput} id="amount">
                                 <option value="20">20tk</option>
                                 <option value="30">30tk</option>
                                 <option value="50">50tk</option>
@@ -69,6 +147,14 @@ const MobileRecharge = () => {
                         <div>
                             <input type="submit" value="Submit" />
                         </div>
+                        <div className='resposeContainer'>
+                            {
+                                !message.failed && message.sucess && <p className='sucess'>{message.sucess}</p>
+                            }
+                            {
+                                !message.sucess && message.failed && <p className='warning'>{message.failed}</p>
+                            }
+                        </div>
                     </form>
                 </div>
             </div>
@@ -77,49 +163,28 @@ const MobileRecharge = () => {
                 <h4>MOBILE RECHARGE HISTORY</h4>
                 <div>
                     <table>
-                        <tr>
-                            <th>Phone Number</th>
-                            <th>SIM Provider</th>
-                            <th>Amount of Tk</th>
-                            <th>Recharge Status</th>
-                            <th>Date of Recharge</th>
-                        </tr>
-                        <tr>
-                            <td>02445523</td>
-                            <td>Robi</td>
-                            <td>50tk</td>
-                            <td>Pending</td>
-                            <td>12-04-2022</td>
-                        </tr>
-                        <tr>
-                            <td>02445523</td>
-                            <td>Grameenphone</td>
-                            <td>100tk</td>
-                            <td>Apporoved</td>
-                            <td>12-04-2022</td>
-                        </tr>
-                        <tr>
-                            <td>02445523</td>
-                            <td>Robi</td>
-                            <td>50tk</td>
-                            <td>Apporoved</td>
-                            <td>12-04-2022</td>
-                        </tr>
-                        <tr>
-                            <td>02445523</td>
-                            <td>Grameenphone</td>
-                            <td>50tk</td>
-                            <td>Apporoved</td>
-                            <td>12-04-2022</td>
-                        </tr>
-                        <tr>
-                            <td>02445523</td>
-                            <td>banglalink</td>
-                            <td>70tk</td>
-                            <td>Apporoved</td>
-                            <td>12-04-2022</td>
-                        </tr>
-
+                        <thead>
+                            <tr>
+                                <th>Phone Number</th>
+                                <th>SIM Provider</th>
+                                <th>Amount of Tk</th>
+                                <th>Date of Recharge</th>
+                                <th>Recharge Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                user && user.mobileRechareInfo && user.mobileRechareInfo.map((info) => {
+                                    return <tr key={info.requestID}>
+                                        <td>{info.number}</td>
+                                        <td>{info.simProvider}</td>
+                                        <td>{info.amount}</td>
+                                        <td>{info.date}</td>
+                                        <td>{info.apporoval ? info.apporoval : "Pending"}</td>
+                                    </tr>
+                                })
+                            }
+                        </tbody>
                     </table>
                 </div>
             </div>

@@ -21,7 +21,7 @@ const DashboardBody = () => {
                 <div className='dashboard-user-info'>
                     <h5>Welcome</h5>
                     <p>{user && user.firstName + " " + user.lastName}</p>
-                    <h5>{user && user.firstName + " " + user.lastName} {user.isActive ? "Your account is activated, you can start working now." : "Your account is not activated, you can't start working now."}</h5>
+                    <h5>{user && user.firstName + " " + user.lastName} {user.isActive ? "Your account is activated, you can start working now." : "Your account is not activate, you can't start work now."}</h5>
                     <div>
                         <p>{user && user.firstName + " " + user.lastName}</p>
                     </div>

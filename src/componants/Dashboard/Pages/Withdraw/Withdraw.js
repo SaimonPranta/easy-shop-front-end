@@ -1,7 +1,94 @@
-import React from 'react';
+import React, { useContext, useState } from 'react';
+import { userContext } from '../../../../App';
 import './Withdraw.css';
 
 const Withdraw = () => {
+    const [requestInfo, setRequestInfo] = useState({});
+    const [message, setMessage] = useState({});
+    const [user, setUser] = useContext(userContext);
+
+    const cooki = document.cookie.split("=")[1];
+
+    const inputHandler = (e) => {
+        const currentInput = { ...requestInfo }
+        const inputFildName = e.target.name;
+        const inputFildValue = e.target.value;
+        if (inputFildName === "amount") {
+            const floorValue = Math.floor(inputFildValue)
+            const floorBalance = Math.floor(user.balance)
+            if (floorValue <= floorBalance) {
+                setMessage({})
+                currentInput[inputFildName] = floorValue
+                setRequestInfo(currentInput)
+            } else {
+                setMessage({ failed: `Sorry, you can't withdraw more then ${user.balance ? user.balance : 0}tk` })
+            }
+        } else {
+            currentInput[inputFildName] = inputFildValue
+            setRequestInfo(currentInput)
+        }
+        setRequestInfo(currentInput)
+    };
+
+    const withdrawFormHandler = (e) => {
+        e.preventDefault();
+        const providerValue = document.getElementById("porvider").value;
+        const amountValue = document.getElementById("amount").value;
+
+        if (!requestInfo.porvider) {
+            requestInfo["porvider"] = providerValue;
+        }
+        if (!requestInfo.amount) {
+            const floorValue = Math.floor(amountValue)
+            requestInfo["amount"] = floorValue;
+        }
+
+        if (requestInfo.porvider && requestInfo.amount && requestInfo.number) {
+            setMessage({})
+            const floorValue = Math.floor(requestInfo.amount)
+            const floorBalance = Math.floor(user.balance)
+
+            if (floorValue <= floorBalance) {
+                fetch("http://localhost:8000/withdraw", {
+                    method: "POST",
+                    body: JSON.stringify(requestInfo),
+                    headers: {
+                        'content-type': 'application/json; charset=UTF-8',
+                        authorization: `Bearer ${cooki}`
+                    }
+                })
+                    .then(res => res.json())
+                    .then(data => {
+                        if (data.data) {
+                            const updatedUser = { ...data.data }
+                            setUser(updatedUser);
+                        }
+                        if (data.sucess) {
+                            setRequestInfo({})
+                            setMessage({ sucess: data.sucess });
+                            setTimeout(() => {
+                                setMessage({})
+                            }, 7000);
+                        }
+                        if (data.failed) {
+                            setMessage({ failed: data.failed });
+                            setTimeout(() => {
+                                setMessage({})
+                            }, 7000);
+                        }
+                    })
+            } else {
+                setMessage({ failed: `Sorry, you can't withdraw more then ${user.balance}tk` })
+            }
+        } else {
+            setMessage({ failed: "Please fill the form and try angain" })
+            setTimeout(() => {
+                setMessage({})
+            }, 7000);
+        }
+    };
+
+
     return (
         <div className='text-white'>
             <div className='balance-transfer-section m-auto'>
@@ -10,14 +97,14 @@ const Withdraw = () => {
                     <p>Withdraw between 100TK to 1000TK and 5% charge applicable for per waithdraw.</p>
                 </div>
                 <div>
-                    <from>
+                    <form onSubmit={withdrawFormHandler}>
                         <div>
                             <label>Withdraw Number</label>
-                            <input type="text" name="amount" placeholder='Number' />
+                            <input type="text" name="number" value={requestInfo.number ? requestInfo.number : ""} placeholder='Number' onChange={inputHandler} />
                         </div>
                         <div>
                             <label>Select Payment Method</label>
-                            <select>
+                            <select name='porvider' onChange={inputHandler} id="porvider">
                                 <option value="Bkash">bKash</option>
                                 <option value="Rocket">Rocket</option>
                                 <option value="Nagad">Nagad</option>
@@ -25,21 +112,28 @@ const Withdraw = () => {
                         </div>
                         <div>
                             <label>Select Amount of TK</label>
-                            <select>
+                            <select name='amount' onChange={inputHandler} id="amount">
                                 <option value="100">100TK</option>
                                 <option value="200">200TK</option>
                                 <option value="300">300TK</option>
                                 <option value="400">400TK</option>
                                 <option value="500">500TK</option>
                                 <option value="1000">1000TK</option>
-
                             </select>
                         </div>
 
                         <div>
                             <input type="submit" value="Submit" />
                         </div>
-                    </from>
+                        <div className='resposeContainer'>
+                            {
+                                !message.failed && message.sucess && <p className='sucess'>{message.sucess}</p>
+                            }
+                            {
+                                !message.sucess && message.failed && <p className='warning'>{message.failed}</p>
+                            }
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
@@ -47,3 +141,5 @@ const Withdraw = () => {
 };
 
 export default Withdraw;
+
+

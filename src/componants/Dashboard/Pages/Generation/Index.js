@@ -1,12 +1,12 @@
 import React from 'react';
-import Header from '../../../Header/Header';
 import DashboardMenu from '../../DashboardMenu/DashboardMenu';
+import DashboardHeader from '../DashboardHeader/DashboardHeader';
 import Generation from './Generation';
 
 const Index = () => {
     return (
         <div className='dashboard-section'>
-            <Header />
+            <DashboardHeader />
             <div className='dashboard-container'>
                 <div className='dashboard-menu'>
                     <DashboardMenu />

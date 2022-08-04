@@ -1,7 +1,8 @@
 import React from 'react';
-import DashboardMenu from '../../DashboardMenu/DashboardMenu';
-import DashboardHeader from '../DashboardHeader/DashboardHeader';
-import BalanceRequest from './BalanceRequest';
+import DashboardMenu from '../DashboardMenu/DashboardMenu';
+import DashboardHeader from '../Pages/DashboardHeader/DashboardHeader';
+import Withdraw from '../Pages/Withdraw/Withdraw';
+import AdminPanelBody from './AdminPanelBody/AdminPanelBody';
 
 const index = () => {
     return (
@@ -12,7 +13,7 @@ const index = () => {
                     <DashboardMenu />
                 </div>
                 <div>
-                    <BalanceRequest />
+                    <AdminPanelBody />
                 </div>
             </div>
         </div>

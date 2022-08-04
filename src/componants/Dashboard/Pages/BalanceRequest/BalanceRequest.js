@@ -29,7 +29,7 @@ const BalanceRequest = () => {
         }, 2000);
     };
 
-    const handleUpdateInput = (e) => {
+    const inputHandler = (e) => {
         const currentInput = { ...requestInfo }
         const inputFildName = e.target.name;
         const inputFildValue = e.target.value;
@@ -95,7 +95,6 @@ const BalanceRequest = () => {
                 setMessage({})
             }, 7000);
         }
-
     };
 
 
@@ -126,7 +125,7 @@ const BalanceRequest = () => {
                         </div>
                         <div>
                             <label>Select Payment Method</label>
-                            <select name='provider' onClick={handleUpdateInput} id="porvider">
+                            <select name='provider' onClick={inputHandler} id="porvider">
                                 <option value="Bkash">bKash</option>
                                 <option value="Rocket">Rocket</option>
                                 <option value="Nagad">Nagad</option>
@@ -134,11 +133,11 @@ const BalanceRequest = () => {
                         </div>
                         <div>
                             <label>Phone Number</label>
-                            <input type="text" name="number" placeholder='Your Phone Number' value={requestInfo.number ? requestInfo.number : ""} onChange={handleUpdateInput} />
+                            <input type="text" name="number" placeholder='Your Phone Number' value={requestInfo.number ? requestInfo.number : ""} onChange={inputHandler} />
                         </div>
                         <div>
                             <label>Amount of TK</label>
-                            <input type="numbe" name="amount" placeholder='amount of TK' value={requestInfo.amount ? requestInfo.amount : ""} onChange={handleUpdateInput} />
+                            <input type="numbe" name="amount" placeholder='amount of TK' value={requestInfo.amount ? requestInfo.amount : ""} onChange={inputHandler} />
                         </div>
                         <div>
                             <input type="submit" value="Submit" />
@@ -180,7 +179,6 @@ const BalanceRequest = () => {
                                     </tr>
                                 })
                             }
-
                         </tbody>
                     </table>
                 </div>

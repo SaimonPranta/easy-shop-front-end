@@ -10,7 +10,7 @@ const Home = () => {
             <TopHeader/>
             <Header/>
             <Slider/>
-            <TestingConponant/>
+            {/* <TestingConponant/> */}
         </div>
     );
 };

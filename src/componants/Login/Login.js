@@ -1,11 +1,22 @@
-import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import React, { useContext, useEffect, useState } from 'react';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { userContext } from '../../App';
 import cookieExpires from '../../Functions/cookieExpires';
 import inputHandler from '../../Functions/inputHandler';
 import Header from '../Header/Header';
 
 const Login = () => {
     const [inputUser, setInputUser] = useState({});
+    const [message, setMessage] = useState({});
+    const [user, setUser] = useContext(userContext);
+    const navigate = useNavigate()
+    const location = useLocation()
+    const from = location.state ? location.state.from.pathname : "/"
+
+
+    useEffect(() => {
+        user._id && navigate(from, { replace: true })
+    }, [user])
 
     const fromInputHandler = (e) => {
         inputHandler(e, inputUser, setInputUser)
@@ -24,14 +35,24 @@ const Login = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    data.data.password = null
                     document.cookie = `token = ${data.token}; ${cookieExpires(3)}; path=/`;
-
+                    if (data.data) {
+                        data.data.password = null;
+                        setUser(data.data)
+                        navigate(from, { replace: true })
+                    }
+                    if (data.sucess) {
+                        setMessage({sucess: data.sucess})
+                    }
+                    if (data.failed) {
+                        setMessage({failed: data.failed})
+                    }
+                    setTimeout(() => {
+                        setMessage({})
+                    }, 7000);
                 })
         }
     }
-
-    console.log(inputUser)
 
     return (
         <div className='container'>
@@ -43,11 +64,16 @@ const Login = () => {
                     <h6>Login</h6>
                     <input type="text" name="singInPhoenNumber" placeholder="Phone Number" value={inputUser.singInPhoenNumber ? inputUser.singInPhoenNumber : ""} required autoComplete="off" onChange={fromInputHandler} />
                     <input type="password" name="signInPassword" placeholder="Password" value={inputUser.signInPassword ? inputUser.signInPassword : ""} required autoComplete="off" onChange={fromInputHandler} />
-                    <div>
-                        <input type="checkbox" />
-                        <label className='remember-me'>Remember Me</label>
-                    </div>
+                    
                     <input type="submit" value="Login" required autoComplete="off" />
+                    <div className='resposeContainer'>
+                        {
+                            !message.failed && message.sucess && <p className='sucess'>{message.sucess}</p>
+                        }
+                        {
+                            !message.sucess && message.failed && <p className='warning'>{message.failed}</p>
+                        }
+                    </div>
                     <div className='form-navigation d-flex'><p>Don't have an account? <Link to="/registration"><span style={{ color: "blue", cursor: "pointer" }}>Register an account</span></Link></p></div>
                 </form>
             </section>
