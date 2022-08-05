@@ -91,7 +91,6 @@ const BalanceTransfer = () => {
                 setMessage({ failed: "sorry, you can't send money less then 10tk." })
             }
         }
-
     };
 
 
@@ -153,45 +152,6 @@ const BalanceTransfer = () => {
                             }
                         </tbody>
                     </table>
-                    {/* <table>
-                        <tr>
-                            <th>User Name</th>
-                            <th>Transfer Number</th>
-                            <th>Transfer Ammount</th>
-                            <th>Transfer Date</th>
-                        </tr>
-                        <tr>
-                            <td>Mehadi Hasan</td>
-                            <td>02445523</td>
-                            <td>50tk</td>
-                            <td>12-4-20222</td>
-                        </tr>
-                        <tr>
-                            <td>Mehadi Hasan</td>
-                            <td>02445523</td>
-                            <td>50tk</td>
-                            <td>12-4-20222</td>
-                        </tr>
-                        <tr>
-                            <td>Mehadi Hasan</td>
-                            <td>02445523</td>
-                            <td>50tk</td>
-                            <td>12-4-20222</td>
-                        </tr>
-                        <tr>
-                            <td>Mehadi Hasan</td>
-                            <td>02445523</td>
-                            <td>50tk</td>
-                            <td>12-4-20222</td>
-                        </tr>
-                        <tr>
-                            <td>Mehadi Hasan</td>
-                            <td>02445523</td>
-                            <td>50tk</td>
-                            <td>12-4-20222</td>
-                        </tr>
-
-                    </table> */}
                 </div>
             </div>
 

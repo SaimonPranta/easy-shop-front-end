@@ -14,11 +14,10 @@
     background-color: indigo !important;
 }
 .balnce-section div:nth-child(2){
-    /* background-color: #287DB6 !important; */
-    background-color:green !important;
+    background-color:darkmagenta !important;
 }
 .balnce-section div:nth-child(3){
-    background-color: green !important;
+    background-color:darkmagenta !important;
 }
 .balnce-section div:nth-child(1) svg{
     background-color: #8C43AC !important;
@@ -74,6 +73,6 @@
     padding: 0;
     margin-top: 5px;
 }
-.dashboard-user-info div p{
-    
+.dashboard-sub-section{
+    background-color: rgba(255, 0, 0, 0) !important;
 }

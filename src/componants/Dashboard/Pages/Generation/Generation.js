@@ -1,4 +1,5 @@
 import React, { useContext, useState } from 'react';
+import { Link } from 'react-router-dom';
 import { userContext } from '../../../../App';
 import './Generation.css';
 
@@ -25,16 +26,16 @@ const Generation = () => {
                 <h4>Generation Status</h4>
             </div>
             <div className='generation-items'>
-                <div><h5>1st Generation</h5> <span>{user.generation_1 ? user.generation_1.length : 0}</span> <button>view list</button></div>
-                <div><h5>2nd Generation</h5> <span>{user.generation_2 ? user.generation_2.length : 0}</span> <button>view list</button></div>
-                <div><h5>3rd Generation</h5> <span>{user.generation_3 ? user.generation_3.length : 0}</span> <button>view list</button></div>
-                <div><h5>4th Generation</h5> <span>{user.generation_4 ? user.generation_4.length : 0}</span> <button>view list</button></div>
-                <div><h5>5th Generation</h5> <span>{user.generation_5 ? user.generation_5.length : 0}</span> <button>view list</button></div>
-                <div><h5>6th Generation</h5> <span>{user.generation_6 ? user.generation_6.length : 0}</span> <button>view list</button></div>
-                <div><h5>7th Generation</h5> <span>{user.generation_7 ? user.generation_7.length : 0}</span> <button>view list</button></div>
-                <div><h5>8th Generation</h5> <span>{user.generation_8 ? user.generation_8.length : 0}</span> <button>view list</button></div>
-                <div><h5>9th Generation</h5> <span>{user.generation_9 ? user.generation_9.length : 0}</span> <button>view list</button></div>
-                <div><h5>10th Generation</h5> <span>{user.generation_10 ? user.generation_10.length : 0}</span> <button>view list</button></div>
+                <div><h5>1st Generation</h5> <span>{user.generation_1 ? user.generation_1.length : 0}</span> <button><Link to="/generation/1"> view list</Link></button></div>
+                <div><h5>2nd Generation</h5> <span>{user.generation_2 ? user.generation_2.length : 0}</span> <button><Link to="/generation/2"> view list</Link></button></div>
+                <div><h5>3rd Generation</h5> <span>{user.generation_3 ? user.generation_3.length : 0}</span> <button><Link to="/generation/3"> view list</Link></button></div>
+                <div><h5>4th Generation</h5> <span>{user.generation_4 ? user.generation_4.length : 0}</span> <button><Link to="/generation/4"> view list</Link></button></div>
+                <div><h5>5th Generation</h5> <span>{user.generation_5 ? user.generation_5.length : 0}</span> <button><Link to="/generation/5"> view list</Link></button></div>
+                <div><h5>6th Generation</h5> <span>{user.generation_6 ? user.generation_6.length : 0}</span> <button><Link to="/generation/6"> view list</Link></button></div>
+                <div><h5>7th Generation</h5> <span>{user.generation_7 ? user.generation_7.length : 0}</span> <button><Link to="/generation/7"> view list</Link></button></div>
+                <div><h5>8th Generation</h5> <span>{user.generation_8 ? user.generation_8.length : 0}</span> <button><Link to="/generation/8"> view list</Link></button></div>
+                <div><h5>9th Generation</h5> <span>{user.generation_9 ? user.generation_9.length : 0}</span> <button><Link to="/generation/9"> view list</Link></button></div>
+                <div><h5>10th Generation</h5> <span>{user.generation_10 ? user.generation_10.length : 0}</span> <button><Link to="/generation/10"> view list</Link></button></div>
             </div>
         </div>
     );

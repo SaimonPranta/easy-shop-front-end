@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react';
 const TestingConponant = () => {
     const [user, setUser] = useState("");
     const activeHandler = () => {
-        fetch(`http://localhost:8000/testing?id=${user}`, {
+        fetch(`http://localhost:8000/activation?id=${user}`, {
             method: "POST",
             body: JSON.stringify({name: "pranta"}),
             headers: {

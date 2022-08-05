@@ -6,7 +6,7 @@ const PrivetRoute = ({ children }) => {
     const [user, setUser] = useContext(userContext)
     const location = useLocation()
 
-    return user.firstName ? children : <Navigate to="/login" state={{ from: location }} replace />;
+    return user._id ? children : <Navigate to="/login" state={{ from: location }} replace />;
 };
 
 export default PrivetRoute;

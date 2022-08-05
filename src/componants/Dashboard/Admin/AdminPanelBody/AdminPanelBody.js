@@ -1,5 +1,6 @@
 import React from 'react';
 import AdminNav from '../AdminNav/AdminNav';
+import AllUser from './AllUser/AllUser';
 
 const AdminPanelBody = () => {
     return (
@@ -10,6 +11,7 @@ const AdminPanelBody = () => {
                 <h4>ADMIN PANEL</h4>
                 <div className='text-white withdraw-notice'>
                     <p>Withdraw between 100TK to 1000TK and 5% charge applicable for per waithdraw.</p>
+                    <AllUser/>
                 </div>
                 <div>
                     

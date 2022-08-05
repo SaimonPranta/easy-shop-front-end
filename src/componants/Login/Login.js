@@ -13,10 +13,26 @@ const Login = () => {
     const location = useLocation()
     const from = location.state ? location.state.from.pathname : "/"
 
-
     useEffect(() => {
         user._id && navigate(from, { replace: true })
-    }, [user])
+        const cooki = document.cookie.split("=")[1];
+        if (cooki) {
+            fetch("http://localhost:8000/user", {
+                method: "GET",
+                headers: {
+                    'Content-type': 'application/json; charset=UTF-8',
+                    authorization: `Bearer ${cooki}`
+                }
+            }).then(res => res.json())
+                .then(data => {
+                    data._id && navigate(from, { replace: true })
+                    data.password = null
+                    setUser(data);
+                })
+        }
+    }, []);
+
+    
 
     const fromInputHandler = (e) => {
         inputHandler(e, inputUser, setInputUser)
@@ -42,10 +58,10 @@ const Login = () => {
                         navigate(from, { replace: true })
                     }
                     if (data.sucess) {
-                        setMessage({sucess: data.sucess})
+                        setMessage({ sucess: data.sucess })
                     }
                     if (data.failed) {
-                        setMessage({failed: data.failed})
+                        setMessage({ failed: data.failed })
                     }
                     setTimeout(() => {
                         setMessage({})
@@ -64,7 +80,7 @@ const Login = () => {
                     <h6>Login</h6>
                     <input type="text" name="singInPhoenNumber" placeholder="Phone Number" value={inputUser.singInPhoenNumber ? inputUser.singInPhoenNumber : ""} required autoComplete="off" onChange={fromInputHandler} />
                     <input type="password" name="signInPassword" placeholder="Password" value={inputUser.signInPassword ? inputUser.signInPassword : ""} required autoComplete="off" onChange={fromInputHandler} />
-                    
+
                     <input type="submit" value="Login" required autoComplete="off" />
                     <div className='resposeContainer'>
                         {

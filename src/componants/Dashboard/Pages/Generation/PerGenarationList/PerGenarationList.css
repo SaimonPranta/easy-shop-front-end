@@ -1,0 +1,7 @@
+.per-genaration{
+    background-color: red !important;
+}
+.per-genaration .balance-transfer-history-section{
+    width: 100%;
+    padding: 5px;
+}

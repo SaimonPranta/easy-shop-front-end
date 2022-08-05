@@ -1,10 +1,13 @@
+
 import Nav from 'react-bootstrap/Nav';
 
 function AdminNav() {
+
+
   return (
     <Nav fill variant="tabs" defaultActiveKey="/home">
       <Nav.Item>
-        <Nav.Link href="/home">Active</Nav.Link>
+        <Nav.Link href="/home">Users</Nav.Link>
       </Nav.Item>
       <Nav.Item>
         <Nav.Link eventKey="link-1">Loooonger NavLink</Nav.Link>

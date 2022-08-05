@@ -30,7 +30,7 @@ const DashboardBody = () => {
                     </div>
                 </div>
 
-                <div className='balnce-section text-center'>
+                <div className='balnce-section text-center dashboard-sub-section'>
                     <div>
                         <FaRegMoneyBillAlt />
                         <p>INCOME BALANCE</p>
