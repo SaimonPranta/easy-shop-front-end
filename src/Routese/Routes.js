@@ -17,7 +17,7 @@ import AdminPanel from "../componants/Dashboard/Admin/index";
 import PrivetRoute from './PrivetRoute/PrivetRoute';
 import AdminPrivetRoute from './AdminPrivetRoute/AdminPrivetRoute';
 import PerGenarationList from '../componants/Dashboard/Pages/Generation/PerGenarationList/index';
-
+import UserDetails from '../componants/Dashboard/Admin/AdminPanelBody/UserDetails/Index';
 
 const Routess = () => {
     return (
@@ -81,6 +81,11 @@ const Routess = () => {
                     <Route path="/generation/:generation" element={
                         <PrivetRoute>
                             <PerGenarationList />
+                        </PrivetRoute>
+                    }></Route>
+                    <Route path="/user/:id" element={
+                        <PrivetRoute>
+                            <UserDetails />
                         </PrivetRoute>
                     }></Route>
                     {/* <Route path="/*" element={<Home />}></Route> */}

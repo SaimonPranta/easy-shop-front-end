@@ -1,0 +1,13 @@
+.user-details ul{
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: space-between;
+}
+.user-details ul li{
+    margin: 0;
+    padding: 3px 5px;
+    list-style: none;
+    border: 1px solid white;
+}

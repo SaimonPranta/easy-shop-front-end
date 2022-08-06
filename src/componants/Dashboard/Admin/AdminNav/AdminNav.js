@@ -10,15 +10,16 @@ function AdminNav() {
         <Nav.Link href="/home">Users</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link eventKey="link-1">Loooonger NavLink</Nav.Link>
+        <Nav.Link eventKey="link-1">Balance Request</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link eventKey="link-2">Link</Nav.Link>
+        <Nav.Link eventKey="link-2">Recharge Request</Nav.Link>
       </Nav.Item>
       <Nav.Item>
-        <Nav.Link eventKey="disabled" disabled>
-          Disabled
-        </Nav.Link>
+        <Nav.Link eventKey="link-2">Withdraw Request</Nav.Link>
+      </Nav.Item>
+      <Nav.Item>
+        <Nav.Link eventKey="link-2">Setting</Nav.Link>
       </Nav.Item>
     </Nav>
   );

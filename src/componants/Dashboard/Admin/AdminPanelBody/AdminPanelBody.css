@@ -1,0 +1,22 @@
+.admin-section{
+    width: 100%;
+}
+.admin-section table{
+    width: 95%;
+    text-align: center;
+    margin: auto;
+}
+.admin-section thead th{
+    border: 1px solid #fff;
+    background-color: rgb(80, 136, 158);
+}
+.admin-section tbody td{
+    border: 1px solid #fff;
+    margin: 0px auto;
+    padding: 0;
+}
+.admin-section tbody td a{
+    background-color: green;
+    text-decoration: none;
+    color: #fff;
+}
