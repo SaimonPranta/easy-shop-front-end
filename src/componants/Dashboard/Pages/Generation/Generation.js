@@ -18,7 +18,7 @@ const Generation = () => {
     return (
         <div className='generation-section m-3 text-white'>
             <div className='generation-top-section'>
-                <div><h5>Your Reffer Number</h5> <span>{user._id}</span></div>
+                <div><h5>Your Reffer Number</h5> <span>{user.phoneNumber}</span></div>
                 <div><h5>Your Upline Reffer Number</h5> <span>{user.referNumber}</span></div>
                 <div><h5>Total Generation Members</h5> <span>{userCount}</span></div>
             </div>

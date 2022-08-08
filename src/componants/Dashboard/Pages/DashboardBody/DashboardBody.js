@@ -4,6 +4,7 @@ import { FaHandHoldingUsd } from "react-icons/fa";
 import { FaDonate } from "react-icons/fa";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
 import { userContext } from '../../../../App';
+import { Link } from 'react-router-dom';
 
 
 
@@ -21,7 +22,17 @@ const DashboardBody = () => {
                 <div className='dashboard-user-info'>
                     <h5>Welcome</h5>
                     <p>{user && user.firstName + " " + user.lastName}</p>
-                    <h5>{user && user.firstName + " " + user.lastName} {user.isActive ? "Your account is activated, you can start working now." : "Your account is not activate, you can't start work now."}</h5>
+                    <h5>{user && user.firstName + " " + user.lastName} {user.isActive ? "Your account is activated, you can start work now." : "Your account is not activate, you can't start work now."}</h5>
+                    {
+                        !user.isActive && user.balance <= 50 ? <div class="btn-group p-0" role="group" aria-label="Basic example">
+                        <Link to="/balance_request" type="button" class="btn btn-primary">Balance Request Now</Link>
+                      </div> : null
+                    }
+                    {
+                        !user.isActive && user.balance >= 50 ? <div class="btn-group p-0" role="group" aria-label="Basic example">
+                        <button type="button" class="btn btn-primary">Active Now</button>
+                      </div> : null
+                    }
                     <div>
                         <p>{user && user.firstName + " " + user.lastName}</p>
                     </div>

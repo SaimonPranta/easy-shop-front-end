@@ -8,12 +8,45 @@ const PendingBalanceReq = () => {
     const [condition, setCondition] = useState({
         apporoval: false
     })
+    const cooki = document.cookie.split("=")[1];
+
     let count = 0
     const requestHandle = () => {
         const currentCondition = { ...condition }
         currentCondition.apporoval = currentCondition.apporoval ? currentCondition.apporoval = false : currentCondition.apporoval = true
         setCondition(currentCondition)
+    };
+
+
+
+    const balanceRequestApproval = (e, id, requestID, amount) => {
+        if (id && requestID, amount) {
+            fetch("http://localhost:8000/blanace_approval", {
+                method: "POST",
+                body: JSON.stringify({
+                    id,
+                    requestID,
+                    amount
+                }),
+                headers: {
+                    'content-type': 'application/json; charset=UTF-8',
+                    authorization: `Bearer ${cooki}`
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.sucess) {
+                        e.target.parentNode.style.display = "none"
+                    }
+                 })
+        }
     }
+
+
+
+
+
+
     return (
         <>
             {
@@ -27,7 +60,7 @@ const PendingBalanceReq = () => {
                             <tr>
                                 <th>#</th>
                                 <th>Name</th>
-                                <th>User ID</th>
+                                <th>User Number</th>
                                 <th>Requested Number</th>
                                 <th>Provider</th>
                                 <th>Amount</th>
@@ -45,12 +78,12 @@ const PendingBalanceReq = () => {
                                                 return <tr>
                                                     <td>{count}</td>
                                                     <td>{user.firstName} {user.lastName}</td>
-                                                    <td>{user._id}</td>
+                                                    <td>{user.phoneNumber}</td>
                                                     <td>{reqestItem.number}</td>
                                                     <td>{reqestItem.provider}</td>
                                                     <td>{reqestItem.amount}</td>
                                                     <td>{dateFormater(reqestItem.date)}</td>
-                                                    <td className="bg-success">Approve</td>
+                                                    <td className="bg-success" onClick={(e) => balanceRequestApproval(e, user._id, reqestItem.requestID, reqestItem.amount)}>Approve</td>
                                                     <td class="bg-primary">Decline</td>
                                                 </tr>
                                             }
