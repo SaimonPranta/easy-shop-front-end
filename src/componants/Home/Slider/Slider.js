@@ -1,36 +1,35 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import './Slider.css';
 import { Carousel } from "react-bootstrap";
 
-import slider_img_1 from '../../../assets/images/slider_img/black-friday-shopping-bag-yellow-copy-space-background_23-2148665780.webp';
-import slider_img_2 from '../../../assets/images/slider_img/shopping-cart-wooden-sign-orange-bright-light-67629071.jpg';
-import slider_img_3 from '../../../assets/images/slider_img/shopping-sign-orange-cart-wooden-68498907.jpg';
 
 const Slider = () => {
+    const [slider, setSlider] = useState([]);
+
+    useEffect(() => {
+        fetch('http://localhost:8000/slider_provider')
+            .then(res => res.json())
+            .then(data => {
+                console.log("ttp://localhost:8000/" + data[0].img)
+                setSlider(data)
+            })
+    }, [])
+
+
     return (
         <section className=' slider-section'>
             <Carousel>
-                <Carousel.Item interval={5000} >
-                    <img
-                        className="d-block w-100"
-                        src={slider_img_1}
-                        alt="First slide"
-                    />
-                </Carousel.Item>
-                <Carousel.Item interval={5000} >
-                    <img
-                        className="d-block w-100"
-                        src={slider_img_2}
-                        alt="Second slide"
-                    />
-                </Carousel.Item>
-                <Carousel.Item interval={5000} >
-                    <img
-                        className="d-block w-100"
-                        src={slider_img_3}
-                        alt="Third slide"
-                    />
-                </Carousel.Item>
+                {
+                    slider?.length > 0 && slider.map((image, index) => {
+                        return <Carousel.Item key={index} interval={5000} >
+                            <img
+                                className="d-block w-100"
+                                src={"http://localhost:8000/" + image.img}
+                                alt={"slider" + index}
+                            />
+                        </Carousel.Item>
+                    })
+                }
             </Carousel>
         </section>
     );

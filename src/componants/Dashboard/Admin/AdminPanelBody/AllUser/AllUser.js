@@ -56,11 +56,8 @@ const AllUser = () => {
                                 <td>{user._id}</td>
                                 <td>{user.phoneNumber}</td>
                                 <td>{user.isActive ? "Active" : "Unactive"}</td>
-                                {
-                                    !user.isActive ? <td className='bg-primary'>Active Now </td> : <td >Already Actived</td> 
-                                }
-                                
                                 <td><Link to={`/user/${user._id}`}>View Details</Link></td>
+                                <td className='bg-primary'> <Link to={`/edit_user/${user._id}`}>Edit Details</Link></td>
                             </tr>
                         })
                     }

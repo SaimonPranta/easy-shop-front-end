@@ -4,7 +4,7 @@ import dateFormater from '../../../../../Functions/dateFormater';
 
 
 const UserDetails = ({ currentUsr }) => {
-    const { _id, firstName, lastName, phoneNumber, balance, shoppingBalance, rank, joinDate } = currentUsr;
+    const { totalIncome, firstName, lastName, phoneNumber, balance, shoppingBalance, rank, joinDate } = currentUsr;
     const { generation_1, generation_2, generation_3, generation_4, generation_5, generation_6, generation_7, generation_8, generation_9, generation_10 } = currentUsr;
 
     return (
@@ -15,12 +15,12 @@ const UserDetails = ({ currentUsr }) => {
                         <li>{firstName} {lastName}</li>
                         <li>Number:</li>
                         <li>{phoneNumber}</li>
-                        <li>ID:</li>
-                        <li>{_id}</li>
                         <li>Rank:</li>
                         <li>{rank}</li>
                         <li>Balance:</li>
                         <li>{balance}</li>
+                        <li>Total Income:</li>
+                        <li>{totalIncome}</li>
                         <li>Shopping Balance:</li>
                         <li>{shoppingBalance}</li>
                         <li>Joining Date:</li>

@@ -22,9 +22,15 @@ const MobileRecharge = () => {
         const inputFildName = e.target.name;
         const inputFildValue = e.target.value;
         if (inputFildName === "amount") {
-            const floorValue = Math.floor(inputFildValue)
-            currentInput[inputFildName] = floorValue
-            setInput(currentInput)
+            if (Math.floor(inputFildValue) <= user.balance) {
+                setMessage({})
+                const floorValue = Math.floor(inputFildValue)
+                currentInput[inputFildName] = floorValue
+                setInput(currentInput)
+            } else {
+                setMessage({ failed: "Sorry, you can't request for more than your balance." })
+            }
+
         } else {
             currentInput[inputFildName] = inputFildValue
             setInput(currentInput)
@@ -39,43 +45,49 @@ const MobileRecharge = () => {
             input["amount"] = amountValue;
         }
         if (input.simProvider && input.amount && input.number && input.simStatus) {
-            if (input.amount >= 10) {
+            if (Math.floor(input.amount) <= Math.floor(user.balance)) {
                 setMessage({})
-                fetch("http://localhost:8000/mobile_rechare", {
-                    method: "POST",
-                    body: JSON.stringify(input),
-                    headers: {
-                        'content-type': 'application/json; charset=UTF-8',
-                        authorization: `Bearer ${cooki}`
-                    }
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.data) {
-                            const updatedUser = { ...data.data }
-                            setUser(updatedUser);
-                        }
-                        if (data.sucess) {
-                            setInput({})
-                            setMessage({ sucess: data.sucess });
-                            setTimeout(() => {
-                                setMessage({})
-                            }, 7000);
-                        }
-                        if (data.failed) {
-                            setMessage({ failed: data.failed });
-                            setTimeout(() => {
-                                setMessage({})
-                            }, 7000);
+                if (input.amount >= 10) {
+                    setMessage({})
+                    fetch("http://localhost:8000/mobile_rechare", {
+                        method: "POST",
+                        body: JSON.stringify(input),
+                        headers: {
+                            'content-type': 'application/json; charset=UTF-8',
+                            authorization: `Bearer ${cooki}`
                         }
                     })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.data) {
+                                const updatedUser = { ...data.data }
+                                setUser(updatedUser);
+                            }
+                            if (data.sucess) {
+                                setInput({})
+                                setMessage({ sucess: data.sucess });
+                                setTimeout(() => {
+                                    setMessage({})
+                                }, 7000);
+                            }
+                            if (data.failed) {
+                                setMessage({ failed: data.failed });
+                                setTimeout(() => {
+                                    setMessage({})
+                                }, 7000);
+                            }
+                        })
 
+                } else {
+                    setMessage({ failed: "Sorry, you can't send money less then 10tk." })
+                    setTimeout(() => {
+                        setMessage({})
+                    }, 7000);
+                }
             } else {
-                setMessage({ failed: "Sorry, you can't send money less then 10tk." })
-                setTimeout(() => {
-                    setMessage({})
-                }, 7000);
+                setMessage({ failed: "Sorry, you can't request for more than your balance." })
             }
+
         } else {
             setMessage({ failed: "Please fill the form and try angain" })
             setTimeout(() => {
@@ -180,7 +192,7 @@ const MobileRecharge = () => {
                                         <td>{info.simProvider}</td>
                                         <td>{info.amount}</td>
                                         <td>{info.date}</td>
-                                        <td>{info.apporoval ? info.apporoval : "Pending"}</td>
+                                        <td>{info.apporoval ? "Approved" : "Pending"}</td>
                                     </tr>
                                 })
                             }

@@ -47,7 +47,6 @@ const BalanceRequest = () => {
     const balanceTransferHandle = (e) => {
         e.preventDefault();
         const providerValue = document.getElementById("porvider").value;
-        console.log(providerValue)
         if (!requestInfo.provider) {
             requestInfo["provider"] = providerValue;
         }

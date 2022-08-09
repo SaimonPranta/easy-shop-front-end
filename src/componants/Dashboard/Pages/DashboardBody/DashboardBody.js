@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useEffect } from 'react';
 import './DashboardBody.css';
 import { FaHandHoldingUsd } from "react-icons/fa";
 import { FaDonate } from "react-icons/fa";
@@ -11,6 +11,34 @@ import { Link } from 'react-router-dom';
 
 const DashboardBody = () => {
     const [user, setUser] = useContext(userContext);
+    let totalPendingBalance = 0
+
+    useEffect(() => {
+        if (user.mobileRechareInfo.apporoval === false) {
+            totalPendingBalance = totalPendingBalance + Math.floor(user.mobileRechareInfo.amount)
+        }
+        if (user.balanceRequestInfo.apporoval === false) {
+            totalPendingBalance = totalPendingBalance + Math.floor(user.balanceRequestInfo.amount)
+        }
+    }, [user])
+
+    const activeHandler = () => {
+        if (user._id) {
+            fetch(`http://localhost:8000/activation?id=${user._id}`, {
+                method: "POST",
+                body: JSON.stringify({ name: "pranta" }),
+                headers: {
+                    'content-type': 'application/json; charset=UTF-8'
+                }
+            })
+                .then(res => res.json())
+                .then(data => {
+                    if (data.data) {
+                        setUser(data)
+                    }
+                })
+        }
+    }
 
     return (
         <div className='text-white'>
@@ -24,14 +52,14 @@ const DashboardBody = () => {
                     <p>{user && user.firstName + " " + user.lastName}</p>
                     <h5>{user && user.firstName + " " + user.lastName} {user.isActive ? "Your account is activated, you can start work now." : "Your account is not activate, you can't start work now."}</h5>
                     {
-                        !user.isActive && user.balance <= 50 ? <div class="btn-group p-0" role="group" aria-label="Basic example">
-                        <Link to="/balance_request" type="button" class="btn btn-primary">Balance Request Now</Link>
-                      </div> : null
+                        !user.isActive && user.balance < 50 ? <div class="btn-group p-0" role="group" aria-label="Basic example">
+                            <Link to="/balance_request" type="button" class="btn btn-primary">Balance Request Now</Link>
+                        </div> : null
                     }
                     {
                         !user.isActive && user.balance >= 50 ? <div class="btn-group p-0" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary">Active Now</button>
-                      </div> : null
+                            <button type="button" class="btn btn-primary" onClick={activeHandler}>Active Now</button>
+                        </div> : null
                     }
                     <div>
                         <p>{user && user.firstName + " " + user.lastName}</p>
@@ -55,7 +83,7 @@ const DashboardBody = () => {
                     <div>
                         <FaRegMoneyBillAlt />
                         <p>TOTAL PENDING BALANCE REQUEST</p>
-                        <p> {user && user.balance + user.shoppingBalance}</p>
+                        <p> {totalPendingBalance}</p>
                     </div>
                 </div>
             </div>

@@ -19,7 +19,7 @@ const loginIcon = <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
 
 const TopHeader = () => {
     const [user, setUser] = useContext(userContext);
-    
+
 
     const handleHelpSection = () => {
         const helpSectiondiv = document.querySelector(".help-sub-section");
@@ -47,7 +47,7 @@ const TopHeader = () => {
                 <div className='col-6 top-header-user'>
                     <div>
                         {
-                            user._id ? <NavLink to="/dashboard"><FaUserCircle/> {user.firstName} {user.lastName}</NavLink> : <>
+                            user._id ? <NavLink to="/dashboard"><FaUserCircle /> {user.firstName} {user.lastName}</NavLink> : <>
                                 <NavLink to="/registration">{userIcon} Register</NavLink>
                                 <span>or</span>
                                 <NavLink to="/login">{loginIcon}  Member Login</NavLink>
