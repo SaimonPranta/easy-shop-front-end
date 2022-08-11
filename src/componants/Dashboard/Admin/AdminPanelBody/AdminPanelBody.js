@@ -1,7 +1,6 @@
 import React, { createContext, useEffect, useState } from 'react';
 import "./AdminPanelBody.css";
 import Nav from 'react-bootstrap/Nav';
-import AdminNav from '../AdminNav/AdminNav';
 import AllUser from './AllUser/AllUser';
 import PendingBalanceReq from '../PendingBalanceReq/PendingBalanceReq';
 import PendingMobileRecharge from '../PendingMobileRecharge/PendingMobileRecharge';
@@ -44,7 +43,6 @@ const AdminPanelBody = () => {
     return (
         <allUserContext.Provider value={[allUser, setAllUser]}>
             <div className='text-white'>
-                {/* <AdminNav /> */}
                 <div>
                     <Nav fill variant="tabs" defaultActiveKey="/home">
                         <Nav.Item>

@@ -14,6 +14,7 @@ const BalanceRequest = () => {
 
 
     const cooki = document.cookie.split("=")[1];
+    let count = 0
 
 
 
@@ -34,9 +35,29 @@ const BalanceRequest = () => {
         const inputFildName = e.target.name;
         const inputFildValue = e.target.value;
         if (inputFildName === "amount") {
-            const floorValue = Math.floor(inputFildValue)
-            currentInput[inputFildName] = floorValue
-            setRequestInfo(currentInput)
+            if (Math.floor(inputFildValue)) {
+                const floorValue = Math.floor(inputFildValue)
+                currentInput[inputFildName] = floorValue
+                setRequestInfo(currentInput)
+            } else {
+                setMessage({ failed: "Sorry, amount must be Number" })
+                setTimeout(() => {
+                    setMessage({})
+                }, 700);
+            }
+
+        } else if (inputFildName === "number") {
+            if (Math.floor(inputFildValue)) {
+                const floorValue = Math.floor(inputFildValue)
+                currentInput[inputFildName] = floorValue
+                setRequestInfo(currentInput)
+            } else {
+                setMessage({ failed: "Sorry, phone number must be Number" })
+                setTimeout(() => {
+                    setMessage({})
+                }, 700);
+            }
+
         } else {
             currentInput[inputFildName] = inputFildValue
             setRequestInfo(currentInput)
@@ -105,20 +126,25 @@ const BalanceRequest = () => {
                 <h4>CREATE BALANCE REQUEST</h4>
                 <div>
                     <form onSubmit={balanceTransferHandle}>
-                        <div className='payment-provider-section'>
+                        <div className='payment-provider-section '>
                             <div>
                                 <img src={bkashLogo} alt="logo"></img>
-                                <input type='text' value='01882589901' />
+                                <input type='text' value='01906705620' />
+                                <label >Personal</label>
                                 <span className='copy-btn'><FiCopy onClick={copyText} /></span>
                             </div>
                             <div>
                                 <img src={nagadLogo} alt="logo"></img>
-                                <input type='text' value='01882589901' />
+                                <input type='text' value='01906705620' />
+                                <label >Personal</label>
+
                                 <span className='copy-btn'><FiCopy onClick={copyText} /></span>
                             </div>
                             <div>
                                 <img src={rocketLogo} alt="logo"></img>
-                                <input type='text' value='01882589901' />
+                                <input type='text' value='019341438756' />
+                                <label >Personal</label>
+
                                 <span className='copy-btn'><FiCopy onClick={copyText} /></span>
                             </div>
                         </div>
@@ -159,6 +185,7 @@ const BalanceRequest = () => {
                     <table>
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Paymented Method</th>
                                 <th>Requested Number</th>
                                 <th>Requested Amount</th>
@@ -169,12 +196,17 @@ const BalanceRequest = () => {
                         <tbody>
                             {
                                 user && user.balanceRequestInfo && user.balanceRequestInfo.map((reqInfo) => {
+                                    count++
                                     return <tr key={reqInfo.requestID}>
+                                        <td>{count}</td>
                                         <td>{reqInfo.provider}</td>
                                         <td>{reqInfo.number}</td>
                                         <td>{reqInfo.amount}</td>
                                         <td>{reqInfo.date}</td>
-                                        <td>{reqInfo.apporoval ? "Approved" : "Pending"}</td>
+                                        {
+                                            reqInfo.apporoval ? <td style={{ background: "Purple" }}>Approved</td> : <td style={{ background: "green" }}>Pending</td>
+                                        }
+
                                     </tr>
                                 })
                             }
@@ -182,7 +214,6 @@ const BalanceRequest = () => {
                     </table>
                 </div>
             </div>
-
         </div>
     );
 };

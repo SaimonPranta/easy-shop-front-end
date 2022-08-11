@@ -10,8 +10,8 @@ const BalanceTransfer = () => {
     const [user, setUser] = useContext(userContext);
     const [balanceInfo, setBalanceInfo] = useState({});
     const [message, setMessage] = useState({});
-
     const cooki = document.cookie.split("=")[1];
+    let count = 0
 
     useEffect(() => {
         if (user) {
@@ -28,13 +28,17 @@ const BalanceTransfer = () => {
         const currentInput = { ...balanceInfo }
         const inputFildName = e.target.name;
         const inputFildValue = e.target.value;
-        if (inputFildName === "amount") {
+        if (inputFildName === "amount" && Math.floor(inputFildValue)) {
             const floorValue = Math.floor(inputFildValue)
             currentInput[inputFildName] = floorValue
             setBalanceInfo(currentInput)
-        } else {
-            currentInput[inputFildName] = inputFildValue
-            setBalanceInfo(currentInput)
+        } else if (inputFildName === "selectUser") {
+            if (Math.floor(inputFildValue)) {
+                currentInput[inputFildName] = inputFildValue
+                setBalanceInfo(currentInput)
+            }else{
+                setMessage({failed: "User phone number must be number."})
+            }
         }
 
         setBalanceInfo(currentInput);
@@ -48,10 +52,7 @@ const BalanceTransfer = () => {
 
     const balanceTransferHandle = (e) => {
         e.preventDefault();
-        const selectValue = document.getElementById("select-user").value;
-        if (!balanceInfo.selectUser) {
-            balanceInfo["selectUser"] = selectValue;
-        }
+        
         if (balanceInfo.selectUser && balanceInfo.amount) {
             if (balanceInfo.amount >= 10) {
                 if (user.balance >= balanceInfo.amount) {
@@ -101,16 +102,12 @@ const BalanceTransfer = () => {
                 <div>
                     <form onSubmit={balanceTransferHandle}>
                         <div>
-                            <label>Select User</label>
-                            <select name='selectUser' onClick={handleUpdateInput} id="select-user">
-                                {
-                                    condition.loadUser && user.generation_1.map((userId) => <option key={userId} value={userId} >{userId}</option>)
-                                }
-                            </select>
+                            <label>User Phone Number</label>
+                            <input name='selectUser' value={balanceInfo.selectUser ? balanceInfo.selectUser : ""} onChange={handleUpdateInput} id="select-user" />
                         </div>
                         <div>
                             <label>Amount</label>
-                            <input type="number" name="amount" value={balanceInfo.amount ? balanceInfo.amount : ""} placeholder='amount of TK' onChange={handleUpdateInput} />
+                            <input type="text" name="amount" value={balanceInfo.amount ? balanceInfo.amount : ""} placeholder='amount of TK' onChange={handleUpdateInput} />
                         </div>
                         <div>
                             <input type="submit" value="Submit" />
@@ -133,6 +130,7 @@ const BalanceTransfer = () => {
                     <table>
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>User Name</th>
                                 <th>Transfer Number</th>
                                 <th>Transfer Ammount</th>
@@ -141,8 +139,10 @@ const BalanceTransfer = () => {
                         </thead>
                         <tbody>
                             {
-                                user.balanceTransperInfo && user.balanceTransperInfo.map((userId) => {
-                                    return <tr key={userId.number}>
+                                user.balanceTransperInfo && user.balanceTransperInfo.map((userId, index) => {
+                                    count++
+                                    return <tr key={index}>
+                                        <td>{count}</td>
                                         <td>{userId.name}</td>
                                         <td>{userId.number}</td>
                                         <td>{userId.amount}</td>

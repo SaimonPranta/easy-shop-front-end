@@ -13,8 +13,8 @@ const MobileRecharge = () => {
     const [input, setInput] = useState({});
     const [message, setMessage] = useState({});
     const [user, setUser] = useContext(userContext);
-
     const cooki = document.cookie.split("=")[1];
+    let count = 0
 
 
     const handleUpdateInput = (e) => {
@@ -136,7 +136,7 @@ const MobileRecharge = () => {
                         </div>
                         <div className='sim-status'>
                             <label className=''>Select SIM Status</label>
-                            <div className=''>
+                            <div className='sim-conditon'>
                                 <div>
                                     <input type="radio" value='Prepaid' name="simStatus" onChange={handleUpdateInput} />
                                     <label>Prepaid SIM</label>
@@ -159,7 +159,7 @@ const MobileRecharge = () => {
                         <div>
                             <input type="submit" value="Submit" />
                         </div>
-                        <div className='resposeContainer'>
+                        <div className='resposeContainer' >
                             {
                                 !message.failed && message.sucess && <p className='sucess'>{message.sucess}</p>
                             }
@@ -177,6 +177,7 @@ const MobileRecharge = () => {
                     <table>
                         <thead>
                             <tr>
+                                <th>#</th>
                                 <th>Phone Number</th>
                                 <th>SIM Provider</th>
                                 <th>Amount of Tk</th>
@@ -187,12 +188,16 @@ const MobileRecharge = () => {
                         <tbody>
                             {
                                 user && user.mobileRechareInfo && user.mobileRechareInfo.map((info) => {
+                                    count++
                                     return <tr key={info.requestID}>
+                                        <td>{count}</td>
                                         <td>{info.number}</td>
                                         <td>{info.simProvider}</td>
                                         <td>{info.amount}</td>
                                         <td>{info.date}</td>
-                                        <td>{info.apporoval ? "Approved" : "Pending"}</td>
+                                        {
+                                            info.apporoval ? <td style={{ background: "Maroon " }}>Approved</td> : <td style={{ background: "green " }}>Pending</td>
+                                        }
                                     </tr>
                                 })
                             }

@@ -14,3 +14,6 @@
     height: 26px;
     width: 26px;
 }
+.dashbord-active ul li span{
+    display: none;
+}

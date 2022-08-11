@@ -19,14 +19,20 @@
 .balnce-section div:nth-child(3){
     background-color:darkmagenta !important;
 }
+.balnce-section div:nth-child(4){
+    background-color:darkmagenta !important;
+}
 .balnce-section div:nth-child(1) svg{
-    background-color: #8C43AC !important;
+    background-color: indigo !important;
 }
 .balnce-section div:nth-child(2) svg{
-    background-color: #287DB6 !important;
+    background-color:  darkmagenta!important;
 }
 .balnce-section div:nth-child(3) svg{
-    background-color: #287DB6 !important;
+    background-color: darkmagenta !important;
+}
+.balnce-section div:nth-child(4) svg{
+    background-color:  darkmagenta!important;
 }
 .balnce-section div svg{
     height:35px;

@@ -5,7 +5,7 @@ import BalanceTransfer from './BalanceTransfer';
 
 const Index = () => {
     return (
-        <div className='dashboard-section'>
+        <div className='dashboard-section' id='dastbord-menu-controler-contaienr'>
         <DashboardHeader />
         <div className='dashboard-container'>
             <div className='dashboard-menu'>

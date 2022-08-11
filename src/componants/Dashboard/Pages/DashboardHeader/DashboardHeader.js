@@ -5,11 +5,19 @@ import { FaAlignLeft } from "react-icons/fa";
 
 
 const DashboardHeader = () => {
+
+
+    const dashboardMenuHndller = () => {
+        const dashbordContaienr = document.getElementById("dastbord-menu-controler-contaienr")
+        dashbordContaienr.classList.toggle("dashbord-active")
+    }
+
+
     return (
         <section className=' mb-1 dashbord-header'>
             <nav className="navbar navbar-expand-lg navbar-light text-white px-2 m-auto">
                 <div className="container-fluid">
-                    <div className='dashbord-control-icon text-white d-md-none'>
+                    <div className='dashbord-control-icon text-white d-md-none' onClick={dashboardMenuHndller}>
                         <FaAlignLeft/>
                     </div>
                     <NavLink className="navbar-brand text-white" to="/">EasyShop50</NavLink>

@@ -27,18 +27,15 @@ const DashboardMenu = () => {
         document.getElementById('sub-menu').classList.toggle("active-sub-menu");
     }
     const hanleLogOut = () => {
-        console.log("hell log out")
         document.cookie = "token=";
         setUser({})
     }
 
-    console.log("from context provider", user)
-
 
     return (
         <>
-            <ul>
-                <li><NavLink to='/dashboard'><FaQrcode /> <span> Dashboard</span></NavLink></li>
+            <ul className=''>
+                <li><NavLink to='/dashboard'><FaQrcode /><span > Dashboard</span></NavLink></li>
                 <li><FaUserAlt /> <span onClick={handleSubMenu}>Profile</span>
                     <ul className='sub-menu' id='sub-menu'>
                         <li><NavLink to='/porfile/update_profile'><span><FaUserEdit /> Update Profile</span></NavLink></li>
@@ -48,16 +45,18 @@ const DashboardMenu = () => {
                 {
                     user.role === "admin" && <li><NavLink to='/admin_panel'><FaUserCog /><span> Admin Panel </span></NavLink></li>
                 }
-                <li><NavLink to='/balance_transfer'><FaHandshake /> <span> Balance transfer</span></NavLink></li>
-                <li><NavLink to='/balance_request'><FaMoneyCheckAlt /> <span> Balance request</span></NavLink></li>
-                <li><NavLink to='/mobile_recharge'><FaMobileAlt /> <span> Mobile recharge</span></NavLink></li>
-                <li><NavLink to='/generation'><FaUsersCog /> <span> Generation</span></NavLink></li>
+                <li><NavLink to='/balance_transfer'><FaHandshake /><span > Balance transfer</span></NavLink></li>
+                <li><NavLink to='/balance_request'><FaMoneyCheckAlt /><span > Balance request</span></NavLink></li>
+                <li><NavLink to='/mobile_recharge'><FaMobileAlt /><span > Mobile recharge</span></NavLink></li>
+                <li><NavLink to='/generation'><FaUsersCog /><span > Generation</span></NavLink></li>
                 <li><NavLink to='/rank_history'><FaMedal /><span> Rank History </span></NavLink></li>
                 <li><NavLink to='/withdraw'><FaDonate /><span> Withdraw </span></NavLink></li>
-                <li><a onClick={hanleLogOut}><BiLogOut /> <span> Log Out</span></a></li>
+                <li><a onClick={hanleLogOut}><BiLogOut /><span > Log Out</span></a></li>
             </ul>
         </>
-    );
-};
+    )
+}
+
 
 export default DashboardMenu;
+

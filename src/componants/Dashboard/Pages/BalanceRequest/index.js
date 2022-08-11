@@ -5,9 +5,9 @@ import BalanceRequest from './BalanceRequest';
 
 const index = () => {
     return (
-        <div className='dashboard-section'>
+        <div className='dashboard-section' id='dastbord-menu-controler-contaienr'>
             <DashboardHeader />
-            <div className='dashboard-container'>
+            <div className='dashboard-container dashboard-container-active'>
                 <div className='dashboard-menu'>
                     <DashboardMenu />
                 </div>

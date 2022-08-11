@@ -8,8 +8,7 @@
     font-size: 1.2rem;
 }
 .generation-top-section div{
-    /* background-color: rgb(202, 98, 202); */
-    background-color: rgb(27, 25, 25);
+    background-color:#485068;
     padding: 5px 15px ;
     margin: 5px;
     display: flex;
@@ -17,7 +16,6 @@
     border-radius: 5px;
 }
 .generation-section .generation-title {
-    /* background-color: red; */
     background-color: #fff;
     color: #000;
     width: 100%;
@@ -27,8 +25,7 @@
 .generation-section .generation-items div{
     display: grid;
     grid-template-columns: 3fr 1fr 1fr;
-    /* background-color: rgb(202, 98, 202); */
-    background-color: rgb(27, 25, 25);
+    background-color:#485068;;
     padding: 5px 15px;
     margin: 5px;
     border-radius: 5px;

@@ -1,7 +1,5 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './DashboardBody.css';
-import { FaHandHoldingUsd } from "react-icons/fa";
-import { FaDonate } from "react-icons/fa";
 import { FaRegMoneyBillAlt } from "react-icons/fa";
 import { userContext } from '../../../../App';
 import { Link } from 'react-router-dom';
@@ -11,34 +9,58 @@ import { Link } from 'react-router-dom';
 
 const DashboardBody = () => {
     const [user, setUser] = useContext(userContext);
+    const [reqBalance, setReqBalance] = useState(0)
+    const [withBalance, setWithBalance] = useState(0)
+    const cooki = document.cookie.split("=")[1];
+
+
     let totalPendingBalance = 0
+    let totalPendingWithdraw = 0
+
 
     useEffect(() => {
-        if (user.mobileRechareInfo.apporoval === false) {
-            totalPendingBalance = totalPendingBalance + Math.floor(user.mobileRechareInfo.amount)
+        if (user.balanceRequestInfo.length > 0) {
+            totalPendingBalance = 0
+            user.balanceRequestInfo.map((req) => {
+                if (!req.apporoval) {
+                    totalPendingBalance = totalPendingBalance + Math.floor(req.amount)
+                    setReqBalance(totalPendingBalance)
+                }
+            })
         }
-        if (user.balanceRequestInfo.apporoval === false) {
-            totalPendingBalance = totalPendingBalance + Math.floor(user.balanceRequestInfo.amount)
+        if (user.withdrawInfo.length > 0) {
+            totalPendingWithdraw = 0
+            user.withdrawInfo.map((req) => {
+                if (!req.apporoval) {
+                    totalPendingWithdraw = totalPendingWithdraw + Math.floor(req.amount)
+                    setWithBalance(totalPendingWithdraw)
+                }
+            })
         }
-    }, [user])
+    }, [])
+
 
     const activeHandler = () => {
         if (user._id) {
             fetch(`http://localhost:8000/activation?id=${user._id}`, {
                 method: "POST",
-                body: JSON.stringify({ name: "pranta" }),
+                body: JSON.stringify({}),
                 headers: {
-                    'content-type': 'application/json; charset=UTF-8'
+                    'content-type': 'application/json; charset=UTF-8',
+                    authorization: `Bearer ${cooki}`
                 }
             })
                 .then(res => res.json())
                 .then(data => {
+                    console.log(data)
                     if (data.data) {
                         setUser(data)
                     }
                 })
         }
     }
+
+
 
     return (
         <div className='text-white'>
@@ -73,7 +95,7 @@ const DashboardBody = () => {
                     <div>
                         <FaRegMoneyBillAlt />
                         <p>INCOME BALANCE</p>
-                        <p> {user && user.balance}</p>
+                        <p> {user && user.totalIncome}</p>
                     </div>
                     <div>
                         <FaRegMoneyBillAlt />
@@ -83,7 +105,12 @@ const DashboardBody = () => {
                     <div>
                         <FaRegMoneyBillAlt />
                         <p>TOTAL PENDING BALANCE REQUEST</p>
-                        <p> {totalPendingBalance}</p>
+                        <p> {reqBalance}</p>
+                    </div>
+                    <div>
+                        <FaRegMoneyBillAlt />
+                        <p>TOTAL PENDING WITHDRAW BALANCE REQUEST</p>
+                        <p> {withBalance}</p>
                     </div>
                 </div>
             </div>

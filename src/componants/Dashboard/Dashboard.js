@@ -1,14 +1,13 @@
 import React from 'react';
-import Header from '../Header/Header';
 import './Dashboard.css';
 import DashboardMenu from './DashboardMenu/DashboardMenu';
 import DashboardBody from './Pages/DashboardBody/DashboardBody';
 import DashboardHeader from './Pages/DashboardHeader/DashboardHeader';
 const Deshboard = () => {
     return (
-        <div className='dashboard-section'>
+        <div className='dashboard-section' id='dastbord-menu-controler-contaienr'>
             <DashboardHeader />
-            <div className='dashboard-container'>
+            <div className='dashboard-container '>
                 <div className='dashboard-menu'>
                     <DashboardMenu />
                 </div>
@@ -20,4 +19,6 @@ const Deshboard = () => {
     );
 };
 
+
 export default Deshboard;
+

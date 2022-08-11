@@ -1,6 +1,7 @@
+
 .payment-provider-section{
-    justify-content: space-around;
-    align-items: center;
+    display: grid !important;
+    justify-content: center !important;
 }
 .payment-provider-section img{
     height: 30px;
@@ -8,11 +9,19 @@
     text-align: start;
     margin: 0;
 }
+.payment-provider-section div{
+    background-color: #404a66 !important;
+    margin: 3px;
+}
 .payment-provider-section div input{
     height: 100%;
     width: 100% !important;
-    color: #fff;
+    color: #fff !important;
     background-color: #404a66;
+}
+label {
+    display: inline-block;
+    margin: auto 20px auto 0;
 }
 .payment-provider-section span{
     margin: 0;

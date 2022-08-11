@@ -11,40 +11,23 @@ const UserDetails = ({ currentUsr }) => {
         <div className='m-auto  user-details p-3'>
             <div className="m-auto text-white">
                     <ul>
-                        <li>Name:</li>
-                        <li>{firstName} {lastName}</li>
-                        <li>Number:</li>
-                        <li>{phoneNumber}</li>
-                        <li>Rank:</li>
-                        <li>{rank}</li>
-                        <li>Balance:</li>
-                        <li>{balance}</li>
-                        <li>Total Income:</li>
-                        <li>{totalIncome}</li>
-                        <li>Shopping Balance:</li>
-                        <li>{shoppingBalance}</li>
-                        <li>Joining Date:</li>
-                        <li>{dateFormater(joinDate)}</li>
-                        <li>1st Generation:</li>
-                        <li>{generation_1.length}</li>
-                        <li>1st Generation:</li>
-                        <li>{generation_2.length}</li>
-                        <li>1st Generation:</li>
-                        <li>{generation_3.length}</li>
-                        <li>1st Generation:</li>
-                        <li>{generation_4.length}</li>
-                        <li>1st Generation:</li>
-                        <li>{generation_5.length}</li>
-                        <li>1st Generation:</li>
-                        <li>{generation_6.length}</li>
-                        <li>1st Generation:</li>
-                        <li>{generation_7.length}</li>
-                        <li>1st Generation:</li>
-                        <li>{generation_8.length}</li>
-                        <li>1st Generation:</li>
-                        <li>{generation_9.length}</li>
-                        <li>1st Generation:</li>
-                        <li>{generation_10.length}</li>
+                        <li>Name:<span> {firstName} {lastName}</span></li>
+                        <li>Number:<span> {phoneNumber}</span></li>
+                        <li>Rank:<span>{rank}</span></li>
+                        <li>Balance:<span> {balance}</span></li>
+                        <li>Total Income:<span> {totalIncome}</span></li>
+                        <li>Shopping Balance:<span> {shoppingBalance}</span></li>
+                        <li>Joining Date:<span> {dateFormater(joinDate)}</span></li>
+                        <li>1st Generation:<span> {generation_1.length}</span></li>
+                        <li>2st Generation:<span> {generation_2.length}</span></li>
+                        <li>3st Generation:<span> {generation_3.length}</span></li>
+                        <li>4st Generation:<span> {generation_4.length}</span></li>
+                        <li>5st Generation:<span> {generation_5.length}</span></li>
+                        <li>6st Generation:<span> {generation_6.length}</span></li>
+                        <li>7st Generation:<span> {generation_7.length}</span></li>
+                        <li>8st Generation:<span> {generation_8.length}</span></li>
+                        <li>9st Generation:<span> {generation_9.length}</span></li>
+                        <li>10st Generation:<span> {generation_10.length}</span></li>
                     </ul>
                 </div>
         </div>
