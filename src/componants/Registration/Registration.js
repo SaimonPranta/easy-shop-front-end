@@ -26,33 +26,40 @@ const Registation = () => {
         e.preventDefault()
 
         if (inputUser.firstName && inputUser.lastName && inputUser.phoneNumber && inputUser.phoneNumber && inputUser.referNumber) {
-            if (inputUser.password === inputUser.confirmPassword) {
-                fetch('http://localhost:8000/user', {
-                    method: "POST",
-                    body: JSON.stringify(inputUser),
-                    headers: {
-                        'content-type': 'application/json; charset=UTF-8'
-                    }
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        document.cookie = `token = ${data.token}; ${cookieExpires(3)}; path=/`;
-                        if (data.sucess) {
-                            setMessage({ sucess: data.sucess })
+            if (Math.floor(inputUser.phoneNumber)) {
+                if (inputUser.password === inputUser.confirmPassword) {
+                    fetch('http://localhost:8000/user', {
+                        method: "POST",
+                        body: JSON.stringify(inputUser),
+                        headers: {
+                            'content-type': 'application/json; charset=UTF-8'
                         }
-                        if (data.failed) {
-                            setMessage({ failed: data.failed })
-                        }
-                        if (data.data) {
-                            data.data.password = null;
-                            setUser(data.data)
-                            navigate(from, { replace: true })
-                        }
-                        setTimeout(() => {
-                            setMessage({})
-                        }, 7000);
                     })
+                        .then(res => res.json())
+                        .then(data => {
+                            document.cookie = `token = ${data.token}; ${cookieExpires(3)}; path=/`;
+                            if (data.sucess) {
+                                setMessage({ sucess: data.sucess })
+                            }
+                            if (data.failed) {
+                                setMessage({ failed: data.failed })
+                            }
+                            if (data.data) {
+                                data.data.password = null;
+                                setUser(data.data)
+                                navigate(from, { replace: true })
+                            }
+                            setTimeout(() => {
+                                setMessage({})
+                            }, 7000);
+                        })
+                }else {
+                    setMessage({failed: 'Confirm Password does not metch with Password'})
+                }
+            } else {
+                setMessage({failed: 'Phone Number must be number, please try again.'})
             }
+
         }
     }
 
@@ -65,13 +72,19 @@ const Registation = () => {
             <section className='authentication m-auto'>
                 <form onSubmit={handleFromSubmit}>
                     <h6>Register an account</h6>
+                    <label>First Name</label>
                     <input type="text" placeholder="First Name" name="firstName" value={inputUser.firstName ? inputUser.firstName : ""} required autoComplete="off" onChange={fromInputHandler} />
+                    <label>last Name</label>
                     <input type="text" placeholder="Last Name" name="lastName" value={inputUser.lastName ? inputUser.lastName : ""} required autoComplete="off" onChange={fromInputHandler} />
+                    <label>Phone Number</label>
                     <input type="text" placeholder="Phone Number" name="phoneNumber" value={inputUser.phoneNumber ? inputUser.phoneNumber : ""} required autoComplete="off" onChange={fromInputHandler} />
+                    <label>Password</label>
                     <input type="password" placeholder="Password" name="password" value={inputUser.password ? inputUser.password : ""} required autoComplete="off" onChange={fromInputHandler} />
+                    <label>Confirm Password</label>
                     <input type="password" placeholder="Confirm Password" name="confirmPassword" value={inputUser.confirmPassword ? inputUser.confirmPassword : ""} required autoComplete="off" onChange={fromInputHandler} />
+                    <label>Referrence Number</label>
                     <input type="text" placeholder="Referrence Number" name="referNumber" value={inputUser.referNumber ? inputUser.referNumber : ""} required autoComplete="off" onChange={fromInputHandler} />
-                    
+
                     <input type="submit" value="Register account" />
                     <div className='resposeContainer'>
                         {

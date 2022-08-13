@@ -11,7 +11,7 @@ const Deshboard = () => {
                 <div className='dashboard-menu'>
                     <DashboardMenu />
                 </div>
-                <div>
+                <div className="dashbord-main-body-container">
                     <DashboardBody />
                 </div>
             </div>

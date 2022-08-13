@@ -20,6 +20,14 @@
     border-radius: 15px;
     outline: yellow;
 }
+.authentication form label{
+    display: block;
+    margin: 10px;
+    width: 100%;
+    padding: 3px 8px;
+    border:none;
+    color: #000;
+}
 .authentication form input[type=checkbox]{
     height: 12px ;
     width: 12px;
@@ -127,6 +135,9 @@
     .slocil-after::after{
         right:0px;
     }
+   .balance-transfer-section form input {
+        width: 100% !important;
+      }
     
 }
 @media only screen and (min-width:200px) and (max-width:576px) {
@@ -144,7 +155,9 @@
     }
     .authentication form input{
         font-size: 14px;
+        width: 100% !important;
     }
+    
     .form-navigation{
         font-size: 12px;
     }

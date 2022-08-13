@@ -95,22 +95,22 @@ const DashboardBody = () => {
                     <div>
                         <FaRegMoneyBillAlt />
                         <p>INCOME BALANCE</p>
-                        <p> {user && user.totalIncome}</p>
+                        <p><span>৳</span> {user && user.totalIncome}</p>
                     </div>
                     <div>
                         <FaRegMoneyBillAlt />
                         <p>SHOPPING BALANCE</p>
-                        <p> {user && user.shoppingBalance}</p>
+                        <p><span>৳</span> {user && user.shoppingBalance}</p>
                     </div>
                     <div>
                         <FaRegMoneyBillAlt />
                         <p>TOTAL PENDING BALANCE REQUEST</p>
-                        <p> {reqBalance}</p>
+                        <p><span>৳</span> {reqBalance}</p>
                     </div>
                     <div>
                         <FaRegMoneyBillAlt />
                         <p>TOTAL PENDING WITHDRAW BALANCE REQUEST</p>
-                        <p> {withBalance}</p>
+                        <p><span>৳</span> {withBalance}</p>
                     </div>
                 </div>
             </div>

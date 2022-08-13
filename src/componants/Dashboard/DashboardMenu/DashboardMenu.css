@@ -11,7 +11,9 @@
     color: #fff;
     cursor: pointer;
     border-bottom: 1px solid #fff;
+    display: flex;
 }
+
 .dashboard-menu ul li a{
     text-decoration: none;
     margin: 0;
@@ -28,13 +30,107 @@
     .dashboard-menu ul li span{
        font-size: .88rem;
     }
-   
+
 }
 @media only screen and (min-width:200px) and (max-width:600px) { 
     .dashboard-menu ul li span{
         font-size: .75rem;
      }
+     .admin-search input{
+        width: 95% !important;
+        margin: auto;
+       }
      
 }
 
+/* ==================Responsive Navicario For ALl============== */
+@media only screen and (min-width:200px) and (max-width:750px) { 
+    .dashboard-container{
+        display: grid;
+        grid-template-columns: .5fr 1fr;
+        grid-row-gap: 5px;
+        grid-column-gap: 15px;
+    }
+    .balance-transfer-section form select {
+        width: 80% !important;
+        border-radius: 4px;
+    }
+    .balance-transfer-section form input {
+        width: 80% !important;
+    }
+    .balance-transfer-section form input[type=submit] {
+        width: 180px !important;
+    }
+    form label{
+        font-size: .88rem !important;
+    }
+}
+@media only screen and (min-width:200px) and (max-width:630px) { 
+    .dashboard-container{
+        display: grid;
+        grid-template-columns: .4fr 1fr ;
+        grid-row-gap: 5px;
+        grid-column-gap: 15px;
+    }
+   
+}
+@media only screen and (min-width:200px) and (max-width:600px) { 
+    .dashboard-container{
+        display: grid;
+        grid-template-columns: 1fr ;
+        grid-row-gap: 0px;
+        grid-column-gap: 0px;
+    }
+   
+    .dashboard-container div {
+        display: block;
+    }
+    .dashboard-menu {
+        display: none !important;
+    }
+   .dashbord-active .dashboard-container div {
+        display: none;
+    }
+    .dashbord-active .dashboard-menu {
+        display: block !important;
+        width: 100vw !important;
+        min-width: 100% !important;
+    }
+    .dashbord-active .dashboard-menu ul li span{
+        display: flex;
+        margin-left: 5px;
+     }
+     .dashboard-menu ul li a{
+        display: flex;
+     }
+    /* .dashboard-menu {
+        display: none;
+    }
+    .active-sub-menu .dashboard-menu {
+        display: block !important;
+        width: 100vw;
+        height: 100%;
+    } */
+    /* .active-sub-menu .dashbord-main-body-container{
+        display: none !important;
+    } */
+   
+}
+
+/* @media only screen and (min-width:200px) and (max-width:490px) { 
+    .dashboard-container{
+        display: grid;
+        grid-template-columns: .66fr 1fr ;
+        grid-row-gap: 5px;
+        grid-column-gap: 15px;
+    }
+}
+@media only screen and (min-width:200px) and (max-width:390px) { 
+    .dashboard-container{
+        display: grid;
+        grid-template-columns: .72fr 1fr;
+        grid-row-gap: 5px;
+        grid-column-gap: 15px;
+    }
+} */
 

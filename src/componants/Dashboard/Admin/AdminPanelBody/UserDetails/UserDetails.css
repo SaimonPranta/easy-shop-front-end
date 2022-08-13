@@ -5,7 +5,6 @@
     display: grid;
     grid-template-columns: 1fr;
     justify-content: space-between;
-    /* border: 5px solid saddlebrown; */
 }
 .user-details ul li{
     margin: 0;
@@ -23,8 +22,18 @@
     background-color: rgba(255, 255, 255, 0.384);
 }
 .user-details ul li:nth-child(odd){
-    /* background-color: rgba(218, 194, 194, 0.384); */
     background-color: #fff;
     color: #000;
-
 }
+
+@media only screen and (min-width:200px) and (max-width:810px) { 
+    .user-details ul li {
+        padding: 5px 15px;
+    }
+}
+@media only screen and (min-width:200px) and (max-width:440px) { 
+    .user-details ul li {
+       font-size: .88rem !important;
+    }
+}
+

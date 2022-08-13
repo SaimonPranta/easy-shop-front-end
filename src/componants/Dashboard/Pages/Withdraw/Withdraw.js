@@ -118,7 +118,7 @@ const Withdraw = () => {
 
     return (
         <div className='text-white'>
-            <div className='balance-transfer-section m-auto'>
+            <div className='balance-transfer-section m-auto withdraw'>
                 <h4>WITHDRAW BALANCE</h4>
                 <div className='text-white withdraw-notice'>
                     <p>Withdraw between 100TK to 1000TK and 5% charge applicable for per waithdraw.</p>
@@ -161,9 +161,9 @@ const Withdraw = () => {
                         </div>
                     </form>
                 </div>
-                <div className='balance-transfer-history-section mt-4 m-auto'>
+                <div className='balance-transfer-history-section m-0 p-0 mt-4 m-auto withdraw-history'>
                 <h4>WITHDRAW REQUEST HISTORY</h4>
-                <div>
+                <div className='withdraw-table'>
                     <table>
                         <thead>
                             <tr>

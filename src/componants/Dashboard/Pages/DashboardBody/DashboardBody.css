@@ -79,7 +79,6 @@
     padding: 0;
     margin: 0;
     padding-left: 10px;
-    
 }
 .dashboard-user-info span{
     width: initial;
@@ -93,6 +92,13 @@
 }
 .dashboard-sub-section{
     background-color: rgba(255, 0, 0, 0) !important;
+}
+.balance-transfer-history-section{
+    margin: 0;
+    padding: 0;
+}
+.balnce-section span{
+    font-size: 1.3rem;
 }
 @media only screen and (min-width:200px) and (max-width:1000px) { 
     .balance-transfer-section {

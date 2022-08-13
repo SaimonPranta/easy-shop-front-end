@@ -118,8 +118,8 @@ const PendingWithdraw = () => {
                                                     <td>{reqestItem.porvider}</td>
                                                     <td>{reqestItem.amount}</td>
                                                     <td>{dateFormater(reqestItem.date)}</td>
-                                                    <td className="bg-success" onClick={(e) => withdrawRequestApproval(e, user._id, reqestItem.requestID, reqestItem.amount)}>Approve</td>
-                                                    <td class="bg-primary" onClick={(e) => withdrawRequestDecline(e, user._id, reqestItem.requestID)}>Decline</td>
+                                                    <td className="approved-ad" > <button onClick={(e) => withdrawRequestApproval(e, user._id, reqestItem.requestID, reqestItem.amount)}>Approve</button></td>
+                                                    <td class="pending-ad" > <button onClick={(e) => withdrawRequestDecline(e, user._id, reqestItem.requestID)}>Decline</button></td>
                                                 </tr>
                                             }
                                         })

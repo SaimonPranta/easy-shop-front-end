@@ -50,7 +50,7 @@ const Index = () => {
                     <label for="exampleInputEmail1" class="form-label">Slider Image</label>
                     <input type="file" class="form-control" name='image' id="exampleInputEmail1" aria-describedby="emailHelp" onChange={handleInput} />
                 </div>
-                <button type="submit" class="btn btn-primary m-auto" onClick={handleSubmit}>Upload</button>
+                <button type="submit" class="btn btn-primary mx-3" onClick={handleSubmit}>Upload</button>
                 <div>
                     {
                         message.sucess && !message.failed ? <p style={{ color: "green" }}>{message.sucess}</p> : <p style={{ color: "yellow" }}>{message.failed}</p>

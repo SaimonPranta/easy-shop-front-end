@@ -78,8 +78,12 @@ const Login = () => {
             <section className='authentication m-auto'>
                 <form onSubmit={handleLogin}>
                     <h6>Login</h6>
+                    <label>Phone Number</label>
                     <input type="text" name="singInPhoenNumber" placeholder="Phone Number" value={inputUser.singInPhoenNumber ? inputUser.singInPhoenNumber : ""} required autoComplete="off" onChange={fromInputHandler} />
+
+                    <label>Password</label>
                     <input type="password" name="signInPassword" placeholder="Password" value={inputUser.signInPassword ? inputUser.signInPassword : ""} required autoComplete="off" onChange={fromInputHandler} />
+
 
                     <input type="submit" value="Login" required autoComplete="off" />
                     <div className='resposeContainer'>

@@ -11,7 +11,7 @@ const Index = () => {
                 <div className='dashboard-menu'>
                     <DashboardMenu />
                 </div>
-                <div>
+                <div className="dashbord-main-body-container">
                     <UpdateProfile />
                 </div>
             </div>

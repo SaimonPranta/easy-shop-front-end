@@ -70,11 +70,11 @@ const Generation = () => {
                 !condition.search ? <div className='d-flex'>
                     <button type="button" onClick={ElementControl} class="btn btn-primary btn m-auto">Generation Search User</button>
                 </div> : <>
-                    <div class="input-group">
+                    <div class="input-group admin-search">
                         <div className='d-flex'>
                             <button type="button" onClick={ElementControl} class="btn btn-primary btn m-auto">Back to Generation</button>
                         </div>
-                        <input type="text" class="form-control" aria-label="Text input with radio button" onChange={seach_handler} placeholder='Search by Phone Number' />
+                        <input type="text" className="form-control m-auto" aria-label="Text input with radio button" onChange={seach_handler} placeholder='Search by Phone Number' />
                     </div>
                 </>
             }

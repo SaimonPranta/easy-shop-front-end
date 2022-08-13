@@ -1,7 +1,7 @@
 import React, { useContext, useState } from 'react';
 import dateFormater from '../../../../Functions/dateFormater';
 import { allUserContext } from '../AdminPanelBody/AdminPanelBody';
-
+import './PendingBalanceReq.css';
 const PendingBalanceReq = () => {
     const [allUser, setAllUser] = useContext(allUserContext)
     const [currentUser, setCurrentUser] = useState([]);
@@ -106,8 +106,8 @@ const PendingBalanceReq = () => {
                                                     <td>{reqestItem.provider}</td>
                                                     <td>{reqestItem.amount}</td>
                                                     <td>{dateFormater(reqestItem.date)}</td>
-                                                    <td className="bg-success" onClick={(e) => balanceRequestApproval(e, user._id, reqestItem.requestID, reqestItem.amount)}>Approve</td>
-                                                    <td class="bg-primary"  onClick={ (e) => balanceRequestDecline(e, user._id, reqestItem.requestID)}>Decline</td>
+                                                    <td className='approved-ad'><button  onClick={(e) => balanceRequestApproval(e, user._id, reqestItem.requestID, reqestItem.amount)}>Approved</button></td>
+                                                    <td className='pending-ad'><button   onClick={ (e) => balanceRequestDecline(e, user._id, reqestItem.requestID)}>Pending</button></td>
                                                 </tr>
                                             }
                                         })

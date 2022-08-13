@@ -31,8 +31,8 @@ const AllUser = () => {
 
 
     return (
-        <>
-            <div class="input-group">
+        <div>
+            <div class="input-group admin-search">
                 <input type="text" class="form-control" aria-label="Text input with radio button" onChange={seach_handler} placeholder='Search by Phone Number' />
             </div>
             <table>
@@ -58,15 +58,14 @@ const AllUser = () => {
                                 <td>{user.balance}</td>
                                 <td>{user.shoppingBalance}</td>
                                 <td>{user.isActive ? "Active" : "Unactive"}</td>
-                                <td><Link to={`/user/${user._id}`}>View Details</Link></td>
-                                <td > <Link to={`/edit_user/${user._id}`}>Edit Details</Link></td>
+                                <td className=' admin-approved'><Link to={`/user/${user._id}`} >View Details</Link></td>
+                                <td className='admin-pending'> <Link to={`/edit_user/${user._id}`}>Edit Details</Link></td>
                             </tr>
                         })
                     }
                 </tbody>
             </table>
-
-        </>
+        </div>
     );
 };
 
