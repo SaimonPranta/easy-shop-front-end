@@ -43,7 +43,7 @@ const Index = () => {
     return (
         <div >
             <div >
-                <Delete_slider /> 
+                <Delete_slider controler={message} /> 
             </div>
             <form>
                 <div class="mb-3">

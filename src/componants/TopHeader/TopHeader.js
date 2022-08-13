@@ -21,15 +21,15 @@ const TopHeader = () => {
     const [user, setUser] = useContext(userContext);
 
 
-    const handleHelpSection = () => {
-        const helpSectiondiv = document.querySelector(".help-sub-section");
-        helpSectiondiv.classList.toggle("help-control");
-    }
+    // const handleHelpSection = () => {
+    //     const helpSectiondiv = document.querySelector(".help-sub-section");
+    //     helpSectiondiv.classList.toggle("help-control");
+    // }
     return (
         <section className='container top-header'>
             <div className='row'>
-                <div className='col-6 d-flex'>
-                    <div className='help-section'>
+                <div className=' col-lg-8 col-12 d-flex justify-content-lg-start justify-content-center top-social'>
+                    {/* <div className='help-section'>
                         <span>Quick Guide</span>
                         <span onClick={handleHelpSection} className='help-menu'>  Help {downArro}</span>
                         <div className='help-sub-section'>
@@ -37,27 +37,29 @@ const TopHeader = () => {
                             <a href="">Privacy</a>
                             <a href="">Terms</a>
                         </div>
+                    </div> */}
+                    <div>
+                        <a href='https://wa.me/+8801906705620' target="framename">Contact us on whatsapp</a>
                     </div>
                     <div>
-                        <a href=''>Contact us on Facebook</a>
+                        <a href='https://www.facebook.com/Easy-Shop-50-Official-103979879094789' target="framename">Contact us on Facebook</a>
                     </div>
                     <div>
-                        <a href=''>Visit our channel on Youtube</a>
-                    </div>                </div>
-                <div className='col-6 top-header-user'>
-                    <div>
+                        <a href='https://www.youtube.com/channel/UCDovAQKPxwUhEwsnAppw7oQ' target="framename">Visit our channel on Youtube</a>
+                    </div>
+                </div>
+                <div className='col-12 col-lg-4 d-flex justify-content-lg-start justify-content-center align-items-center   top-header-user'>
                         {
-                            user._id ? <NavLink to="/dashboard"><FaUserCircle /> {user.firstName} {user.lastName}</NavLink> : <>
+                            user._id ? <NavLink to="/dashboard"><FaUserCircle  /> {user.firstName} {user.lastName}</NavLink> : <>
                                 <NavLink to="/registration">{userIcon} Register</NavLink>
                                 <span>or</span>
                                 <NavLink to="/login">{loginIcon}  Member Login</NavLink>
                             </>
                         }
-                    </div>
                 </div>
 
             </div>
-        </section>
+        </section >
     );
 };
 

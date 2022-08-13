@@ -8,7 +8,6 @@
     list-style: none;
     padding: 5px;
     font-weight: 500;
-    /* color: #BD009D; */
     color: #fff;
     cursor: pointer;
     border-bottom: 1px solid #fff;
@@ -25,6 +24,17 @@
 .active-sub-menu{
     display: block;
 }
-/* .deshbord-menu-item-controler span{
-    display: none;
-} */
+@media only screen and (min-width:200px) and (max-width:810px) { 
+    .dashboard-menu ul li span{
+       font-size: .88rem;
+    }
+   
+}
+@media only screen and (min-width:200px) and (max-width:600px) { 
+    .dashboard-menu ul li span{
+        font-size: .75rem;
+     }
+     
+}
+
+

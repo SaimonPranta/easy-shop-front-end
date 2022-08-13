@@ -57,6 +57,18 @@
     color: #3A476B;
     margin-bottom: 0px;
 }
+.balance-transfer-section input{
+    height: 26px;
+    width: 100%;
+}
+.balance-transfer-section form input {
+    height: 26px;
+    width: 100%;
+}
+.balance-transfer-section form select {
+    height: 26px;
+    width: 100%;
+}
 .dashboard-user-info h5{
     padding: 0;
     margin: 0;
@@ -81,4 +93,121 @@
 }
 .dashboard-sub-section{
     background-color: rgba(255, 0, 0, 0) !important;
+}
+@media only screen and (min-width:200px) and (max-width:1000px) { 
+    .balance-transfer-section {
+        width: 85% !important;
+    }
+    .balance-transfer-history-section{
+        width: 85% !important;
+    }
+    .dashboard-user-info h5 {
+        font-size: 1.1rem;
+    }
+    .dashboard-user-info p {
+        font-size: 1rem;
+    }
+    
+}
+
+
+@media only screen and (min-width:200px) and (max-width:790px) { 
+    .balance-transfer-section {
+        width: 90% !important;
+    }
+    .balance-transfer-history-section{
+        width: 90% !important;
+    }
+    .balance-transfer-history-section table th{
+       font-size: .8rem;
+    }
+    .balance-transfer-history-section table td{
+        font-size: .77rem;
+     }
+    .dashboard-user-info h5 {
+        font-size: 1.1rem;
+    }
+    .dashboard-user-info p {
+        font-size: 1rem;
+    }
+    .balance-transfer-section form{
+        margin: auto;
+    }
+    .balance-transfer-section form div{
+        flex-direction: column;
+        margin: 0px !important;
+    }
+    .payment-provider-section div {
+        flex-direction: row !important;
+        width: 100% !important;
+    }
+    .sim-contianer label{
+        display: block;
+        width: 100% ;
+        padding-left: 10px;
+    }
+    .sim-contianer div div{
+        display: flex !important;
+    }
+    .balance-transfer-section form  .sim-contianer div{
+        flex-direction: row;
+        margin: 0px !important;
+    }
+    .balance-transfer-section form  .sim-conditon{
+        flex-direction: row;
+        margin: 0px !important;
+    }
+    
+    .balance-transfer-section form div label{
+       margin-bottom: 5px;
+    }
+    
+}
+@media only screen and (min-width:200px) and (max-width:690px) { 
+    .balance-transfer-section {
+        width: 93% !important;
+    }
+    .balance-transfer-history-section{
+        width: 93% !important;
+    }
+    .dashboard-user-info h5 {
+        font-size: 1rem;
+    }
+    .dashboard-user-info p {
+        font-size: .9rem;
+    }
+    .balance-transfer-section h4 {
+        font-size: .9rem !important;
+    }
+    .balance-transfer-section marquee {
+        font-size: .83rem !important;
+    }
+    .balnce-section div p{
+        font-size: .9rem;
+    }
+}
+@media only screen and (min-width:200px) and (max-width:550px) { 
+    .balance-transfer-section {
+        width: 96% !important;
+    }
+    .dashboard-user-info h5 {
+        font-size: .9rem;
+    }
+    .dashboard-user-info p {
+        font-size: .8rem;
+    }
+    .balance-transfer-section h4 {
+        font-size: .8rem !important;
+    }
+    .balance-transfer-section marquee {
+        font-size: .78rem !important;
+    }
+    .balnce-section div p{
+        font-size: .77rem;
+    }
+}
+@media only screen and (min-width:200px) and (max-width:430px) { 
+    .balnce-section div p{
+        font-size: .6rem;
+    }
 }

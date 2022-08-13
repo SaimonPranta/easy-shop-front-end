@@ -1,8 +1,8 @@
 import React from 'react';
 import './DashboardHeader.css';
-import { NavLink } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { FaAlignLeft } from "react-icons/fa";
-
+import logo from "../../../../assets/images/logo.png";
 
 const DashboardHeader = () => {
 
@@ -20,7 +20,7 @@ const DashboardHeader = () => {
                     <div className='dashbord-control-icon text-white d-md-none' onClick={dashboardMenuHndller}>
                         <FaAlignLeft/>
                     </div>
-                    <NavLink className="navbar-brand text-white" to="/">EasyShop50</NavLink>
+                    <Link className="navbar-brand " to="/"><img src={logo} alt="EasyShop50" className='logo' /></Link>
                     
                     <button className="navbar-toggler nav-collaps-icon" type="button" data-bs-toggle="collapse" data-bs-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                         <span className="navbar-toggler-icon"></span>

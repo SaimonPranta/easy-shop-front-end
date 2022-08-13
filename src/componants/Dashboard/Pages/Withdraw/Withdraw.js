@@ -1,9 +1,12 @@
 import React, { useContext, useState } from 'react';
 import { userContext } from '../../../../App';
+import dateFormater from '../../../../Functions/dateFormater';
 import './Withdraw.css';
 
 const Withdraw = () => {
-    const [requestInfo, setRequestInfo] = useState({});
+    const [requestInfo, setRequestInfo] = useState({
+        charge: 0
+    });
     const [message, setMessage] = useState({});
     const [user, setUser] = useContext(userContext);
 
@@ -15,13 +18,25 @@ const Withdraw = () => {
         const inputFildValue = e.target.value;
         if (inputFildName === "amount") {
             const floorValue = Math.floor(inputFildValue)
+            const chargeValue = floorValue * (5 / 100)
             const floorBalance = Math.floor(user.balance)
-            if (floorValue <= floorBalance) {
+            const total = chargeValue + floorValue
+            if (total <= floorBalance) {
                 setMessage({})
+                currentInput["charge"] = chargeValue
                 currentInput[inputFildName] = floorValue
                 setRequestInfo(currentInput)
             } else {
                 setMessage({ failed: `Sorry, you can't withdraw more then ${user.balance ? user.balance : 0}tk` })
+            }
+        } else if (inputFildName === "number") {
+            const floorNum = Math.floor(inputFildValue)
+            if (floorNum) {
+                setMessage({})
+                currentInput[inputFildName] = inputFildValue
+                setRequestInfo(currentInput)
+            } else {
+                setMessage({ failed: `Phone Number must be Number` })
             }
         } else {
             currentInput[inputFildName] = inputFildValue
@@ -35,57 +50,69 @@ const Withdraw = () => {
         const providerValue = document.getElementById("porvider").value;
         const amountValue = document.getElementById("amount").value;
 
-        if (!requestInfo.porvider) {
-            requestInfo["porvider"] = providerValue;
-        }
-        if (!requestInfo.amount) {
-            const floorValue = Math.floor(amountValue)
-            requestInfo["amount"] = floorValue;
-        }
+        const floorValue = Math.floor(amountValue)
+        const chargeValue = floorValue * (5 / 100)
+        const floorBalance = Math.floor(user.balance)
+        const total = chargeValue + floorValue
 
-        if (requestInfo.porvider && requestInfo.amount && requestInfo.number) {
-            setMessage({})
-            const floorValue = Math.floor(requestInfo.amount)
-            const floorBalance = Math.floor(user.balance)
+        if (total <= floorBalance) {
+            if (!requestInfo.porvider) {
+                requestInfo["porvider"] = providerValue;
+            }
+            if (!requestInfo.amount) {
+                requestInfo["charge"] = chargeValue
+                const floorValue = Math.floor(amountValue)
+                requestInfo["amount"] = floorValue;
+            }
 
-            if (floorValue <= floorBalance) {
-                fetch("http://localhost:8000/withdraw", {
-                    method: "POST",
-                    body: JSON.stringify(requestInfo),
-                    headers: {
-                        'content-type': 'application/json; charset=UTF-8',
-                        authorization: `Bearer ${cooki}`
-                    }
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.data) {
-                            const updatedUser = { ...data.data }
-                            setUser(updatedUser);
-                        }
-                        if (data.sucess) {
-                            setRequestInfo({})
-                            setMessage({ sucess: data.sucess });
-                            setTimeout(() => {
-                                setMessage({})
-                            }, 7000);
-                        }
-                        if (data.failed) {
-                            setMessage({ failed: data.failed });
-                            setTimeout(() => {
-                                setMessage({})
-                            }, 7000);
+            if (requestInfo.porvider && requestInfo.amount && requestInfo.number) {
+                setMessage({})
+                const floorValue = Math.floor(requestInfo.amount)
+                const floorBalance = Math.floor(user.balance)
+
+                if (floorValue <= floorBalance) {
+                    fetch("http://localhost:8000/withdraw", {
+                        method: "POST",
+                        body: JSON.stringify(requestInfo),
+                        headers: {
+                            'content-type': 'application/json; charset=UTF-8',
+                            authorization: `Bearer ${cooki}`
                         }
                     })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.data) {
+                                const updatedUser = { ...data.data }
+                                setUser(updatedUser);
+                            }
+                            if (data.sucess) {
+                                setRequestInfo({})
+                                setMessage({ sucess: data.sucess });
+                                setTimeout(() => {
+                                    setMessage({})
+                                }, 7000);
+                            }
+                            if (data.failed) {
+                                setMessage({ failed: data.failed });
+                                setTimeout(() => {
+                                    setMessage({})
+                                }, 7000);
+                            }
+                        })
+                } else {
+                    setMessage({ failed: `Sorry, you can't withdraw more then ${user.balance}tk` })
+                }
             } else {
-                setMessage({ failed: `Sorry, you can't withdraw more then ${user.balance}tk` })
+                setMessage({ failed: "Please fill the form and try angain" })
+                setTimeout(() => {
+                    setMessage({})
+                }, 7000);
             }
         } else {
-            setMessage({ failed: "Please fill the form and try angain" })
-            setTimeout(() => {
-                setMessage({})
-            }, 7000);
+            setMessage({ failed: `Sorry, you can't withdraw more then ${user.balance}tk` })
         }
+
+
     };
 
 
@@ -121,7 +148,6 @@ const Withdraw = () => {
                                 <option value="1000">1000TK</option>
                             </select>
                         </div>
-
                         <div>
                             <input type="submit" value="Submit" />
                         </div>
@@ -135,6 +161,40 @@ const Withdraw = () => {
                         </div>
                     </form>
                 </div>
+                <div className='balance-transfer-history-section mt-4 m-auto'>
+                <h4>WITHDRAW REQUEST HISTORY</h4>
+                <div>
+                    <table>
+                        <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>Withdraw Method</th>
+                                <th>Withdraw Number</th>
+                                <th>Withdraw Amount</th>
+                                <th>Withdraw Date</th>
+                                <th>Withdraw Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {
+                                user && user.withdrawInfo && user.withdrawInfo.map((reqInfo , index) => {
+                                    return <tr key={reqInfo.requestID}>
+                                        <td>{index + 1}</td>
+                                        <td>{reqInfo.porvider}</td>
+                                        <td>{reqInfo.number}</td>
+                                        <td>{reqInfo.amount}</td>
+                                        <td>{dateFormater(reqInfo.date)}</td>
+                                        {
+                                            reqInfo.apporoval ? <td className='approved'><button>Approved</button></td> : <td className='pending'><button>Pending</button></td>
+                                        }
+
+                                    </tr>
+                                })
+                            }
+                        </tbody>
+                    </table>
+                </div>
+            </div>
             </div>
         </div>
     );

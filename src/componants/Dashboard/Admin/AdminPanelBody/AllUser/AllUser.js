@@ -40,8 +40,9 @@ const AllUser = () => {
                     <tr>
                         <th>#</th>
                         <th>Name</th>
-                        <th>User ID</th>
-                        <th>PhoneNumber</th>
+                        <th>User Number</th>
+                        <th>Balance</th>
+                        <th>Shoping Balance</th>
                         <th>Status</th>
                         <th colspan="2">Option</th>
                     </tr>
@@ -53,11 +54,12 @@ const AllUser = () => {
                             return <tr>
                                 <td>{count}</td>
                                 <td>{user.firstName} {user.lastName}</td>
-                                <td>{user._id}</td>
                                 <td>{user.phoneNumber}</td>
+                                <td>{user.balance}</td>
+                                <td>{user.shoppingBalance}</td>
                                 <td>{user.isActive ? "Active" : "Unactive"}</td>
                                 <td><Link to={`/user/${user._id}`}>View Details</Link></td>
-                                <td className='bg-primary'> <Link to={`/edit_user/${user._id}`}>Edit Details</Link></td>
+                                <td > <Link to={`/edit_user/${user._id}`}>Edit Details</Link></td>
                             </tr>
                         })
                     }

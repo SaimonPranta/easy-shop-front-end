@@ -27,3 +27,27 @@
 .top-header-user div{
     float: right;
 }
+.top-social{
+    font-size: .8rem;
+}
+.top-header-user a{
+    color: #000 !important;
+}
+
+
+@media only screen and (min-width:200px) and (max-width:520px) { 
+    .top-social a{
+        font-size: .6rem;
+        margin: 8px 4px;
+    }
+    .top-header-user a{
+        font-size: .8rem;
+        margin: 8px 4px;
+    }
+}
+@media only screen and (min-width:200px) and (max-width:380px) { 
+    .top-social {
+        flex-direction: column;
+        align-items: center;
+    }
+}

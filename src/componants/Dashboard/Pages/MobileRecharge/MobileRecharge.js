@@ -196,7 +196,7 @@ const MobileRecharge = () => {
                                         <td>{info.amount}</td>
                                         <td>{info.date}</td>
                                         {
-                                            info.apporoval ? <td style={{ background: "Maroon " }}>Approved</td> : <td style={{ background: "green " }}>Pending</td>
+                                             info.apporoval  ? <td className='approved'><button>Approved</button></td> : <td className='pending'><button>Pending</button></td>
                                         }
                                     </tr>
                                 })

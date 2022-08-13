@@ -7,7 +7,7 @@
     color: #fff !important;
 }
 
-.navbar-light .navbar-toggler-icon {
+.dashbord-header .navbar-light .navbar-toggler-icon {
     background-image: url('../../../../assets/images/nav_icon/icons8-menu-48.png') !important;
 } 
 .dashbord-control-icon svg{
@@ -16,4 +16,16 @@
 }
 .dashbord-active ul li span{
     display: none;
+}
+
+
+@media only screen and (min-width:200px) and (max-width:650px) { 
+    .logo{
+        height: 35px;
+        width: 80px;
+    }
+    .dashbord-header ul li a{
+        font-size: .8rem;
+    }
+   
 }

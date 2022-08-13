@@ -41,7 +41,6 @@
     display: block;
 }
 .balance-transfer-section form input[type=submit]{
-    /* background-color: #01A6A0; */
     background-color: purple;
     margin: auto;
     border: none;
@@ -50,15 +49,29 @@
     border-radius: 5px ;
 }
 
-/* Balance Transfer History Section */
 .balance-transfer-history-section{
     width: 70%;
     height: 100%;
 }
-.balance-transfer-history-section{
-    width: 70%;
-    height: 100%;
+.balance-transfer-history-section .pending button{
+    background-color: green;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    color: #fff;
+    padding: 4px 7px;
+    margin: auto;
 }
+.balance-transfer-history-section .approved button{
+    background-color: Purple ;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    color: #fff;
+    padding: 4px 7px;
+    margin: auto;
+}
+
 .balance-transfer-history-section h4{
     background-color: purple;
     font-size: 1rem;

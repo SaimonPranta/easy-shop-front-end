@@ -204,7 +204,7 @@ const BalanceRequest = () => {
                                         <td>{reqInfo.amount}</td>
                                         <td>{reqInfo.date}</td>
                                         {
-                                            reqInfo.apporoval ? <td style={{ background: "Purple" }}>Approved</td> : <td style={{ background: "green" }}>Pending</td>
+                                            reqInfo.apporoval  ? <td className='approved'><button>Approved</button></td> : <td className='pending'><button>Pending</button></td>
                                         }
 
                                     </tr>

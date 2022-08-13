@@ -27,3 +27,28 @@
     padding-top: 0px;
     padding-bottom: 0px;
 }
+@media only screen and (min-width:200px) and (max-width:750px) { 
+    .dashboard-container{
+        display: grid;
+        grid-template-columns: .5fr 1fr;
+        grid-row-gap: 5px;
+        grid-column-gap: 15px;
+    }
+}
+
+@media only screen and (min-width:200px) and (max-width:490px) { 
+    .dashboard-container{
+        display: grid;
+        grid-template-columns: .66fr 1fr;
+        grid-row-gap: 5px;
+        grid-column-gap: 15px;
+    }
+}
+@media only screen and (min-width:200px) and (max-width:390px) { 
+    .dashboard-container{
+        display: grid;
+        grid-template-columns: .72fr 1fr;
+        grid-row-gap: 5px;
+        grid-column-gap: 15px;
+    }
+}

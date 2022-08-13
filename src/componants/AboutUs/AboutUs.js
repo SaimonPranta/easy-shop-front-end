@@ -21,7 +21,7 @@ const AboutUs = () => {
     return (
         <div>
             <Header />
-            <div className='about-body text-center py-3'>
+            <div className='about-body text-center py-md-3 py-1'>
                 <div className='container'>
                     <h6>DON’T LOOK FURTHER, HERE IS THE KEY</h6>
                     <h5>We’re trusted solution</h5>
@@ -31,18 +31,18 @@ const AboutUs = () => {
                 </div>
             </div>
             <div className='about-footer '>
-                <div className='container row m-auto'>
-                    <div className='col-4 location'>
+                <div className=' row m-auto'>
+                    <div className='col-md-4 col-6 text-center location'>
                         <h6>Where We Are</h6>
                         <span><MdLocationPin /> Barisal, kathalia Jhalokati
                             Hospital Road Amua</span>
                     </div>
-                    <div className='col-4 contact'>
+                    <div className='col-md-4 col-6 text-center contact'>
                         <h6>Contact Us</h6>
                         <span className='phone'><AiTwotonePhone /> Phone: 01832423219</span> <br />
                         <span className='gmail'><SiGmail /> Gmail: someone@gmail.com</span>
                     </div>
-                    <div className='col-4 socil'>
+                    <div className='col-md-4 col-12 text-center socil'>
                         <h6>Follow Us</h6>
                         <div>
                             <span className='facebook'><BsFacebook /></span>

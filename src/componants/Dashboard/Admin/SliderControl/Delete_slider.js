@@ -2,17 +2,19 @@ import React, { useEffect, useState } from "react";
 import './Delete_slider.css';
 
 
-const Delete_slider = () => {
+const Delete_slider = ({controler}) => {
     const [slider, setSlider] = useState([]);
     const [message, setMessage] = useState({})
 
     useEffect(() => {
+        console.log("hit from slider")
+
         fetch('http://localhost:8000/slider_provider')
             .then(res => res.json())
             .then(data => {
                 setSlider(data)
             })
-    }, []);
+    }, [controler]);
 
     const sliderImgDelet = (e, id) => {
         const cooki = document.cookie.split("=")[1];
