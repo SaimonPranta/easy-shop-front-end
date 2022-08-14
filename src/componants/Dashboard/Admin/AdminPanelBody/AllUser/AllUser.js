@@ -5,9 +5,38 @@ import { allUserContext } from '../AdminPanelBody';
 const AllUser = () => {
     const [allUser, setAllUser] = useContext(allUserContext)
     const [allUserContaienr, setAllUserContainer] = useState([]);
+    const [userCount, setUserCount] = useState({
+        total: 0,
+        active: 0,
+        unActive: 0
+    })
+
     let count = 0;
+    let totalUser = 0
+    let totalActiveUser = 0
+    let totalUnativeUser = 0
+
+
 
     useEffect(() => {
+        if (allUser && allUser.length > 0) {
+            totalUser = 0;
+            totalActiveUser = 0;
+            totalUnativeUser = 0
+            allUser.map((user) => {
+                const currentUserCount = { ...userCount }
+                
+                totalUser++
+                totalActiveUser = user.isActive ? totalActiveUser + 1 : totalActiveUser
+                totalUnativeUser = !user.isActive ? totalUnativeUser + 1 : totalUnativeUser
+                currentUserCount["total"] = totalUser
+                currentUserCount["active"] = totalActiveUser
+                currentUserCount["unActive"] = totalUnativeUser
+
+                setUserCount(currentUserCount)
+                return null
+            })
+        }
         if (allUser.length > 0) {
             setAllUserContainer(allUser)
         }
@@ -28,10 +57,19 @@ const AllUser = () => {
         }
     }
 
-
+console.log(userCount)
 
     return (
         <div>
+            <div className='balnce-section text-center text-white dashboard-sub-section' style={{height: "100%"}}>
+                <div style={{height: "100%"}} >
+                    <p>Total User {userCount.total}</p>
+
+                    <p>Total Active User {userCount.active}</p>
+
+                    <p>Total Unactive User {userCount.unActive}</p>
+                </div>
+            </div>
             <div class="input-group admin-search">
                 <input type="text" class="form-control" aria-label="Text input with radio button" onChange={seach_handler} placeholder='Search by Phone Number' />
             </div>

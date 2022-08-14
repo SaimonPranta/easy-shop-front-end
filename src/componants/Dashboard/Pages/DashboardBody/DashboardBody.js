@@ -11,11 +11,26 @@ const DashboardBody = () => {
     const [user, setUser] = useContext(userContext);
     const [reqBalance, setReqBalance] = useState(0)
     const [withBalance, setWithBalance] = useState(0)
+    const [notice, setNotice] = useState("")
+    const [noticeInput, setNoticeInput] = useState("")
+    const [message, setMessage] = useState({})
+
+
     const cooki = document.cookie.split("=")[1];
 
 
     let totalPendingBalance = 0
     let totalPendingWithdraw = 0
+
+    useEffect(() => {
+        fetch(`http://localhost:8000/notice`)
+            .then(res => res.json())
+            .then(data => {
+                if (data.data) {
+                    setNotice(data.data)
+                }
+            })
+    }, [])
 
 
     useEffect(() => {
@@ -38,6 +53,30 @@ const DashboardBody = () => {
             })
         }
     }, [])
+
+    const addNotice = (e) => {
+        e.preventDefault()
+        if (noticeInput) {
+            setNoticeInput("   ")
+        }
+        fetch('http://localhost:8000/notice', {
+            method: "POST",
+            body: JSON.stringify({ notice: noticeInput ? noticeInput : " " }),
+            headers: {
+                'content-type': 'application/json; charset=UTF-8',
+                authorization: `Bearer ${cooki}`
+            }
+        })
+            .then(res => res.json())
+            .then(data => {
+                if (data.data) {
+                    setNotice(data.data)
+                } else {
+                    setMessage({ failed: data.failed })
+                }
+
+            })
+    }
 
 
     const activeHandler = () => {
@@ -66,9 +105,31 @@ const DashboardBody = () => {
         <div className='text-white'>
             <div className='balance-transfer-section m-auto'>
                 <h4>USER DASHBOARD</h4>
-                <div className='text-black withdraw-notice notice-section'>
-                    <marquee>আসসালামু আলাইকুম Easy Shop 50 কোম্পানির পক্ষ থেকে আপনাদের জানাই আন্তরিক শুভেচ্ছা ও অভিনন্দন</marquee>
-                </div>
+                {
+                    notice && <div className='text-black withdraw-notice notice-section'>
+                        <marquee>{notice}</marquee>
+                    </div>
+
+                }
+                {
+                    user && user.role && <>
+                        <div className='text-black withdraw-notice notice-section'>
+                            <input type="text" className="form-control m-auto" aria-label="Text input with radio button" onChange={(e) => setNoticeInput(e.target.value)} value={noticeInput} placeholder="Type notice here..." />
+
+                            <div className='d-flex'>
+                                <button type="button" onClick={addNotice} class="btn btn-primary btn m-auto">Submit Notice</button>
+                            </div>
+                        </div>
+                        <div className='resposeContainer' >
+                            {
+                                !message.failed && message.sucess && <p className='sucess'>{message.sucess}</p>
+                            }
+                            {
+                                !message.sucess && message.failed && <p className='warning'>{message.failed}</p>
+                            }
+                        </div>
+                    </>
+                }
                 <div className='dashboard-user-info'>
                     <h5>Welcome</h5>
                     <p>{user && user.firstName + " " + user.lastName}</p>
@@ -114,7 +175,7 @@ const DashboardBody = () => {
                     </div>
                 </div>
             </div>
-        </div>
+        </div >
     );
 };
 

@@ -1,17 +1,58 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import dateFormater from '../../../../Functions/dateFormater';
 import { allUserContext } from '../AdminPanelBody/AdminPanelBody';
 
 const PendingMobileRecharge = () => {
     const [allUser, setAllUser] = useContext(allUserContext)
-    const [currentUser, setCurrentUser] = useState([]);
     const [message, setMessage] = useState({})
     const [condition, setCondition] = useState({
         apporoval: false
     })
+    const [userCount, setUserCount] = useState({
+        pending: 0,
+        apporoval: 0,
+        pendingBalance: 0,
+        approvalBalance: 0,
+
+    })
     const cooki = document.cookie.split("=")[1];
+    let totalPendingUser = 0
+    let totalApprovalUser = 0
+    let totalPendingBalance = 0
+    let totalApprovalBalance = 0
 
     let count = 0
+
+
+    useEffect(() => {
+        if (allUser && allUser.length > 0) {
+            totalPendingUser = 0;
+            totalApprovalUser = 0
+            totalPendingBalance = 0
+            totalApprovalBalance = 0
+
+            allUser.map((user) => {
+                user.mobileRechareInfo.map((req) => {
+                    const currentUserCount = { ...userCount }
+
+                    totalPendingUser = !req.apporoval ? totalPendingUser + 1 : totalPendingUser
+                    totalApprovalUser = req.apporoval ? totalApprovalUser + 1 : totalApprovalUser
+
+                    totalPendingBalance = !req.apporoval ? totalPendingBalance + req.amount : totalPendingBalance
+                    totalApprovalBalance = req.apporoval ? totalApprovalBalance + req.amount : totalApprovalBalance
+
+                    currentUserCount["pending"] = totalPendingUser
+                    currentUserCount["apporoval"] = totalApprovalUser
+                    currentUserCount["pendipendingBalanceng"] = totalPendingBalance
+                    currentUserCount["approvalBalance"] = totalApprovalBalance
+
+                    setUserCount(currentUserCount)
+                    return null
+                })
+            })
+        }
+    }, [allUser]);
+
     const requestHandle = () => {
         const currentCondition = { ...condition }
         currentCondition.apporoval = currentCondition.apporoval ? currentCondition.apporoval = false : currentCondition.apporoval = true
@@ -80,6 +121,8 @@ const PendingMobileRecharge = () => {
             {
                 !condition.apporoval && <div>
                     <h4>Pending Mobile Recharge</h4>
+                    <p>Total Pending Mobile Recharge Request {userCount.pending} </p>
+                    <p>Total Pending Mobile Recharge Balance {userCount.pendipendingBalanceng} Tk</p>
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-primary" onClick={requestHandle}>See Approved Request</button>
                     </div>
@@ -129,6 +172,10 @@ const PendingMobileRecharge = () => {
             {
                 condition.apporoval && <div>
                     <h4>Approved Mobile Recharge</h4>
+
+                    <p>Total Approved Mobile Recharge Request {userCount.apporoval} </p>
+                    <p>Total Approved Mobile Recharge Balance {userCount.approvalBalance} tk</p>
+
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-primary" onClick={requestHandle}>See Pending Request</button>
                     </div>

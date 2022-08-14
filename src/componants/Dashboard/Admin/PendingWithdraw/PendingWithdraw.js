@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import dateFormater from '../../../../Functions/dateFormater';
 import { allUserContext } from '../AdminPanelBody/AdminPanelBody';
 
@@ -9,7 +9,48 @@ const PendingWithdraw = () => {
     const [condition, setCondition] = useState({
         apporoval: false
     })
+    const [userCount, setUserCount] = useState({
+        pending: 0,
+        apporoval: 0,
+        pendingBalance: 0,
+        approvalBalance: 0,
+
+    })
+
+    let totalPendingUser = 0
+    let totalApprovalUser = 0
+    let totalPendingBalance = 0
+    let totalApprovalBalance = 0
     const cooki = document.cookie.split("=")[1];
+
+    useEffect(() => {
+        if (allUser && allUser.length > 0) {
+            totalPendingUser = 0;
+            totalApprovalUser = 0
+            totalPendingBalance = 0
+            totalApprovalBalance = 0
+
+            allUser.map((user) => {
+                user.withdrawInfo.map((req) => {
+                    const currentUserCount = { ...userCount }
+
+                    totalPendingUser = !req.apporoval ? totalPendingUser + 1 : totalPendingUser
+                    totalApprovalUser = req.apporoval ? totalApprovalUser + 1 : totalApprovalUser
+
+                    totalPendingBalance = !req.apporoval ? totalPendingBalance + req.amount : totalPendingBalance
+                    totalApprovalBalance = req.apporoval ? totalApprovalBalance + req.amount : totalApprovalBalance
+
+                    currentUserCount["pending"] = totalPendingUser
+                    currentUserCount["apporoval"] = totalApprovalUser
+                    currentUserCount["pendipendingBalanceng"] = totalPendingBalance
+                    currentUserCount["approvalBalance"] = totalApprovalBalance
+
+                    setUserCount(currentUserCount)
+                    return null
+                })
+            })
+        }
+    }, [allUser]);
 
     let count = 0
     const requestHandle = () => {
@@ -75,15 +116,13 @@ const PendingWithdraw = () => {
     };
 
 
-
-
-
-
     return (
         <>
             {
                 !condition.apporoval && <div>
                     <h4>Pending Withdraw Request</h4>
+                    <p>Total Pending Withdraw Request {userCount.pending} </p>
+                    <p>Total Pending Withdraw Balance {userCount.pendipendingBalanceng} Tk</p>
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-primary" onClick={requestHandle}>See Approved Request</button>
                     </div>
@@ -133,6 +172,10 @@ const PendingWithdraw = () => {
             {
                 condition.apporoval && <div>
                     <h4>Approved Withdraw Request</h4>
+
+                    <p>Total Approved Withdraw Balance Request {userCount.apporoval} </p>
+                    <p>Total Approved Withdraw Balance {userCount.approvalBalance} Tk</p>
+
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-primary" onClick={requestHandle}>See Pending Request</button>
                     </div>
