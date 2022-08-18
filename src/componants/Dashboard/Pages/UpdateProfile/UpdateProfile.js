@@ -21,7 +21,7 @@ const UpdateProfile = () => {
     const userUpdateHandle = (e) => {
         e.preventDefault()
         if (user.firstName && user.firstName && user.firstName) {
-            fetch("http://localhost:8000/user", {
+            fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/user`, {
                 method: "PATCH",
                 body: JSON.stringify(user),
                 headers: {

@@ -17,7 +17,7 @@ const Login = () => {
         user._id && navigate(from, { replace: true })
         const cooki = document.cookie.split("=")[1];
         if (cooki) {
-            fetch("http://localhost:8000/user", {
+            fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/user`, {
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -27,12 +27,11 @@ const Login = () => {
                 .then(data => {
                     data._id && navigate(from, { replace: true })
                     data.password = null
-                    setUser(data);
                 })
         }
     }, []);
 
-    
+
 
     const fromInputHandler = (e) => {
         inputHandler(e, inputUser, setInputUser)
@@ -41,8 +40,9 @@ const Login = () => {
     const handleLogin = (e) => {
         e.preventDefault()
 
+
         if (inputUser.singInPhoenNumber && inputUser.signInPassword) {
-            fetch('http://localhost:8000/logIn', {
+            fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/logIn`, {
                 method: "post",
                 body: JSON.stringify(inputUser),
                 headers: {
@@ -91,7 +91,7 @@ const Login = () => {
                             !message.failed && message.sucess && <p className='sucess'>{message.sucess}</p>
                         }
                         {
-                            !message.sucess && message.failed && <p className='warning'>{message.failed}</p>
+                            !message.sucess && message.failed && <p className='text-primary'>{message.failed}</p>
                         }
                     </div>
                     <div className='form-navigation d-flex'><p>Don't have an account? <Link to="/registration"><span style={{ color: "blue", cursor: "pointer" }}>Register an account</span></Link></p></div>

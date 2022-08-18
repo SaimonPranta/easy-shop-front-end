@@ -30,14 +30,10 @@ const Withdraw = () => {
                 setMessage({ failed: `Sorry, you can't withdraw more then ${user.balance ? user.balance : 0}tk` })
             }
         } else if (inputFildName === "number") {
-            const floorNum = Math.floor(inputFildValue)
-            if (floorNum) {
-                setMessage({})
-                currentInput[inputFildName] = inputFildValue
-                setRequestInfo(currentInput)
-            } else {
-                setMessage({ failed: `Phone Number must be Number` })
-            }
+            setMessage({})
+            currentInput[inputFildName] = inputFildValue
+            setRequestInfo(currentInput)
+
         } else {
             currentInput[inputFildName] = inputFildValue
             setRequestInfo(currentInput)
@@ -65,49 +61,60 @@ const Withdraw = () => {
                 requestInfo["amount"] = floorValue;
             }
 
-            if (requestInfo.porvider && requestInfo.amount && requestInfo.number) {
-                setMessage({})
-                const floorValue = Math.floor(requestInfo.amount)
-                const floorBalance = Math.floor(user.balance)
+            if (Math.floor(requestInfo.amount) && Math.floor(requestInfo.number)) {
+                if (requestInfo.porvider && requestInfo.amount && requestInfo.number) {
+                    setMessage({})
+                    const floorValue = Math.floor(requestInfo.amount)
+                    const floorBalance = Math.floor(user.balance)
 
-                if (floorValue <= floorBalance) {
-                    fetch("http://localhost:8000/withdraw", {
-                        method: "POST",
-                        body: JSON.stringify(requestInfo),
-                        headers: {
-                            'content-type': 'application/json; charset=UTF-8',
-                            authorization: `Bearer ${cooki}`
-                        }
-                    })
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.data) {
-                                const updatedUser = { ...data.data }
-                                setUser(updatedUser);
-                            }
-                            if (data.sucess) {
-                                setRequestInfo({})
-                                setMessage({ sucess: data.sucess });
-                                setTimeout(() => {
-                                    setMessage({})
-                                }, 7000);
-                            }
-                            if (data.failed) {
-                                setMessage({ failed: data.failed });
-                                setTimeout(() => {
-                                    setMessage({})
-                                }, 7000);
+                    if (floorValue <= floorBalance) {
+                        const currentInput = {...requestInfo}
+
+                        fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/withdraw`, {
+                            method: "POST",
+                            body: JSON.stringify(requestInfo),
+                            headers: {
+                                'content-type': 'application/json; charset=UTF-8',
+                                authorization: `Bearer ${cooki}`
                             }
                         })
+                            .then(res => res.json())
+                            .then(data => {
+                                if (data.data) {
+                                    const updatedUser = { ...data.data }
+                                    setUser(updatedUser);
+                                }
+                                if (data.sucess) {
+                                    setRequestInfo({})
+                                    setMessage({ sucess: data.sucess });
+                                    setTimeout(() => {
+                                        setMessage({})
+                                    }, 7000);
+                                }
+                                if (data.failed) {
+                                    setRequestInfo(currentInput)
+                                    setMessage({ failed: data.failed });
+                                    setTimeout(() => {
+                                        setMessage({})
+                                    }, 7000);
+                                }
+                            })
+                            setRequestInfo({})
+                    } else {
+                        setMessage({ failed: `Sorry, you can't withdraw more then ${user.balance}tk` })
+                    }
                 } else {
-                    setMessage({ failed: `Sorry, you can't withdraw more then ${user.balance}tk` })
+                    setMessage({ failed: "Please fill the form and try angain" })
+                    setTimeout(() => {
+                        setMessage({})
+                    }, 7000);
                 }
+
             } else {
-                setMessage({ failed: "Please fill the form and try angain" })
-                setTimeout(() => {
-                    setMessage({})
-                }, 7000);
+                setMessage({ failed: `Phone Number and Amount must be number` })
             }
+
+
         } else {
             setMessage({ failed: `Sorry, you can't withdraw more then ${user.balance}tk` })
         }
@@ -162,39 +169,39 @@ const Withdraw = () => {
                     </form>
                 </div>
                 <div className='balance-transfer-history-section m-0 p-0 mt-4 m-auto withdraw-history'>
-                <h4>WITHDRAW REQUEST HISTORY</h4>
-                <div className='withdraw-table'>
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>Withdraw Method</th>
-                                <th>Withdraw Number</th>
-                                <th>Withdraw Amount</th>
-                                <th>Withdraw Date</th>
-                                <th>Withdraw Status</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                user && user.withdrawInfo && user.withdrawInfo.map((reqInfo , index) => {
-                                    return <tr key={reqInfo.requestID}>
-                                        <td>{index + 1}</td>
-                                        <td>{reqInfo.porvider}</td>
-                                        <td>{reqInfo.number}</td>
-                                        <td>{reqInfo.amount}</td>
-                                        <td>{dateFormater(reqInfo.date)}</td>
-                                        {
-                                            reqInfo.apporoval ? <td className='approved'><button>Approved</button></td> : <td className='pending'><button>Pending</button></td>
-                                        }
+                    <h4>WITHDRAW REQUEST HISTORY</h4>
+                    <div className='withdraw-table'>
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Withdraw Method</th>
+                                    <th>Withdraw Number</th>
+                                    <th>Withdraw Amount</th>
+                                    <th>Withdraw Date</th>
+                                    <th>Withdraw Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    user && user.withdrawInfo && user.withdrawInfo.map((reqInfo, index) => {
+                                        return <tr key={reqInfo.requestID}>
+                                            <td>{index + 1}</td>
+                                            <td>{reqInfo.porvider}</td>
+                                            <td>{reqInfo.number}</td>
+                                            <td>{reqInfo.amount}</td>
+                                            <td>{dateFormater(reqInfo.date)}</td>
+                                            {
+                                                reqInfo.apporoval ? <td className='approved'><button>Approved</button></td> : <td className='pending'><button>Pending</button></td>
+                                            }
 
-                                    </tr>
-                                })
-                            }
-                        </tbody>
-                    </table>
+                                        </tr>
+                                    })
+                                }
+                            </tbody>
+                        </table>
+                    </div>
                 </div>
-            </div>
             </div>
         </div>
     );

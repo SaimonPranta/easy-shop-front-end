@@ -7,10 +7,9 @@ const Slider = () => {
     const [slider, setSlider] = useState([]);
 
     useEffect(() => {
-        fetch('http://localhost:8000/slider_provider')
+        fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/slider_provider`)
             .then(res => res.json())
             .then(data => {
-                console.log("ttp://localhost:8000/" + data[0].img)
                 setSlider(data)
             })
     }, [])
@@ -24,7 +23,7 @@ const Slider = () => {
                         return <Carousel.Item key={index} interval={5000} >
                             <img
                                 className="d-block w-100"
-                                src={"http://localhost:8000/" + image.img}
+                                src={`${process.env.REACT_APP_SERVER_HOST_URL}/${image.img}`}
                                 alt={"slider" + index}
                             />
                         </Carousel.Item>

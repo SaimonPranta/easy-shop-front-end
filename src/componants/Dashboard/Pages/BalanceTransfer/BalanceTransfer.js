@@ -28,17 +28,13 @@ const BalanceTransfer = () => {
         const currentInput = { ...balanceInfo }
         const inputFildName = e.target.name;
         const inputFildValue = e.target.value;
-        if (inputFildName === "amount" && Math.floor(inputFildValue)) {
+        if (inputFildName === "amount") {
             const floorValue = Math.floor(inputFildValue)
             currentInput[inputFildName] = floorValue
             setBalanceInfo(currentInput)
         } else if (inputFildName === "selectUser") {
-            if (Math.floor(inputFildValue)) {
-                currentInput[inputFildName] = inputFildValue
-                setBalanceInfo(currentInput)
-            }else{
-                setMessage({failed: "User phone number must be number."})
-            }
+            currentInput[inputFildName] = inputFildValue
+            setBalanceInfo(currentInput)
         }
 
         setBalanceInfo(currentInput);
@@ -52,12 +48,13 @@ const BalanceTransfer = () => {
 
     const balanceTransferHandle = (e) => {
         e.preventDefault();
-        
+        const requestInput = {...balanceInfo}
         if (balanceInfo.selectUser && balanceInfo.amount) {
-            if (balanceInfo.amount >= 10) {
-                if (user.balance >= balanceInfo.amount) {
+            if (Math.floor(balanceInfo.selectUser) && Math.floor(balanceInfo.amount)) {
+                if (balanceInfo.amount >= 10) {
+                    // if (user.balance >= balanceInfo.amount) {
                     setMessage({})
-                    fetch("http://localhost:8000/balance_transfer", {
+                    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/balance_transfer`, {
                         method: "POST",
                         body: JSON.stringify(balanceInfo),
                         headers: {
@@ -68,6 +65,7 @@ const BalanceTransfer = () => {
                         .then(res => res.json())
                         .then(data => {
                             if (data.data) {
+                                setBalanceInfo({})
                                 const updatedUser = { ...data.data }
                                 setUser(updatedUser);
                             }
@@ -79,18 +77,22 @@ const BalanceTransfer = () => {
                                 }, 7000);
                             }
                             if (data.failed) {
+                                setBalanceInfo(requestInput)
                                 setMessage({ failed: data.failed });
                                 setTimeout(() => {
                                     setMessage({})
                                 }, 7000);
                             }
                         })
+                        setBalanceInfo({})
                 } else {
                     setMessage({ failed: "The provided ammount are higher than your balance." })
                 }
             } else {
-                setMessage({ failed: "sorry, you can't send money less then 10tk." })
+                setMessage({ failed: "Phone Number & Amount must be number." })
             }
+        } else {
+            setMessage({ failed: "Please fill the form & try again" })
         }
     };
 

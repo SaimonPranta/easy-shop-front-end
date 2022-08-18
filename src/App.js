@@ -8,11 +8,13 @@ function App() {
   const [user, setUser] = useState({})
 
 
+  
+
 
   useEffect(() => {
     const cooki = document.cookie.split("=")[1];
     if (cooki) {
-      fetch("http://localhost:8000/user", {
+      fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/user`, {
         method: "GET",
         headers: {
           'Content-type': 'application/json; charset=UTF-8',

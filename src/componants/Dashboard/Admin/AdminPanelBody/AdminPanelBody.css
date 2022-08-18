@@ -43,6 +43,16 @@ tbody .admin-approved a{
 tbody .admin-pending a{
     background-color: blue;
 }
+.admin-sub-menu{
+    max-width: 100vw !important;;
+}
+.admin-section{
+    max-width: 100vw !important;
+}
+
+.admin-section .withdraw-notice p {
+    color: #fff !important;
+}
 
 
 

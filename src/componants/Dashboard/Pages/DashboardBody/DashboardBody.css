@@ -7,7 +7,6 @@
 .balnce-section div p{
     margin: 0;
     padding: 0;
-
 }
 .balnce-section div:nth-child(1){
     /* background-color: #8C43AC !important; */
@@ -100,6 +99,16 @@
 .balnce-section span{
     font-size: 1.3rem;
 }
+.dashbord-active-btn{
+   display: flex;
+   margin-top: 10px;
+   align-items: center;
+   justify-content: center;
+   font-size: .8rem !important;
+}
+.dashbord-active-btn{
+    font-size: .8rem !important;
+ }
 @media only screen and (min-width:200px) and (max-width:1000px) { 
     .balance-transfer-section {
         width: 85% !important;
@@ -191,6 +200,9 @@
     .balnce-section div p{
         font-size: .9rem;
     }
+    .balnce-section div p span{
+        font-size: 1.2rem;
+    }
 }
 @media only screen and (min-width:200px) and (max-width:550px) { 
     .balance-transfer-section {
@@ -211,9 +223,7 @@
     .balnce-section div p{
         font-size: .77rem;
     }
-}
-@media only screen and (min-width:200px) and (max-width:430px) { 
-    .balnce-section div p{
-        font-size: .6rem;
+    .balnce-section div p span{
+        font-size: 1rem;
     }
 }

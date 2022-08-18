@@ -36,7 +36,7 @@ const DashboardMenu = () => {
         <>
             <ul className=''>
                 <li><NavLink to='/dashboard'><FaQrcode /><span > Dashboard</span></NavLink></li>
-                <li><FaUserAlt /> <span onClick={handleSubMenu}>Profile</span>
+                <li><FaUserAlt /> <span onClick={handleSubMenu}> Profile</span>
                     <ul className='sub-menu' id='sub-menu'>
                         <li><NavLink to='/porfile/update_profile'><span><FaUserEdit /> Update Profile</span></NavLink></li>
                         <li><NavLink to='/porfile/change_password'><span> <FaUnlockAlt /> Change Password</span></NavLink></li>

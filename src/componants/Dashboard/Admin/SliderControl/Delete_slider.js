@@ -7,9 +7,7 @@ const Delete_slider = ({controler}) => {
     const [message, setMessage] = useState({})
 
     useEffect(() => {
-        console.log("hit from slider")
-
-        fetch('http://localhost:8000/slider_provider')
+        fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/slider_provider`)
             .then(res => res.json())
             .then(data => {
                 setSlider(data)
@@ -21,7 +19,7 @@ const Delete_slider = ({controler}) => {
         setMessage({})
 
         if (id) {
-            fetch(`http://localhost:8000/slider_img_delete?id=${id}`, {
+            fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/slider_img_delete?id=${id}`, {
                 method: "DELETE",
                 headers: {
                     'content-type': 'application/json; charset=UTF-8',
@@ -49,11 +47,11 @@ const Delete_slider = ({controler}) => {
                     return <div key={index} >
                         <img
                             className="d-block w-100"
-                            src={"http://localhost:8000/" + image.img}
+                            src={`${process.env.REACT_APP_SERVER_HOST_URL}/${image.img}`}
                             alt={"slider" + index}
                         />
-                        <div class="btn-group">
-                            <button class="btn btn-primary active" aria-current="page" onClick={(e) => sliderImgDelet(e, image._id)}>Delete</button>
+                        <div className="btn-group">
+                            <button className="btn btn-primary active" aria-current="page" onClick={(e) => sliderImgDelet(e, image._id)}>Delete</button>
                         </div>
                     </div>
                 })

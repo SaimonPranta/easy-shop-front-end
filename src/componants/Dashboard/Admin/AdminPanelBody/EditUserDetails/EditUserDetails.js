@@ -17,7 +17,7 @@ const EditUserDetails = () => {
 
   useEffect(() => {
     if (cooki) {
-      fetch(`http://localhost:8000/user/userDetails?id=${id}`, {
+      fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/user/userDetails?id=${id}`, {
         method: "GET",
         headers: {
           'Content-type': 'application/json; charset=UTF-8',
@@ -41,8 +41,7 @@ const EditUserDetails = () => {
 
   const handleFromSubmit = (e) => {
     e.preventDefault()
-    console.log(updateUser)
-    fetch('http://localhost:8000/admin/update_user', {
+    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/admin/update_user`, {
       method: "POST",
       body: JSON.stringify(updateUser),
       headers: {
@@ -88,7 +87,7 @@ const EditUserDetails = () => {
                   <li>Rank:<span> <input type="text" name="rank" value={currentUsr.rank ? currentUsr.rank : ""} /></span></li>
                   <li>Password:<span> <input type="password" name="password" value={currentUsr.password ? currentUsr.password : ""} onChange={fromInputHandler} /> </span></li>
                  
-                  <li> <input type="submit" class="btn btn-primary btn-md m-auto" value="Submit" /></li>
+                  <li> <input type="submit" className="btn btn-primary btn-md m-auto" value="Submit" /></li>
                 </ul>
                 <div className='resposeContainer'>
                   {

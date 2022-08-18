@@ -11,7 +11,7 @@ const PerGenarationList = () => {
     useEffect(() => {
         const cooki = document.cookie.split("=")[1];
         if (cooki) {
-            fetch(`http://localhost:8000/generation?generation=${generation}`, {
+            fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/generation?generation=${generation}`, {
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -47,7 +47,7 @@ const PerGenarationList = () => {
                                 {
                                     userList.length && userList.map((user) => {
                                         count++
-                                        return <tr>
+                                        return <tr key={count}>
                                             <td>{count}</td>
                                             <td>{user.firstName} {user.lastName}</td>
                                             <td>{user.phoneNumber}</td>

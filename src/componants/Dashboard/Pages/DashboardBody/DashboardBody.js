@@ -23,7 +23,7 @@ const DashboardBody = () => {
     let totalPendingWithdraw = 0
 
     useEffect(() => {
-        fetch(`http://localhost:8000/notice`)
+        fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/notice`)
             .then(res => res.json())
             .then(data => {
                 if (data.data) {
@@ -59,7 +59,7 @@ const DashboardBody = () => {
         if (noticeInput) {
             setNoticeInput("   ")
         }
-        fetch('http://localhost:8000/notice', {
+        fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/notice`, {
             method: "POST",
             body: JSON.stringify({ notice: noticeInput ? noticeInput : " " }),
             headers: {
@@ -81,7 +81,7 @@ const DashboardBody = () => {
 
     const activeHandler = () => {
         if (user._id) {
-            fetch(`http://localhost:8000/activation?id=${user._id}`, {
+            fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/activation?id=${user._id}`, {
                 method: "POST",
                 body: JSON.stringify({}),
                 headers: {
@@ -91,7 +91,6 @@ const DashboardBody = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log(data)
                     if (data.data) {
                         setUser(data)
                     }
@@ -112,12 +111,12 @@ const DashboardBody = () => {
 
                 }
                 {
-                    user && user.role && <>
+                    user && user.role === "admin" && <>
                         <div className='text-black withdraw-notice notice-section'>
                             <input type="text" className="form-control m-auto" aria-label="Text input with radio button" onChange={(e) => setNoticeInput(e.target.value)} value={noticeInput} placeholder="Type notice here..." />
 
                             <div className='d-flex'>
-                                <button type="button" onClick={addNotice} class="btn btn-primary btn m-auto">Submit Notice</button>
+                                <button type="button" onClick={addNotice} className="btn btn-primary btn m-auto">Submit Notice</button>
                             </div>
                         </div>
                         <div className='resposeContainer' >
@@ -135,14 +134,14 @@ const DashboardBody = () => {
                     <p>{user && user.firstName + " " + user.lastName}</p>
                     <h5>{user && user.firstName + " " + user.lastName} {user.isActive ? "Your account is activated, you can start work now." : "Your account is not activate, you can't start work now."}</h5>
                     {
-                        !user.isActive && user.balance < 50 ? <div class="btn-group p-0" role="group" aria-label="Basic example">
-                            <Link to="/balance_request" type="button" class="btn btn-primary">Balance Request Now</Link>
-                        </div> : null
+                        !user.isActive && user.balance < 50 ? <sapn className="btn-group p-0 m-auto  dashbord-active-btn" role="group" aria-label="Basic example">
+                            <Link to="/balance_request" type="button" className="btn btn-primary">Balance Request Now</Link>
+                        </sapn> : null
                     }
                     {
-                        !user.isActive && user.balance >= 50 ? <div class="btn-group p-0" role="group" aria-label="Basic example">
-                            <button type="button" class="btn btn-primary" onClick={activeHandler}>Active Now</button>
-                        </div> : null
+                        !user.isActive && user.balance >= 50 ? <sapn className="btn-group p-0 m-auto dashbord-active-btn" role="group" aria-label="Basic example">
+                            <button type="button" className="btn btn-primary" onClick={activeHandler}>Active Now</button>
+                        </sapn> : null
                     }
                     <div>
                         <p>{user && user.firstName + " " + user.lastName}</p>
@@ -156,7 +155,7 @@ const DashboardBody = () => {
                     <div>
                         <FaRegMoneyBillAlt />
                         <p>INCOME BALANCE</p>
-                        <p><span>৳</span> {user && user.totalIncome}</p>
+                        <p><span>৳</span> {user && user.balance}</p>
                     </div>
                     <div>
                         <FaRegMoneyBillAlt />

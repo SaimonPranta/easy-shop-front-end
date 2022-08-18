@@ -4,7 +4,6 @@ import { allUserContext } from '../AdminPanelBody/AdminPanelBody';
 import './PendingBalanceReq.css';
 const PendingBalanceReq = () => {
     const [allUser, setAllUser] = useContext(allUserContext)
-    const [currentUser, setCurrentUser] = useState([]);
     const [condition, setCondition] = useState({
         apporoval: false
     })
@@ -62,7 +61,7 @@ const PendingBalanceReq = () => {
 
     const balanceRequestApproval = (e, id, requestID, amount) => {
         if (id && requestID, amount) {
-            fetch("http://localhost:8000/blanace_approval", {
+            fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/blanace_approval`, {
                 method: "POST",
                 body: JSON.stringify({
                     id,
@@ -77,7 +76,7 @@ const PendingBalanceReq = () => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.sucess) {
-                        e.target.parentNode.style.display = "none"
+                        e.target.parentNode.parentNode.style.display = "none"
                     }
                 })
         }
@@ -85,7 +84,7 @@ const PendingBalanceReq = () => {
 
     const balanceRequestDecline = (e, id, requestID) => {
         if (id && requestID) {
-            fetch("http://localhost:8000/balance_request_decline", {
+            fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/balance_request_decline`, {
                 method: "POST",
                 body: JSON.stringify({
                     id,
@@ -99,7 +98,7 @@ const PendingBalanceReq = () => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.sucess) {
-                        e.target.parentNode.style.display = "none"
+                        e.target.parentNode.parentNode.style.display = "none"
                     }
 
                 })
@@ -119,8 +118,8 @@ const PendingBalanceReq = () => {
                     <p>Total Pending Balance Request {userCount.pending} </p>
                     <p>Total Pending Balance {userCount.pendipendingBalanceng} Tk</p>
 
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary" onClick={requestHandle}>See Approved Request</button>
+                    <div className="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" className="btn btn-primary" onClick={requestHandle}>See Approved Request</button>
                     </div>
                     <table>
                         <thead>
@@ -132,7 +131,7 @@ const PendingBalanceReq = () => {
                                 <th>Provider</th>
                                 <th>Amount</th>
                                 <th>Date</th>
-                                <th colspan="2">Option</th>
+                                <th colSpan="2">Option</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -142,7 +141,7 @@ const PendingBalanceReq = () => {
                                         return user.balanceRequestInfo.map((reqestItem) => {
                                             if (!reqestItem.apporoval) {
                                                 count++
-                                                return <tr>
+                                                return <tr key={count}>
                                                     <td>{count}</td>
                                                     <td>{user.firstName} {user.lastName}</td>
                                                     <td>{user.phoneNumber}</td>
@@ -151,7 +150,7 @@ const PendingBalanceReq = () => {
                                                     <td>{reqestItem.amount}</td>
                                                     <td>{dateFormater(reqestItem.date)}</td>
                                                     <td className='approved-ad'><button onClick={(e) => balanceRequestApproval(e, user._id, reqestItem.requestID, reqestItem.amount)}>Approved</button></td>
-                                                    <td className='pending-ad'><button onClick={(e) => balanceRequestDecline(e, user._id, reqestItem.requestID)}>Pending</button></td>
+                                                    <td className='pending-ad'><button onClick={(e) => balanceRequestDecline(e, user._id, reqestItem.requestID)}>Decline</button></td>
                                                 </tr>
                                             }
                                         })
@@ -169,8 +168,8 @@ const PendingBalanceReq = () => {
                     <p>Total Approved Balance Request {userCount.apporoval} </p>
                     <p>Total Approved Balance {userCount.approvalBalance} Tk</p>
 
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary" onClick={requestHandle}>See Pending Request</button>
+                    <div className="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" className="btn btn-primary" onClick={requestHandle}>See Pending Request</button>
                     </div>
                     <table>
                         <thead>
@@ -191,7 +190,7 @@ const PendingBalanceReq = () => {
                                         return user.balanceRequestInfo.map((reqestItem) => {
                                             if (reqestItem.apporoval) {
                                                 count++
-                                                return <tr>
+                                                return <tr key={count}>
                                                     <td>{count}</td>
                                                     <td>{user.firstName} {user.lastName}</td>
                                                     <td>{user.phoneNumber}</td>

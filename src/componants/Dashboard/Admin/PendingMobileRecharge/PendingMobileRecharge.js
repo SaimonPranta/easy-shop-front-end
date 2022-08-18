@@ -64,7 +64,7 @@ const PendingMobileRecharge = () => {
     const mobileRechargeApproval = (e, id, requestID, amount) => {
         setMessage({})
         if (id && requestID, amount) {
-            fetch("http://localhost:8000/mobile_recharge_approval", {
+            fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/mobile_recharge_approval`, {
                 method: "POST",
                 body: JSON.stringify({
                     id,
@@ -80,7 +80,7 @@ const PendingMobileRecharge = () => {
                 .then(data => {
                     if (data.sucess) {
                         setMessage({})
-                        e.target.parentNode.style.display = "none"
+                        e.target.parentNode.parentNode.style.display = "none"
                     }
                     if (data.failed) {
                         setMessage({failed: data.failed})
@@ -94,7 +94,7 @@ const PendingMobileRecharge = () => {
 
     const mobileRechargeDecline = (e, id, requestID) => {
         if (id && requestID) {
-            fetch("http://localhost:8000/mobile_recharge_decline", {
+            fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/mobile_recharge_decline`, {
                 method: "POST",
                 body: JSON.stringify({
                     id,
@@ -108,7 +108,7 @@ const PendingMobileRecharge = () => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.sucess) {
-                        e.target.parentNode.style.display = "none"
+                        e.target.parentNode.parentNode.style.display = "none"
                     }
                     
                  })
@@ -158,7 +158,7 @@ const PendingMobileRecharge = () => {
                                                     <td>{reqestItem.amount}</td>
                                                     <td>{dateFormater(reqestItem.date)}</td>
                                                     <td className='approved-ad'><button onClick={(e) => mobileRechargeApproval(e, user._id, reqestItem.requestID, reqestItem.amount)}>Approve</button></td>
-                                                    <td className='pending-ad'><button  onClick={ (e) => mobileRechargeDecline(e, user._id, reqestItem.requestID)}>Pending</button></td>
+                                                    <td className='pending-ad'><button  onClick={ (e) => mobileRechargeDecline(e, user._id, reqestItem.requestID)}>Decline</button></td>
                                                 </tr>
                                             }
                                         })

@@ -15,7 +15,7 @@ const ChangePassword = () => {
         e.preventDefault()
         if (user.oldPassword && user.newPassword && user.confirmPassword) {
             if (user.newPassword == user.confirmPassword) {
-                fetch("http://localhost:8000/passwordReset", {
+                fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/passwordReset`, {
                     method: "PATCH",
                     body: JSON.stringify(user),
                     headers: {

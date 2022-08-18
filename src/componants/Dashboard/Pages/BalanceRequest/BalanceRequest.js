@@ -35,29 +35,15 @@ const BalanceRequest = () => {
         const inputFildName = e.target.name;
         const inputFildValue = e.target.value;
         if (inputFildName === "amount") {
-            if (Math.floor(inputFildValue)) {
-                const floorValue = Math.floor(inputFildValue)
-                currentInput[inputFildName] = floorValue
-                setRequestInfo(currentInput)
-            } else {
-                setMessage({ failed: "Sorry, amount must be Number" })
-                setTimeout(() => {
-                    setMessage({})
-                }, 700);
-            }
+
+            const floorValue = Math.floor(inputFildValue)
+            currentInput[inputFildName] = floorValue
+            setRequestInfo(currentInput)
+
 
         } else if (inputFildName === "number") {
-            if (Math.floor(inputFildValue)) {
-                const floorValue = Math.floor(inputFildValue)
-                currentInput[inputFildName] = floorValue
-                setRequestInfo(currentInput)
-            } else {
-                setMessage({ failed: "Sorry, phone number must be Number" })
-                setTimeout(() => {
-                    setMessage({})
-                }, 700);
-            }
-
+            currentInput[inputFildName] = inputFildValue
+            setRequestInfo(currentInput)
         } else {
             currentInput[inputFildName] = inputFildValue
             setRequestInfo(currentInput)
@@ -67,47 +53,57 @@ const BalanceRequest = () => {
 
     const balanceTransferHandle = (e) => {
         e.preventDefault();
+        const currentInputContainer = { ...requestInfo }
         const providerValue = document.getElementById("porvider").value;
         if (!requestInfo.provider) {
             requestInfo["provider"] = providerValue;
         }
         if (requestInfo.provider && requestInfo.amount && requestInfo.number) {
-            if (requestInfo.amount >= 10) {
-                setMessage({})
-                fetch("http://localhost:8000/balance_request", {
-                    method: "POST",
-                    body: JSON.stringify(requestInfo),
-                    headers: {
-                        'content-type': 'application/json; charset=UTF-8',
-                        authorization: `Bearer ${cooki}`
-                    }
-                })
-                    .then(res => res.json())
-                    .then(data => {
-                        if (data.data) {
-                            const updatedUser = { ...data.data }
-                            setUser(updatedUser);
-                        }
-                        if (data.sucess) {
-                            setRequestInfo({})
-                            setMessage({ sucess: data.sucess });
-                            setTimeout(() => {
-                                setMessage({})
-                            }, 7000);
-                        }
-                        if (data.failed) {
-                            setMessage({ failed: data.failed });
-                            setTimeout(() => {
-                                setMessage({})
-                            }, 7000);
+            if (Math.floor(requestInfo.amount) && Math.floor(requestInfo.number)) {
+                if (requestInfo.amount >= 10) {
+                    setMessage({})
+                    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/balance_request`, {
+                        method: "POST",
+                        body: JSON.stringify(requestInfo),
+                        headers: {
+                            'content-type': 'application/json; charset=UTF-8',
+                            authorization: `Bearer ${cooki}`
                         }
                     })
+                        .then(res => res.json())
+                        .then(data => {
+                            if (data.data) {
+                                const updatedUser = { ...data.data }
+                                setUser(updatedUser);
+                            }
+                            if (data.sucess) {
+                                setRequestInfo({})
+                                setMessage({ sucess: data.sucess });
+                                setTimeout(() => {
+                                    setMessage({})
+                                }, 7000);
+                            }
+                            if (data.failed) {
+                                setRequestInfo(currentInputContainer)
+                                setMessage({ failed: data.failed });
+                                setTimeout(() => {
+                                    setMessage({})
+                                }, 7000);
+                            }
+                        })
+                        setRequestInfo({})
 
+                } else {
+                    setMessage({ failed: "Sorry, you can't send money less then 10tk." })
+                    setTimeout(() => {
+                        setMessage({})
+                    }, 7000);
+                }
             } else {
-                setMessage({ failed: "Sorry, you can't send money less then 10tk." })
+                setMessage({ failed: "Sorry, Amount and Phone Number must be Number" })
                 setTimeout(() => {
                     setMessage({})
-                }, 7000);
+                }, 700);
             }
         } else {
             setMessage({ failed: "Please fill the form and try angain" })
@@ -204,7 +200,7 @@ const BalanceRequest = () => {
                                         <td>{reqInfo.amount}</td>
                                         <td>{reqInfo.date}</td>
                                         {
-                                            reqInfo.apporoval  ? <td className='approved'><button>Approved</button></td> : <td className='pending'><button>Pending</button></td>
+                                            reqInfo.apporoval ? <td className='approved'><button>Approved</button></td> : <td className='pending'><button>Pending</button></td>
                                         }
 
                                     </tr>

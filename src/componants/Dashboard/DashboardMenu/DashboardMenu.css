@@ -61,8 +61,27 @@
     .balance-transfer-section form input[type=submit] {
         width: 180px !important;
     }
-    form label{
-        font-size: .88rem !important;
+        
+    .balance-transfer-section form input {
+        outline: none;
+        border: none;
+        border-radius: 3px;
+        width: 100%;
+        display: block;
+        color: #000;
+        margin: 3px 0px 3px 8px !important;
+    }
+    .balance-transfer-section form select {
+        outline: none;
+        border: none;
+        border-radius: 3px;
+        width: 100%;
+        display: block;
+        color: #000;
+        margin: 3px 0px 3px 10px !important;
+    }
+    .balance-transfer-section form input[type="submit"] {
+        margin: auto !important;
     }
 }
 @media only screen and (min-width:200px) and (max-width:630px) { 
@@ -103,34 +122,6 @@
      .dashboard-menu ul li a{
         display: flex;
      }
-    /* .dashboard-menu {
-        display: none;
-    }
-    .active-sub-menu .dashboard-menu {
-        display: block !important;
-        width: 100vw;
-        height: 100%;
-    } */
-    /* .active-sub-menu .dashbord-main-body-container{
-        display: none !important;
-    } */
    
 }
-
-/* @media only screen and (min-width:200px) and (max-width:490px) { 
-    .dashboard-container{
-        display: grid;
-        grid-template-columns: .66fr 1fr ;
-        grid-row-gap: 5px;
-        grid-column-gap: 15px;
-    }
-}
-@media only screen and (min-width:200px) and (max-width:390px) { 
-    .dashboard-container{
-        display: grid;
-        grid-template-columns: .72fr 1fr;
-        grid-row-gap: 5px;
-        grid-column-gap: 15px;
-    }
-} */
 

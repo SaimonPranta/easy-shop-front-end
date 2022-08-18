@@ -28,7 +28,7 @@ const Registation = () => {
         if (inputUser.firstName && inputUser.lastName && inputUser.phoneNumber && inputUser.phoneNumber && inputUser.referNumber) {
             if (Math.floor(inputUser.phoneNumber)) {
                 if (inputUser.password === inputUser.confirmPassword) {
-                    fetch('http://localhost:8000/user', {
+                    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/user`, {
                         method: "POST",
                         body: JSON.stringify(inputUser),
                         headers: {
@@ -88,11 +88,12 @@ const Registation = () => {
                     <input type="submit" value="Register account" />
                     <div className='resposeContainer'>
                         {
-                            !message.failed && message.sucess && <p className='sucess'>{message.sucess}</p>
+                            !message.failed && message.sucess && <p className='sucess ' style={{color: "blue"}} >{message.sucess}</p>
                         }
                         {
-                            !message.sucess && message.failed && <p className='warning'>{message.failed}</p>
+                            !message.sucess && message.failed && <p className='warning ' style={{color: "blue"}}  >{message.failed}</p>
                         }
+                        
                     </div>
                     <div className='form-navigation d-flex'><p>Already have an account? <Link to="/login"><span style={{ color: "blue", cursor: "pointer" }}>Login</span></Link></p></div>
                 </form>

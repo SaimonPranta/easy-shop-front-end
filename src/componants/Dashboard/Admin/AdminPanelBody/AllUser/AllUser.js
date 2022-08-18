@@ -57,7 +57,6 @@ const AllUser = () => {
         }
     }
 
-console.log(userCount)
 
     return (
         <div>
@@ -70,8 +69,8 @@ console.log(userCount)
                     <p>Total Unactive User {userCount.unActive}</p>
                 </div>
             </div>
-            <div class="input-group admin-search">
-                <input type="text" class="form-control" aria-label="Text input with radio button" onChange={seach_handler} placeholder='Search by Phone Number' />
+            <div className="input-group admin-search">
+                <input type="text" className="form-control" aria-label="Text input with radio button" onChange={seach_handler} placeholder='Search by Phone Number' />
             </div>
             <table>
                 <thead>
@@ -82,14 +81,14 @@ console.log(userCount)
                         <th>Balance</th>
                         <th>Shoping Balance</th>
                         <th>Status</th>
-                        <th colspan="2">Option</th>
+                        <th colSpan="2">Option</th>
                     </tr>
                 </thead>
                 <tbody>
                     {
                         allUserContaienr && allUserContaienr.length > 0 && allUserContaienr.map((user) => {
                             count++
-                            return <tr>
+                            return <tr key={count}>
                                 <td>{count}</td>
                                 <td>{user.firstName} {user.lastName}</td>
                                 <td>{user.phoneNumber}</td>

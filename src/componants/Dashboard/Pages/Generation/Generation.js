@@ -14,7 +14,7 @@ const Generation = () => {
     useEffect(() => {
         const cooki = document.cookie.split("=")[1];
         if (cooki) {
-            fetch("http://localhost:8000/generation_user", {
+            fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/generation_user`, {
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -58,7 +58,7 @@ const Generation = () => {
         }
     }
 
-    console.log(allUser[0])
+
     return (
         <div className='generation-section m-3 text-white'>
             <div className='generation-top-section'>
@@ -68,11 +68,11 @@ const Generation = () => {
             </div>
             {
                 !condition.search ? <div className='d-flex'>
-                    <button type="button" onClick={ElementControl} class="btn btn-primary btn m-auto">Generation Search User</button>
+                    <button type="button" onClick={ElementControl} className="btn btn-primary btn m-auto">Generation Search User</button>
                 </div> : <>
-                    <div class="input-group admin-search">
+                    <div className="input-group admin-search">
                         <div className='d-flex'>
-                            <button type="button" onClick={ElementControl} class="btn btn-primary btn m-auto">Back to Generation</button>
+                            <button type="button" onClick={ElementControl} className="btn btn-primary btn m-auto">Back to Generation</button>
                         </div>
                         <input type="text" className="form-control m-auto" aria-label="Text input with radio button" onChange={seach_handler} placeholder='Search by Phone Number' />
                     </div>

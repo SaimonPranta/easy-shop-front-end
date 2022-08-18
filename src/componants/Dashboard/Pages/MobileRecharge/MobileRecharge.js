@@ -40,53 +40,61 @@ const MobileRecharge = () => {
 
     const mobileRechargeHandler = (e) => {
         e.preventDefault();
+        const currnetInputStore = {...input}
         const amountValue = document.getElementById("amount").value;
         if (!input.amount) {
             input["amount"] = amountValue;
         }
         if (input.simProvider && input.amount && input.number && input.simStatus) {
-            if (Math.floor(input.amount) <= Math.floor(user.balance)) {
-                setMessage({})
-                if (input.amount >= 10) {
+            if (Math.floor(input.number)) {
+                if (Math.floor(input.amount) <= Math.floor(user.balance)) {
                     setMessage({})
-                    fetch("http://localhost:8000/mobile_rechare", {
-                        method: "POST",
-                        body: JSON.stringify(input),
-                        headers: {
-                            'content-type': 'application/json; charset=UTF-8',
-                            authorization: `Bearer ${cooki}`
-                        }
-                    })
-                        .then(res => res.json())
-                        .then(data => {
-                            if (data.data) {
-                                const updatedUser = { ...data.data }
-                                setUser(updatedUser);
-                            }
-                            if (data.sucess) {
-                                setInput({})
-                                setMessage({ sucess: data.sucess });
-                                setTimeout(() => {
-                                    setMessage({})
-                                }, 7000);
-                            }
-                            if (data.failed) {
-                                setMessage({ failed: data.failed });
-                                setTimeout(() => {
-                                    setMessage({})
-                                }, 7000);
+                    if (input.amount >= 10) {
+                        setMessage({})
+                        fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/mobile_rechare`, {
+                            method: "POST",
+                            body: JSON.stringify(input),
+                            headers: {
+                                'content-type': 'application/json; charset=UTF-8',
+                                authorization: `Bearer ${cooki}`
                             }
                         })
-
+                            .then(res => res.json())
+                            .then(data => {
+                                setInput({})
+                                if (data.data) {
+                                    const updatedUser = { ...data.data }
+                                    setUser(updatedUser);
+                                }
+                                if (data.sucess) {
+                                    setInput({})
+                                    setMessage({ sucess: data.sucess });
+                                    setTimeout(() => {
+                                        setMessage({})
+                                    }, 7000);
+                                }
+                                if (data.failed) {
+                                    setInput(currnetInputStore)
+                                    setMessage({ failed: data.failed });
+                                    setTimeout(() => {
+                                        setMessage({})
+                                    }, 7000);
+                                }
+                            })
+                            setInput({})
+                    } else {
+                        setMessage({ failed: "Sorry, you can't send money less then 10tk." })
+                        setTimeout(() => {
+                            setMessage({})
+                        }, 7000);
+                    }
                 } else {
-                    setMessage({ failed: "Sorry, you can't send money less then 10tk." })
-                    setTimeout(() => {
-                        setMessage({})
-                    }, 7000);
+                    setMessage({ failed: "Sorry, you can't request for more than your balance." })
                 }
             } else {
-                setMessage({ failed: "Sorry, you can't request for more than your balance." })
+                setMessage({ failed: "Phone Number must be Number." })
             }
+
 
         } else {
             setMessage({ failed: "Please fill the form and try angain" })
@@ -97,7 +105,6 @@ const MobileRecharge = () => {
 
     };
 
-    console.log(input)
 
     return (
         <div className='text-white'>
@@ -196,7 +203,7 @@ const MobileRecharge = () => {
                                         <td>{info.amount}</td>
                                         <td>{info.date}</td>
                                         {
-                                             info.apporoval  ? <td className='approved'><button>Approved</button></td> : <td className='pending'><button>Pending</button></td>
+                                            info.apporoval ? <td className='approved'><button>Approved</button></td> : <td className='pending'><button>Pending</button></td>
                                         }
                                     </tr>
                                 })

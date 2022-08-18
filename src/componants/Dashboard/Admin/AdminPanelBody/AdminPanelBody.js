@@ -22,7 +22,7 @@ const AdminPanelBody = () => {
     useEffect(() => {
         const cooki = document.cookie.split("=")[1];
         if (cooki) {
-            fetch("http://localhost:8000/admin/users", {
+            fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/admin/users`, {
                 method: "GET",
                 headers: {
                     'Content-type': 'application/json; charset=UTF-8',
@@ -43,7 +43,7 @@ const AdminPanelBody = () => {
     return (
         <allUserContext.Provider value={[allUser, setAllUser]}>
             <div className='text-white'>
-                <div>
+                <div className='admin-sub-menu'>
                     <Nav fill variant="tabs" defaultActiveKey="/home">
                         <Nav.Item>
                             <Nav.Link onClick={() => setCondition(1)} >Users</Nav.Link>

@@ -4,7 +4,6 @@ import { allUserContext } from '../AdminPanelBody/AdminPanelBody';
 
 const PendingWithdraw = () => {
     const [allUser, setAllUser] = useContext(allUserContext)
-    const [currentUser, setCurrentUser] = useState([]);
     const [message, setMessage] = useState({})
     const [condition, setCondition] = useState({
         apporoval: false
@@ -64,7 +63,7 @@ const PendingWithdraw = () => {
     const withdrawRequestApproval = (e, id, requestID, amount) => {
         setMessage({})
         if (id && requestID, amount) {
-            fetch("http://localhost:8000/withdraw_request_approval", {
+            fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/withdraw_request_approval`, {
                 method: "POST",
                 body: JSON.stringify({
                     id,
@@ -80,7 +79,7 @@ const PendingWithdraw = () => {
                 .then(data => {
                     if (data.sucess) {
                         setMessage({})
-                        e.target.parentNode.style.display = "none"
+                        e.target.parentNode.parentNode.style.display = "none"
                     }
                     if (data.failed) {
                         setMessage({ failed: data.failed })
@@ -94,7 +93,7 @@ const PendingWithdraw = () => {
 
     const withdrawRequestDecline = (e, id, requestID) => {
         if (id && requestID) {
-            fetch("http://localhost:8000/withdraw_request_decline", {
+            fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/withdraw_request_decline`, {
                 method: "POST",
                 body: JSON.stringify({
                     id,
@@ -108,7 +107,7 @@ const PendingWithdraw = () => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.sucess) {
-                        e.target.parentNode.style.display = "none"
+                        e.target.parentNode.parentNode.style.display = "none"
                     }
 
                 })
@@ -123,8 +122,8 @@ const PendingWithdraw = () => {
                     <h4>Pending Withdraw Request</h4>
                     <p>Total Pending Withdraw Request {userCount.pending} </p>
                     <p>Total Pending Withdraw Balance {userCount.pendipendingBalanceng} Tk</p>
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary" onClick={requestHandle}>See Approved Request</button>
+                    <div className="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" className="btn btn-primary" onClick={requestHandle}>See Approved Request</button>
                     </div>
                     <div>
                         <p style={{ color: "yellow" }}>{message.failed ? message.failed : null}</p>
@@ -139,7 +138,7 @@ const PendingWithdraw = () => {
                                 <th>Provider</th>
                                 <th>Amount</th>
                                 <th>Date</th>
-                                <th colspan="2">Option</th>
+                                <th colSpan="2">Option</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -149,7 +148,7 @@ const PendingWithdraw = () => {
                                         return user.withdrawInfo.map((reqestItem) => {
                                             if (!reqestItem.apporoval) {
                                                 count++
-                                                return <tr>
+                                                return <tr key={count}>
                                                     <td>{count}</td>
                                                     <td>{user.firstName} {user.lastName}</td>
                                                     <td>{user.phoneNumber}</td>
@@ -158,7 +157,7 @@ const PendingWithdraw = () => {
                                                     <td>{reqestItem.amount}</td>
                                                     <td>{dateFormater(reqestItem.date)}</td>
                                                     <td className="approved-ad" > <button onClick={(e) => withdrawRequestApproval(e, user._id, reqestItem.requestID, reqestItem.amount)}>Approve</button></td>
-                                                    <td class="pending-ad" > <button onClick={(e) => withdrawRequestDecline(e, user._id, reqestItem.requestID)}>Decline</button></td>
+                                                    <td className="pending-ad" > <button onClick={(e) => withdrawRequestDecline(e, user._id, reqestItem.requestID)}>Decline</button></td>
                                                 </tr>
                                             }
                                         })
@@ -176,8 +175,8 @@ const PendingWithdraw = () => {
                     <p>Total Approved Withdraw Balance Request {userCount.apporoval} </p>
                     <p>Total Approved Withdraw Balance {userCount.approvalBalance} Tk</p>
 
-                    <div class="btn-group" role="group" aria-label="Basic example">
-                        <button type="button" class="btn btn-primary" onClick={requestHandle}>See Pending Request</button>
+                    <div className="btn-group" role="group" aria-label="Basic example">
+                        <button type="button" className="btn btn-primary" onClick={requestHandle}>See Pending Request</button>
                     </div>
                     <table>
                         <thead>
@@ -198,7 +197,7 @@ const PendingWithdraw = () => {
                                         return user.withdrawInfo.map((reqestItem) => {
                                             if (reqestItem.apporoval) {
                                                 count++
-                                                return <tr>
+                                                return <tr key={count}>
                                                     <td>{count}</td>
                                                     <td>{user.firstName} {user.lastName}</td>
                                                     <td>{user.phoneNumber}</td>

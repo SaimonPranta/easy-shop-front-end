@@ -17,14 +17,14 @@
     color: #000;
     /* border-bottom: 1.7px solid #C5C5C5; */
     border: 1.7px solid #C5C5C5;
-    border-radius: 15px;
+    border-radius: 4px;
     outline: yellow;
 }
 .authentication form label{
     display: block;
     margin: 10px;
     width: 100%;
-    padding: 3px 8px;
+    padding: 3px 4px 1px 4px;
     border:none;
     color: #000;
 }
@@ -47,10 +47,9 @@
     padding: 5px 0;
     font-weight: 500;
     border: none;
-    margin-top: 30px;
+    margin-top: 30px !important;
 }
 .socil-container{
-    /* border: 1px solid #ABABAB; */
     padding: 0 50px;
     border-radius: 10px;
     width: 570px;
@@ -106,17 +105,24 @@
     text-align:left;
 }
 .sucess{
-    color: green;
+    color: white;
 }
 .form-navigation a{
     text-decoration: none;
+}
+.resposeContainer{
+    display: block;
 }
 
 /* ========================================== */
 
 @media only screen and (min-width:200px) and (max-width:768px) {
+    .authentication form h6, p {
+        padding: 0 2px;
+    }
     .authentication form{
-        width: 400px;
+        width: 100% !important;
+        padding: 10px;
     }
     .socil-container{
         border-radius: 10px;
@@ -136,13 +142,19 @@
         right:0px;
     }
    .balance-transfer-section form input {
-        width: 100% !important;
+        width: 95% !important;
+        margin: auto !important;
+      }
+      .balance-transfer-section form label {
+        width: 95% !important;
+        margin: auto !important;
+        padding-left: 3px;
       }
     
 }
 @media only screen and (min-width:200px) and (max-width:576px) {
     .authentication form{
-        width: 70%;
+        width: 100%;
     }
     .authentication form h6{
         font-weight: 580;
@@ -155,11 +167,18 @@
     }
     .authentication form input{
         font-size: 14px;
-        width: 100% !important;
+        margin: auto !important;
+    }
+    .authentication form label{
+        font-size: 14px;
+        margin: auto !important;
     }
     
     .form-navigation{
         font-size: 12px;
+        height: 30px !important;
+        width: 100% !important;
+        background-color: red !important;
     }
     .remember-me{
         font-size: 14px;
