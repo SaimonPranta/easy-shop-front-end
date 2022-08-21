@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import "./PerGenarationList.css";
 import { useParams } from 'react-router-dom';
-import dateFormater from "../../../../../Functions/dateFormater";
 
 const PerGenarationList = () => {
     const { generation } = useParams();
@@ -53,7 +52,7 @@ const PerGenarationList = () => {
                                             <td>{user.phoneNumber}</td>
                                             <td>{user.referNumber}</td>
                                             <td>{user.rank}</td>
-                                            <td>{dateFormater(`${user.joinDate}`)}</td>
+                                            <td>{user.joinDate}</td>
                                         </tr>
                                     })
                                 }

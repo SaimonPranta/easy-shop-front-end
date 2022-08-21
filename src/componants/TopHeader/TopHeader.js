@@ -21,14 +21,11 @@ const TopHeader = () => {
     const [user, setUser] = useContext(userContext);
 
 
-    // const handleHelpSection = () => {
-    //     const helpSectiondiv = document.querySelector(".help-sub-section");
-    //     helpSectiondiv.classList.toggle("help-control");
-    // }
+
     return (
         <section className='container top-header'>
             <div className='row'>
-                <div className=' col-lg-8 col-12 d-flex justify-content-lg-start justify-content-center top-social'>
+                <div className=' col-lg-8 col-12 d-flex justify-content-lg-start justify-content-center top-social '>
                     {/* <div className='help-section'>
                         <span>Quick Guide</span>
                         <span onClick={handleHelpSection} className='help-menu'>  Help {downArro}</span>

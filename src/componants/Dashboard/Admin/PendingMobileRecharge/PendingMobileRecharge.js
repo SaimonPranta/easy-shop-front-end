@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import dateFormater from '../../../../Functions/dateFormater';
 import { allUserContext } from '../AdminPanelBody/AdminPanelBody';
 
 const PendingMobileRecharge = () => {
@@ -156,7 +155,7 @@ const PendingMobileRecharge = () => {
                                                     <td>{reqestItem.number}</td>
                                                     <td>{reqestItem.simProvider}</td>
                                                     <td>{reqestItem.amount}</td>
-                                                    <td>{dateFormater(reqestItem.date)}</td>
+                                                    <td>{reqestItem.date}</td>
                                                     <td className='approved-ad'><button onClick={(e) => mobileRechargeApproval(e, user._id, reqestItem.requestID, reqestItem.amount)}>Approve</button></td>
                                                     <td className='pending-ad'><button  onClick={ (e) => mobileRechargeDecline(e, user._id, reqestItem.requestID)}>Decline</button></td>
                                                 </tr>
@@ -205,7 +204,7 @@ const PendingMobileRecharge = () => {
                                                     <td>{reqestItem.number}</td>
                                                     <td>{reqestItem.simProvider}</td>
                                                     <td>{reqestItem.amount}</td>
-                                                    <td>{dateFormater(reqestItem.date)}</td>
+                                                    <td>{reqestItem.date}</td>
                                                 </tr>
                                             }
                                         })

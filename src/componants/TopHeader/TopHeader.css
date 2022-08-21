@@ -50,4 +50,10 @@
         flex-direction: column;
         align-items: center;
     }
+    .top-social a{
+        font-size: 1rem;
+    }
+    .top-header-user a{
+        font-size: 1rem;
+    }
 }

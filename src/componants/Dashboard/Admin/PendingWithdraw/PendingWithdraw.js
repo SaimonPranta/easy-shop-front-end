@@ -1,5 +1,4 @@
 import React, { useContext, useEffect, useState } from 'react';
-import dateFormater from '../../../../Functions/dateFormater';
 import { allUserContext } from '../AdminPanelBody/AdminPanelBody';
 
 const PendingWithdraw = () => {
@@ -155,7 +154,7 @@ const PendingWithdraw = () => {
                                                     <td>{reqestItem.number}</td>
                                                     <td>{reqestItem.porvider}</td>
                                                     <td>{reqestItem.amount}</td>
-                                                    <td>{dateFormater(reqestItem.date)}</td>
+                                                    <td>{reqestItem.date}</td>
                                                     <td className="approved-ad" > <button onClick={(e) => withdrawRequestApproval(e, user._id, reqestItem.requestID, reqestItem.amount)}>Approve</button></td>
                                                     <td className="pending-ad" > <button onClick={(e) => withdrawRequestDecline(e, user._id, reqestItem.requestID)}>Decline</button></td>
                                                 </tr>
@@ -204,7 +203,7 @@ const PendingWithdraw = () => {
                                                     <td>{reqestItem.number}</td>
                                                     <td>{reqestItem.porvider}</td>
                                                     <td>{reqestItem.amount}</td>
-                                                    <td>{dateFormater(reqestItem.date)}</td>
+                                                    <td>{reqestItem.date}</td>
                                                 </tr>
                                             }
                                         })

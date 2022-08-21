@@ -1,6 +1,5 @@
 import React, { useContext, useState } from 'react';
 import { userContext } from '../../../../App';
-import dateFormater from '../../../../Functions/dateFormater';
 import './Withdraw.css';
 
 const Withdraw = () => {
@@ -190,7 +189,7 @@ const Withdraw = () => {
                                             <td>{reqInfo.porvider}</td>
                                             <td>{reqInfo.number}</td>
                                             <td>{reqInfo.amount}</td>
-                                            <td>{dateFormater(reqInfo.date)}</td>
+                                            <td>{reqInfo.date}</td>
                                             {
                                                 reqInfo.apporoval ? <td className='approved'><button>Approved</button></td> : <td className='pending'><button>Pending</button></td>
                                             }

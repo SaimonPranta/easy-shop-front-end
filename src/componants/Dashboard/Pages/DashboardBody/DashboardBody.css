@@ -21,6 +21,9 @@
 .balnce-section div:nth-child(4){
     background-color:darkmagenta !important;
 }
+.balnce-section div:nth-child(5){
+    background-color:darkmagenta !important;
+}
 .balnce-section div:nth-child(1) svg{
     background-color: indigo !important;
 }
@@ -31,6 +34,9 @@
     background-color: darkmagenta !important;
 }
 .balnce-section div:nth-child(4) svg{
+    background-color:  darkmagenta!important;
+}
+.balnce-section div:nth-child(5) svg{
     background-color:  darkmagenta!important;
 }
 .balnce-section div svg{
@@ -164,9 +170,23 @@
     .sim-contianer div div{
         display: flex !important;
     }
-    .balance-transfer-section form  .sim-contianer div{
+    /* .balance-transfer-section form  .sim-contianer div{
         flex-direction: row;
         margin: 0px !important;
+    } */
+    .balance-transfer-section form  .sim-contianer div{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    .sim-provider-section div img {
+        height: 45px !important;
+        width: 45px !important;
+        margin: 0;
+        padding: 0;
+    }
+    .balance-transfer-section form  .sim-contianer div div{
+        display: flex !important;
+        flex-direction: column !important;
     }
     .balance-transfer-section form  .sim-conditon{
         flex-direction: row;
@@ -192,10 +212,10 @@
         font-size: .9rem;
     }
     .balance-transfer-section h4 {
-        font-size: .9rem !important;
+        /* font-size: .9rem !important; */
     }
     .balance-transfer-section marquee {
-        font-size: .83rem !important;
+        /* font-size: .83rem !important; */
     }
     .balnce-section div p{
         font-size: .9rem;
@@ -215,10 +235,10 @@
         font-size: .8rem;
     }
     .balance-transfer-section h4 {
-        font-size: .8rem !important;
+        /* font-size: .8rem !important; */
     }
     .balance-transfer-section marquee {
-        font-size: .78rem !important;
+        /* font-size: .78rem !important; */
     }
     .balnce-section div p{
         font-size: .77rem;

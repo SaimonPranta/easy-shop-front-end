@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import dateFormater from '../../../../../Functions/dateFormater';
 import './SearchGenarationMember.css';
 
 const SearchGenaration = ({ userr }) => {
@@ -31,7 +30,7 @@ const SearchGenaration = ({ userr }) => {
                                  <td>{user.firstName} {user.lastName}</td>
                                  <td>{user.phoneNumber}</td>
                                  <td>{user.referNumber}</td>
-                                 <td>{dateFormater(user.joinDate)}</td>
+                                 <td>{user.joinDate}</td>
                                  <td><Link to={`/user/${user._id}`}><button type="button" className="btn btn-primary btn-sm">View Details</button></Link></td>
                              </tr>
                          })

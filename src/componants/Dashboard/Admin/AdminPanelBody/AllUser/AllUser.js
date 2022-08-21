@@ -8,13 +8,18 @@ const AllUser = () => {
     const [userCount, setUserCount] = useState({
         total: 0,
         active: 0,
-        unActive: 0
+        unActive: 0,
+        activeUserBalance : 0,
+        activeUserIcomeBalance : 0
     })
 
     let count = 0;
     let totalUser = 0
     let totalActiveUser = 0
     let totalUnativeUser = 0
+    let totalActiveUserBalance = 0
+    let totalActiveUserIncomeBalance = 0
+
 
 
 
@@ -23,15 +28,25 @@ const AllUser = () => {
             totalUser = 0;
             totalActiveUser = 0;
             totalUnativeUser = 0
+            totalActiveUserBalance = 0;
+            totalActiveUserIncomeBalance = 0;
             allUser.map((user) => {
                 const currentUserCount = { ...userCount }
+
                 
                 totalUser++
                 totalActiveUser = user.isActive ? totalActiveUser + 1 : totalActiveUser
                 totalUnativeUser = !user.isActive ? totalUnativeUser + 1 : totalUnativeUser
+                totalActiveUserBalance =  user.isActive ? totalActiveUserBalance + user.balance : totalActiveUserBalance
+                totalActiveUserIncomeBalance =  user.isActive ? totalActiveUserIncomeBalance + user.totalIncome : totalActiveUserIncomeBalance
+
                 currentUserCount["total"] = totalUser
                 currentUserCount["active"] = totalActiveUser
                 currentUserCount["unActive"] = totalUnativeUser
+                currentUserCount["activeUserBalance"] = totalActiveUserBalance
+                currentUserCount["activeUserIcomeBalance"] = totalActiveUserIncomeBalance
+
+
 
                 setUserCount(currentUserCount)
                 return null
@@ -67,6 +82,10 @@ const AllUser = () => {
                     <p>Total Active User {userCount.active}</p>
 
                     <p>Total Unactive User {userCount.unActive}</p>
+                    <p>Total Active User Balance {userCount.activeUserBalance} Tk</p>
+                    <p>Total Active User Income Balance {userCount.activeUserIcomeBalance} Tk</p>
+
+
                 </div>
             </div>
             <div className="input-group admin-search">

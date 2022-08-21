@@ -48,10 +48,10 @@ const BalanceTransfer = () => {
 
     const balanceTransferHandle = (e) => {
         e.preventDefault();
-        const requestInput = {...balanceInfo}
+        const requestInput = { ...balanceInfo }
         if (balanceInfo.selectUser && balanceInfo.amount) {
             if (Math.floor(balanceInfo.selectUser) && Math.floor(balanceInfo.amount)) {
-                if (balanceInfo.amount >= 10) {
+                if (balanceInfo.amount >= 20) {
                     // if (user.balance >= balanceInfo.amount) {
                     setMessage({})
                     fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/balance_transfer`, {
@@ -84,9 +84,9 @@ const BalanceTransfer = () => {
                                 }, 7000);
                             }
                         })
-                        setBalanceInfo({})
+                    setBalanceInfo({})
                 } else {
-                    setMessage({ failed: "The provided ammount are higher than your balance." })
+                    setMessage({ failed: "Sorry, you can to tranfer lass then 20tk." })
                 }
             } else {
                 setMessage({ failed: "Phone Number & Amount must be number." })

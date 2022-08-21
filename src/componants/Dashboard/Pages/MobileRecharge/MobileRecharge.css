@@ -24,8 +24,8 @@
     box-sizing: border-box;
 }
 .sim-provider-section div input{
-    height: 20px;
-    width: 20px;
+    height: 40px !important;
+    width: 20px !important;
     margin: 0;
     padding: 0;
 }
@@ -58,3 +58,4 @@
 .sim-status div div {
     width: 100%;
 }
+

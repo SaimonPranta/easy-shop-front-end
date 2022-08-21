@@ -82,7 +82,7 @@ const Registation = () => {
                     <input type="password" placeholder="Password" name="password" value={inputUser.password ? inputUser.password : ""} required autoComplete="off" onChange={fromInputHandler} />
                     <label>Confirm Password</label>
                     <input type="password" placeholder="Confirm Password" name="confirmPassword" value={inputUser.confirmPassword ? inputUser.confirmPassword : ""} required autoComplete="off" onChange={fromInputHandler} />
-                    <label>Referrence Number</label>
+                    <label>Your Upline Referrence Number</label>
                     <input type="text" placeholder="Referrence Number" name="referNumber" value={inputUser.referNumber ? inputUser.referNumber : ""} required autoComplete="off" onChange={fromInputHandler} />
 
                     <input type="submit" value="Register account" />

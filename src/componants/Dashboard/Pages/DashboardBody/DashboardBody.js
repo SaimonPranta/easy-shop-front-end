@@ -92,7 +92,7 @@ const DashboardBody = () => {
                 .then(res => res.json())
                 .then(data => {
                     if (data.data) {
-                        setUser(data)
+                        setUser(data.data)
                     }
                 })
         }
@@ -171,6 +171,11 @@ const DashboardBody = () => {
                         <FaRegMoneyBillAlt />
                         <p>TOTAL PENDING WITHDRAW BALANCE REQUEST</p>
                         <p><span>৳</span> {withBalance}</p>
+                    </div>
+                    <div>
+                        <FaRegMoneyBillAlt />
+                        <p>TOTAL INCOME BALANCE</p>
+                        <p><span>৳</span> {user.totalIncome}</p>
                     </div>
                 </div>
             </div>

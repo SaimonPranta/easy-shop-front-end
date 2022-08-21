@@ -1,6 +1,5 @@
 import React from 'react';
 import './UserDetails.css';
-import dateFormater from '../../../../../Functions/dateFormater';
 
 
 const UserDetails = ({ currentUsr }) => {
@@ -16,7 +15,7 @@ const UserDetails = ({ currentUsr }) => {
                         <li>Upline Refer Number:<span> {referNumber}</span></li>
                         <li>Rank:<span>{rank}</span></li>
                         <li>Shopping Balance:<span> {shoppingBalance}</span></li>
-                        <li>Joining Date:<span> {dateFormater(joinDate)}</span></li>
+                        <li>Joining Date:<span> {joinDate}</span></li>
                         <li>Total Generation Member:<span> { generation_1.length + generation_2.length + generation_3.length + generation_4.length + generation_5.length + generation_6.length + generation_7.length + generation_8.length + generation_9.length + generation_10.length}</span></li>
                         <li>1st Generation:<span> {generation_1.length}</span></li>
                         <li>2st Generation:<span> {generation_2.length}</span></li>

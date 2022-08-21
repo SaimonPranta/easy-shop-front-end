@@ -31,11 +31,11 @@ const Index = () => {
   return (
     <div className='dashboard-section' id='dastbord-menu-controler-contaienr'>
       <DashboardHeader />
-      <div className='dashboard-container'>
+      <div className='dashboard-container main-user'>
         <div className='dashboard-menu'>
           <DashboardMenu />
         </div>
-        <div>
+        <div >
           {
             currentUsr._id && <UserDetails currentUsr={currentUsr} />
           }
