@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
+import processingHandle from '../../../../Functions/processingHandle';
 import { allUserContext } from '../AdminPanelBody/AdminPanelBody';
 
 const PendingWithdraw = () => {
     const [allUser, setAllUser] = useContext(allUserContext)
     const [message, setMessage] = useState({})
     const [condition, setCondition] = useState({
-        apporoval: false
+        apporoval: false,
+        processing: false
     })
     const [userCount, setUserCount] = useState({
         pending: 0,
@@ -61,7 +63,9 @@ const PendingWithdraw = () => {
 
     const withdrawRequestApproval = (e, id, requestID, amount) => {
         setMessage({})
-        if (id && requestID, amount) {
+        if (id && requestID && amount && !condition.processing) {
+            processingHandle(condition, setCondition)
+            
             fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/withdraw_request_approval`, {
                 method: "POST",
                 body: JSON.stringify({

@@ -1,10 +1,15 @@
 import React, { useContext, useEffect, useState } from 'react';
 import { allUserContext } from '../AdminPanelBody/AdminPanelBody';
 import './PendingBalanceReq.css';
+import processingHandle from '../../../../Functions/processingHandle';
+
+
+
 const PendingBalanceReq = () => {
     const [allUser, setAllUser] = useContext(allUserContext)
     const [condition, setCondition] = useState({
-        apporoval: false
+        apporoval: false,
+        processing: false
     })
     const [userCount, setUserCount] = useState({
         pending: 0,
@@ -59,7 +64,9 @@ const PendingBalanceReq = () => {
 
 
     const balanceRequestApproval = (e, id, requestID, amount) => {
-        if (id && requestID, amount) {
+        if (id && requestID && amount && !condition.processing) {
+            processingHandle(condition, setCondition)
+
             fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/blanace_approval`, {
                 method: "POST",
                 body: JSON.stringify({
@@ -82,6 +89,7 @@ const PendingBalanceReq = () => {
     }
 
     const balanceRequestDecline = (e, id, requestID) => {
+
         if (id && requestID) {
             fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/balance_request_decline`, {
                 method: "POST",
@@ -103,9 +111,6 @@ const PendingBalanceReq = () => {
                 })
         }
     };
-
-
-
 
 
 
@@ -149,6 +154,8 @@ const PendingBalanceReq = () => {
                                                     <td>{reqestItem.amount}</td>
                                                     <td>{reqestItem.date}</td>
                                                     <td className='approved-ad'><button onClick={(e) => balanceRequestApproval(e, user._id, reqestItem.requestID, reqestItem.amount)}>Approved</button></td>
+
+
                                                     <td className='pending-ad'><button onClick={(e) => balanceRequestDecline(e, user._id, reqestItem.requestID)}>Decline</button></td>
                                                 </tr>
                                             }

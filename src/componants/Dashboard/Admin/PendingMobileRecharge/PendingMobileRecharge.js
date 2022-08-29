@@ -1,11 +1,13 @@
 import React, { useContext, useEffect, useState } from 'react';
+import processingHandle from '../../../../Functions/processingHandle';
 import { allUserContext } from '../AdminPanelBody/AdminPanelBody';
 
 const PendingMobileRecharge = () => {
     const [allUser, setAllUser] = useContext(allUserContext)
     const [message, setMessage] = useState({})
     const [condition, setCondition] = useState({
-        apporoval: false
+        apporoval: false,
+        processing: false
     })
     const [userCount, setUserCount] = useState({
         pending: 0,
@@ -62,7 +64,9 @@ const PendingMobileRecharge = () => {
 
     const mobileRechargeApproval = (e, id, requestID, amount) => {
         setMessage({})
-        if (id && requestID, amount) {
+        if (id && requestID && amount && !condition.processing) {
+            processingHandle(condition, setCondition)
+
             fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/mobile_recharge_approval`, {
                 method: "POST",
                 body: JSON.stringify({

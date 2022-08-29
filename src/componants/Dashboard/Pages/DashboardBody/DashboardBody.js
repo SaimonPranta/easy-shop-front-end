@@ -14,6 +14,7 @@ const DashboardBody = () => {
     const [notice, setNotice] = useState("")
     const [noticeInput, setNoticeInput] = useState("")
     const [message, setMessage] = useState({})
+    const [condition, setCondition] = useState(false)
 
 
     const cooki = document.cookie.split("=")[1];
@@ -80,7 +81,8 @@ const DashboardBody = () => {
 
 
     const activeHandler = () => {
-        if (user._id) {
+        if (user._id && !condition) {
+            setCondition(true)
             fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/activation?id=${user._id}`, {
                 method: "POST",
                 body: JSON.stringify({}),

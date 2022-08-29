@@ -31,7 +31,6 @@ const AdminPanelBody = () => {
             }).then(res => res.json())
                 .then(data => {
                     if (data.failed) {
-                        console.log(data.failed)
                     } else {
                         setAllUser(data);
                     }
