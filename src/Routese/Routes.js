@@ -54,11 +54,11 @@ const Routess = () => {
                             <BalanceTransfer />
                         </PrivetRoute>
                     }></Route>
-                    <Route path="/mobile_recharge" element={
+                    {/* <Route path="/mobile_recharge" element={
                         <PrivetRoute>
                             <MobileRecharge />
                         </PrivetRoute>
-                    }></Route>
+                    }></Route> */}
                     <Route path="/withdraw" element={
                         <PrivetRoute>
                             <Withdraw />

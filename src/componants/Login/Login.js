@@ -34,7 +34,14 @@ const Login = () => {
 
 
     const fromInputHandler = (e) => {
-        inputHandler(e, inputUser, setInputUser)
+        // if (e.target.name === "singInPhoenNumber") {
+            // const curentUser = {...inputUser}
+            // curentUser[e.target.name] = e.target.value.replaceAll(" ","")
+            // setInputUser(curentUser)
+
+        // } else {
+            inputHandler(e, inputUser, setInputUser)
+        // }
     }
 
     const handleLogin = (e) => {

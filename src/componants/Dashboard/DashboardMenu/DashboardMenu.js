@@ -47,7 +47,7 @@ const DashboardMenu = () => {
                 }
                 <li><NavLink to='/balance_transfer'><FaHandshake /><span > Balance transfer</span></NavLink></li>
                 <li><NavLink to='/balance_request'><FaMoneyCheckAlt /><span > Balance request</span></NavLink></li>
-                <li><NavLink to='/mobile_recharge'><FaMobileAlt /><span > Mobile recharge</span></NavLink></li>
+                {/* <li><NavLink to='/mobile_recharge'><FaMobileAlt /><span > Mobile recharge</span></NavLink></li> */}
                 <li><NavLink to='/generation'><FaUsersCog /><span > Generation</span></NavLink></li>
                 <li><NavLink to='/rank_history'><FaMedal /><span> Rank History </span></NavLink></li>
                 <li><NavLink to='/withdraw'><FaDonate /><span> Withdraw </span></NavLink></li>

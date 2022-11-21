@@ -65,7 +65,7 @@ const PendingWithdraw = () => {
         setMessage({})
         if (id && requestID && amount && !condition.processing) {
             processingHandle(condition, setCondition)
-            
+
             fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/withdraw_request_approval`, {
                 method: "POST",
                 body: JSON.stringify({
@@ -93,6 +93,7 @@ const PendingWithdraw = () => {
                 })
         }
     }
+
 
     const withdrawRequestDecline = (e, id, requestID) => {
         if (id && requestID) {

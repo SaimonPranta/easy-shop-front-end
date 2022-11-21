@@ -20,7 +20,7 @@ const UpdateProfile = () => {
 
     const userUpdateHandle = (e) => {
         e.preventDefault()
-        if (user.firstName && user.firstName && user.firstName) {
+        if (user.firstName && user.lastName) {
             fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/user`, {
                 method: "PATCH",
                 body: JSON.stringify(user),

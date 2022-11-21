@@ -1,12 +1,15 @@
 .about-body{
-    background:rgba(0, 0, 0, 0.7)url('../../assets/images/about_img/istockphoto-1004314632-170667a.jpg');
-    width: 100%;
+    /* background:rgba(0, 0, 0, 0.7)url('../../assets/images/about_img/istockphoto-1004314632-170667a.jpg'); */
+    width: 70%;
+    max-width: 700px;
+    margin: auto;
     height: 100%;
     background-repeat: no-repeat;
     background-position: 100%;
     background-size: cover;
     margin-top: -16px;
-    color: #fff;
+    color: darkcyan;
+    background: #fff;
     background-blend-mode: darken;
     z-index: 1;
 }
@@ -14,17 +17,44 @@
     font-size: 1.2rem;
     padding: 2.5px;
     padding-top: 50px;
-    color: rgb(230, 218, 218);
+    color: darkcyan;
 }
 .about-body h5{
     font-size: 2.5rem;
+    /* text-transform: uppercase; */
 }
 .about-body p{
     font-size: 1.2rem;
-    color: rgb(230, 218, 218);
+    color: darkcyan;
+    text-align: justify;
+}
+.about-img{
+    height: 340px;
+    width: 65%;
+    max-width: 670px;
+    margin: auto;
+    position: relative;
+}
+.about-img img{
+    height: 100%;
+    width: 100%;
+    margin: auto;
+    z-index: 5;
+}
+.about-img::after{
+    position: absolute;
+    content: "";
+    left: 0%;
+    top: 50%;
+    transform: translateX(-50%);
+    background-color: #f5daca;
+    height: 50%;
+    width: 300vw ;
+    z-index: -1;
+
 }
 .about-footer{
-    background-color: rgb(214, 188, 188);
+    background-color: #f5daca;
     padding: 20px 0 30px 0;
 }
 .about-footer div div{
@@ -81,8 +111,20 @@
 .gmail svg{
     color: #CD4D40;
 }
-
+@media only screen and (min-width:200px) and (max-width:1100px) {
+    .about-img{
+        height: 300px;
+    }
+}
+@media only screen and (min-width:200px) and (max-width:900px) {
+    .about-img{
+        height: 250px;
+    }
+}
 @media only screen and (min-width:200px) and (max-width:768px) {
+    .about-img{
+        height: 200px;
+    }
     .about-footer div div:nth-child(2){
         border-right: 0px dashed black;
     }
@@ -116,6 +158,13 @@
 
 }
 @media only screen and (min-width:200px) and (max-width:540px) {
+    .about-body{
+        width: 75%;
+    }
+    .about-img{
+        width: 70%;
+        height: 150px;
+    }
     .about-body h6{
         font-size: .89rem;
     }

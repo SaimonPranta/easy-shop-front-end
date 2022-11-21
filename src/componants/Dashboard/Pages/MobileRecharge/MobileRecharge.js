@@ -40,10 +40,10 @@ const MobileRecharge = () => {
 
     const mobileRechargeHandler = (e) => {
         e.preventDefault();
-        const currnetInputStore = {...input}
+        const currnetInputStore = { ...input }
         const amountValue = document.getElementById("amount").value;
         if (!input.amount) {
-            input["amount"] = amountValue;
+            input["amount"] = Math.floor(amountValue)
         }
         if (input.simProvider && input.amount && input.number && input.simStatus) {
             if (Math.floor(input.number)) {
@@ -81,7 +81,7 @@ const MobileRecharge = () => {
                                     }, 7000);
                                 }
                             })
-                            setInput({})
+                        setInput({})
                     } else {
                         setMessage({ failed: "Sorry, you can't send money less then 10tk." })
                         setTimeout(() => {
@@ -158,7 +158,6 @@ const MobileRecharge = () => {
                             <label>Select Amount of TK</label>
                             <select name='amount' onChange={handleUpdateInput} id="amount">
                                 <option value="20">20tk</option>
-                                <option value="30">30tk</option>
                                 <option value="50">50tk</option>
                                 <option value="100">100tk</option>
                             </select>

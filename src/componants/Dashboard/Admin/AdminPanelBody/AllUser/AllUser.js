@@ -5,6 +5,7 @@ import { allUserContext } from '../AdminPanelBody';
 const AllUser = () => {
     const [allUser, setAllUser] = useContext(allUserContext)
     const [allUserContaienr, setAllUserContainer] = useState([]);
+    const [srcIput, setSrcInput] = useState("")
     const [userCount, setUserCount] = useState({
         total: 0,
         active: 0,
@@ -58,7 +59,10 @@ const AllUser = () => {
     }, [allUser]);
 
     const seach_handler = (event) => {
+
         let inputValue = event.target.value.toString().length > 0 ? event.target.value.toString() : "0";
+
+
         if (inputValue == 0) {
             setAllUserContainer(allUser)
         } else {

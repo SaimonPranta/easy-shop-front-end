@@ -6,10 +6,7 @@ export const userContext = createContext();
 
 function App() {
   const [user, setUser] = useState({})
-
-
   
-
 
   useEffect(() => {
     const cooki = document.cookie.split("=")[1];

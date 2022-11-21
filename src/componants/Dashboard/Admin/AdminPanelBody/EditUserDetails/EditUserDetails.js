@@ -1,10 +1,10 @@
-
 import React, { useEffect, useState } from 'react';
 import './EditUserDetails.css';
 import { useParams } from 'react-router-dom';
 import DashboardMenu from '../../../DashboardMenu/DashboardMenu';
 import DashboardHeader from '../../../Pages/DashboardHeader/DashboardHeader';
 import inputHandler from '../../../../../Functions/inputHandler';
+
 
 const EditUserDetails = () => {
   const [currentUsr, setCurrentUsr] = useState({})
@@ -35,8 +35,27 @@ const EditUserDetails = () => {
   }, []);
 
   const fromInputHandler = (e) => {
-    inputHandler(e, currentUsr, setCurrentUsr)
-    inputHandler(e, updateUser, setUpdateUser)
+    // const currentInput = { ...updateUser }
+    // const currentUsrInfo = { ...currentUsr }
+
+    // if (e.target.name === "balance" || e.target.name === "shoppingBalance") {
+    //   // if (Math.floor(e.target.value)) {
+    //     // currentInput[e.target.name] = Math.floor(e.target.value)
+    //     currentInput[e.target.name] = e.target.value
+
+    //     currentUsrInfo[e.target.name] = e.target.value
+    //     // currentUsrInfo[e.target.name] = Math.floor(e.target.value)
+
+    //     setUpdateUser(currentInput)
+    //     setCurrentUsr(currentUsrInfo)
+    //   // } else {
+    //   //   setMessage({ failed: "Note: Balance & Shoping Balance must be Number." })
+    //   // }
+    // } else {
+      inputHandler(e, updateUser, setUpdateUser)
+      inputHandler(e, currentUsr, setCurrentUsr)
+
+    // }
   }
 
   const handleFromSubmit = (e) => {
@@ -84,9 +103,9 @@ const EditUserDetails = () => {
                   <li>Last Name:<span> <input type="text" name="lastName" value={currentUsr.lastName ? currentUsr.lastName : ""} onChange={fromInputHandler} /> </span></li>
                   <li>Balance:<span> <input type="text" name="balance" value={currentUsr.balance ? currentUsr.balance : ""} onChange={fromInputHandler} /> </span></li>
                   <li>Shopping Balance:<span><input type="text" name="shoppingBalance" value={currentUsr.shoppingBalance ? currentUsr.shoppingBalance : ""} onChange={fromInputHandler} /> </span></li>
-                  <li>Rank:<span> <input type="text" name="rank" value={currentUsr.rank ? currentUsr.rank : ""} /></span></li>
+                  <li>Rank:<span> <input type="text" name="rank" value={currentUsr.rank ? currentUsr.rank : ""} onChange={fromInputHandler} /></span></li>
                   <li>Password:<span> <input type="password" name="password" value={currentUsr.password ? currentUsr.password : ""} onChange={fromInputHandler} /> </span></li>
-                 
+
                   <li> <input type="submit" className="btn btn-primary btn-md m-auto" value="Submit" /></li>
                 </ul>
                 <div className='resposeContainer'>

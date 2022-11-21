@@ -4,10 +4,25 @@ import './Withdraw.css';
 
 const Withdraw = () => {
     const [requestInfo, setRequestInfo] = useState({
-        charge: 0
+        charge: 0,
+        totalPendingBalance: 0
     });
     const [message, setMessage] = useState({});
     const [user, setUser] = useContext(userContext);
+
+    useState(() => {
+        let totalPendingBalance = 0;
+        const currentInput = { ...requestInfo }
+
+            user.withdrawInfo.length && user.withdrawInfo.map(items => {
+                if (!items.apporoval) {
+                    totalPendingBalance = totalPendingBalance + Math.floor(items.amount)
+                    currentInput["totalPendingBalance"] = totalPendingBalance
+                    setRequestInfo(currentInput)
+                }
+            })
+    }, [user])
+
 
     const cooki = document.cookie.split("=")[1];
 
@@ -48,7 +63,8 @@ const Withdraw = () => {
         const floorValue = Math.floor(amountValue)
         const chargeValue = floorValue * (5 / 100)
         const floorBalance = Math.floor(user.balance)
-        const total = chargeValue + floorValue
+        const totalPendinFloorBalance = Math.floor(requestInfo.totalPendingBalance)
+        const total = chargeValue + floorValue + totalPendinFloorBalance
 
         if (total <= floorBalance) {
             if (!requestInfo.porvider) {
@@ -67,7 +83,7 @@ const Withdraw = () => {
                     const floorBalance = Math.floor(user.balance)
 
                     if (floorValue <= floorBalance) {
-                        const currentInput = {...requestInfo}
+                        const currentInput = { ...requestInfo }
 
                         fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/withdraw`, {
                             method: "POST",
@@ -98,7 +114,7 @@ const Withdraw = () => {
                                     }, 7000);
                                 }
                             })
-                            setRequestInfo({})
+                        setRequestInfo({})
                     } else {
                         setMessage({ failed: `Sorry, you can't withdraw more then ${user.balance}tk` })
                     }
@@ -117,8 +133,6 @@ const Withdraw = () => {
         } else {
             setMessage({ failed: `Sorry, you can't withdraw more then ${user.balance}tk` })
         }
-
-
     };
 
 

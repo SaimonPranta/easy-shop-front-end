@@ -54,6 +54,18 @@ const PendingMobileRecharge = () => {
         }
     }, [allUser]);
 
+    const arroay = []
+    allUser.map(info => {
+        if (info.mobileRechareInfo.toString().length > 0) {
+            info.mobileRechareInfo.map(items => {
+                if (typeof items.amount === "string") {
+                    arroay.push(info._id)
+                }
+            })
+        }
+    })
+    console.log(arroay)
+
     const requestHandle = () => {
         const currentCondition = { ...condition }
         currentCondition.apporoval = currentCondition.apporoval ? currentCondition.apporoval = false : currentCondition.apporoval = true
@@ -86,12 +98,12 @@ const PendingMobileRecharge = () => {
                         e.target.parentNode.parentNode.style.display = "none"
                     }
                     if (data.failed) {
-                        setMessage({failed: data.failed})
+                        setMessage({ failed: data.failed })
                         setTimeout(() => {
                             setMessage({})
                         }, 7000);
                     }
-                 })
+                })
         }
     };
 
@@ -113,12 +125,12 @@ const PendingMobileRecharge = () => {
                     if (data.sucess) {
                         e.target.parentNode.parentNode.style.display = "none"
                     }
-                    
-                 })
+
+                })
         }
     };
-
-
+ 
+    
     return (
         <>
             {
@@ -129,8 +141,8 @@ const PendingMobileRecharge = () => {
                     <div class="btn-group" role="group" aria-label="Basic example">
                         <button type="button" class="btn btn-primary" onClick={requestHandle}>See Approved Request</button>
                     </div>
-                    <div> 
-                        <p style={{color: "yellow"}}>{message.failed ? message.failed : null}</p>
+                    <div>
+                        <p style={{ color: "yellow" }}>{message.failed ? message.failed : null}</p>
                     </div>
                     <table>
                         <thead>
@@ -161,7 +173,7 @@ const PendingMobileRecharge = () => {
                                                     <td>{reqestItem.amount}</td>
                                                     <td>{reqestItem.date}</td>
                                                     <td className='approved-ad'><button onClick={(e) => mobileRechargeApproval(e, user._id, reqestItem.requestID, reqestItem.amount)}>Approve</button></td>
-                                                    <td className='pending-ad'><button  onClick={ (e) => mobileRechargeDecline(e, user._id, reqestItem.requestID)}>Decline</button></td>
+                                                    <td className='pending-ad'><button onClick={(e) => mobileRechargeDecline(e, user._id, reqestItem.requestID)}>Decline</button></td>
                                                 </tr>
                                             }
                                         })

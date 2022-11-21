@@ -11,7 +11,7 @@
     color: #fff;
     cursor: pointer;
     border-bottom: 1px solid #fff;
-    display: flex; 
+    display: flex !important; 
     align-items: center;
 }
 
@@ -21,6 +21,7 @@
     padding: 0;
     color: #fff;
 }
+
 .sub-menu{
     display: none;
 }
@@ -40,11 +41,13 @@
 
 }
 @media only screen and (min-width:200px) and (max-width:600px) { 
-   
      .admin-search input{
         width: 95% !important;
         margin: auto;
        }
+       .dashboard-menu ul li a svg{
+        margin-top: 5px !important;
+    }
      
 }
 

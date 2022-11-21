@@ -19,14 +19,32 @@ const Registation = () => {
         user._id && navigate(from, { replace: true })
     }, [user])
 
+
+
     const fromInputHandler = (e) => {
+        // if (e.target.name === "phoneNumber") {
+        // const currentInput = { ...inputUser }
+
+        // currentInput[e.target.name] = e.target.value.replaceAll(" ", "")
+        // setInputUser(currentInput)
+        // } else if (e.target.name === "referNumber") {
+        // const currentInput = { ...inputUser }
+
+        // currentInput[e.target.name] = e.target.value.replaceAll(" ", "")
+        // setInputUser(currentInput)
+
+        // } else {
         inputHandler(e, inputUser, setInputUser)
+        // }
     }
     const handleFromSubmit = (e) => {
         e.preventDefault()
 
         if (inputUser.firstName && inputUser.lastName && inputUser.phoneNumber && inputUser.phoneNumber && inputUser.referNumber) {
+            // if (inputUser.phoneNumber.match(/0+/gi) && inputUser.phoneNumber.match(/1+/gi)) {
+            // if (!inputUser.phoneNumber.match(/[a-z]/gi)) {
             if (Math.floor(inputUser.phoneNumber)) {
+
                 if (inputUser.password === inputUser.confirmPassword) {
                     fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/user`, {
                         method: "POST",
@@ -53,15 +71,27 @@ const Registation = () => {
                                 setMessage({})
                             }, 7000);
                         })
-                }else {
-                    setMessage({failed: 'Confirm Password does not metch with Password'})
+                } else {
+                    setMessage({ failed: 'Confirm Password does not metch with Password.' })
                 }
             } else {
-                setMessage({failed: 'Phone Number must be number, please try again.'})
+                setMessage({ failed: 'Phone must be a Number, please try again.' })
             }
+            // } else {
+            //     setMessage({ failed: 'Phone must be a Number, please try again.' })
+            // }
 
+            // } else {
+            //     setMessage({ failed: 'Your Phone Number Not like a number, please try again.' })
+            // }
+
+        } else {
+            setMessage({ failed: "You can't submit without filling full form." })
         }
     }
+
+
+
 
 
     return (
@@ -88,12 +118,12 @@ const Registation = () => {
                     <input type="submit" value="Register account" />
                     <div className='resposeContainer'>
                         {
-                            !message.failed && message.sucess && <p className='sucess ' style={{color: "blue"}} >{message.sucess}</p>
+                            !message.failed && message.sucess && <p className='sucess ' style={{ color: "blue" }} >{message.sucess}</p>
                         }
                         {
-                            !message.sucess && message.failed && <p className='warning ' style={{color: "blue"}}  >{message.failed}</p>
+                            !message.sucess && message.failed && <p className='warning ' style={{ color: "blue" }}  >{message.failed}</p>
                         }
-                        
+
                     </div>
                     <div className='form-navigation d-flex'><p>Already have an account? <Link to="/login"><span style={{ color: "blue", cursor: "pointer" }}>Login</span></Link></p></div>
                 </form>
