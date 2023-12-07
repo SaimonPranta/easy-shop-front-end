@@ -1,0 +1,87 @@
+.cart-product{
+    background-color: #ffffff;
+    display: grid;
+    grid-template-columns: 100px auto 120px 100px;
+    column-gap: 5px;
+    box-shadow: 2px 2px 4px #0a00003f;
+}
+.cart-product img{
+    height: 100px;
+}
+.cart-product h4{
+    font-size: 1rem;
+    height: 40px;
+    overflow: hidden;
+}
+.cart-product p{
+    font-size: 1rem;
+    padding: 0;
+    display: flex;
+    align-items: center;
+}
+.cart-product p svg{
+    height: 25px;
+    width: 25px;
+}
+.cart-product .price{
+    font-size: 1.2rem;
+    color: red;
+    font-weight: 500;
+    margin: 0;
+}
+.cart-product .old-price{
+    font-size: 1rem;
+    color: rgb(0, 0, 0);
+    font-weight: 400;
+    text-decoration: line-through;
+    margin: 0;
+}
+.cart-product .delete{
+    display: inline-block;
+    font-size: 1.4rem;
+    height: 20px;
+    width: 20px;
+    color: red;
+    margin: 10px 0;
+    cursor: pointer;
+}
+.increment{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+}
+.increment button, .increment span{
+    font-weight: 500;
+    height: 25px;
+    width: 25px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: none;
+    outline: none;
+    margin: 0;
+    padding: 0;
+}
+.increment button{
+    background-color: rgb(219, 208, 208);
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+.increment span{
+    background-color: rgb(247, 241, 241);
+}
+
+@media only screen and (min-width:200px) and (max-width:900px) {
+    .cart-product{
+        background-color: #ffffff;
+        display: grid;
+        grid-template-columns: 120px auto;
+        column-gap: 5px;
+        box-shadow: 2px 2px 4px #0a00003f;
+        padding: 10px;
+    }
+}
+@media only screen and (min-width:200px) and (max-width:900px) {
+   
+}

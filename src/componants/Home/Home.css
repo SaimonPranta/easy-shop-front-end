@@ -1,0 +1,36 @@
+.mobile {
+    display: none;
+}
+
+.desktop {
+    display: block;
+}
+
+.easyshop_mobile_one_h200_w170 {
+    display: inline-block;
+    height: 200px;
+    width: 170px;
+}
+
+.easyshop_Desktop_one, .easyshop_Desktop_two {
+    display: block;
+    width: 100% !important;
+    height: 400px;
+}
+
+
+@media only screen and (min-width:200px) and (max-width:700px) {
+    .mobile {
+        display: block;
+    }
+
+    .gird-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+
+    }
+
+    .desktop {
+        display: none;
+    }
+}

@@ -1,0 +1,93 @@
+.top-header .top-header-user {
+    background-color: #000;
+    border-right: 5px solid #fff;
+    border-left: 5px solid #fff;
+
+}
+
+.top-header a {
+    text-decoration: none;
+    margin: 8px;
+    font-size: 1.3rem;
+}
+
+.help-section {
+    position: relative;
+}
+
+.help-section .help-menu {
+    cursor: pointer;
+}
+
+.help-section .help-sub-section {
+    position: absolute;
+    top: 25px;
+    right: 0px;
+    display: flex;
+    flex-direction: column;
+    border: .1px solid #a1aab3;
+    display: none;
+    z-index: 552;
+    background-color: #fff;
+}
+
+.help-section .help-control {
+    display: flex;
+}
+
+.top-header-user div {
+    float: right;
+}
+
+.top-header-user a {
+    color: #fff !important;
+    font-size: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.top-header-user span {
+    font-size: 1.5rem;
+    margin: 10px;
+    color: #fff;
+
+}
+
+.top-header-user svg {
+    height: 30px;
+    width: 30px;
+}
+
+.top-header-social div a svg {
+    /* background-color: #ffd700; */
+    /* background-color: #fff; */
+    border: none;
+}
+
+.top-header-social div .whatsapp {
+    color: #1AD03F;
+}
+
+
+@media only screen and (min-width:200px) and (max-width:520px) {
+
+    .top-header-user a {
+        margin: 8px 4px;
+        font-size: 1.2rem;
+
+    }
+
+}
+
+@media only screen and (min-width:200px) and (max-width:380px) {
+    .top-social {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .top-social a {
+        font-size: 1.2rem;
+    }
+
+}

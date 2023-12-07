@@ -1,0 +1,66 @@
+.admin-section{
+    width: 100%;
+}
+.admin-section table{
+    width: 95%;
+    text-align: center;
+    margin: auto;
+}
+.admin-section thead th{
+    border: 1px solid #fff;
+    background-color: rgb(80, 136, 158);
+    font-size: 1rem;
+}
+.admin-section tbody td{
+    border: 1px solid #fff;
+    margin: 0px auto;
+    padding: 0;
+    font-size: .9rem;
+}
+.admin-section tbody td a{
+    text-decoration: none;
+    color: #fff;
+}
+.admin-section tbody .admin-approved {
+    margin: 0;
+    padding: 2px;
+    box-sizing: border-box;
+    display: flex;
+}
+.admin-section tbody .admin-pending {
+    margin: 0;
+    padding: 2px;
+    display: flex;
+}
+.admin-section tbody .admin-approved a, .admin-section tbody .admin-pending a{
+    margin: auto;
+    padding: 2px 4px;
+    border-radius: 4px;
+}
+tbody .admin-approved a{
+    background-color: green;
+}
+tbody .admin-pending a{
+    background-color: blue;
+}
+.admin-sub-menu{
+    max-width: 100vw !important;;
+}
+.admin-section{
+    max-width: 100vw !important;
+}
+
+.admin-section .withdraw-notice p {
+    color: #fff !important;
+}
+
+
+
+@media only screen and (min-width:200px) and (max-width:700px) { 
+    .admin-section thead th{
+        font-size: .9rem;
+    }
+    .admin-section tbody td{
+        font-size: .8rem;
+    }
+}

@@ -1,0 +1,60 @@
+.admin-porduct{
+    padding: 10px 5px;
+    background-color: #ffffff;
+    cursor: pointer;
+    box-shadow: 1px 2px 3px rgba(179, 158, 158, 0.418),
+    2px 3px 7px rgba(175, 149, 149, 0.288),
+    1px 1px 4px rgba(204, 180, 180, 0.336);
+}
+.admin-porduct:hover{
+    /* box-shadow: 1px 2px 3px rgba(136, 107, 107, 0.418),
+    1px 1px 4px rgba(136, 107, 107, 0.336); */
+    transform: scale(1.01);
+}
+.admin-porduct img{
+    height: 150px;
+    width: 100%;
+}
+.admin-porduct h6{
+    height: 40px;
+    width: 100%;
+    color: #ffff;
+    font-weight: 500;
+    word-break:break-all;
+    overflow: hidden;
+}
+.admin-porduct p{
+    margin: 0;
+    padding: 0;
+}
+.admin-porduct p{
+    margin: 0;
+    padding: 0;
+}
+.admin-porduct .price{
+    font-size: 1.4rem;
+    color: lightgreen;
+    display: flex;
+    align-items: center;
+}
+.admin-porduct .price svg{
+    font-size: 1.5rem;
+    color: lightgreen;
+}
+.admin-porduct .old-price{
+    font-size: 1rem;
+    text-decoration: line-through;
+    color: rgb(124, 207, 124);
+    display: flex;
+    align-items: center;
+}
+.admin-porduct .old-price svg{
+    font-size: 1.2rem;
+    text-decoration: line-through;
+    color: rgb(124, 207, 124);
+}
+.admin-porduct svg{
+    font-size: 1rem;
+    text-decoration: line-through;
+    color: #faca51;
+}

@@ -1,0 +1,98 @@
+.cart-body{
+    display: grid;
+    grid-template-columns: auto 300px;
+    
+}
+.item-container{
+    display: flex;
+    flex-direction: column;
+    row-gap: 10px;
+}
+.no-item{
+    display: flex;
+    min-height: calc(100vh - 150px);
+    width: 100%;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.no-item h6{
+   font-size: 2rem;
+   color: rgb(112, 96, 96);
+}
+.no-item a{
+    text-decoration: none;
+    font-size: 1rem;
+    color: slateblue;
+    font-weight: 900;
+    background-color: yellowgreen;
+    padding: 10px 20px;
+ }
+ .cart-summary{
+    padding: 20px;
+    background-color: #ffffff;
+    margin-left: 20px;
+    min-height: calc(100vh - 95px);
+ }
+ .cart-summary h5{
+    padding: 0;
+    margin: 0;
+    font-weight: 700;
+ }
+ .cart-summary p{
+    padding: 0;
+    margin: 0;
+ }
+ .cart-summary span{
+    display: block;
+    padding: 4px 0;
+    margin-top: 5px;
+    border-top: 1px solid rgba(0, 0, 0, 0.226);
+ }
+
+@media only screen and (min-width:200px) and (max-width:900px) {
+    .cart-body{
+        display: flex;
+        flex-direction:column-reverse;
+    }
+    .cart-summary{
+        display: block;
+        margin: auto;
+        width: 90%;
+        min-height: 200px;
+        padding: 20px;
+        margin-bottom: 10px;        
+     }
+     .item-container{
+        width: 95%;
+        margin: auto;
+    }
+    .no-item{
+        display: flex;
+        min-height: 100%;
+        width: 100%;
+        margin-top: 30px;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}
+@media only screen and (min-width:200px) and (max-width:660px) {
+    .no-item h6{
+        font-size: 1.5rem;
+     }
+     .no-item a{
+         font-size: 1rem;
+         font-weight: 700;
+         padding: 10px 20px;
+      }
+}
+@media only screen and (min-width:200px) and (max-width:400px) {
+    .no-item h6{
+        font-size: 1.3rem;
+     }
+     .no-item a{
+         font-size: .9rem;
+         padding: 10px 20px;
+      }
+}

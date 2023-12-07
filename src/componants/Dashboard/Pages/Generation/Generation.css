@@ -1,0 +1,49 @@
+.generation-section{
+    
+}
+.generation-section h5{
+    font-size: 1rem;
+}
+.generation-section h4{
+    font-size: 1.2rem;
+}
+.generation-top-section div{
+    background-color:#485068;
+    padding: 5px 15px ;
+    margin: 5px;
+    display: flex;
+    justify-content: space-between;
+    border-radius: 5px;
+}
+.generation-section .generation-title {
+    background-color: #fff;
+    color: #000;
+    width: 100%;
+    padding: 5px;
+    border-radius: 5px;
+}
+.generation-section .generation-items div{
+    display: grid;
+    grid-template-columns: 3fr 1fr 1fr;
+    background-color:#485068;;
+    padding: 5px 15px;
+    margin: 5px;
+    border-radius: 5px;
+}
+.generation-section .generation-items div button{
+    border: 1px solid wheat;
+    border-radius: 5px;
+    background-color: blueviolet;
+    color: white;
+}
+.generation-section .generation-items div button a{
+    color: #fff;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+}
+.generation-section .generation-items div button:hover{
+    border: 1px solid #fff;
+    background-color: rgba(137, 43, 226, 0.822);
+    color: rgb(240, 208, 208);
+}

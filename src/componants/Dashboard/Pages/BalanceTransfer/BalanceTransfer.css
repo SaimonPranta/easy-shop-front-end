@@ -1,0 +1,180 @@
+.balance-transfer-section {
+    width: 70%;
+    height: 100%;
+}
+
+.balance-transfer-section div {
+    padding: 10px;
+    width: 100%;
+    background-color: #485068;
+}
+
+.balance-transfer-section h4 {
+    background-color: purple;
+    font-size: 1rem;
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 0;
+}
+
+.account-balance {
+    display: inline-block;
+    background-color: #fff !important;
+    height: 45px;
+    /* width: 200px !important; */
+}
+
+.account-balance p{
+    color: #000;
+    font-size: 1.1rem;
+    font-weight: 700;
+}
+
+.balance-transfer-section form div {
+    display: flex;
+    justify-content: space-between;
+    margin: 5px 0;
+}
+
+.balance-transfer-section form input {
+    outline: none;
+    border: none;
+    border-radius: 3px;
+    width: 300px;
+    display: block;
+    color: #000;
+}
+
+.balance-transfer-section form input:focus {
+    color: blueviolet;
+}
+
+.balance-transfer-section form select {
+    outline: none;
+    border: 1px solid rgba(95, 84, 84, 0.719);
+    border-bottom: 0px;
+    border-right: 0px;
+    width: 300px;
+    display: block;
+}
+
+.balance-transfer-section form input[type=submit] {
+    background-color: purple;
+    margin: auto;
+    border: none;
+    width: 150px;
+    color: #fff;
+    border-radius: 5px;
+}
+
+.balance-transfer-section form input[type=file] {
+    background-color: #fff;
+    height: 100%;
+}
+
+.balance-transfer-section .product-details {
+    display: block;
+}
+
+.balance-transfer-section .product-details .product-details-inner {
+    border: 1px solid blue;
+    display: block;
+}
+
+.balance-transfer-section .product-details .product-details-inner div {
+    background-color: #4c5d91;
+    margin: 10px 0px !important;
+}
+
+.balance-transfer-section .product-details .product-details-inner .product-wrapwer {
+    position: relative;
+    padding-top: 15px;
+}
+
+.balance-transfer-section .img-conainer {
+    background-color: rgba(255, 255, 0, 0.212);
+}
+
+.balance-transfer-section .img-conainer img {
+    height: 300px;
+    width: 100%;
+}
+
+.balance-transfer-section .product-details .product-details-inner .product-wrapwer .cross-icon {
+    position: absolute;
+    height: 20px;
+    width: 20px;
+    right: 4px;
+    top: -1px;
+    background-color: rgba(0, 0, 0, 0.336);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.balance-transfer-section .product-details .product-details-inner .product-wrapwer .cross-icon svg {
+    position: absolute;
+    height: 10px;
+    width: 10px;
+}
+
+.balance-transfer-history-section {
+    width: 70%;
+    height: 100%;
+}
+
+.balance-transfer-history-section .pending button {
+    background-color: green;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    color: #fff;
+    padding: 4px 7px;
+    margin: auto;
+}
+
+.balance-transfer-history-section .approved button {
+    background-color: Purple;
+    border: none;
+    outline: none;
+    border-radius: 3px;
+    color: #fff;
+    padding: 4px 7px;
+    margin: auto;
+}
+
+.balance-transfer-history-section h4 {
+    background-color: purple;
+    font-size: 1rem;
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 0;
+}
+
+.balance-transfer-history-section div {
+    background: #485068;
+    padding: 10px;
+    height: 100%;
+    width: 100%;
+
+
+}
+
+.balance-transfer-history-section div table {
+    margin: auto;
+}
+
+.balance-transfer-history-section div table tr th {
+    border: 1px solid rgba(255, 255, 255, 0.774);
+    background-color: #485068;
+    font-weight: 500;
+    padding: 3px 5px;
+}
+
+.balance-transfer-history-section div table tr td {
+    border: 1px solid rgba(255, 255, 255, 0.774);
+    padding: 3px 5px;
+    color: #fff;
+}

@@ -1,0 +1,36 @@
+.approved-ad{
+    margin: 3px;
+}
+.approved-ad button{
+    background: green;
+    border-radius: 4px;
+    border: none;
+    margin: 3px;
+    color: #fff ;
+}
+.pending-ad button{
+    background: blue;
+    border-radius: 4px;
+    border: none;
+    color: #fff ;
+}
+.pagination-control-container{
+    display: block;
+    width: 100%;
+}
+.pagination-control-container div{  
+    width: 100%; 
+    display: flex;
+    gap: 5px;
+    justify-content: end;
+
+}
+.pagination-control-container div p{  
+   background-color: #493838;
+   border-radius: 3px;
+   min-width: 30px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   cursor: pointer;
+}

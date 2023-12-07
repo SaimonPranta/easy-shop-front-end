@@ -1,0 +1,21 @@
+{
+  "files": {
+    "main.css": "/static/css/main.db2782ad.css",
+    "main.js": "/static/js/main.10e2411b.js",
+    "static/js/787.8971293a.chunk.js": "/static/js/787.8971293a.chunk.js",
+    "static/media/logo.png": "/static/media/logo.7146ac5424ecc6f1b0c8.png",
+    "static/media/about.jpg": "/static/media/about.0c4164c5327e4734150f.jpg",
+    "static/media/nogod.jpg": "/static/media/nogod.45e15d7db48c48922717.jpg",
+    "static/media/bkash.jpg": "/static/media/bkash.528cf5980fad169eac7b.jpg",
+    "static/media/dutch-bangla-rocket-logo.png": "/static/media/dutch-bangla-rocket-logo.417f5e9a644ee857ff3f.png",
+    "static/media/banglalink.jpg": "/static/media/banglalink.c629ba78d8e86a8eb7e9.jpg",
+    "index.html": "/index.html",
+    "main.db2782ad.css.map": "/static/css/main.db2782ad.css.map",
+    "main.10e2411b.js.map": "/static/js/main.10e2411b.js.map",
+    "787.8971293a.chunk.js.map": "/static/js/787.8971293a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.db2782ad.css",
+    "static/js/main.10e2411b.js"
+  ]
+}

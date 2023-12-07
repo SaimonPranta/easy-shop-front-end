@@ -1,0 +1,35 @@
+.dashboard-section{
+    background-color: #000;
+    min-height: 100vh;
+}
+.dashboard-container{
+    height: 100%;
+    width: 100vw !important;
+    display: grid;
+    grid-template-columns: .3fr 1fr;
+    grid-row-gap: 5px;
+    grid-column-gap: 15px;
+}
+.dashbord-active .dashboard-container{
+    display: grid;
+    grid-template-columns: .1fr 3fr !important;
+    grid-row-gap: 5px;
+    grid-column-gap: 15px;
+    width: 100vw !important;
+
+}
+
+.dashboard-container div{
+    background-color: #1F2944;
+}
+.dashboard-menu{
+    height: 100vh;
+    /* min-width: 155px; */
+}
+
+.resposeContainer{
+    height: 50px !important;
+    width: 100%;
+    padding-top: 0px;
+    padding-bottom: 0px;
+}

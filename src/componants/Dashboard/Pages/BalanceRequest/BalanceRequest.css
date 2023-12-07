@@ -1,0 +1,67 @@
+
+.payment-provider-section{
+    display: grid !important;
+    justify-content: center !important;
+}
+.payment-provider-section img{
+    height: 30px;
+    width: 30px;
+    text-align: start;
+    margin: 0;
+}
+.payment-provider-section div{
+    background-color: #404a66 !important;
+    margin: 3px;
+}
+.payment-provider-section div input{
+    height: 100%;
+    width: 100% !important;
+    color: #fff !important;
+    background-color: #404a66;
+}
+label {
+    display: inline-block;
+    margin: auto 20px auto 0;
+}
+.payment-provider-section span{
+    margin: 0;
+}
+.copy-btn{
+    margin: 5px;
+    position: relative;
+}
+.copy-btn svg{
+    margin: 0;
+    text-align: center;
+    padding: 3px;
+    height: 22px;
+    width: 25px;
+    border-radius: 4px;
+    cursor: pointer;
+    background-color: #05A69B;
+}
+.active-notice::after{
+    position: absolute;
+    content: "Coped";
+    background-color: green;
+    height: 100%;
+    width: 60px;
+    text-align: center;
+    display: block;
+    padding: 5px 7px;
+    bottom: 38px;
+    right: 5px;
+    font-size: .8rem;
+    border-radius: 5px;
+}
+.active-notice::before{
+    position: absolute;
+    content: " ";
+    background-color: green;
+    height: 10px;
+    width: 10px;
+    display: block;
+    bottom: 34px;
+    right: 28px;
+    transform: rotate(45deg);
+}

@@ -1,0 +1,49 @@
+.menu-icons{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    background-color: rgb(230, 230, 223);
+    height: 35px;
+    width: 35px;
+    border-radius: 50%;
+}
+.menu-icons svg{
+    margin: 0 5px;
+    font-size: 1.4rem;
+    color: #000;
+}
+.menu-icons span{
+    position: absolute;
+    top: -10px;
+    right: -10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 5px;
+    font-size: 1rem;
+    color: #fff;
+    height: 15px;
+    width: 15px;
+    background-color: blueviolet;
+   padding: 12px;
+   border-radius: 50%;
+}
+.logo{
+    height: 80px;
+    width: 120px;
+}
+
+@media only screen and (min-width:200px) and (max-width:650px) { 
+    .logo{
+        height: 60px !important;
+        width: 100px !important;
+    }
+    .navbar-container ul li a{
+        font-size: 1rem;
+    }
+    .menu-icons{
+        margin-top: 12px;
+    }
+   
+}

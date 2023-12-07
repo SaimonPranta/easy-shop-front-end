@@ -1,0 +1,76 @@
+.main-porduct{
+    padding: 10px 5px;
+    background-color: #ffffff;
+    cursor: pointer;
+    box-shadow: 1px 2px 3px rgba(136, 107, 107, 0.418),
+    2px 3px 7px rgba(136, 107, 107, 0.288),
+    1px 1px 4px rgba(136, 107, 107, 0.336);
+}
+.main-porduct a{
+    text-decoration: none;
+}
+.main-porduct:hover{
+    /* box-shadow: 1px 2px 3px rgba(136, 107, 107, 0.418),
+    1px 1px 4px rgba(136, 107, 107, 0.336); */
+    transform: scale(1.01);
+}
+.main-porduct img{
+    height: 150px;
+    width: 100%;
+}
+.main-porduct h6{
+    height: 40px;
+    width: 100%;
+    color: black;
+    font-weight: 500;
+    word-break:break-all;
+    overflow: hidden;
+}
+.main-porduct p{
+    margin: 0;
+    padding: 0;
+}
+.main-porduct p{
+    margin: 0;
+    padding: 0;
+}
+.main-porduct .price{
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: green;
+    display: flex;
+    align-items: center;
+}
+.main-porduct .point{
+    color: #d1630e;
+    font-size: 1.1rem;
+}
+.main-porduct .price svg{
+    font-size: 1.5rem;
+    color: green;
+}
+.main-porduct .old-price{
+    font-size: 1rem;
+    text-decoration: line-through;
+    color: rgb(70, 62, 62);
+    display: flex;
+    align-items: center;
+}
+.main-porduct .old-price svg{
+    font-size: 1.2rem;
+    text-decoration: line-through;
+    color: rgb(70, 62, 62);
+}
+.main-porduct svg{
+    font-size: 1rem;
+    text-decoration: line-through;
+    color: #faca51;
+}
+.buy-now-btn{
+    background-color: #FF7812;
+    border: 1px solid #FF7812;
+}
+.buy-now-btn:hover{
+    background-color: #cc5f0c;
+    border: 1px solid #d1630e;
+}

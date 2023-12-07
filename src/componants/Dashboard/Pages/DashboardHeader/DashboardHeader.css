@@ -1,0 +1,31 @@
+.dashbord-header div{
+    background-color: #1F2944;
+    color: wheat;
+    padding: 5px;
+}
+.dashbord-nav-items ul li a{
+    color: #fff !important;
+}
+
+.dashbord-header .navbar-light .navbar-toggler-icon {
+    background-image: url('../../../../assets/images/nav_icon/icons8-menu-48.png') !important;
+} 
+.dashbord-control-icon svg{
+    height: 26px;
+    width: 26px;
+}
+.dashbord-active ul li span{
+    display: none;
+}
+
+
+@media only screen and (min-width:200px) and (max-width:650px) { 
+    .logo{
+        height: 35px;
+        width: 80px;
+    }
+    .dashbord-header ul li a{
+        font-size: .8rem;
+    }
+   
+}
