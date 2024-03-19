@@ -1,7 +1,7 @@
 import React from 'react';
 import './HotSale.css';
 import ProductCardOne from '../../SubComponents/ProductCardOne/ProductCardOne';
-import { Link } from 'react-router-dom';
+ 
 
 const HotSale = ({ hotSales }) => {
 

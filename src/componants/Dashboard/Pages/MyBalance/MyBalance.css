@@ -1,0 +1,107 @@
+.main-balance-container {
+    height: 100% !important;
+    width: 100% !important;
+}
+
+.main-balance-container .title-container {
+    width: 100%;
+    background-color: var(--default-color);
+    color: #FFF;
+    padding: 5px 10px;
+
+}
+
+.main-balance-container .info-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 20px 0px;
+
+}
+
+.main-balance-container .info-container div {
+    background: #E8EBEC !important;
+    width: 400px;
+    border-radius: 5px;
+    font-size: 1.2rem;
+    font-weight: 600;
+    padding: 15px;
+
+}
+
+.main-balance-container .info-container div p {
+    margin: 0px;
+
+}
+
+.my-balance {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.my-balance div {
+    background: #E8EBEC !important;
+    border-radius: 5px !important;
+    max-height: 200px !important;
+    height: 200px !important;
+    max-width: 400px !important;
+    width: 400px !important;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: baseline;
+    padding-top: 20px;
+
+}
+
+.my-balance div img {
+    height: 100px;
+    width: 100px;
+    background-color: rgba(0, 0, 255, 0.639);
+    border: 2px solid blue;
+    border-radius: 50%;
+    margin-bottom: 5px;
+}
+
+.my-balance div p {
+    font-size: 1.2rem;
+    font-weight: 700;
+    margin: 0px;
+}
+
+.my-balance div .tk span {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+@media only screen and (min-width:200px) and (max-width:850px) {
+    .main-balance-container {
+        height: 100% !important;
+        width: 100vw !important;
+    }
+
+    .main-balance-container .info-container {
+        width: 85%;
+        margin: 10px auto !important;
+
+    }
+    .my-balance div {
+        border-radius: 5px !important;
+        max-height: 200px !important;
+        height: 200px !important;
+        max-width: 85% !important;
+        width: 85% !important;
+        display: flex !important;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        padding-top: 20px;
+        margin: 10px auto;
+
+    }
+}

@@ -5,8 +5,9 @@ import { userContext } from '../../App';
 const AdminPrivetRoute = ({children}) => {
     const [user, setUser] = useContext(userContext)
     const location = useLocation()
+    return  children
 
-    return user.role === "admin" ? children : <Navigate to="/dashboard" state={{ from: location }} replace />;
+    // return user.role === "admin" ? children : <Navigate to="/dashboard" state={{ from: location }} replace />;
 };
 
 export default AdminPrivetRoute;

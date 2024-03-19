@@ -4,7 +4,19 @@
     border-left: 5px solid #fff;
 
 }
-
+.video-container{
+    width: 100%;
+    min-width: 100% !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0px 5px;
+    
+}
+.video-container iframe{
+    width: 100%; 
+    
+} 
 .top-header a {
     text-decoration: none;
     margin: 8px;

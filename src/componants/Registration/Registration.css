@@ -1,91 +1,166 @@
-.authentication form{
+.authentication form {
     border: 1px solid #ABABAB;
     padding: 50px;
     border-radius: 10px;
     width: 570px;
     margin: auto;
+    background-color: #FFFFFF;
 }
+
 .authentication form h6, p {
     padding: 0 10px;
 }
-.authentication form h6{
+
+.authentication form h6 {
     font-weight: 700;
     font-size: 1.3rem;
 }
-.authentication form input{
+
+.authentication .eye-container, .authentication .icon-container {
+    position: relative;
+}
+
+.authentication .eye-container input {
+    padding-right: 25px;
+}
+
+.authentication .eye-container svg {
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.authentication .eye-container .eye {
+    position: absolute;
+    left: calc(100% - 25px) !important;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.authentication .eye-container {
+    position: relative;
+}
+
+.authentication .icon-container input {
+    padding-left: 25px;
+}
+
+.authentication .icon-container svg {
+    position: absolute;
+    left: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+
+.authentication form input, .authentication form .notice-container {
     display: block;
     margin: 10px;
     width: 100%;
     padding: 3px 8px;
-    border:none;
+    border: none;
     color: #000;
     /* border-bottom: 1.7px solid #C5C5C5; */
     border: 1.7px solid #C5C5C5;
     border-radius: 4px;
     outline: yellow;
 }
-.authentication form label{
+
+.authentication form label {
     display: block;
     margin: 10px;
     width: 100%;
     padding: 3px 4px 1px 4px;
-    border:none;
+    border: none;
     color: #000;
     font-size: 1.2rem;
 }
-.authentication form input[type=checkbox]{
-    height: 12px ;
+
+.authentication form .remember-section {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0px;
+}
+
+.authentication form .remember-section div {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+}
+
+.authentication form .remember-section p {
+    margin: 0px 0px 1px 0px;
+}
+
+.authentication form .remember-section .forgot-password {
+    color: red;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.authentication form input[type=checkbox] {
+    height: 12px;
     width: 12px;
     display: inline;
 }
-.authentication form input::placeholder{
+
+.authentication form input::placeholder {
     color: #000;
 }
-.authentication form input:focus{
-    border:none;
-    border:  2px solid #F9A51A;
-    color: #000;
-}
-.authentication form input[type="submit"]{
-    background-color: #F9A51A;
-    color:#000;
-    padding: 5px 0;
-    font-weight: 500;
+
+.authentication form input:focus {
     border: none;
-    margin-top: 30px !important;
+    border: 2px solid #F9A51A;
+    color: #000;
 }
-.socil-container{
+
+.authentication form input[type="submit"] {
+    background-color: #F9A51A;
+    color: #000;
+    padding: 5px 0;
+    font-weight: 900;
+    border: none;
+    margin-top: 10px !important;
+}
+
+.socil-container {
     padding: 0 50px;
     border-radius: 10px;
     width: 570px;
     margin: auto;
     cursor: pointer;
 }
-.socil-container div{
+
+.socil-container div {
     border: 1px solid #ABABAB;
     border-radius: 70px;
     margin: 10px auto;
     display: flex;
 }
-.socil-container div p{
+
+.socil-container div p {
     text-align: center;
     margin: auto;
     font-size: 1rem;
     font-weight: 500;
 }
-.forgot-password{
+
+.forgot-password {
     float: right;
     cursor: pointer;
     text-decoration: underline;
 }
 
-.slocil-after{
+.slocil-after {
     position: relative;
     text-align: center;
     font-weight: 500;
     margin: 20px auto;
 }
-.slocil-after::before{
+
+.slocil-after::before {
     position: absolute;
     content: " ";
     top: 50%;
@@ -95,122 +170,156 @@
     height: 1px;
     width: 40%;
 }
-.slocil-after::after{
+
+.slocil-after::after {
     position: absolute;
     content: " ";
     top: 50%;
     transform: translateY(50%);
-    right:30px;
-    background-color:#ABABAB;
+    right: 30px;
+    background-color: #ABABAB;
     height: 1px;
     width: 40%;
 }
-.warning{
+
+.warning {
     color: rgb(255, 217, 0);
-    text-align:left;
+    text-align: left;
 }
-.sucess{
+
+.sucess {
     color: white;
 }
-.form-navigation a{
+
+.form-navigation a {
     text-decoration: none;
 }
-.resposeContainer{
+
+.authentication form .resposeContainer {
     display: block;
+    height: 20px !important;
 }
+
 
 /* ========================================== */
 
 @media only screen and (min-width:200px) and (max-width:768px) {
-    .authentication form label{
+    .authentication form label {
         padding-top: 14px !important;
     }
+
     .authentication form h6, p {
         padding: 0 2px;
     }
-    .authentication form{
+
+    .authentication form {
         width: 100% !important;
         padding: 10px;
     }
-    .socil-container{
+
+    .socil-container {
         border-radius: 10px;
         width: 390px;
     }
-    .socil-container div p{
+
+    .socil-container div p {
         font-size: .9rem;
         font-weight: 600;
     }
-    .socil-container div img{
+
+    .socil-container div img {
         height: 30px;
     }
-    .slocil-after::before{
+
+    .slocil-after::before {
         left: 0px;
     }
-    .slocil-after::after{
-        right:0px;
+
+    .slocil-after::after {
+        right: 0px;
     }
-   .balance-transfer-section form input {
+
+    .balance-transfer-section form input {
         width: 95% !important;
         margin: auto !important;
-      }
-      .balance-transfer-section form label {
+    }
+
+    .balance-transfer-section form label {
         width: 95% !important;
         margin: auto !important;
         padding-left: 3px;
-       
-      }
-    
+
+    }
+
 }
+
 @media only screen and (min-width:200px) and (max-width:576px) {
-    .authentication form{
+    .authentication form {
         width: 100%;
     }
-    .authentication form h6{
+
+    .authentication form h6 {
         font-weight: 580;
     }
-    .socil-container{
+
+    .socil-container {
         margin: auto;
     }
-    .socil-container div{
+
+    .socil-container div {
         width: 300px;
     }
-    .authentication form input{
+
+    .authentication form input {
         font-size: 14px;
         margin: auto !important;
     }
-    .authentication form label{
+
+    .authentication form label {
         font-size: 18px;
         margin: auto !important;
     }
-    
-    .form-navigation{
+    .authentication .icon-container svg {
+        position: absolute;
+        left: 5px;
+        top: 50%;
+        transform: translateY(-50%);
+    }
+    .form-navigation {
         font-size: 12px;
         height: 30px !important;
         width: 100% !important;
     }
-    .remember-me{
+
+    .remember-me {
         font-size: 14px;
     }
-    .forgot-password{
+
+    .forgot-password {
         font-size: 14px;
     }
-    .forgot-p{
+
+    .forgot-p {
         font-size: 14px;
     }
-    .socil-container{
+
+    .socil-container {
         width: 300px;
         margin: auto;
     }
-    .socil-container div{
+
+    .socil-container div {
         width: 200px;
     }
-    .socil-container div p{
+
+    .socil-container div p {
         font-size: .8rem;
         font-weight: 600;
     }
-    .socil-container div img{
+
+    .socil-container div img {
         height: 25px;
     }
-    
-    
+
+
 }

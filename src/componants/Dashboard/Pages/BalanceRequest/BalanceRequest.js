@@ -6,6 +6,8 @@ import rocketLogo from '../../../../assets/images/payment_porvider_logo/dutch-ba
 import { FiCopy } from "react-icons/fi";
 import { userContext } from '../../../../App';
 import { getCooki } from '../../../../shared/cooki';
+import SuccessTost from "../../../../shared/components/SuccessTost/SuccessTost"
+import { ToastContainer } from 'react-toastify';
 
 
 const BalanceRequest = () => {
@@ -19,16 +21,9 @@ const BalanceRequest = () => {
 
 
 
-    const copyText = (e) => {
-        const copyBtn = e.target.parentNode.parentNode.childNodes[1];
-        const copedNotice = e.target.parentNode.parentNode.childNodes[2];
-        copyBtn.select()
-        document.execCommand("copy");
-
-        copedNotice.classList.add('active-notice');
-        setTimeout(() => {
-            copedNotice.classList.remove('active-notice');
-        }, 2000);
+    const copyText = (text) => {
+         navigator.clipboard.writeText(text)
+         SuccessTost("Copied")
     };
 
     const inputHandler = (e) => {
@@ -120,7 +115,7 @@ const BalanceRequest = () => {
     return (
         <div className='text-white'>
             <div className='balance-transfer-section m-auto'>
-                <h4>CREATE BALANCE REQUEST</h4>
+                <h4>Add Money</h4>
                 <div>
                     <form onSubmit={balanceTransferHandle}>
                         <div className='payment-provider-section '>
@@ -128,21 +123,21 @@ const BalanceRequest = () => {
                                 <img src={bkashLogo} alt="logo"></img>
                                 <input type='text' value='01906705620' />
                                 <label >Personal</label>
-                                <span className='copy-btn'><FiCopy onClick={copyText} /></span>
+                                <span className='copy-btn'><FiCopy onClick={() => copyText("01906705620")} /></span>
                             </div>
                             <div>
                                 <img src={nagadLogo} alt="logo"></img>
                                 <input type='text' value='01906705620' />
                                 <label >Personal</label>
 
-                                <span className='copy-btn'><FiCopy onClick={copyText} /></span>
+                                <span className='copy-btn'><FiCopy onClick={() => copyText("01906705620")} /></span>
                             </div>
                             <div>
                                 <img src={rocketLogo} alt="logo"></img>
                                 <input type='text' value='019341438756' />
                                 <label >Personal</label>
 
-                                <span className='copy-btn'><FiCopy onClick={copyText} /></span>
+                                <span className='copy-btn'><FiCopy onClick={() => copyText("019341438756")} /></span>
                             </div>
                         </div>
                         <div>
@@ -183,7 +178,7 @@ const BalanceRequest = () => {
                         <thead>
                             <tr>
                                 <th>#</th>
-                                <th>Paymented Method</th>
+                                <th>Payment Method</th>
                                 <th>Requested Number</th>
                                 <th>Requested Amount</th>
                                 <th>Request Date</th>
@@ -211,6 +206,7 @@ const BalanceRequest = () => {
                     </table>
                 </div>
             </div>
+            <ToastContainer/>
         </div>
     );
 };

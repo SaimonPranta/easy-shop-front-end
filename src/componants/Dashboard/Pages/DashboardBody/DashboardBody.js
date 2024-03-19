@@ -1,12 +1,43 @@
 import React, { useContext, useEffect, useState } from 'react';
 import './DashboardBody.css';
-import { FaRegMoneyBillAlt } from "react-icons/fa";
 import { userContext } from '../../../../App';
 import { Link } from 'react-router-dom';
 import { getCooki } from '../../../../shared/cooki';
+import welcomeImage from "../../../../assets/images/dashboard/abstract-welcome-composition-with-flat-design_23-2147912311.jpg"
+import { FaShare, FaCopy } from "react-icons/fa"
 
-
-
+const socialContainer = [
+    {
+        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png",
+        label: "FB page join korun",
+        link: "https:://facebook.com"
+    },
+    {
+        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png",
+        label: "FB page join korun",
+        link: "https:://facebook.com"
+    },
+    {
+        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png",
+        label: "FB page join korun",
+        link: "https:://facebook.com"
+    },
+    {
+        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png",
+        label: "FB page join korun",
+        link: "https:://facebook.com"
+    },
+    {
+        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png",
+        label: "FB page join korun",
+        link: "https:://facebook.com"
+    },
+    {
+        img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png",
+        label: "FB page join korun",
+        link: "https:://facebook.com"
+    },
+]
 
 const DashboardBody = () => {
     const [user, setUser] = useContext(userContext);
@@ -19,7 +50,6 @@ const DashboardBody = () => {
 
 
     const cooki = getCooki()
-
 
     let totalPendingBalance = 0
     let totalPendingWithdraw = 0
@@ -100,8 +130,10 @@ const DashboardBody = () => {
                 })
         }
     }
-
-
+    const handleCopy = (text) => {
+         
+        navigator.clipboard.writeText(text)
+    }
 
     return (
         <div className='text-white'>
@@ -133,9 +165,8 @@ const DashboardBody = () => {
                     </>
                 }
                 <div className='dashboard-user-info'>
-                    <h5>Welcome</h5>
-                    <p>{user && user.firstName + " " + user.lastName}</p>
-                    <h5>{user && user.firstName + " " + user.lastName} {user.isActive ? "Your account is activated, you can start work now." : "Your account is not activate, you can't start work now."}</h5>
+                    {/* <p>{user && user.firstName + " " + user.lastName}</p> */}
+                    <h5 className='user-name'><strong>{user && user.firstName + " " + user.lastName}</strong>  {user.isActive ? "Your account is activated, you can start work now." : "Your account is not activate, you can't start work now."}</h5>
                     {
                         !user.isActive && user.balance < 50 ? <sapn className="btn-group p-0 m-auto  dashbord-active-btn" role="group" aria-label="Basic example">
                             <Link to="/balance_request" type="button" className="btn btn-primary">Balance Request Now</Link>
@@ -153,33 +184,32 @@ const DashboardBody = () => {
                         <p>Phone Number: {user && user.phoneNumber}</p>
                     </div>
                 </div>
-
-                <div className='balnce-section text-center dashboard-sub-section'>
+                <div className='rafael-section' >
+                    <h6>Your Reffer Link:</h6>
+                    <p>{`${window.location.protocol}${window.location.host}/login?ref=${user.phoneNumber}`}</p>
                     <div>
-                        <FaRegMoneyBillAlt />
-                        <p>INCOME BALANCE</p>
-                        <p className='tk'><span>৳</span> {user && user.balance}</p>
+                        <button> <FaShare /> Share </button>
+                        <button onClick={() => handleCopy(`${window.location.protocol}${window.location.host}/login?ref=${user.phoneNumber}`)}> <FaCopy /> Copy</button>
                     </div>
+                </div>
+                <div className='rafael-section' >
+                    <h6>Your Reffer Number:</h6>
+                    <p>{user?.phoneNumber}</p>
                     <div>
-                        <FaRegMoneyBillAlt />
-                        <p>SHOPPING BALANCE</p>
-                        <p className='tk'><span>৳</span> {user && user.shoppingBalance}</p>
+                        <button> <FaShare /> Share </button>
+                        <button onClick={() => handleCopy(user?.phoneNumber)}> <FaCopy /> Copy</button>
                     </div>
-                    <div>
-                        <FaRegMoneyBillAlt />
-                        <p>TOTAL PENDING BALANCE REQUEST</p>
-                        <p className='tk'><span>৳</span> {reqBalance}</p>
-                    </div>
-                    <div>
-                        <FaRegMoneyBillAlt />
-                        <p>TOTAL PENDING WITHDRAW BALANCE REQUEST</p>
-                        <p className='tk'><span>৳</span> {withBalance}</p>
-                    </div>
-                    <div>
-                        <FaRegMoneyBillAlt />
-                        <p>TOTAL INCOME BALANCE</p>
-                        <p className='tk'><span>৳</span> {user.totalIncome}</p>
-                    </div>
+                </div>
+                <div className='social-container'>
+                    {
+                        socialContainer.length > 0 && socialContainer.map((info, index) => {
+                            return <div key={index} >
+                                <img src={info.img} alt='' />
+                                <button>Join Now</button>
+                                <h6>{info.label}</h6>
+                            </div>
+                        })
+                    }
                 </div>
             </div>
         </div >

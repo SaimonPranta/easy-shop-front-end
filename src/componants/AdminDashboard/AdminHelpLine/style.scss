@@ -1,0 +1,100 @@
+.admin-help-line {
+  width: 100%;
+  width: 100%;
+
+  .add-btn-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: 15px;
+
+    button {
+      border: none;
+      outline: none;
+      padding: 5px 15px;
+      border-radius: 4px;
+      font-weight: 700;
+      background-color: var(--default-color);
+      color: #FFF;
+    }
+  }
+
+  .social-media-list {
+    .inner-container {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 15px;
+
+      .cart-container {
+        box-shadow: 1px 1px 3px #bdabab, 1px 1px 5px #d5c7c7;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 10px;
+        background-color: #FFFFFF;
+        border-radius: 8px;
+        position: relative;
+
+        .delete-btn {
+          position: absolute;
+          top: 5px;
+          right: 5px;
+          background-color: #feb638;
+          color: #997373;
+          &:active{
+            transform: scale(.95);
+          }
+          &:hover{
+            opacity: .7;
+          }
+        }
+
+        img {
+          height: 75px;
+          width: 75px;
+        }
+
+        &>button {
+          border: none;
+          outline: none;
+          background-color: #f00e84;
+          color: #FFF;
+          border-radius: 5px;
+          font-size: 19px;
+          font-weight: 700;
+          padding: 5px 10px;
+        }
+
+        .title-container {
+          height: 60px;
+          margin-bottom: 8px !important;
+
+          p {
+            margin: 5px;
+            font-weight: 800;
+            font-size: 18px;
+            display: flex;
+          }
+
+          button {
+            outline: none;
+            border: none;
+            padding: 5px;
+            margin: 0px 0px 0px 5px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+
+            &:active {
+              transform: scale(.9);
+            }
+          }
+
+        }
+
+      }
+    }
+  }
+}

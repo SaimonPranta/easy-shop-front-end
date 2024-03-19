@@ -17,7 +17,7 @@ const DashboardHeader = () => {
         <section className=' mb-1 dashbord-header'>
             <nav className="navbar navbar-expand-lg navbar-light text-white px-2 m-auto">
                 <div className="container-fluid">
-                    <div className='dashbord-control-icon text-white d-md-none' onClick={dashboardMenuHndller}>
+                    <div className='dashbord-control-icon d-md-none' onClick={dashboardMenuHndller}>
                         <FaAlignLeft/>
                     </div>
                     {/* <Link className="navbar-brand " to="/"><img src={logo} alt="EasyShop50" className='logo' /></Link> */}

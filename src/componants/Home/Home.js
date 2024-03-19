@@ -16,8 +16,7 @@ import MultiplexAdsThree from '../../GoogleADs/MultiplexAdsThree'
 
 
 
-const Home = () => {
-  const thisIsMyCopy = "<p>copy copy copy <strong>strong copy</strong></p>";
+const Home = () => { 
   const [allProducts, setAllProducts] = useState([]);
   const [hotSales, setHotSales] = useState([]);
   useEffect(() => {
@@ -50,8 +49,8 @@ const Home = () => {
 
   return (
     <div>
-      <TopHeader />
       <Header />
+      <TopHeader />
 
       <DisplayAdsOne />
       <MultiplexAdsOne />

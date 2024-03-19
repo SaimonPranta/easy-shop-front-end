@@ -9,9 +9,10 @@
     background-color: #485068;
 }
 
-.balance-transfer-section h4 {
-    background-color: purple;
-    font-size: 1rem;
+.balance-transfer-section h4 { 
+    background-color: var(--default-color);
+    font-size: 1.3rem;
+    font-weight: 800;
     width: 100%;
     padding: 5px;
     margin-bottom: 0;

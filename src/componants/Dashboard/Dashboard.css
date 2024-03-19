@@ -1,5 +1,4 @@
 .dashboard-section{
-    background-color: #000;
     min-height: 100vh;
 }
 .dashboard-container{
@@ -19,8 +18,8 @@
 
 }
 
-.dashboard-container div{
-    background-color: #1F2944;
+.dashboard-container>div{
+    /* background-color: #FFFFFF; */
 }
 .dashboard-menu{
     height: 100vh;

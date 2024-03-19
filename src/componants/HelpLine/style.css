@@ -1,0 +1,126 @@
+ 
+.helpline-section .main-container {
+    width: calc(100% - 10px);
+    margin: auto;
+    margin-top: 5px;
+}
+
+
+.helpline-section .main-container .title {
+    background-color: #f00e84;
+    width: 100%;
+    padding: 5px;
+    color: #FFF;
+}
+
+.helpline-section .helpline-hero-section {
+    width: 80%;
+    margin: auto;
+    padding: 10px;
+    color: #000;
+    border-radius: 10px;
+    margin-top: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: #FFFFFF;
+    box-shadow: 1px 1px 3px #bdabab, 1px 1px 5px #d5c7c7;
+    margin: 20px auto;
+}
+
+.helpline-section .social-container .inner-container {
+    width: 80%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 15px;
+}
+
+.helpline-section .social-container .cart-container {
+    box-shadow: 1px 1px 3px #bdabab, 1px 1px 5px #d5c7c7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+    background-color: #FFFFFF;
+    border-radius: 8px;
+}
+
+.helpline-section .social-container .cart-container img {
+    height: 75px;
+    width: 75px;
+}
+
+.helpline-section .social-container .cart-container .title-container {
+    height: 60px;
+    margin-bottom: 8px !important;
+
+    p {
+        margin: 5px;
+        font-weight: 800;
+        font-size: 18px;
+        display: flex;
+    }
+
+    button {
+        outline: none;
+        border: none;
+        padding: 5px;
+        margin: 0px 0px 0px 5px;
+        border-radius: 4px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        &:active {
+            transform: scale(.9);
+        }
+    }
+
+}
+
+.helpline-section .social-container .cart-container>button {
+    border: none;
+    outline: none;
+    background-color: #f00e84;
+    color: #FFF;
+    border-radius: 5px;
+    font-size: 19px;
+    font-weight: 700;
+    padding: 5px 10px;
+}
+
+.helpline-section .helpline-hero-section img {
+    height: 130px;
+    width: 130px;
+}
+
+.helpline-section .helpline-hero-section button {
+    padding: 5px 15px;
+    border: none;
+    outline: none;
+    background-color: #f00e84;
+    font-size: 1.4rem;
+    font-weight: 600;
+    margin-bottom: 5px;
+    border-radius: 4px;
+}
+
+.helpline-section .helpline-hero-section p {
+    text-align: justify;
+    font-size: 20px;
+    font-weight: 800;
+}
+
+@media only screen and (min-width:200px) and (max-width:700px) {
+    .helpline-section .helpline-hero-section {
+        width: 85%; 
+        padding: 7px; 
+    }
+    .helpline-section .social-container .inner-container {
+        width: 90%; 
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+}

@@ -1,0 +1,162 @@
+ 
+.dashboard-menu ul{
+    margin: 0;
+    padding: o;
+}
+.dashboard-menu ul li{
+    margin: 0;
+    padding: o;
+    list-style: none;
+    padding: 5px;
+    font-weight: 500;
+    color: var(--default-color);
+    cursor: pointer;
+    border-bottom: 1px solid #5a58e63e;
+    display: flex !important; 
+    align-items: center;
+    font-weight: 620;
+    font-size: 1.1rem;
+    gap: 5px;
+    align-items: center;
+    align-items: center;
+}
+
+.dashboard-menu ul li a{
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    color: var(--default-color);
+    font-weight: 620;
+    font-size: 1.1rem;
+}
+.dashboard-menu ul li span{
+     padding-top: 3px;
+}
+  .dashboard-menu ul li ul li a svg{
+    display: inline-block;
+     padding-bottom: 6px !important;
+}
+.dashboard-menu ul li ul li a{
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    color: #000;
+    font-weight: 620;
+    font-size: 1.1rem;
+}
+
+.sub-menu{
+    display: none;
+}
+.active-sub-menu{
+    display: block;
+}
+.dashboard-container{
+    min-height: 100vh;
+    min-width: 100vw;
+}
+@media only screen and (min-width:200px) and (max-width:810px) { 
+    .dashboard-menu ul li{
+        display: flex;
+        align-items: center;
+    }
+   
+
+}
+@media only screen and (min-width:200px) and (max-width:600px) { 
+     .admin-search input{
+        width: 95% !important;
+        margin: auto;
+       }
+       .dashboard-menu ul li a svg{
+        margin-top: 5px !important;
+    }
+     
+}
+
+/* ==================Responsive Navicario For ALl============== */
+@media only screen and (min-width:200px) and (max-width:750px) { 
+    .dashboard-container{
+        display: grid;
+        grid-template-columns: .5fr 1fr;
+        grid-row-gap: 5px;
+        grid-column-gap: 15px;
+    }
+    .balance-transfer-section form select {
+        width: 80% !important;
+        border-radius: 4px;
+    }
+    .balance-transfer-section form input {
+        width: 80% !important;
+    }
+    .balance-transfer-section form input[type=submit] {
+        width: 180px !important;
+    }
+        
+    .balance-transfer-section form input {
+        outline: none;
+        border: none;
+        border-radius: 3px;
+        width: 100%;
+        display: block;
+        color: #000;
+        margin: 3px 0px 3px 8px !important;
+    }
+    .balance-transfer-section form select {
+        outline: none;
+        border: none;
+        border-radius: 3px;
+        width: 100%;
+        display: block;
+        color: #000;
+        margin: 3px 0px 3px 10px !important;
+    }
+    .balance-transfer-section form input[type="submit"] {
+        margin: auto !important;
+    }
+    .balance-transfer-section .product-details .product-details-inner .product-wrapwer div{
+        margin: 0px !important;
+        padding: 0px;
+    }
+}
+@media only screen and (min-width:200px) and (max-width:630px) { 
+    .dashboard-container{
+        display: grid;
+        grid-template-columns: .4fr 1fr ;
+        grid-row-gap: 5px;
+        grid-column-gap: 15px;
+    }
+   
+}
+@media only screen and (min-width:200px) and (max-width:600px) { 
+    .dashboard-container{
+        display: grid;
+        grid-template-columns: 1fr ;
+        grid-row-gap: 0px;
+        grid-column-gap: 0px;
+    }
+   
+    .dashboard-container div {
+        display: block;
+    }
+    .dashboard-menu {
+        display: none !important;
+    }
+   .dashbord-active .dashboard-container div {
+        display: none;
+    }
+    .dashbord-active .dashboard-menu {
+        display: block !important;
+        width: 100vw !important;
+        min-width: 100% !important;
+    }
+    .dashbord-active .dashboard-menu ul li span{
+        display: flex;
+        margin-left: 5px;
+     }
+     .dashboard-menu ul li a{
+        display: flex;
+     }
+   
+}
+

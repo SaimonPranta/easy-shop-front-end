@@ -6,10 +6,14 @@ import inputHandler from '../../Functions/inputHandler';
 import Header from '../Header/Header';
 import Loading from '../Loading/Loading';
 import { getCooki } from '../../shared/cooki';
+import { HiEye, HiEyeOff } from 'react-icons/hi';
+import { GoMail } from 'react-icons/go';
+import { FiLock } from 'react-icons/fi';
 
 const Login = () => {
     const [inputUser, setInputUser] = useState({});
     const [message, setMessage] = useState({});
+    const [showEye, setShowEye] = useState({ password: false });
     const [isLoagin, setIsLoading] = useState(true)
     const [user, setUser] = useContext(userContext);
     const navigate = useNavigate()
@@ -20,24 +24,24 @@ const Login = () => {
         user._id && navigate(from, { replace: true })
         const cooki = getCooki()
         if (!user?._id && cooki) {
-          fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/user`, {
-            method: "GET",
-            headers: {
-              "Content-type": "application/json; charset=UTF-8",
-              authorization: `Bearer ${cooki}`,
-            },
-          })
-            .then((res) => res.json())
-            .then((data) => {
-              setIsLoading(false);
-              if (data._id) {
-                  data.password = null;
-                  setUser(data)
-                data._id && navigate(from, { replace: true });
-              }
-            });
+            fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/user`, {
+                method: "GET",
+                headers: {
+                    "Content-type": "application/json; charset=UTF-8",
+                    authorization: `Bearer ${cooki}`,
+                },
+            })
+                .then((res) => res.json())
+                .then((data) => {
+                    setIsLoading(false);
+                    if (data._id) {
+                        data.password = null;
+                        setUser(data)
+                        data._id && navigate(from, { replace: true });
+                    }
+                });
         } else {
-          setIsLoading(false);
+            setIsLoading(false);
         }
     }, []);
 
@@ -68,10 +72,10 @@ const Login = () => {
             })
                 .then(res => res.json())
                 .then(data => {
-                    console.log("data.token =====>>>", data.token )
+                    console.log("data.token =====>>>", data.token)
                     setIsLoading(false)
                     document.cookie = `token=${data.token}; ${cookieExpires(3)}; path=/`;
-                 //   document.cookie = `token === ${data.token}; ${cookieExpires(3)}; path=/`;
+                    //   document.cookie = `token === ${data.token}; ${cookieExpires(3)}; path=/`;
                     if (data.data) {
                         data.data.password = null;
                         setUser(data.data)
@@ -100,11 +104,37 @@ const Login = () => {
                 <form onSubmit={handleLogin}>
                     <h6>Login</h6>
                     <label>Phone Number</label>
-                    <input type="text" name="singInPhoenNumber" placeholder="Phone Number" value={inputUser.singInPhoenNumber ? inputUser.singInPhoenNumber : ""} required autoComplete="off" onChange={fromInputHandler} />
+                    <div className='icon-container'>
+                        <GoMail />
+                        <input type="text" name="singInPhoenNumber" placeholder="Phone Number" value={inputUser.singInPhoenNumber ? inputUser.singInPhoenNumber : ""} required autoComplete="off" onChange={fromInputHandler} />
+                    </div>
 
                     <label>Password</label>
-                    <input type="password" name="signInPassword" placeholder="Password" value={inputUser.signInPassword ? inputUser.signInPassword : ""} required autoComplete="off" onChange={fromInputHandler} />
-
+                    <div className='eye-container icon-container'>
+                        <FiLock />
+                        <input type={showEye.password ? "text" : "password"} name="signInPassword" placeholder="Password" value={inputUser.signInPassword ? inputUser.signInPassword : ""} required autoComplete="off" onChange={fromInputHandler} />
+                        {
+                            showEye.password ? <HiEye className='eye' onClick={() => {
+                                setShowEye((state) => {
+                                    return {
+                                        ...state,
+                                        password: false
+                                    }
+                                })
+                            }} /> : <HiEyeOff  className='eye' onClick={() => {
+                                setShowEye((state) => {
+                                    return {
+                                        ...state,
+                                        password: true
+                                    }
+                                })
+                            }} />
+                        }
+                    </div>
+                    <div className='remember-section'>
+                        <div> <input type='checkbox' /> <p>Remember me</p></div>
+                        <p className='forgot-password'>Forgotten Password?</p>
+                    </div>
 
                     <input type="submit" value="Login" required autoComplete="off" />
                     <div className='resposeContainer'>
@@ -116,7 +146,6 @@ const Login = () => {
                         }
                     </div>
                     <div className='form-navigation d-flex'><p>Don't have an account? <Link to="/registration"><span style={{ color: "blue", cursor: "pointer" }}>Register an account</span></Link></p></div>
-                    <div className='form-navigation d-flex pb-4 mb-5'><p style={{ color: "#ffd700", fontSize: "1.1rem" }}>Forgotten Password? </p></div>
 
                 </form>
             </section>

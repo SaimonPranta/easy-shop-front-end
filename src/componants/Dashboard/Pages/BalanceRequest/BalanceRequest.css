@@ -11,6 +11,8 @@
 }
 .payment-provider-section div{
     background-color: #404a66 !important;
+    
+    /* background-color: var(--default-color) ; */
     margin: 3px;
 }
 .payment-provider-section div input{
