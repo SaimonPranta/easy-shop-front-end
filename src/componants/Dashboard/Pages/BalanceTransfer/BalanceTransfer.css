@@ -49,6 +49,13 @@
 .balance-transfer-section form input:focus {
     color: blueviolet;
 }
+.balance-transfer-section form .notice {
+    color: #FFF;
+    background-color: #2096f5;
+    padding: 5px;
+    border-radius: 4px;
+    font-size: 18px;
+}
 
 .balance-transfer-section form select {
     outline: none;

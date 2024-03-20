@@ -6,6 +6,32 @@
     margin: auto;
     background-color: #FFFFFF;
 }
+.authentication form .referral-section {
+    position: relative;
+}
+.authentication form .referral-section  .user-list{
+    position: absolute;
+    width: 100%;
+    top: 35px;
+    left: 10px;
+    background-color: #FFF !important;
+    display: flex;
+    flex-direction: column; 
+    box-shadow: 1px 1px 1px 1px #b0a0a076, 1px 1px 1px 3px #b0a0a049;
+    height: 100px;
+    overflow: auto;
+}
+.authentication form .referral-section  .user-list button{
+     outline: none;
+     border: none;
+     border-bottom: 1px solid #f4eeee;
+     text-align: start;
+     padding: 3px 5px;
+     background-color: transparent;
+}
+.authentication form .referral-section  .user-list button:hover{
+    background-color: #e3d6d6;
+}
 
 .authentication form h6, p {
     padding: 0 10px;

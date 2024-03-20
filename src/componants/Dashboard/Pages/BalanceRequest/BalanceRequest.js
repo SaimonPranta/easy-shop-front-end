@@ -7,12 +7,12 @@ import { FiCopy } from "react-icons/fi";
 import { userContext } from '../../../../App';
 import { getCooki } from '../../../../shared/cooki';
 import SuccessTost from "../../../../shared/components/SuccessTost/SuccessTost"
+import FailedTost from "../../../../shared/components/FailedTost/FailedTost"
 import { ToastContainer } from 'react-toastify';
 
 
 const BalanceRequest = () => {
-    const [requestInfo, setRequestInfo] = useState({});
-    const [message, setMessage] = useState({});
+    const [requestInfo, setRequestInfo] = useState({}); 
     const [user, setUser] = useContext(userContext);
 
 
@@ -22,8 +22,8 @@ const BalanceRequest = () => {
 
 
     const copyText = (text) => {
-         navigator.clipboard.writeText(text)
-         SuccessTost("Copied")
+        navigator.clipboard.writeText(text)
+        SuccessTost("Copied")
     };
 
     const inputHandler = (e) => {
@@ -56,8 +56,7 @@ const BalanceRequest = () => {
         }
         if (requestInfo.provider && requestInfo.amount && requestInfo.number) {
             if (Math.floor(requestInfo.amount) && Math.floor(requestInfo.number)) {
-                if (requestInfo.amount >= 10) {
-                    setMessage({})
+                if (requestInfo.amount >= 10) { 
                     fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/balance_request`, {
                         method: "POST",
                         body: JSON.stringify(requestInfo),
@@ -74,38 +73,23 @@ const BalanceRequest = () => {
                             }
                             if (data.sucess) {
                                 setRequestInfo({})
-                                setMessage({ sucess: data.sucess });
-                                setTimeout(() => {
-                                    setMessage({})
-                                }, 7000);
+                                SuccessTost(data.sucess) 
                             }
                             if (data.failed) {
                                 setRequestInfo(currentInputContainer)
-                                setMessage({ failed: data.failed });
-                                setTimeout(() => {
-                                    setMessage({})
-                                }, 7000);
+                                FailedTost(data.failed) 
                             }
                         })
-                        setRequestInfo({})
+                    setRequestInfo({})
 
                 } else {
-                    setMessage({ failed: "Sorry, you can't send money less then 10tk." })
-                    setTimeout(() => {
-                        setMessage({})
-                    }, 7000);
+                    FailedTost("Sorry, you can't send money less then 10tk.") 
                 }
             } else {
-                setMessage({ failed: "Sorry, Amount and Phone Number must be Number" })
-                setTimeout(() => {
-                    setMessage({})
-                }, 700);
+                FailedTost("Sorry, Amount and Phone Number must be Number") 
             }
         } else {
-            setMessage({ failed: "Please fill the form and try angain" })
-            setTimeout(() => {
-                setMessage({})
-            }, 7000);
+            FailedTost("Please fill the form and try again") 
         }
     };
 
@@ -118,6 +102,9 @@ const BalanceRequest = () => {
                 <h4>Add Money</h4>
                 <div>
                     <form onSubmit={balanceTransferHandle}>
+                        <div className='notice'>
+                            অ্যাকাউন্ট একটিভ করার জন্য আপনার বিকাশ অথবা নগদ অথবা রকেট অ্যাকাউন্ট  থেকে নিচের যেকোনো একটা নম্বরে ১৫০ টাকা সেন্ড মানি করুন। এই ১৫০ টাকা কোনো এড ফি বা ইনভেস্ট নয় এই ১৫০ টাকা আপনার একাউন্টে ডিপোজিট হবে।
+                        </div>
                         <div className='payment-provider-section '>
                             <div>
                                 <img src={bkashLogo} alt="logo"></img>
@@ -140,6 +127,9 @@ const BalanceRequest = () => {
                                 <span className='copy-btn'><FiCopy onClick={() => copyText("019341438756")} /></span>
                             </div>
                         </div>
+                        <div className='notice'>
+                            সেন্ড মানি সাকসেসফুল হলে নিচের ফর্মটি সঠিকভাবে পূরণ করে সাবমিট করুন।
+                        </div>
                         <div>
                             <label>Select Payment Method</label>
                             <select name='provider' onClick={inputHandler} id="porvider">
@@ -159,14 +149,7 @@ const BalanceRequest = () => {
                         <div>
                             <input type="submit" value="Submit" />
                         </div>
-                        <div className='resposeContainer'>
-                            {
-                                !message.failed && message.sucess && <p className='sucess'>{message.sucess}</p>
-                            }
-                            {
-                                !message.sucess && message.failed && <p className='warning'>{message.failed}</p>
-                            }
-                        </div>
+                         
                     </form>
                 </div>
             </div>
@@ -206,7 +189,7 @@ const BalanceRequest = () => {
                     </table>
                 </div>
             </div>
-            <ToastContainer/>
+            <ToastContainer />
         </div>
     );
 };

@@ -186,10 +186,10 @@ const DashboardBody = () => {
                 </div>
                 <div className='rafael-section' >
                     <h6>Your Reffer Link:</h6>
-                    <p>{`${window.location.protocol}${window.location.host}/login?ref=${user.phoneNumber}`}</p>
+                    <p>{`${window.location.protocol}${window.location.host}/registration?ref=${user.phoneNumber}`}</p>
                     <div>
                         <button> <FaShare /> Share </button>
-                        <button onClick={() => handleCopy(`${window.location.protocol}${window.location.host}/login?ref=${user.phoneNumber}`)}> <FaCopy /> Copy</button>
+                        <button onClick={() => handleCopy(`${window.location.protocol}${window.location.host}/registration?ref=${user.phoneNumber}`)}> <FaCopy /> Copy</button>
                     </div>
                 </div>
                 <div className='rafael-section' >

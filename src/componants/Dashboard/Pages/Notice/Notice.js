@@ -29,7 +29,7 @@ const Notice = () => {
     return (
         <div className='notice-section'>
             <div className='title-container'>
-                <h4>Notice</h4>
+                <h4>Notification</h4>
             </div>
 
             <div className='list-section'>

@@ -15,37 +15,34 @@ import { ToastContainer } from 'react-toastify';
 const Registation = () => {
     const [inputUser, setInputUser] = useState({});
     const [user, setUser] = useContext(userContext);
+    const [userList, setUserList] = useState([])
     const [message, setMessage] = useState({});
     const [isLoading, setIsLoading] = useState(false)
+    const [showUserList, setShowUserList] = useState(false)
     const [showEye, setShowEye] = useState({
         password: false,
         confirmPassword: false,
     })
     const navigate = useNavigate()
     const location = useLocation()
+    const queryParams = new URLSearchParams(location.search);
+    const ref = queryParams.get("ref");
     const from = location.state ? location.state.from.pathname : "/"
 
     useEffect(() => {
         user._id && navigate(from, { replace: true })
     }, [user])
+    useEffect(() => {
+        console.log("ref ===>>", ref)
+        if (ref && ref.length) {
+            getUserList(ref, true)
+        }
+    }, [])
 
 
 
     const fromInputHandler = (e) => {
-        // if (e.target.name === "phoneNumber") {
-        // const currentInput = { ...inputUser }
-
-        // currentInput[e.target.name] = e.target.value.replaceAll(" ", "")
-        // setInputUser(currentInput)
-        // } else if (e.target.name === "referNumber") {
-        // const currentInput = { ...inputUser }
-
-        // currentInput[e.target.name] = e.target.value.replaceAll(" ", "")
-        // setInputUser(currentInput)
-
-        // } else {
         inputHandler(e, inputUser, setInputUser)
-        // }
     }
     const handleFromSubmit = (e) => {
         e.preventDefault()
@@ -100,10 +97,41 @@ const Registation = () => {
             // }
 
         } else {
-            FailedTost("You can't submit without filling full form.") 
+            FailedTost("You can't submit without filling full form.")
         }
     }
-
+    const getUserList = (search, ref) => {
+        if (!search || search?.lenght <= 2) {
+            return
+        }
+        fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/public/users?search=${search}&page={1}`, {
+            method: "GET",
+            headers: {
+                'content-type': 'application/json; charset=UTF-8'
+            }
+        })
+            .then(res => res.json())
+            .then((data) => {
+                console.log("Response form server ==>>", data)
+                if (!ref && data.data) {
+                    setShowUserList(true)
+                    setUserList(data.data)
+                }
+                if (ref && data.data) {
+                    const user = data.data.find((item) => item.phoneNumber === search)
+                    if (!user) {
+                        return
+                    }
+                    setInputUser((state) => {
+                        return {
+                            ...state,
+                            referNumber: user.phoneNumber,
+                            referName: `${user.firstName} ${user.lastName}`
+                        }
+                    })
+                }
+            })
+    }
 
 
 
@@ -165,8 +193,36 @@ const Registation = () => {
                         }
 
                     </div>
-                    <label>Your Upline Referrence Number</label>
-                    <input type="text" placeholder="Referrence Number" name="referNumber" value={inputUser.referNumber ? inputUser.referNumber : ""} required autoComplete="off" onChange={fromInputHandler} />
+                    <label>Search reference User</label>
+                    <div className='referral-section'>
+                        <input type="text" placeholder="Enter reference number or name" autoComplete="off" onChange={(e) => {
+                            if (!ref) {
+                                getUserList(e.target.value, false)
+                            }
+                        }} />
+                        {showUserList && userList.length > 0 && <dvi className="user-list">
+                            {
+                                userList.map((user, index) => {
+
+                                    return <button key={index} onClick={() => {
+                                        setShowUserList(false)
+                                        setInputUser((state) => {
+                                            return {
+                                                ...state,
+                                                referNumber: user.phoneNumber,
+                                                referName: `${user.firstName} ${user.lastName}`
+                                            }
+                                        })
+                                    }}><strong>{`${user.firstName} ${user.lastName}`}</strong> ({user.phoneNumber} )</button>
+                                })
+                            }
+                        </dvi>}
+
+                    </div>
+                    <label>Your Upline Referrence User</label>
+
+                    <input disabled value={`${inputUser.referNumber || ""} ${inputUser.referName ? `( ${inputUser.referName})` : ""}`} />
+
 
                     <div className='notice-container'>
                         <p>আপনি যার মাধ্যমে রেজিষ্ট্রেশন করবেন তার থেকে রেফারেন্স নাম্বার নিবেন</p>
