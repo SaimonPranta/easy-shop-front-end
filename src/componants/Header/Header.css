@@ -5,7 +5,7 @@
 }
 
 .navbar .help-section {
-    background-color: var(--default-color);
+    background-color: #217e97;
     color: #FFF !important;
     border-radius: 4px;
     margin-right: 10px;
@@ -30,6 +30,8 @@
 .navbar .help-section svg {
     height: 25px;
     width: 25px;
+    color: #000 !important;
+
 }
 
 .menu-icons {

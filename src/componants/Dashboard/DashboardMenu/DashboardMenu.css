@@ -1,7 +1,12 @@
+
 .side-nav-container {
-    padding: 10px;
+    padding: 0px;
     transition: .5s ease-in-out;
-    background-color: #FFFFFF;
+    background-color: #1e2841;
+    /* position: fixed;
+    top:60px;
+    left: 0px; */
+    overflow-y: auto;
 }
 
 .side-nav-container .user-profile {
@@ -34,7 +39,7 @@
     gap: 10px;
     list-style: none;
     text-decoration: none;
-    color: var(--default-color);
+    color: #FFF;
     transition: .5s ease-in-out;
 
 }
@@ -76,7 +81,7 @@
 
 .side-nav-container li:hover,
 .side-nav-container .nesting-menu div:hover {
-    background-color: #f6f0f0;
+    background-color: var(--default-color);
 }
 
 .side-nav-container .nesting-menu:hover {
@@ -108,7 +113,7 @@
 .side-nav-container li a svg {
     height: 22px;
     width: 22px;
-    color: var(--default-color);
+    color: #FFF;
 }
 
 .side-nav-container .nesting-menu ul {
@@ -216,7 +221,7 @@
     }
 
     .dashbord-active .dashboard-container div {
-        display: none;
+        /* display: none; */
     }
 
     .dashbord-active .dashboard-menu {

@@ -32,7 +32,7 @@
 .helpline-section .social-container .inner-container {
     width: 80%;
     margin: auto;
-    display: grid;
+    display: grid !important; 
     grid-template-columns: 1fr 1fr 1fr;
     gap: 15px;
 }
@@ -119,8 +119,9 @@
         padding: 7px; 
     }
     .helpline-section .social-container .inner-container {
-        width: 90%; 
-        grid-template-columns: 1fr 1fr;
+        width: 90% !important; 
+        grid-template-columns: 1fr 1fr !important;
         gap: 10px;
     }
+    
 }

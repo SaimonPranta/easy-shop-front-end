@@ -9,6 +9,9 @@
 .authentication form .referral-section {
     position: relative;
 }
+.authentication form .referral-section input{
+    color: var(--default-color);
+}
 .authentication form .referral-section  .user-list{
     position: absolute;
     width: 100%;
@@ -115,6 +118,22 @@
     align-items: center;
     gap: 5px;
 }
+.authentication form .remember-section .upline-container {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    
+}
+.authentication form   .upline-container p{
+     color: #daa126 !important;
+    padding-top: 10px !important;
+
+    
+}
+.authentication form   .upline-container p span{
+     color: blue;
+    
+}
 
 .authentication form .remember-section p {
     margin: 0px 0px 1px 0px;
@@ -143,8 +162,8 @@
 }
 
 .authentication form input[type="submit"] {
-    background-color: #F9A51A;
-    color: #000;
+    background-color: var(--default-color);
+    color: #FFF;
     padding: 5px 0;
     font-weight: 900;
     border: none;
@@ -233,7 +252,9 @@
     .authentication form label {
         padding-top: 14px !important;
     }
-
+    .authentication form input, .authentication form .notice-container { 
+        margin: 10px 0px; 
+    }
     .authentication form h6, p {
         padding: 0 2px;
     }

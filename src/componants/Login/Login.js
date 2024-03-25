@@ -9,6 +9,7 @@ import { getCooki } from '../../shared/cooki';
 import { HiEye, HiEyeOff } from 'react-icons/hi';
 import { GoMail } from 'react-icons/go';
 import { FiLock } from 'react-icons/fi';
+import TopHeader from '../TopHeader/TopHeader';
 
 const Login = () => {
     const [inputUser, setInputUser] = useState({});
@@ -95,63 +96,67 @@ const Login = () => {
     }
 
     return (
-        <div className='container'>
-
+        <div>
             <div>
                 <Header />
+                <TopHeader/>
             </div>
-            <section className='authentication m-auto'>
-                <form onSubmit={handleLogin}>
-                    <h6>Login</h6>
-                    <label>Phone Number</label>
-                    <div className='icon-container'>
-                        <GoMail />
-                        <input type="text" name="singInPhoenNumber" placeholder="Phone Number" value={inputUser.singInPhoenNumber ? inputUser.singInPhoenNumber : ""} required autoComplete="off" onChange={fromInputHandler} />
-                    </div>
+            <div className='container my-5'>
 
-                    <label>Password</label>
-                    <div className='eye-container icon-container'>
-                        <FiLock />
-                        <input type={showEye.password ? "text" : "password"} name="signInPassword" placeholder="Password" value={inputUser.signInPassword ? inputUser.signInPassword : ""} required autoComplete="off" onChange={fromInputHandler} />
-                        {
-                            showEye.password ? <HiEye className='eye' onClick={() => {
-                                setShowEye((state) => {
-                                    return {
-                                        ...state,
-                                        password: false
-                                    }
-                                })
-                            }} /> : <HiEyeOff  className='eye' onClick={() => {
-                                setShowEye((state) => {
-                                    return {
-                                        ...state,
-                                        password: true
-                                    }
-                                })
-                            }} />
-                        }
-                    </div>
-                    <div className='remember-section'>
-                        <div> <input type='checkbox' /> <p>Remember me</p></div>
-                        <p className='forgot-password'>Forgotten Password?</p>
-                    </div>
 
-                    <input type="submit" value="Login" required autoComplete="off" />
-                    <div className='resposeContainer'>
-                        {
-                            !message.failed && message.sucess && <p className='sucess'>{message.sucess}</p>
-                        }
-                        {
-                            !message.sucess && message.failed && <p className='text-primary'>{message.failed}</p>
-                        }
-                    </div>
-                    <div className='form-navigation d-flex'><p>Don't have an account? <Link to="/registration"><span style={{ color: "blue", cursor: "pointer" }}>Register an account</span></Link></p></div>
+                <section className='authentication m-auto'>
+                    <form onSubmit={handleLogin}>
+                        <h6>Login</h6>
+                        <label>Phone Number</label>
+                        <div className='icon-container'>
+                            <GoMail />
+                            <input type="text" name="singInPhoenNumber" placeholder="Phone Number" value={inputUser.singInPhoenNumber ? inputUser.singInPhoenNumber : ""} required autoComplete="off" onChange={fromInputHandler} />
+                        </div>
 
-                </form>
-            </section>
-            {
-                isLoagin && <Loading />
-            }
+                        <label>Password</label>
+                        <div className='eye-container icon-container'>
+                            <FiLock />
+                            <input type={showEye.password ? "text" : "password"} name="signInPassword" placeholder="Password" value={inputUser.signInPassword ? inputUser.signInPassword : ""} required autoComplete="off" onChange={fromInputHandler} />
+                            {
+                                showEye.password ? <HiEye className='eye' onClick={() => {
+                                    setShowEye((state) => {
+                                        return {
+                                            ...state,
+                                            password: false
+                                        }
+                                    })
+                                }} /> : <HiEyeOff className='eye' onClick={() => {
+                                    setShowEye((state) => {
+                                        return {
+                                            ...state,
+                                            password: true
+                                        }
+                                    })
+                                }} />
+                            }
+                        </div>
+                        <div className='remember-section'>
+                            <div> <input type='checkbox' /> <p>Remember me</p></div>
+                            <p className='forgot-password'>Forgotten Password?</p>
+                        </div>
+
+                        <input type="submit" value="Login" required autoComplete="off" />
+                        <div className='resposeContainer'>
+                            {
+                                !message.failed && message.sucess && <p className='sucess'>{message.sucess}</p>
+                            }
+                            {
+                                !message.sucess && message.failed && <p className='text-primary'>{message.failed}</p>
+                            }
+                        </div>
+                        <div className='form-navigation d-flex'><p>Don't have an account? <Link to="/registration"><span style={{ color: "blue", cursor: "pointer" }}>Register an account</span></Link></p></div>
+
+                    </form>
+                </section>
+                {
+                    isLoagin && <Loading />
+                }
+            </div>
         </div>
     );
 };

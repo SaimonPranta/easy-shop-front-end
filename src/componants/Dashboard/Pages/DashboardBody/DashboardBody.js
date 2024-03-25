@@ -1,10 +1,11 @@
 import React, { useContext, useEffect, useState } from 'react';
-import './DashboardBody.css';
+import './DashboardBody.scss';
 import { userContext } from '../../../../App';
-import { Link } from 'react-router-dom';
 import { getCooki } from '../../../../shared/cooki';
 import welcomeImage from "../../../../assets/images/dashboard/abstract-welcome-composition-with-flat-design_23-2147912311.jpg"
 import { FaShare, FaCopy } from "react-icons/fa"
+import { useNavigate } from 'react-router-dom';
+import DashboardSlider from "./modal/DashboardSlider"
 
 const socialContainer = [
     {
@@ -47,6 +48,7 @@ const DashboardBody = () => {
     const [noticeInput, setNoticeInput] = useState("")
     const [message, setMessage] = useState({})
     const [condition, setCondition] = useState(false)
+    const navigate = useNavigate()
 
 
     const cooki = getCooki()
@@ -112,6 +114,7 @@ const DashboardBody = () => {
 
 
     const activeHandler = () => {
+        console.log("activeHandler ====>>>", 999999)
         if (user._id && !condition) {
             setCondition(true)
             fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/activation?id=${user._id}`, {
@@ -131,17 +134,22 @@ const DashboardBody = () => {
         }
     }
     const handleCopy = (text) => {
-         
+
         navigator.clipboard.writeText(text)
+    }
+    const handleNavigation = () => {
+        navigate("/balance_request", { replace: true })
+
+
     }
 
     return (
-        <div className='text-white'>
+        <div>
             <div className='balance-transfer-section m-auto'>
                 <h4>USER DASHBOARD</h4>
                 {
                     notice && <div className='text-black withdraw-notice notice-section'>
-                        <marquee>{notice}</marquee>
+                         <div className='inner-notice'> <p>{user.firstName + " " + user.lastName}</p>   <marquee>{notice}</marquee></div>
                     </div>
 
                 }
@@ -164,8 +172,7 @@ const DashboardBody = () => {
                         </div>
                     </>
                 }
-                <div className='dashboard-user-info'>
-                    {/* <p>{user && user.firstName + " " + user.lastName}</p> */}
+                {/* <div className='dashboard-user-info'> 
                     <h5 className='user-name'><strong>{user && user.firstName + " " + user.lastName}</strong>  {user.isActive ? "Your account is activated, you can start work now." : "Your account is not activate, you can't start work now."}</h5>
                     {
                         !user.isActive && user.balance < 50 ? <sapn className="btn-group p-0 m-auto  dashbord-active-btn" role="group" aria-label="Basic example">
@@ -183,33 +190,72 @@ const DashboardBody = () => {
                     <div>
                         <p>Phone Number: {user && user.phoneNumber}</p>
                     </div>
-                </div>
-                <div className='rafael-section' >
-                    <h6>Your Reffer Link:</h6>
-                    <p>{`${window.location.protocol}${window.location.host}/registration?ref=${user.phoneNumber}`}</p>
-                    <div>
-                        <button> <FaShare /> Share </button>
-                        <button onClick={() => handleCopy(`${window.location.protocol}${window.location.host}/registration?ref=${user.phoneNumber}`)}> <FaCopy /> Copy</button>
+                </div> */}
+                {/* <div className='dashboard-common-cart active-btn-section'>
+                    <div className='inner-container'>
+                        <DashboardSlider />
+                    </div>
+                </div> */}
+                {
+                    !user.isActive && <div className='dashboard-common-cart active-btn-section'>
+                        <div className='inner-container'>
+                            <h5><strong>{user.firstName + " " + user.lastName},</strong> আপনার একাউন্ট অ্যাক্টিভ নয়। একাউন্ট অ্যাক্টিভ করতে নিচের Active Now বাটনে ক্লিক করুন। </h5>
+                            <div><button onClick={handleNavigation}>Active Now</button></div>
+                        </div>
+                    </div>
+                }
+
+                <div className='dashboard-common-cart active-btn-section'>
+                    <div className='inner-container'>
+                        <h5>Your Name: {user.firstName + " " + user.lastName}</h5>
+                        <h5>Account Number: {user.phoneNumber} </h5>
+                        <h5>Joining Date: {user.joinDate}</h5>
                     </div>
                 </div>
-                <div className='rafael-section' >
-                    <h6>Your Reffer Number:</h6>
-                    <p>{user?.phoneNumber}</p>
-                    <div>
-                        <button> <FaShare /> Share </button>
-                        <button onClick={() => handleCopy(user?.phoneNumber)}> <FaCopy /> Copy</button>
+                <div className='dashboard-common-cart active-btn-section'>
+                    <div className='inner-container'>
+                        <h5>Upline Name: {user.firstName + " " + user.lastName}</h5>
+                        <h5>Upline Account Number: {user.referNumber} </h5>
                     </div>
                 </div>
-                <div className='social-container'>
-                    {
-                        socialContainer.length > 0 && socialContainer.map((info, index) => {
-                            return <div key={index} >
-                                <img src={info.img} alt='' />
-                                <button>Join Now</button>
-                                <h6>{info.label}</h6>
+                <div className='dashboard-common-cart'>
+                    <div className='inner-container'>
+                        <div className='rafael-section' >
+                            <h6>Your Reffer Link:</h6>
+                            <p>{`${window.location.protocol}${window.location.host}/registration?ref=${user.phoneNumber}`}</p>
+                            <div>
+                                <button> <FaShare /> Share </button>
+                                <button onClick={() => handleCopy(`${window.location.protocol}${window.location.host}/registration?ref=${user.phoneNumber}`)}> <FaCopy /> Copy</button>
                             </div>
-                        })
-                    }
+                        </div>
+                    </div>
+                </div>
+                <div className='dashboard-common-cart'>
+                    <div className='inner-container'>
+                        <div className='rafael-section' >
+                            <h6>Your Reffer Number:</h6>
+                            <p>{user?.phoneNumber}</p>
+                            <div>
+                                <button> <FaShare /> Share </button>
+                                <button onClick={() => handleCopy(user?.phoneNumber)}> <FaCopy /> Copy</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div className='dashboard-common-cart active-btn-section'>
+                    <div className='inner-container'>
+                        <div className='social-container'>
+                            {
+                                socialContainer.length > 0 && socialContainer.map((info, index) => {
+                                    return <div key={index} >
+                                        <img src={info.img} alt='' />
+                                        <button>Join Now</button>
+                                        <h6>{info.label}</h6>
+                                    </div>
+                                })
+                            }
+                        </div>
+                    </div>
                 </div>
             </div>
         </div >

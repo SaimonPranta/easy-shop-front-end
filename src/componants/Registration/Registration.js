@@ -10,6 +10,7 @@ import { HiEye, HiEyeOff } from 'react-icons/hi';
 import SuccessTost from "../../shared/components/SuccessTost/SuccessTost"
 import FailedTost from "../../shared/components/FailedTost/FailedTost"
 import { ToastContainer } from 'react-toastify';
+import TopHeader from '../TopHeader/TopHeader';
 
 
 const Registation = () => {
@@ -19,6 +20,7 @@ const Registation = () => {
     const [message, setMessage] = useState({});
     const [isLoading, setIsLoading] = useState(false)
     const [showUserList, setShowUserList] = useState(false)
+    const [searchUser, setSearchUser] = useState("")
     const [showEye, setShowEye] = useState({
         password: false,
         confirmPassword: false,
@@ -32,6 +34,11 @@ const Registation = () => {
     useEffect(() => {
         user._id && navigate(from, { replace: true })
     }, [user])
+    useEffect(() => {
+        if (!ref) {
+            getUserList(searchUser, false)
+        }
+    }, [searchUser])
     useEffect(() => {
         console.log("ref ===>>", ref)
         if (ref && ref.length) {
@@ -137,115 +144,123 @@ const Registation = () => {
 
 
     return (
-        <div className='container'>
+        <div>
             <div>
                 <Header />
+                <TopHeader />
             </div>
-            <section className='authentication m-auto'>
-                <form onSubmit={handleFromSubmit}>
-                    <h6>Register an account</h6>
-                    <label>First Name</label>
-                    <input type="text" placeholder="First Name" name="firstName" value={inputUser.firstName ? inputUser.firstName : ""} required autoComplete="off" onChange={fromInputHandler} />
-                    <label>last Name</label>
-                    <input type="text" placeholder="Last Name" name="lastName" value={inputUser.lastName ? inputUser.lastName : ""} required autoComplete="off" onChange={fromInputHandler} />
-                    <label>Phone Number</label>
-                    <input type="text" placeholder="Phone Number" name="phoneNumber" value={inputUser.phoneNumber ? inputUser.phoneNumber : ""} required autoComplete="off" onChange={fromInputHandler} />
-                    <label>Password</label>
-                    <div className='eye-container'>
-                        <input type={showEye.password ? "text" : "password"} placeholder="Password" name="password" value={inputUser.password ? inputUser.password : ""} required autoComplete="off" onChange={fromInputHandler} />
-                        {
-                            showEye.password ? <HiEye onClick={() => {
-                                setShowEye((state) => {
-                                    return {
-                                        ...state,
-                                        password: false
-                                    }
-                                })
-                            }} /> : <HiEyeOff onClick={() => {
-                                setShowEye((state) => {
-                                    return {
-                                        ...state,
-                                        password: true
-                                    }
-                                })
-                            }} />
-                        }
-                    </div>
-                    <label>Confirm Password</label>
-                    <div className='eye-container'>
-                        <input type={showEye.confirmPassword ? "text" : "password"} placeholder="Confirm Password" name="confirmPassword" value={inputUser.confirmPassword ? inputUser.confirmPassword : ""} required autoComplete="off" onChange={fromInputHandler} />
-                        {
-                            showEye.confirmPassword ? <HiEye onClick={() => {
-                                setShowEye((state) => {
-                                    return {
-                                        ...state,
-                                        confirmPassword: false
-                                    }
-                                })
-                            }} /> : <HiEyeOff onClick={() => {
-                                setShowEye((state) => {
-                                    return {
-                                        ...state,
-                                        confirmPassword: true
-                                    }
-                                })
-                            }} />
-                        }
+            <div className='container my-5'>
 
-                    </div>
-                    <label>Search reference User</label>
-                    <div className='referral-section'>
-                        <input type="text" placeholder="Enter reference number or name" autoComplete="off" onChange={(e) => {
-                            if (!ref) {
-                                getUserList(e.target.value, false)
-                            }
-                        }} />
-                        {showUserList && userList.length > 0 && <dvi className="user-list">
+                <section className='authentication m-auto'>
+                    <form onSubmit={handleFromSubmit}>
+                        <h6>Register an account</h6>
+                        <label>First Name</label>
+                        <input type="text" placeholder="First Name" name="firstName" value={inputUser.firstName ? inputUser.firstName : ""} required autoComplete="off" onChange={fromInputHandler} />
+                        <label>last Name</label>
+                        <input type="text" placeholder="Last Name" name="lastName" value={inputUser.lastName ? inputUser.lastName : ""} required autoComplete="off" onChange={fromInputHandler} />
+                        <label>Phone Number</label>
+                        <input type="text" placeholder="Phone Number" name="phoneNumber" value={inputUser.phoneNumber ? inputUser.phoneNumber : ""} required autoComplete="off" onChange={fromInputHandler} />
+                        <label>Password</label>
+                        <div className='eye-container'>
+                            <input type={showEye.password ? "text" : "password"} placeholder="Password" name="password" value={inputUser.password ? inputUser.password : ""} required autoComplete="off" onChange={fromInputHandler} />
                             {
-                                userList.map((user, index) => {
-
-                                    return <button key={index} onClick={() => {
-                                        setShowUserList(false)
-                                        setInputUser((state) => {
-                                            return {
-                                                ...state,
-                                                referNumber: user.phoneNumber,
-                                                referName: `${user.firstName} ${user.lastName}`
-                                            }
-                                        })
-                                    }}><strong>{`${user.firstName} ${user.lastName}`}</strong> ({user.phoneNumber} )</button>
-                                })
+                                showEye.password ? <HiEye onClick={() => {
+                                    setShowEye((state) => {
+                                        return {
+                                            ...state,
+                                            password: false
+                                        }
+                                    })
+                                }} /> : <HiEyeOff onClick={() => {
+                                    setShowEye((state) => {
+                                        return {
+                                            ...state,
+                                            password: true
+                                        }
+                                    })
+                                }} />
                             }
-                        </dvi>}
+                        </div>
+                        <label>Confirm Password</label>
+                        <div className='eye-container'>
+                            <input type={showEye.confirmPassword ? "text" : "password"} placeholder="Confirm Password" name="confirmPassword" value={inputUser.confirmPassword ? inputUser.confirmPassword : ""} required autoComplete="off" onChange={fromInputHandler} />
+                            {
+                                showEye.confirmPassword ? <HiEye onClick={() => {
+                                    setShowEye((state) => {
+                                        return {
+                                            ...state,
+                                            confirmPassword: false
+                                        }
+                                    })
+                                }} /> : <HiEyeOff onClick={() => {
+                                    setShowEye((state) => {
+                                        return {
+                                            ...state,
+                                            confirmPassword: true
+                                        }
+                                    })
+                                }} />
+                            }
 
-                    </div>
-                    <label>Your Upline Referrence User</label>
+                        </div>
+                        <label>Your UPline Reference Number</label>
+                        <div className='referral-section'>
+                            <input type="text" placeholder="Enter reference number or name" autoComplete="off" value={searchUser} onChange={(e) => {
+                                setSearchUser(e.target.value)
+                                // if (!ref) {
+                                //     getUserList(e.target.value, false)
+                                // }
+                            }} />
+                            {showUserList && userList.length > 0 && <dvi className="user-list">
+                                {
+                                    userList.map((user, index) => {
 
-                    <input disabled value={`${inputUser.referNumber || ""} ${inputUser.referName ? `( ${inputUser.referName})` : ""}`} />
+                                        return <button key={index} onClick={() => {
+                                            setShowUserList(false)
+                                            setSearchUser(user.phoneNumber)
+                                            setInputUser((state) => {
+                                                return {
+                                                    ...state,
+                                                    referNumber: user.phoneNumber,
+                                                    referName: `${user.firstName} ${user.lastName}`
+                                                }
+                                            })
+                                        }}><strong>{`${user.firstName} ${user.lastName}`}</strong> ({user.phoneNumber} )</button>
+                                    })
+                                }
+                            </dvi>}
 
-
-                    <div className='notice-container'>
-                        <p>আপনি যার মাধ্যমে রেজিষ্ট্রেশন করবেন তার থেকে রেফারেন্স নাম্বার নিবেন</p>
-                    </div>
-
-                    <input type="submit" value="Register account" />
-                    <div className='resposeContainer'>
+                        </div>
                         {
-                            !message.failed && message.sucess && <p className='sucess ' style={{ color: "blue" }} >{message.sucess}</p>
-                        }
-                        {
-                            !message.sucess && message.failed && <p className='warning ' style={{ color: "blue" }}  >{message.failed}</p>
+                            inputUser.referName && <div className='upline-container'>
+                                <p>Upline Name: <span>{inputUser.referName}</span></p>
+                            </div>
                         }
 
-                    </div>
-                    <div className='form-navigation d-flex'><p>Already have an account? <Link to="/login"><span style={{ color: "blue", cursor: "pointer" }}>Login</span></Link></p></div>
-                </form>
-            </section>
-            {
-                isLoading && <Loading />
-            }
 
-            <ToastContainer />
+                        <div className='notice-container'>
+                            <p>আপনি যার মাধ্যমে রেজিষ্ট্রেশন করবেন তার থেকে রেফারেন্স নাম্বার নিবেন</p>
+                        </div>
+
+                        <input type="submit" value="Register account" />
+                        <div className='resposeContainer'>
+                            {
+                                !message.failed && message.sucess && <p className='sucess ' style={{ color: "blue" }} >{message.sucess}</p>
+                            }
+                            {
+                                !message.sucess && message.failed && <p className='warning ' style={{ color: "blue" }}  >{message.failed}</p>
+                            }
+
+                        </div>
+                        <div className='form-navigation d-flex'><p>Already have an account? <Link to="/login"><span style={{ color: "blue", cursor: "pointer" }}>Login</span></Link></p></div>
+                    </form>
+                </section>
+                {
+                    isLoading && <Loading />
+                }
+
+                <ToastContainer />
+            </div>
         </div>
     );
 };

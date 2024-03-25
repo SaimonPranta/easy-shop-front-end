@@ -1,9 +1,9 @@
 .dashboard-section{
-    min-height: 100vh;
+    min-height: 100vh; 
 }
 .dashboard-container{
     height: 100%;
-    width: 100vw !important;
+    max-width: 100vw !important; 
     display: grid;
     grid-template-columns: .3fr 1fr;
     grid-row-gap: 5px;
@@ -28,7 +28,8 @@
 
 .resposeContainer{
     height: 50px !important;
-    width: 100%;
+    width: 100%; 
+
     padding-top: 0px;
     padding-bottom: 0px;
 }
