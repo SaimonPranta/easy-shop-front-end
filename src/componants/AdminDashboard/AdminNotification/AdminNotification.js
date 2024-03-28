@@ -5,9 +5,17 @@ import { getCooki } from '../../../shared/cooki';
 import FailedTost from "../../../shared/components/FailedTost/FailedTost"
 import SuccessTost from "../../../shared/components/SuccessTost/SuccessTost"
 import { ToastContainer } from 'react-toastify';
+import { FaEye } from 'react-icons/fa';
+import { dateToString } from "../../../shared/functions/dateConverter"
+import UserListContainer from './Modal/UserList/UserList';
+
+
+
 const AdminHelpLine = () => {
     const [showModal, setShowModal] = useState(false)
     const [notificationList, setNotificationList] = useState([])
+    const [userList, setUserList] = useState([])
+    const [title, setTitle] = useState("")
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/admin/notification`, {
@@ -60,7 +68,7 @@ const AdminHelpLine = () => {
 
             })
     }
-
+    console.log("userList ==>>", userList)
     const handleAddNotification = (e, input) => {
         e.preventDefault()
         console.log("input -->>", input)
@@ -103,11 +111,11 @@ const AdminHelpLine = () => {
             <div className='social-media-list'>
                 <div className='list-section'>
                     {
-                        notificationList.map((notice, index) => { 
+                        notificationList.map((notice, index) => {
+                            console.log("selectedUser ==>", notice.selectedUser)
                             return <div className='notice-cart' key={index}>
                                 {
                                     notice.img && <img src={process.env.REACT_APP_SERVER_HOST_URL + "/" + notice.img} alt='' />
-
                                 }
                                 {
                                     notice.title && <h6>{notice.title}</h6>
@@ -115,7 +123,20 @@ const AdminHelpLine = () => {
                                 {
                                     notice.description && <p>{notice.description}</p>
                                 }
+                                {
+                                    notice?.selectedUser?.length > 0 && <button className='see-user' onClick={() => { 
+                                        setUserList(notice.selectedUser)
+                                         setTitle(notice.title) 
+                                        }}><FaEye /> See User </button>
+                                }
 
+                                <div className='date-container'>
+                                    <p> CreateAt: {dateToString(notice.createdAt)}</p>
+                                    {
+                                        notice.expireTime && <p> ExpiredAt: {dateToString(notice.expireTime)}</p>
+                                    }
+
+                                </div>
                                 <div className='action-btn-container'><button onClick={() => handleDeleteNotification(notice._id)}>Delete</button></div>
                             </div>
                         })
@@ -123,8 +144,12 @@ const AdminHelpLine = () => {
                 </div>
             </div>
             <AddNotification showModal={showModal} setShowModal={setShowModal} onSubmit={handleAddNotification} />
+            {
+                userList?.length > 0 && <UserListContainer title={title} listItems={userList} setUserList={setUserList} />
+            }
 
             <ToastContainer />
+
 
         </div >
     );

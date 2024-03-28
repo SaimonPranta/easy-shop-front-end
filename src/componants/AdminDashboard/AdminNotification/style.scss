@@ -1,6 +1,6 @@
 .admin-help-line {
-  width: 100%;
-  width: 100%;
+  width: 100%; 
+  position: relative;
 
   .add-btn-container {
     width: 100%;
@@ -32,6 +32,7 @@
         display: flex;
         flex-direction: column;
         gap: 10px;
+        position: relative;
 
         img {
           width: 100%;
@@ -44,23 +45,53 @@
           font-size: 24px;
           font-weight: 600;
         }
-
         p {
           font-size: 18px;
           font-weight: 400;
           padding: 0px;
         }
-        .action-btn-container{
+        .see-user {
+          border: none;
+          outline: none;
           display: flex;
           align-items: center;
           justify-content: center;
-          button{
+          background-color: #e9ebec;
+          position: absolute;
+          width: 90px;
+          height: 25px;
+          right: 0px;
+          top: 0px;
+          gap: 5px;
+          cursor: pointer;
+          font-size: 12px;
+          &:hover {
+            background-color: #c7d0d4;
+          }
+        }
+        .date-container{
+          position: absolute;
+          right: 0px;
+          bottom: 0px;
+          padding: 5px;
+          p{
+            font-size: 12px;
+            margin: 3px;
+          }
+        }
+
+        .action-btn-container {
+          display: flex;
+          align-items: center;
+          justify-content: center;
+
+          button {
             border: none;
             outline: none;
             padding: 5px 15px;
             background-color: blue;
             color: #FFF;
-           font-weight: 700;
+            font-weight: 700;
           }
         }
       }
