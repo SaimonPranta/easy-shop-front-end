@@ -134,7 +134,6 @@ const DashboardBody = () => {
         }
     }
     const handleCopy = (text) => {
-
         navigator.clipboard.writeText(text)
     }
     const handleNavigation = () => {

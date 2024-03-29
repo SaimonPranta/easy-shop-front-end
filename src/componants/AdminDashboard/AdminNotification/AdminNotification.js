@@ -5,7 +5,7 @@ import { getCooki } from '../../../shared/cooki';
 import FailedTost from "../../../shared/components/FailedTost/FailedTost"
 import SuccessTost from "../../../shared/components/SuccessTost/SuccessTost"
 import { ToastContainer } from 'react-toastify';
-import { FaEye } from 'react-icons/fa';
+import { FaEye, FaUserCheck, FaUserClock, FaUserShield, FaUsers } from 'react-icons/fa';
 import { dateToString } from "../../../shared/functions/dateConverter"
 import UserListContainer from './Modal/UserList/UserList';
 
@@ -124,11 +124,24 @@ const AdminHelpLine = () => {
                                     notice.description && <p>{notice.description}</p>
                                 }
                                 {
+                                    notice.activeUser && notice.nonActiveUser ? <button className='see-user'><FaUsers /> All User</button> : notice.activeUser ? <button className='see-user'><FaUserShield /> Active User</button> : notice.nonActiveUser ? <button className='see-user'><FaUserClock /> Non Active User</button> : notice?.selectedUser?.length > 0 && <button className='see-user' onClick={() => {
+                                        setUserList(notice.selectedUser)
+                                        setTitle(notice.title)
+                                    }}><FaEye /> See User </button>
+
+                                }
+                                {/* {
                                     notice?.selectedUser?.length > 0 && <button className='see-user' onClick={() => { 
                                         setUserList(notice.selectedUser)
                                          setTitle(notice.title) 
                                         }}><FaEye /> See User </button>
-                                }
+                                } */}
+                                {/* {
+                                    notice?.selectedUser?.length > 0 && <button className='see-user' onClick={() => { 
+                                        setUserList(notice.selectedUser)
+                                         setTitle(notice.title) 
+                                        }}><FaEye /> See User </button>
+                                } */}
 
                                 <div className='date-container'>
                                     <p> CreateAt: {dateToString(notice.createdAt)}</p>

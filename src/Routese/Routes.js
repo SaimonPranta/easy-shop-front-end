@@ -47,7 +47,7 @@ const Routess = () => {
                             <Dashboard />
                         </PrivetRoute>
                     }></Route>
-                    <Route path="/notice" element={
+                    <Route path="/notification" element={
                         <PrivetRoute>
                             <Notice />
                         </PrivetRoute>

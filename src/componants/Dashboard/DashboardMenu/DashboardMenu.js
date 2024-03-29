@@ -11,7 +11,6 @@ import { FaUsersCog } from "react-icons/fa";
 import { FaUserAlt } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
 import { FaDonate } from "react-icons/fa";
-import { FaHandshake } from "react-icons/fa";
 import { FaUnlockAlt } from "react-icons/fa";
 import { FaUserEdit } from "react-icons/fa";
 import { FaUserCog } from "react-icons/fa";

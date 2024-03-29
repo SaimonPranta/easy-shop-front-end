@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import "./style.scss"
 import { getCooki } from '../../../../shared/cooki';
+import { dateToString } from '../../../../shared/functions/dateConverter';
 
  
 
@@ -18,6 +19,7 @@ const Notice = () => {
             .then(data => {
                 if (data.data) {
                     setNotificationList(data.data)
+                    localStorage.setItem("seenNotificationCount",data.data.length);
                 }
                 if (data.massage) {
                     // FailedTost(data.massage)
@@ -38,7 +40,6 @@ const Notice = () => {
                         return <div className='notice-cart' key={index}>
                             {
                                     notice.img && <img src={process.env.REACT_APP_SERVER_HOST_URL + "/" + notice.img} alt='' />
-
                             }
                             {
                                 notice.title && <h6>{notice.title}</h6>
@@ -46,6 +47,7 @@ const Notice = () => {
                             {
                                 notice.description && <p>{notice.description}</p>
                             }
+                            <span>Date: {dateToString(notice.createdAt)}</span>
                         </div>
                     })
                 }
