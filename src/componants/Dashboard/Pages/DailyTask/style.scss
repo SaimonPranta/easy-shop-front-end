@@ -1,0 +1,189 @@
+.daily-task {
+    background-color: #f5f5f537;
+
+    .main-container {
+        width: 90%;
+        margin: auto;
+
+        .title-container {
+            background-color: var(--default-color);
+
+            h6 {
+                padding: 10px;
+                font-weight: 800;
+                font-size: 18px;
+                color: #FFF;
+            }
+        }
+
+        .task-container {
+            width: 90%;
+            display: block;
+            margin: auto;
+
+            .notification-container {
+                background-color: #00A1FF;
+                margin: auto;
+                border-radius: 10px;
+                padding: 10px 5px;
+                color: #FFF;
+                font-size: 16px;
+            }
+
+            .heading-section {
+                padding: 15px;
+                padding-bottom: 30px;
+
+                h3 {
+                    width: 100%;
+                    text-align: center;
+                    color: #C91FB7;
+                    font-size: 35px;
+                    font-weight: 800;
+                    position: relative;
+                }
+
+                .maximum-figure {
+                    display: flex;
+                    align-items: end;
+
+                    span {
+                        // position: absolute;
+                        display: inline-block;
+                        background-color: #FFA300;
+                        font-size: 20px;
+                        font-weight: 600;
+                        color: #FFF;
+                        padding: 8px 10px;
+                        border-radius: 4px;
+                        margin-left: auto;
+                    }
+                }
+
+            }
+
+            .task-list {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+
+                .task-item {
+                    border: 1px solid #B2B2B2;
+                    border-radius: 10px;
+                    padding: 8px;
+                    background-color: #FFF;
+
+                    .description-section {
+                        display: flex;
+
+                        .img-section {
+                            height: 65px;
+                            width: 65px;
+                            border-radius: 50%;
+                            position: relative;
+
+                            img {
+                                height: 65px;
+                                width: 65px;
+                                border-radius: 50%;
+                            }
+
+                            .task-status {
+                                position: absolute;
+                                right: -5px;
+                                background-color: #2AA039;
+                                height: 25px;
+                                width: 25px;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: #FFF;
+                                border: 1.5px solid #FFF;
+
+                                &.incomplete {
+                                    color: #000;
+                                    // border: 1.5px solid #000;
+
+                                }
+                            }
+                        }
+
+                        .description {
+                            padding-top: 20px;
+                            position: relative;
+
+                            p {
+                                font-size: 25px;
+                                font-weight: 500;
+
+                            }
+                        }
+                    }
+
+                    .action-section {
+
+                        width: 100%;
+                        padding-bottom: 10px;
+
+                        div {
+                            display: flex;
+                            gap: 20px;
+                            align-items: center;
+                            justify-content: center;
+
+                            button {
+                                outline: none;
+                                border: none;
+                                color: #FFF;
+                                background-color: var(--default-color);
+                                border-radius: 30px;
+                                padding: 5px 35px;
+                                font-weight: 800;
+
+                                &.complete {
+                                    background-color: #C4C4C4;
+                                    cursor: auto;
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            .spinner-section {
+                border: 1px solid #B2B2B2;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 50px;
+                margin-top: 20px;
+                padding: 20px 20px 60px 20px;
+
+                .congress-section {
+                    background-color: #FF42A1;
+                    padding: 12px;
+                    border-radius: 10px;
+                    width: 400px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    justify-content: center;
+                    color: #FFF;
+                    text-align: center;
+
+                    h5 {
+                        font-size: 30px;
+                        font-weight: 800; 
+                    }
+                    p {
+                        font-size: 20px;
+                        font-weight: 600; 
+                    }
+
+                }
+            }
+        }
+    }
+}

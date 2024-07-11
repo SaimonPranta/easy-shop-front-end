@@ -28,6 +28,7 @@ import EditProduct from '../componants/Dashboard/Pages/Product/EditProduct/index
 import AdminHelpLine from '../componants/AdminDashboard/AdminHelpLine/index';
 import AdminNotification from '../componants/AdminDashboard/AdminNotification/index';
 import Notice from '../componants/Dashboard/Pages/Notice/index';
+import DailyTask from '../componants/Dashboard/Pages/DailyTask/DailyTask';
 
 
 const Routess = () => {
@@ -66,6 +67,11 @@ const Routess = () => {
                         <PrivetRoute>
                             <RankHistory />
                         </PrivetRoute>
+                    }></Route>
+                    <Route path="/daily-task" element={
+                        // <PrivetRoute>
+                            <DailyTask />
+                        // </PrivetRoute>
                     }></Route>
                     <Route path="/balance_request" element={
                         <PrivetRoute>

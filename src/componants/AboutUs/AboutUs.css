@@ -1,4 +1,4 @@
-.about-body{
+.about-body {
     /* background:rgba(0, 0, 0, 0.7)url('../../assets/images/about_img/istockphoto-1004314632-170667a.jpg'); */
     width: 70%;
     max-width: 700px;
@@ -13,35 +13,41 @@
     background-blend-mode: darken;
     z-index: 1;
 }
-.about-body h6{
+
+.about-body h6 {
     font-size: 1.2rem;
     padding: 2.5px;
     padding-top: 50px;
     color: darkcyan;
 }
-.about-body h5{
+
+.about-body h5 {
     font-size: 2.5rem;
     /* text-transform: uppercase; */
 }
-.about-body p{
+
+.about-body p {
     font-size: 1.2rem;
     color: darkcyan;
     text-align: justify;
 }
-.about-img{
+
+.about-img {
     height: 340px;
     width: 65%;
     max-width: 670px;
     margin: auto;
     position: relative;
 }
-.about-img img{
+
+.about-img img {
     height: 100%;
     width: 100%;
     margin: auto;
     z-index: 5;
 }
-.about-img::after{
+
+.about-img::after {
     position: absolute;
     content: "";
     left: 0%;
@@ -49,28 +55,34 @@
     transform: translateX(-50%);
     background-color: #f5daca;
     height: 50%;
-    width: 300vw ;
+    width: 300vw;
     z-index: -1;
 
 }
-.about-footer{
+
+.about-footer {
     background-color: #f5daca;
     padding: 20px 0 30px 0;
 }
-.about-footer div div{
+
+.about-footer div div {
     border-right: 1px dashed black;
 }
-.about-footer div div:last-child{
+
+.about-footer div div:last-child {
     border-right: 0px dashed black;
 }
+
 .about-footer div {
     padding-top: 4px !important
 }
-.about-footer div svg{
+
+.about-footer div svg {
     height: 30px;
     width: 20px;
 }
-.socil div svg{
+
+.socil div svg {
     text-align: center;
     height: 40px;
     width: 40px;
@@ -80,58 +92,72 @@
     border: 1px solid red;
     cursor: pointer;
 }
-.facebook{
+
+.facebook {
     color: #0D8AF0;
 }
-.twiter{
-    color: #1D9BF0 ;
+
+.twiter {
+    color: #1D9BF0;
 }
-.instagram{
+
+.instagram {
     color: #F2089A;
 }
-.youtube{
+
+.youtube {
     color: #FF0202;
 }
-.about-footer div{
+
+.about-footer div {
     padding-top: 40px;
 }
 
-.socil div svg:hover{
-    border: 1px solid ;
+.socil div svg:hover {
+    border: 1px solid;
     background-color: steelblue;
     color: #fff;
 
 }
-.location svg{
+
+.location svg {
     color: #FF0202;
 }
-.phone svg{
+
+.phone svg {
     color: #017AF6;
 }
-.gmail svg{
+
+.gmail svg {
     color: #CD4D40;
 }
+
 @media only screen and (min-width:200px) and (max-width:1100px) {
-    .about-img{
+    .about-img {
         height: 300px;
     }
 }
+
 @media only screen and (min-width:200px) and (max-width:900px) {
-    .about-img{
+    .about-img {
         height: 250px;
     }
 }
+
 @media only screen and (min-width:200px) and (max-width:768px) {
-    .about-img{
+    .about-img {
         height: 200px;
     }
-    .about-footer div div:nth-child(2){
+
+    .about-footer div div:nth-child(2) {
         border-right: 0px dashed black;
     }
-    .about-footer div div:nth-child(3){
+
+    .about-footer div div:nth-child(3) {
         border-top: 1px dashed black;
     }
-    .socil div svg{
+
+    .socil div svg {
         height: 30px;
         width: 30px;
         margin: 3px;
@@ -140,52 +166,61 @@
 }
 
 @media only screen and (min-width:200px) and (max-width:850px) {
-    .about-body h6{
+    .about-body h6 {
         font-size: 1rem;
     }
-    .about-body h5{
+
+    .about-body h5 {
         font-size: 2rem;
     }
-    .about-body p{
+
+    .about-body p {
         font-size: .9rem;
     }
-    .about-footer h6{
+
+    .about-footer h6 {
         font-size: .8rem;
     }
-    .about-footer span{
+
+    .about-footer span {
         font-size: .8rem;
     }
 
 }
 @media only screen and (min-width:200px) and (max-width:540px) {
-    .about-body{
+    .about-body {
         width: 75%;
     }
-    .about-img{
+
+    .about-img {
         width: 70%;
         height: 150px;
     }
-    .about-body h6{
+
+    .about-body h6 {
         font-size: .89rem;
     }
-    .about-body h5{
+
+    .about-body h5 {
         font-size: 1.88rem;
     }
-    .about-body p{
+
+    .about-body p {
         font-size: .9rem;
     }
 
 }
 @media only screen and (min-width:200px) and (max-width:440px) {
-    .about-body h6{
+    .about-body h6 {
         font-size: .7rem;
     }
-    .about-body h5{
+
+    .about-body h5 {
         font-size: 1.7rem;
     }
-    .about-body p{
+
+    .about-body p {
         font-size: .9rem;
     }
 
 }
-

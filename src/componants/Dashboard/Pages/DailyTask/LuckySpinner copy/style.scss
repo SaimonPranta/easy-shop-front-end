@@ -1,0 +1,31 @@
+ .luckywheel {
+     width: 80%;
+     margin: 40px auto; 
+ }
+ .test-class{
+    display: none !important;
+    // background-color: red !important;
+    // transform: rotate3d(200deg) !important;
+ }
+
+ .btn,
+ .btn:visited {
+     font-weight: 800;
+     margin: 10px;
+     height: 40px;
+     width: 140px;
+     box-shadow: 4px 4px 20px 0 #cc4c45;
+     border-radius: 0;
+     border: 2px solid #000;
+     background-color: #fff;
+     color: #000;
+ }
+
+ .btn:hover,
+ .btn:active {
+     color: #fff;
+     background-color: #000;
+     border: none;
+     text-decoration: none;
+     box-shadow: 4px 4px 5px 0 #cc4c45;
+ }
