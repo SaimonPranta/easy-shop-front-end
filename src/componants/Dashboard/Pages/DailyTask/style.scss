@@ -160,9 +160,10 @@
                 gap: 50px;
                 margin-top: 20px;
                 padding: 20px 20px 60px 20px;
+                border-radius: 15px;
 
                 .congress-section {
-                    background-color: #FF42A1;
+                    background-color: var(--default-color);
                     padding: 12px;
                     border-radius: 10px;
                     width: 400px;

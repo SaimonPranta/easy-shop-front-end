@@ -29,6 +29,7 @@ import AdminHelpLine from '../componants/AdminDashboard/AdminHelpLine/index';
 import AdminNotification from '../componants/AdminDashboard/AdminNotification/index';
 import Notice from '../componants/Dashboard/Pages/Notice/index';
 import DailyTask from '../componants/Dashboard/Pages/DailyTask/DailyTask';
+import AdminDailyTask from '../componants/AdminDashboard/AdminDailyTask/index';
 
 
 const Routess = () => {
@@ -117,6 +118,11 @@ const Routess = () => {
                         <AdminPrivetRoute>
                             <AdminNotification />
                         </AdminPrivetRoute>
+                    }></Route>
+                    <Route path="/admin/daily-task" element={
+                        // <PrivetRoute>
+                            <AdminDailyTask />
+                        // </PrivetRoute>
                     }></Route>
                     <Route path="/product" element={
                         <AdminPrivetRoute>

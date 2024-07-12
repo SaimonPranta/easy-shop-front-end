@@ -63,7 +63,7 @@ const DailyTask = () => {
                     <div className='spinner-section'>
                         <LuckySpinner />
                         <div className='congress-section'>
-                            <h5>অভিনন্দন</h5>
+                            <h5>অভিনন্দন 🎉</h5>
                             <p>আপনি ২০ টাকা টাক্স বোনাস পেয়েছেন।</p>
                         </div>
                     </div>

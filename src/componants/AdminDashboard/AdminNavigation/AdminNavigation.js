@@ -7,6 +7,7 @@ import { userContext } from "../../../App";
 import {  MdSupport } from "react-icons/md";
 import { IoNotifications } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
+import { MdOutlineAddTask } from "react-icons/md";
 
 const AdminNavigation = () => {
   const [user, setUser] = useContext(userContext);
@@ -39,6 +40,12 @@ const AdminNavigation = () => {
           <NavLink to="/admin/notification">
             <IoNotifications />
             <span> Admin Notification</span>
+          </NavLink>
+        </li>   
+        <li>
+          <NavLink to="/admin/daily-task">
+          <MdOutlineAddTask />
+            <span> Daily Task</span>
           </NavLink>
         </li>   
         
