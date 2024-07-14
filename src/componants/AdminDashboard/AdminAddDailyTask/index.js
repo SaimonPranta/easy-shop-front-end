@@ -2,7 +2,7 @@ import React from 'react';
 // import DashboardMenu from '../DashboardMenu/DashboardMenu';
 import AdminDashboardMenu from "../AdminNavigation/AdminNavigation"
 import DashboardHeader from '../../Dashboard/Pages/DashboardHeader/DashboardHeader'; 
- import AdminDailyTask from './AdminDailyTask';
+ import AdminAddDailyTask from './AdminAddDailyTask';
 
 const index = () => {
     return (
@@ -13,7 +13,7 @@ const index = () => {
                     <AdminDashboardMenu />
                 </div>
                 <div className="dashbord-main-body-container">
-                    <AdminDailyTask />
+                    <AdminAddDailyTask />
                 </div>
             </div>
         </div>

@@ -24,12 +24,13 @@ import EditUserDetails from '../componants/AdminDashboard/Admin/AdminPanelBody/E
 import Cart from '../componants/Cart/Cart';
 import ProductDetails from '../componants/ProductDetails/ProductDetails';
 import Product from '../componants/Dashboard/Pages/Product/index';
-import EditProduct from '../componants/Dashboard/Pages/Product/EditProduct/index'; 
+import EditProduct from '../componants/Dashboard/Pages/Product/EditProduct/index';
 import AdminHelpLine from '../componants/AdminDashboard/AdminHelpLine/index';
 import AdminNotification from '../componants/AdminDashboard/AdminNotification/index';
 import Notice from '../componants/Dashboard/Pages/Notice/index';
 import DailyTask from '../componants/Dashboard/Pages/DailyTask/DailyTask';
 import AdminDailyTask from '../componants/AdminDashboard/AdminDailyTask/index';
+import AdminAddDailyTask from '../componants/AdminDashboard/AdminAddDailyTask/index';
 
 
 const Routess = () => {
@@ -71,7 +72,7 @@ const Routess = () => {
                     }></Route>
                     <Route path="/daily-task" element={
                         // <PrivetRoute>
-                            <DailyTask />
+                        <DailyTask />
                         // </PrivetRoute>
                     }></Route>
                     <Route path="/balance_request" element={
@@ -120,9 +121,15 @@ const Routess = () => {
                         </AdminPrivetRoute>
                     }></Route>
                     <Route path="/admin/daily-task" element={
-                        // <PrivetRoute>
+                        <AdminPrivetRoute>
                             <AdminDailyTask />
-                        // </PrivetRoute>
+                        </AdminPrivetRoute>
+                    }></Route>
+                    <Route path="/admin/add-daily-task" element={
+                        <AdminPrivetRoute>
+                            <AdminAddDailyTask />
+                        </AdminPrivetRoute>
+
                     }></Route>
                     <Route path="/product" element={
                         <AdminPrivetRoute>
