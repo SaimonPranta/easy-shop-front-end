@@ -1,9 +1,9 @@
 import React from 'react';
 // import DashboardMenu from '../DashboardMenu/DashboardMenu';
 import AdminDashboardMenu from "../AdminNavigation/AdminNavigation"
-import DashboardHeader from '../../Dashboard/Pages/DashboardHeader/DashboardHeader'; 
- import AdminAddDailyTask from './AdminAddDailyTask';
-
+import DashboardHeader from '../../Dashboard/Pages/DashboardHeader/DashboardHeader';
+import AdminAddDailyTask from './AdminAddDailyTask';
+    
 const index = () => {
     return (
         <div className='dashboard-section' id='dastbord-menu-controler-contaienr'>

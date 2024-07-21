@@ -1,12 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import "./style.scss"
 import { FaCheck } from "react-icons/fa";
 import LuckySpinner from './LuckySpinner/index'
+import { shortText } from './utilities/index'
 
 const taskImg = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCccyPZU6Ad7GmBlSCuxZp9OQuTHKyMb5_nQ&s"
 
 const DailyTask = () => {
+    const [dailyTasks, setDailyTasks] = useState([])
     const [seeMoreID, setSeeMoreID] = useState("")
+
+
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/get-daily-task`, {
+            method: "GET",
+        })
+            .then((data) => data.json())
+            .then((data) => {
+                console.log("data from backend ===>>>", data)
+                if (data.data) {
+                    setDailyTasks(data.data)
+                }
+            })
+    }, [])
 
     return (
         <div className='daily-task'>
@@ -28,17 +44,18 @@ const DailyTask = () => {
                     </div>
                     <div className='task-list'>
                         {
-                            new Array(5).fill().map((cont, index) => {
-                                return <div className='task-item'>
+                            dailyTasks.map((taskInfo, index) => {
+                                return <div className='task-item' key={index}>
                                     <div className='description-section'>
                                         <div className='img-section'>
                                             <span className='task-status '>
                                                 <FaCheck />
                                             </span>
-                                            <img src={taskImg} alt='' />
+                                            <img src={`${process.env.REACT_APP_SERVER_HOST_URL}/${taskInfo?.currentTaskID?.img}`} alt='' />
                                         </div>
                                         <div className='description' >
-                                            <p>নিচের ইউটিউব চ্যানেল টি সাবস্ক্রাইব করুন তারপরে লাইক ও কমেন্ট করুন তারপরে ১ মিনিট ভিডিওটা দেখুন ১ মিনিট দেখা হলে ব্যাক চলে আসুন।</p>
+                                            <p>{shortText(taskInfo?.currentTaskID?.description, 130, true)}</p>
+                                            {/* <p>{taskInfo?.currentTaskID?.description}</p> */}
                                         </div>
                                     </div>
                                     <div className='action-section'>

@@ -288,7 +288,7 @@ const Product = () => {
                                   name="product_type"
                                   placeholder="Enter Product Type"
                                   onChange={(e) =>
-                                    handleProductDetails(e, index)
+                                handleProductDetails(e, index)
                                   }
                                 />
                               </div>

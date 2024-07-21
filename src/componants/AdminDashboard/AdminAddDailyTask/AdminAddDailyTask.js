@@ -3,11 +3,11 @@ import './style.scss'
 
 
 const AdminAddDailyTask = () => {
-  const [input, setInput] = useState({})
+  const [input, setInput] = useState({ autoApprove: true })
 
   const handleChange = (e) => {
     const name = e.target.name
-    const value = e.target.value 
+    const value = e.target.value
 
     if (name === "img") {
       return setInput((state) => {
@@ -34,8 +34,7 @@ const AdminAddDailyTask = () => {
         [name]: value
       }
     })
-  }
-  console.log("input", input)
+  } 
   const onSubmit = (e) => {
     e.preventDefault()
     const formData = new FormData()
@@ -47,10 +46,10 @@ const AdminAddDailyTask = () => {
       method: "POST",
       body: formData
     })
-    .then((data) => data.json())
-    .then((data) => {
-      console.log("data ===>>>", data)
-    })
+      .then((data) => data.json())
+      .then((data) => {
+        console.log("data ===>>>", data)
+      })
   }
 
   return (
@@ -61,19 +60,19 @@ const AdminAddDailyTask = () => {
             Add Daily Task
           </span>
           <div className="validate-input">
-            <input className={`input2 ${input.title ? "fill" : ""}`} type="text" value={input.title || ""} name="title" onChange={handleChange}     />
+            <input className={`input2 ${input.title ? "fill" : ""}`} type="text" value={input.title || ""} name="title" onChange={handleChange} />
             <span className="focus-input2">TITLE</span>
           </div>
           <div className="validate-input" >
-            <input className={`input2 ${input.description ? "fill" : ""}`} type="text" value={input.description || ""} name="description" onChange={handleChange}  />
+            <input className={`input2 ${input.description ? "fill" : ""}`} type="text" value={input.description || ""} name="description" onChange={handleChange} />
             <span className="focus-input2">DESCRIPTION</span>
           </div>
           <div className="validate-input" >
-            <input className={`input2 ${input.taskLink ? "fill" : ""}`} type="text" value={input.taskLink || ""} name="taskLink" onChange={handleChange}  />
+            <input className={`input2 ${input.taskLink ? "fill" : ""}`} type="text" value={input.taskLink || ""} name="taskLink" onChange={handleChange} />
             <span className="focus-input2">TASK LINK</span>
           </div>
           <div className="validate-input" >
-            <input className={`input2 ${input.tutorialLink ? "fill" : ""}`} type="text" value={input.tutorialLink || ""} name="tutorialLink" onChange={handleChange}  />
+            <input className={`input2 ${input.tutorialLink ? "fill" : ""}`} type="text" value={input.tutorialLink || ""} name="tutorialLink" onChange={handleChange} />
             <span className="focus-input2">TUTORIAL LINK</span>
           </div>
           <div className="validate-input auto-approve" >
