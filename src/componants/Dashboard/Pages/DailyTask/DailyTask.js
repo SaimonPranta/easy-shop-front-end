@@ -3,17 +3,22 @@ import "./style.scss"
 import { FaCheck } from "react-icons/fa";
 import LuckySpinner from './LuckySpinner/index'
 import { shortText } from './utilities/index'
+import { getCooki } from '../../../../shared/cooki';
 
 const taskImg = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCccyPZU6Ad7GmBlSCuxZp9OQuTHKyMb5_nQ&s"
 
 const DailyTask = () => {
     const [dailyTasks, setDailyTasks] = useState([])
     const [seeMoreID, setSeeMoreID] = useState("")
+    const cookie = getCooki()
 
 
     useEffect(() => {
         fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/get-daily-task`, {
             method: "GET",
+            headers: {
+                authorization: `Bearer ${cookie}`
+            }
         })
             .then((data) => data.json())
             .then((data) => {
@@ -39,7 +44,6 @@ const DailyTask = () => {
                         <h3>আজকের ডেইলি টাক্স এর কাজ হলো  </h3>
                         <div className='maximum-figure'>
                             <span>সর্বোচ্চ - ৳99</span>
-
                         </div>
                     </div>
                     <div className='task-list'>
@@ -48,26 +52,33 @@ const DailyTask = () => {
                                 return <div className='task-item' key={index}>
                                     <div className='description-section'>
                                         <div className='img-section'>
-                                            <span className='task-status '>
+                                            <span className={`task-status ${!taskInfo?.isTaskComplete ? "incomplete" : ""}`}>
                                                 <FaCheck />
                                             </span>
                                             <img src={`${process.env.REACT_APP_SERVER_HOST_URL}/${taskInfo?.currentTaskID?.img}`} alt='' />
                                         </div>
                                         <div className='description' >
-                                            <p>{shortText(taskInfo?.currentTaskID?.description, 130, true)}</p>
-                                            {/* <p>{taskInfo?.currentTaskID?.description}</p> */}
+                                            {
+                                                seeMoreID === index ? <p>{taskInfo?.currentTaskID?.description}</p> :
+                                                    <p>{shortText(taskInfo?.currentTaskID?.description, 140, true)}</p>
+                                            }
+
                                         </div>
                                     </div>
                                     <div className='action-section'>
                                         {
                                             seeMoreID !== index ? <div>
                                                 <button onClick={() => setSeeMoreID(index)}>See More</button>
-                                            </div> : seeMoreID === index ? <div>
-                                                <button onClick={() => setSeeMoreID("")}>Close</button>
-                                                <button>Go To Task</button>
                                             </div> : <div>
-                                                <button>Close</button>
-                                                <button className='complete'>Already Submit</button>
+                                                {
+                                                    taskInfo?.isTaskComplete ? <>
+                                                        <button>Close</button>
+                                                        <button className='complete'>Already Submit</button>
+                                                    </> : <>
+                                                        <button onClick={() => setSeeMoreID("")}>Close</button>
+                                                        <button>Go To Task</button>
+                                                    </>
+                                                }
                                             </div>
                                         }
 

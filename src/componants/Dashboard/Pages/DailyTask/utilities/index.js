@@ -1,36 +1,29 @@
 const shortText = (text = "", lineCount = 10, dote) => {
     let outPut = text.substring(0, lineCount)
-   console.log("text.length > lineCount",)
     if (text.length > lineCount) {
-        if (outPut.includes("।")) {
+        if (outPut.substring(outPut.length / 2, lineCount).includes("।")) {
+            const firstPartOfSentence = outPut.substring(0, outPut.length / 2)
+            const secondPartOfSentence = outPut.substring(outPut.length / 2, outPut.length)
             const textArray = []
             let find = false
-            for (let i = outPut.length - 10; i < outPut.length; i++) {
-                const alphabet = outPut[i];
-                if (find) {
-                    return
-                }
-                if (alphabet === "।") {
+            for (let index = 0; index < secondPartOfSentence.length && !find; index++) {
+                const element = secondPartOfSentence[index];
+                textArray.push(element)
+                if (element === "।" || element === ".") {
                     find = true
                 }
-                textArray.push(alphabet)
 
             }
-            console.log({
-                text,
-                outPut
-            })
-            console.log("textArray ====>>", textArray)
-            if (textArray.length) {
-                const finalText = textArray.join("")
+            const finalText = firstPartOfSentence + textArray.join("")
+            return finalText
 
-                return finalText
+        } else {
+            if (dote) {
+                return `${outPut}...`
+            } else {
+                return outPut
             }
         }
-
-        // if (dote) {
-        //     return `${outPut}...`
-        // }
     }
 
     return outPut
@@ -38,3 +31,5 @@ const shortText = (text = "", lineCount = 10, dote) => {
 
 
 export { shortText }
+
+
