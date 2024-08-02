@@ -4,12 +4,14 @@ import { FaCheck } from "react-icons/fa";
 import LuckySpinner from './LuckySpinner/index'
 import { shortText } from './utilities/index'
 import { getCooki } from '../../../../shared/cooki';
+import { FcAddImage } from "react-icons/fc";
+import { TiDeleteOutline } from "react-icons/ti";
 
-const taskImg = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQCccyPZU6Ad7GmBlSCuxZp9OQuTHKyMb5_nQ&s"
 
 const DailyTask = () => {
     const [dailyTasks, setDailyTasks] = useState([])
     const [seeMoreID, setSeeMoreID] = useState("")
+    const [images, setImages] = useState([])
     const cookie = getCooki()
 
 
@@ -22,12 +24,86 @@ const DailyTask = () => {
         })
             .then((data) => data.json())
             .then((data) => {
-                console.log("data from backend ===>>>", data)
                 if (data.data) {
                     setDailyTasks(data.data)
                 }
             })
     }, [])
+
+    const handleGoToTask = async (taskInfo) => {
+        try {
+            window.open(taskInfo.currentTaskID.taskLink, '_blank');
+
+            const currentList = [...dailyTasks]
+            console.log('currentList =>', currentList)
+            const updateTaskList = currentList.map((task) => {
+                delete task["isGoToTask"]
+
+                if (task._id.toString() === taskInfo._id.toString()) {
+                    task["isGoToTask"] = true
+                }
+
+                return task
+            })
+            console.log('updateTaskList =>', updateTaskList)
+
+            setDailyTasks(updateTaskList)
+            setImages([])
+
+        } catch (error) {
+            console.log("error", error)
+        }
+    }
+    const handleTaskSubmit = async (taskInfo) => {
+        try {
+            window.open(taskInfo.currentTaskID.taskLink, '_blank');
+
+            fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/create-user-history`, {
+                method: "POST",
+                body: JSON.stringify({
+                    taskListID: taskInfo?._id,
+                    dailyTaskID: taskInfo?.currentTaskID?._id,
+                }),
+                headers: {
+                    'content-type': 'application/json; charset=UTF-8',
+                    authorization: `Bearer ${cookie}`
+                }
+            })
+                .then((data) => data.json())
+                .then((data) => {
+                    if (data.taskListID) {
+                        const currentList = [...dailyTasks]
+                        console.log('currentList =>', currentList)
+                        const updateTaskList = currentList.map((task) => {
+                            console.log("ask._id.toString()", task._id.toString())
+                            console.log("data.taskListID.toString()", data.taskListID.toString())
+
+                            if (task._id.toString() === data.taskListID.toString()) {
+                                task.isTaskComplete = true
+                            }
+
+                            return task
+                        })
+                        console.log('updateTaskList =>', updateTaskList)
+
+                        setDailyTasks(updateTaskList)
+                    }
+                })
+
+        } catch (error) {
+            console.log("error", error)
+        }
+    }
+
+    const handleImgUpload = (e) => {
+        setImages((state) => {
+            return [...state, e.target.files[0]]
+        })
+    }
+    const handleRemoveImg = (img) => {
+        const updateImages = images.filter((image) => image !== img)
+        setImages(updateImages)
+    }
 
     return (
         <div className='daily-task'>
@@ -65,18 +141,44 @@ const DailyTask = () => {
 
                                         </div>
                                     </div>
+
+                                    {
+                                        taskInfo?.isGoToTask && <div className='upload-section' >
+                                            {images.length > 0 && <div className='upload-list'>
+                                                {
+                                                    images.map((item) => {
+                                                        return <div className='img-container'>
+                                                            <TiDeleteOutline onClick={() => handleRemoveImg(item)} />
+                                                            <img src={URL.createObjectURL(item)} alt='' />
+                                                        </div>
+                                                    })
+                                                }
+
+                                            </div>}
+                                            <div className='input-section'>
+                                                <button>
+                                                    <FcAddImage />
+                                                </button>
+                                                <input type='file' accept='image/*' onChange={handleImgUpload} />
+
+                                            </div>
+                                        </div>
+                                    }
                                     <div className='action-section'>
                                         {
-                                            seeMoreID !== index ? <div>
-                                                <button onClick={() => setSeeMoreID(index)}>See More</button>
+                                            seeMoreID !== taskInfo?._id ? <div>
+                                                <button onClick={() => setSeeMoreID(taskInfo._id)}>See More</button>
                                             </div> : <div>
                                                 {
-                                                    taskInfo?.isTaskComplete ? <>
-                                                        <button>Close</button>
+                                                    taskInfo?.isGoToTask ? <>
+                                                        <button onClick={() => setSeeMoreID("")} >Close</button>
+                                                        <button className='complete'>Task Submit</button>
+                                                    </> : taskInfo?.isTaskComplete ? <>
+                                                        <button onClick={() => setSeeMoreID("")} >Close</button>
                                                         <button className='complete'>Already Submit</button>
                                                     </> : <>
                                                         <button onClick={() => setSeeMoreID("")}>Close</button>
-                                                        <button>Go To Task</button>
+                                                        <button onClick={() => handleGoToTask(taskInfo)} >Go To Task</button>
                                                     </>
                                                 }
                                             </div>
