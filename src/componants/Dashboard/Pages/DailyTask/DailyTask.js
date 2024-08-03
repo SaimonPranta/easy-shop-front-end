@@ -55,17 +55,18 @@ const DailyTask = () => {
         }
     }
     const handleTaskSubmit = async (taskInfo) => {
-        try {
-            window.open(taskInfo.currentTaskID.taskLink, '_blank');
+        try { 
+
+            const formData = new FormData()
+
+            images.forEach((image, index) => formData.append(`img${index + 1}`, image))
+            formData.append("taskListID", taskInfo?._id)
+            formData.append("dailyTaskID", taskInfo?.currentTaskID?._id)
 
             fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/create-user-history`, {
                 method: "POST",
-                body: JSON.stringify({
-                    taskListID: taskInfo?._id,
-                    dailyTaskID: taskInfo?.currentTaskID?._id,
-                }),
-                headers: {
-                    'content-type': 'application/json; charset=UTF-8',
+                body: formData,
+                headers: { 
                     authorization: `Bearer ${cookie}`
                 }
             })
@@ -79,7 +80,9 @@ const DailyTask = () => {
                             console.log("data.taskListID.toString()", data.taskListID.toString())
 
                             if (task._id.toString() === data.taskListID.toString()) {
+                                delete task["isGoToTask"]
                                 task.isTaskComplete = true
+                                setImages([])
                             }
 
                             return task
@@ -96,6 +99,9 @@ const DailyTask = () => {
     }
 
     const handleImgUpload = (e) => {
+        if (images.length >= 8) {
+            return
+        }
         setImages((state) => {
             return [...state, e.target.files[0]]
         })
@@ -172,7 +178,7 @@ const DailyTask = () => {
                                                 {
                                                     taskInfo?.isGoToTask ? <>
                                                         <button onClick={() => setSeeMoreID("")} >Close</button>
-                                                        <button className='complete'>Task Submit</button>
+                                                        <button onClick={ () => handleTaskSubmit(taskInfo)} >Task Submit</button>
                                                     </> : taskInfo?.isTaskComplete ? <>
                                                         <button onClick={() => setSeeMoreID("")} >Close</button>
                                                         <button className='complete'>Already Submit</button>
