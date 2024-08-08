@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from 'react';
-import './style.scss' 
+import './style.scss'
+import index from '../AdminNotification/index';
 
 
 const AdminAddDailyTask = () => {
@@ -8,7 +9,8 @@ const AdminAddDailyTask = () => {
   const [currentStyle, setCurrentStyle] = useState("")
   const [coinArray, setCoinArray] = useState([{
     coin: "",
-    percentage: ""
+    percentage: "",
+    maxCount: ""
   }])
   const colorArray = ["#e74c3c", "#3498db", "#2ecc71", "#f39c12", "#5F4B8BFF", "#F95700FF", "#D6ED17FF", "#2C5F2D", "#0063B2FF", "#2BAE66FF"]
 
@@ -18,20 +20,26 @@ const AdminAddDailyTask = () => {
       let nowCount = 0
       // background: `conic-gradient( #e74c3c 0% 45%, #3498db 45% 55%,  #2ecc71 55% 80%,  #f39c12 80% 100% )`,
       let styleString = ""
+      let totalPercent = 100
       await coinArray.forEach(({ percentage, coin }, index) => {
         if (!percentage || !coin) {
           return
         }
-        styleString = styleString + `${colorArray[index]} ${nowCount}% ${nowCount + percentage}% ${coinArray.length !== index + 1 ? " ," : ""}`
+        styleString = styleString + `${colorArray[index]} ${nowCount}% ${nowCount + percentage}%,`
+        // styleString = styleString + `${colorArray[index]} ${nowCount}% ${nowCount + percentage}% ${coinArray.length !== index + 1 ? " ," : ""}`
         nowCount = nowCount + percentage
-
       })
+      // if (coinArray.length === index + 1) {
+      styleString = styleString + `#FFF ${nowCount}% ${totalPercent}%`
+      // styleString = styleString + `#FFF ${nowCount}% ${nowCount + percentage}% ${coinArray.length !== index + 1 ? " ," : ""}`
+      // }
+
       // await arrayOfCount.forEach((count, index) => {
       //   styleString = styleString + `${colorArray[index]} ${nowCount}% ${nowCount + count}% ${arrayOfCount.length !== index + 1 ? " ," : ""}`
       //   nowCount = nowCount + count
 
-      // })
-      console.log('styleString =>', styleString)
+      // }) 
+      console.log("styleString ==>>", styleString)
       setCurrentStyle(styleString)
     }
     handleStyle()
@@ -90,9 +98,23 @@ const AdminAddDailyTask = () => {
 
     console.log("name", name)
     console.log("value", value)
-    if (!Number(value)) {
+    if (name !== "coin" && name !== "maxCount" && value && !Number(value)) {
       return
     }
+
+    let currentPercentage = Number(value) || 0
+    console.log("currentPercentage 0 =>>", currentPercentage)
+    coinArray.forEach(({ coin, percentage}, index) => {
+      console.log("percentage =>", percentage)
+      if (index !== inputIndex) {
+        currentPercentage = currentPercentage + percentage
+      }
+    })
+    console.log("currentPercentage 1 =>", currentPercentage)
+    if (name !== "coin" && name !== "maxCount" && currentPercentage > 100) {
+      return
+    }
+
     const updateArray = coinArray.map((obj, index) => {
       if (index === inputIndex) {
         return {
@@ -105,7 +127,7 @@ const AdminAddDailyTask = () => {
     setCoinArray(updateArray)
   }
 
-
+  console.log("array ==>>", coinArray)
   return (
     <div className='admin-add-daily-task'>
       <div className='header-section'>
@@ -163,7 +185,7 @@ const AdminAddDailyTask = () => {
               Add Task Rewards
             </span>
             <div className='reward-circle'>
-              <div class={`circle ${!currentStyle.length ? "empty" : "fill"}`} style={{
+              <div class={`circle `} style={{
                 background: `conic-gradient(${currentStyle})`,
               }}>
 
@@ -184,7 +206,7 @@ const AdminAddDailyTask = () => {
             </div>
             <>
               {
-                coinArray.map(({ coin, percentage }, index) => {
+                coinArray.map(({ coin, percentage, maxCount}, index) => {
                   return <div className="validate-input duel-input">
                     <div>
                       <input className={`input2 ${coin ? "fill" : ""}`} type="text" value={coin || ""} name="coin" onChange={(e) => handleSetCoin(e, index)} />
@@ -193,6 +215,10 @@ const AdminAddDailyTask = () => {
                     <div>
                       <input className={`input2 ${percentage ? "fill" : ""}`} type="text" value={percentage || ""} name="percentage" onChange={(e) => handleSetCoin(e, index)} />
                       <span className="focus-input2">PERCENTAGE %</span>
+                    </div>
+                    <div>
+                      <input className={`input2 ${maxCount ? "fill" : ""}`} type="text" value={maxCount || ""} name="maxCount" onChange={(e) => handleSetCoin(e, index)} />
+                      <span className="focus-input2">MAX NUMBER</span>
                     </div>
                   </div>
                 })
@@ -204,7 +230,7 @@ const AdminAddDailyTask = () => {
             <div className="validate-input add-more-section" >
               <button onClick={() => {
                 setCoinArray((state) => {
-                  return [...state, { coin: "", percentage: "" }]
+                  return [...state, { coin: "", percentage: "", maxCount: "" }]
                 })
               }}><strong>+</strong> Add More</button>
             </div>

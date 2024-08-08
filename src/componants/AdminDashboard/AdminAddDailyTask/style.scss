@@ -75,24 +75,19 @@
           align-items: center;
           font-family: Arial, sans-serif;
           overflow: hidden; 
-          &.empty{
-            border: 1px solid green;
-            position: relative;
-            &::after{
-              position: absolute;
-              content: "0%";
-              left: 50%;
-              top: 50%;
-              font-size: 20px;
-              font-weight: 600;
-              color: #000;
+          border: 1px solid green;
+      
+          &::after{
+            position: absolute;
+            content: "0%";
+            left: 50%;
+            top: 50%;
+            font-size: 20px;
+            font-weight: 600;
+            color: #000 !important;
 
-            }
           }
-          &.fill{
-            border: none;
-            position: none;
-          }
+           
         }
 
         .discretion {

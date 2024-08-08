@@ -1,6 +1,6 @@
 import { toast } from "react-toastify";
 
-const Index = (message = "Your request are Sucessfull !") => {
+const Index = (message = "Your request are Successful !") => {
   toast.success(`${message}`, {
     position: "bottom-center",
     autoClose: 5000,

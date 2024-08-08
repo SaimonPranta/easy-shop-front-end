@@ -6,12 +6,17 @@ import { shortText } from './utilities/index'
 import { getCooki } from '../../../../shared/cooki';
 import { FcAddImage } from "react-icons/fc";
 import { TiDeleteOutline } from "react-icons/ti";
+import SuccessTost from '../../../../shared/components/SuccessTost/SuccessTost'
+import { ToastContainer } from 'react-toastify';
 
 
 const DailyTask = () => {
     const [dailyTasks, setDailyTasks] = useState([])
     const [seeMoreID, setSeeMoreID] = useState("")
+    const [isAllCompleted, setIsAllCompleted] = useState(false)
+    const [reRender, setRerender] = useState(false)
     const [images, setImages] = useState([])
+    const [showSpin, setShowSpin] = useState(false)
     const cookie = getCooki()
 
 
@@ -24,8 +29,28 @@ const DailyTask = () => {
         })
             .then((data) => data.json())
             .then((data) => {
-                if (data.data) {
+                if (data?.data) {
                     setDailyTasks(data.data)
+                }
+                if (data?.isCompletedTask) {
+                    setIsAllCompleted(data.data)
+                }
+            })
+    }, [reRender])
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/user-config`, {
+            method: "GET",
+            headers: {
+                authorization: `Bearer ${cookie}`
+            }
+        })
+            .then((data) => data.json())
+            .then((data) => {
+                if (data?.data) {
+                    setDailyTasks(data.data)
+                }
+                if (data?.isCompletedTask) {
+                    setIsAllCompleted(data.data)
                 }
             })
     }, [])
@@ -55,8 +80,7 @@ const DailyTask = () => {
         }
     }
     const handleTaskSubmit = async (taskInfo) => {
-        try { 
-
+        try {
             const formData = new FormData()
 
             images.forEach((image, index) => formData.append(`img${index + 1}`, image))
@@ -66,31 +90,19 @@ const DailyTask = () => {
             fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/create-user-history`, {
                 method: "POST",
                 body: formData,
-                headers: { 
+                headers: {
                     authorization: `Bearer ${cookie}`
                 }
             })
                 .then((data) => data.json())
                 .then((data) => {
-                    if (data.taskListID) {
-                        const currentList = [...dailyTasks]
-                        console.log('currentList =>', currentList)
-                        const updateTaskList = currentList.map((task) => {
-                            console.log("ask._id.toString()", task._id.toString())
-                            console.log("data.taskListID.toString()", data.taskListID.toString())
-
-                            if (task._id.toString() === data.taskListID.toString()) {
-                                delete task["isGoToTask"]
-                                task.isTaskComplete = true
-                                setImages([])
-                            }
-
-                            return task
-                        })
-                        console.log('updateTaskList =>', updateTaskList)
-
-                        setDailyTasks(updateTaskList)
+                    if (data.message) {
+                        SuccessTost(data.message)
                     }
+                    if (data.success) {
+                         setRerender((state) => !state)
+                    }
+                    
                 })
 
         } catch (error) {
@@ -111,6 +123,8 @@ const DailyTask = () => {
         setImages(updateImages)
     }
 
+    console.log("dailyTasks", dailyTasks)
+
     return (
         <div className='daily-task'>
             <div className='main-container'>
@@ -128,7 +142,7 @@ const DailyTask = () => {
                             <span>সর্বোচ্চ - ৳99</span>
                         </div>
                     </div>
-                    <div className='task-list'>
+                    {!showSpin && <div className='task-list'>
                         {
                             dailyTasks.map((taskInfo, index) => {
                                 return <div className='task-item' key={index}>
@@ -176,16 +190,21 @@ const DailyTask = () => {
                                                 <button onClick={() => setSeeMoreID(taskInfo._id)}>See More</button>
                                             </div> : <div>
                                                 {
-                                                    taskInfo?.isGoToTask ? <>
+                                                    isAllCompleted ? <>
                                                         <button onClick={() => setSeeMoreID("")} >Close</button>
-                                                        <button onClick={ () => handleTaskSubmit(taskInfo)} >Task Submit</button>
-                                                    </> : taskInfo?.isTaskComplete ? <>
-                                                        <button onClick={() => setSeeMoreID("")} >Close</button>
-                                                        <button className='complete'>Already Submit</button>
-                                                    </> : <>
-                                                        <button onClick={() => setSeeMoreID("")}>Close</button>
-                                                        <button onClick={() => handleGoToTask(taskInfo)} >Go To Task</button>
+                                                        <button onClick={() => setShowSpin(true)} >Go To Spin</button>
                                                     </>
+                                                        :
+                                                        taskInfo?.isGoToTask ? <>
+                                                            <button onClick={() => setSeeMoreID("")} >Close</button>
+                                                            <button onClick={() => handleTaskSubmit(taskInfo)} >Task Submit</button>
+                                                        </> : taskInfo?.isTaskComplete ? <>
+                                                            <button onClick={() => setSeeMoreID("")} >Close</button>
+                                                            <button className='complete'>Already Submit</button>
+                                                        </> : <>
+                                                            <button onClick={() => setSeeMoreID("")}>Close</button>
+                                                            <button onClick={() => handleGoToTask(taskInfo)} >Go To Task</button>
+                                                        </>
                                                 }
                                             </div>
                                         }
@@ -195,20 +214,22 @@ const DailyTask = () => {
                                 </div>
                             })
                         }
-                    </div>
-                    <div className='spinner-section'>
+                    </div>}
+                    {showSpin && <div className='spinner-section'>
                         <LuckySpinner />
                         <div className='congress-section'>
                             <h5>অভিনন্দন 🎉</h5>
                             <p>আপনি ২০ টাকা টাক্স বোনাস পেয়েছেন।</p>
                         </div>
-                    </div>
+                    </div>}
 
                 </div>
 
 
 
             </div>
+            <ToastContainer />
+
         </div>
     );
 };
