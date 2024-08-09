@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import "./style.scss"
 import { FaCheck } from "react-icons/fa";
 import LuckySpinner from './LuckySpinner/index'
@@ -8,6 +8,8 @@ import { FcAddImage } from "react-icons/fc";
 import { TiDeleteOutline } from "react-icons/ti";
 import SuccessTost from '../../../../shared/components/SuccessTost/SuccessTost'
 import { ToastContainer } from 'react-toastify';
+import { configContext } from '../../../../App';
+import handleSpinReward from './utilities/hadleSpinReward';
 
 
 const DailyTask = () => {
@@ -16,8 +18,12 @@ const DailyTask = () => {
     const [isAllCompleted, setIsAllCompleted] = useState(false)
     const [reRender, setRerender] = useState(false)
     const [images, setImages] = useState([])
-    const [showSpin, setShowSpin] = useState(false)
+    const [showSpin, setShowSpin] = useState(true)
+    const [rewardAmount, setRewardAmount] = useState(null)
+    const [config, setConfig] = useContext(configContext)
     const cookie = getCooki()
+
+
 
 
     useEffect(() => {
@@ -37,23 +43,7 @@ const DailyTask = () => {
                 }
             })
     }, [reRender])
-    useEffect(() => {
-        fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/user-config`, {
-            method: "GET",
-            headers: {
-                authorization: `Bearer ${cookie}`
-            }
-        })
-            .then((data) => data.json())
-            .then((data) => {
-                if (data?.data) {
-                    setDailyTasks(data.data)
-                }
-                if (data?.isCompletedTask) {
-                    setIsAllCompleted(data.data)
-                }
-            })
-    }, [])
+
 
     const handleGoToTask = async (taskInfo) => {
         try {
@@ -100,9 +90,9 @@ const DailyTask = () => {
                         SuccessTost(data.message)
                     }
                     if (data.success) {
-                         setRerender((state) => !state)
+                        setRerender((state) => !state)
                     }
-                    
+
                 })
 
         } catch (error) {
@@ -122,6 +112,16 @@ const DailyTask = () => {
         const updateImages = images.filter((image) => image !== img)
         setImages(updateImages)
     }
+    const handleSpinClick = () => {
+        console.log("call handleSpinClick")
+        console.log("config?.DailyTask?.taskRewardsList", config?.dailyTask?.taskRewardsList)
+        if (!config?.dailyTask?.taskRewardsList?.length) {
+            return
+        }
+        const { coin } = handleSpinReward(config?.dailyTask?.taskRewardsList || [])
+        console.log("reward", coin)
+        setRewardAmount(coin)
+    }
 
     console.log("dailyTasks", dailyTasks)
 
@@ -139,7 +139,7 @@ const DailyTask = () => {
                     <div className='heading-section'>
                         <h3>আজকের ডেইলি টাক্স এর কাজ হলো  </h3>
                         <div className='maximum-figure'>
-                            <span>সর্বোচ্চ - ৳99</span>
+                            <span>{`সর্বোচ্চ - ৳${config?.dailyTask?.maximumAmount || 0}`}</span>
                         </div>
                     </div>
                     {!showSpin && <div className='task-list'>
@@ -216,11 +216,11 @@ const DailyTask = () => {
                         }
                     </div>}
                     {showSpin && <div className='spinner-section'>
-                        <LuckySpinner />
-                        <div className='congress-section'>
+                        <LuckySpinner handleSpinClick={handleSpinClick} />
+                        {rewardAmount && <div className='congress-section'>
                             <h5>অভিনন্দন 🎉</h5>
-                            <p>আপনি ২০ টাকা টাক্স বোনাস পেয়েছেন।</p>
-                        </div>
+                            <p>{`আপনি ${rewardAmount} টাকা টাক্স বোনাস পেয়েছেন।`}</p>
+                        </div>}
                     </div>}
 
                 </div>

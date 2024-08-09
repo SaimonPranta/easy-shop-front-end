@@ -1,10 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import './style.scss'
 import index from '../AdminNotification/index';
+import { getCooki } from '../../../shared/cooki';
+const colorArray = ["#e74c3c", "#3498db", "#2ecc71", "#f39c12", "#5F4B8BFF", "#F95700FF", "#D6ED17FF", "#2C5F2D", "#0063B2FF", "#2BAE66FF"]
+const cooki = getCooki()
 
 
 const AdminAddDailyTask = () => {
   const [input, setInput] = useState({ autoApprove: true })
+  const [config, setConfig] = useState({})
   const [activeTab, setActiveTab] = useState("daily-task")
   const [currentStyle, setCurrentStyle] = useState("")
   const [coinArray, setCoinArray] = useState([{
@@ -12,8 +16,6 @@ const AdminAddDailyTask = () => {
     percentage: "",
     maxCount: ""
   }])
-  const colorArray = ["#e74c3c", "#3498db", "#2ecc71", "#f39c12", "#5F4B8BFF", "#F95700FF", "#D6ED17FF", "#2C5F2D", "#0063B2FF", "#2BAE66FF"]
-
 
   useEffect(() => {
     const handleStyle = async () => {
@@ -39,7 +41,6 @@ const AdminAddDailyTask = () => {
       //   nowCount = nowCount + count
 
       // }) 
-      console.log("styleString ==>>", styleString)
       setCurrentStyle(styleString)
     }
     handleStyle()
@@ -75,6 +76,20 @@ const AdminAddDailyTask = () => {
       }
     })
   }
+  const handleConfigChange = (e) => {
+    const name = e.target.name
+    const value = e.target.value
+
+
+    setConfig((state) => {
+      return {
+        ...state,
+        [name]: value
+      }
+    })
+  }
+  console.log("coinArray ==>>", coinArray)
+
   const onSubmit = (e) => {
     e.preventDefault()
     const formData = new FormData()
@@ -91,20 +106,60 @@ const AdminAddDailyTask = () => {
         console.log("data ===>>>", data)
       })
   }
+  const onRewardsSubmit = async (e) => {
+    console.log("Hello from ")
+    e.preventDefault()
+    let totalPercentage = 0
+
+    await coinArray.forEach((item) => {
+      if (Number(item?.percentage)) {
+        totalPercentage = totalPercentage + Number(item.percentage)
+      }
+    })
+    if (totalPercentage !== 100) {
+      return
+    }
+    const taskRewardsList = await coinArray.filter((item) => item?.percentage > 1)
+
+    const response = await fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/set-config`, {
+      method: "POST",
+      body: JSON.stringify({ taskRewardsList: taskRewardsList }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        authorization: `Bearer ${cooki}`
+      }
+    })
+    const data = await response.json()
+    console.log("data ==>>", data)
+  }
+  const onConfigSubmit = async (e) => {
+    e.preventDefault()
+    if (Number(config.maximumAmount) < 1) {
+      return
+    }
+    const response = await fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/set-config`, {
+      method: "POST",
+      body: JSON.stringify({ ...config }),
+      headers: {
+        'Content-type': 'application/json; charset=UTF-8',
+        authorization: `Bearer ${cooki}`
+      }
+    })
+    const data = await response.json()
+    console.log("data ==>>", data)
+  }
 
   const handleSetCoin = (e, inputIndex) => {
     const name = e.target.name
     const value = e.target.value
 
-    console.log("name", name)
-    console.log("value", value)
     if (name !== "coin" && name !== "maxCount" && value && !Number(value)) {
       return
     }
 
     let currentPercentage = Number(value) || 0
     console.log("currentPercentage 0 =>>", currentPercentage)
-    coinArray.forEach(({ coin, percentage}, index) => {
+    coinArray.forEach(({ coin, percentage }, index) => {
       console.log("percentage =>", percentage)
       if (index !== inputIndex) {
         currentPercentage = currentPercentage + percentage
@@ -127,12 +182,12 @@ const AdminAddDailyTask = () => {
     setCoinArray(updateArray)
   }
 
-  console.log("array ==>>", coinArray)
   return (
     <div className='admin-add-daily-task'>
       <div className='header-section'>
         <button className={activeTab === "daily-task" ? "active" : ""} onClick={() => setActiveTab("daily-task")} >Add Daily Task</button>
         <button className={activeTab === "task-reward" ? "active" : ""} onClick={() => setActiveTab("task-reward")} >Add Task Reward</button>
+        <button className={activeTab === "daily-task-config" ? "active" : ""} onClick={() => setActiveTab("daily-task-config")} >Set Daily Task Config</button>
       </div>
 
       {
@@ -179,8 +234,8 @@ const AdminAddDailyTask = () => {
               <button type='submit'>Submit</button>
             </div>
           </form>
-        </div > : activeTab === "task-reward" && <div className='wrap-contact2'>
-          <form className="contact2-form validate-form" onSubmit={onSubmit}>
+        </div > : activeTab === "task-reward" ? <div className='wrap-contact2'>
+          <form className="contact2-form validate-form" onSubmit={onRewardsSubmit}>
             <span className="contact2-form-title">
               Add Task Rewards
             </span>
@@ -206,7 +261,7 @@ const AdminAddDailyTask = () => {
             </div>
             <>
               {
-                coinArray.map(({ coin, percentage, maxCount}, index) => {
+                coinArray.map(({ coin, percentage, maxCount }, index) => {
                   return <div className="validate-input duel-input">
                     <div>
                       <input className={`input2 ${coin ? "fill" : ""}`} type="text" value={coin || ""} name="coin" onChange={(e) => handleSetCoin(e, index)} />
@@ -240,7 +295,23 @@ const AdminAddDailyTask = () => {
               <button type='submit'>Submit</button>
             </div>
           </form>
-        </div>
+        </div> : activeTab === "daily-task-config" && <div className='wrap-contact2'>
+          <form className="contact2-form validate-form" onSubmit={onConfigSubmit}>
+            <span className="contact2-form-title">
+              Set Daily Task Config
+            </span>
+
+            <div className="validate-input">
+              <input className={`input2 ${config.maximumAmount ? "fill" : ""}`} type="text" value={config.maximumAmount || ""} name="maximumAmount" onChange={handleConfigChange} />
+              <span className="focus-input2">Max Amount</span>
+            </div>
+
+
+            <div className="container-contact2-form-btn">
+              <button type='submit'>Submit</button>
+            </div>
+          </form>
+        </div >
       }
 
 

@@ -4,8 +4,7 @@ import spinnerWheel from "../../../../../assets/images/spinner wheel.png"
 // import trazary from "../../../../../assets/images/trazary.png"
 
 
-const Index = () => {
-    const [LuckyNumberAmount, setLuckyNumberAmount] = useState(null)
+const Index = ({handleSpinClick}) => { 
     const [currentSpinNumber, setCurrentSpinNumber] = useState(null)
     const [spinStyes, setSpinStyles] = useState({})
 
@@ -21,15 +20,16 @@ const Index = () => {
                 <img src={spinnerWheel} alt='' />
                 {
                     new Array(10).fill().map((con, index) => {
-                        if (currentSpinNumber && currentSpinNumber === index + 1) {
-                            return <p className="spin-section-item">{currentSpinNumber}</p>
-                        }
+                        // if (currentSpinNumber && currentSpinNumber === index + 1) {
+                        //     return <p className="spin-section-item">{currentSpinNumber}</p>
+                        // }
                         return <p className="spin-section-item">Lucky?</p>
                     })
                 }
             </div>
 
             <button className='spin-btn' onClick={() => {
+                handleSpinClick()
                 let spinSectionNumber = Math.floor(Math.random() * 10) + 1;
                 let spinNumber = 4;
                 spinNumber = spinNumber - spinSectionNumber
