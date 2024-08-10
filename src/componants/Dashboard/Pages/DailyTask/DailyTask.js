@@ -8,7 +8,7 @@ import { FcAddImage } from "react-icons/fc";
 import { TiDeleteOutline } from "react-icons/ti";
 import SuccessTost from '../../../../shared/components/SuccessTost/SuccessTost'
 import { ToastContainer } from 'react-toastify';
-import { configContext } from '../../../../App';
+import { configContext, userContext } from '../../../../App';
 import handleSpinReward from './utilities/hadleSpinReward';
 
 
@@ -21,6 +21,7 @@ const DailyTask = () => {
     const [showSpin, setShowSpin] = useState(true)
     const [rewardAmount, setRewardAmount] = useState(null)
     const [config, setConfig] = useContext(configContext)
+    const [user, setUser] = useContext(userContext)
     const cookie = getCooki()
 
 
@@ -120,10 +121,35 @@ const DailyTask = () => {
         }
         const { coin } = handleSpinReward(config?.dailyTask?.taskRewardsList || [])
         console.log("reward", coin)
-        setRewardAmount(coin)
+        fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/set-user-points`, {
+            method: "POST",
+            body: JSON.stringify({ pointAmount: coin }),
+            headers: {
+                authorization: `Bearer ${cookie}`,
+                // 'Content-type': 'application/json; charset=UTF-8',
+                "Content-type": "application/json; charset=UTF-8"
+            }
+        })
+            .then((data) => data.json())
+            .then((data) => {
+                setTimeout(() => {
+                    if (data.success) {
+                        setRewardAmount(coin)
+                    }
+                    if (data?.pointAmount) {
+                        setUser((state) => {
+                            return {
+                                ...state,
+                                pointAmount: (state?.pointAmount || 0) + data?.pointAmount
+                            }
+                        })
+                    }
+                }, 2000);
+
+            })
     }
 
-    console.log("dailyTasks", dailyTasks)
+    console.log("user", user)
 
     return (
         <div className='daily-task'>
@@ -138,8 +164,10 @@ const DailyTask = () => {
                     </div>
                     <div className='heading-section'>
                         <h3>আজকের ডেইলি টাক্স এর কাজ হলো  </h3>
+
                         <div className='maximum-figure'>
-                            <span>{`সর্বোচ্চ - ৳${config?.dailyTask?.maximumAmount || 0}`}</span>
+                            <span>{`বালেঞ্চ - ${user?.pointAmount || 0} পয়েন্ট`}</span>
+                            <span>{`সর্বোচ্চ - ${config?.dailyTask?.maximumAmount || 0} পয়েন্ট`}</span>
                         </div>
                     </div>
                     {!showSpin && <div className='task-list'>

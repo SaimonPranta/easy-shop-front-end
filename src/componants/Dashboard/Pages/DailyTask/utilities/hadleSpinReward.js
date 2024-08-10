@@ -1,11 +1,8 @@
-const handleSpinReward = (arr) => {
-    // Step 1: Calculate total weight
+const handleSpinReward = (arr) => { 
     const totalWeight = arr.reduce((sum, obj) => sum + obj.percentage, 0);
-
-    // Step 2: Generate a random number
+ 
     const randomNum = Math.random() * totalWeight;
-
-    // Step 3: Determine the selected object
+ 
     let cumulativeWeight = 0;
     for (const obj of arr) {
         cumulativeWeight += obj.percentage;
