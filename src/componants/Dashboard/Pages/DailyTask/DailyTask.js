@@ -16,15 +16,16 @@ const DailyTask = () => {
     const [dailyTasks, setDailyTasks] = useState([])
     const [seeMoreID, setSeeMoreID] = useState("")
     const [isAllCompleted, setIsAllCompleted] = useState(false)
+    const [disableSpin, setDisableSpin] = useState(false)
     const [reRender, setRerender] = useState(false)
     const [images, setImages] = useState([])
-    const [showSpin, setShowSpin] = useState(true)
+    const [spinPointHistory, setPinPointHistory] = useState([])
+    const [taskRewardsList, setTaskRewardsList] = useState([])
+    const [showSpin, setShowSpin] = useState(false)
     const [rewardAmount, setRewardAmount] = useState(null)
     const [config, setConfig] = useContext(configContext)
     const [user, setUser] = useContext(userContext)
     const cookie = getCooki()
-
-
 
 
     useEffect(() => {
@@ -45,13 +46,54 @@ const DailyTask = () => {
             })
     }, [reRender])
 
+    useEffect(() => {
+        if (config?.dailyTask?.taskRewardsList?.length) {
+            const filterTaskRewardList = config?.dailyTask?.taskRewardsList.filter((info) => {
+                if (info?.maxCount) {
+                    const spinPoint = spinPointHistory.find((spinInfo) => {
+                        if (spinInfo?.pointAmount === info?.coin) {
+                            return true
+                        }
+                        return false
+
+                    })
+                    if (spinPoint?.count <= info.maxCount) {
+                        return false
+                    }
+
+                }
+                return true
+
+            })
+            setTaskRewardsList(filterTaskRewardList)
+        }
+
+    }, [config?.dailyTask?.taskRewardsList, spinPointHistory])
+
+    useEffect(() => {
+        fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/spin-info`, {
+            method: "GET",
+            headers: {
+                authorization: `Bearer ${cookie}`
+            }
+        })
+            .then((data) => data.json())
+            .then((data) => {
+                if (data?.data) {
+                    setPinPointHistory(data?.data?.spinPointHistory)
+                    setDisableSpin(data?.data?.disableSpin)
+                }
+
+            })
+    }, [])
+
+
 
     const handleGoToTask = async (taskInfo) => {
         try {
             window.open(taskInfo.currentTaskID.taskLink, '_blank');
 
             const currentList = [...dailyTasks]
-            console.log('currentList =>', currentList)
             const updateTaskList = currentList.map((task) => {
                 delete task["isGoToTask"]
 
@@ -61,7 +103,6 @@ const DailyTask = () => {
 
                 return task
             })
-            console.log('updateTaskList =>', updateTaskList)
 
             setDailyTasks(updateTaskList)
             setImages([])
@@ -114,19 +155,16 @@ const DailyTask = () => {
         setImages(updateImages)
     }
     const handleSpinClick = () => {
-        console.log("call handleSpinClick")
-        console.log("config?.DailyTask?.taskRewardsList", config?.dailyTask?.taskRewardsList)
-        if (!config?.dailyTask?.taskRewardsList?.length) {
+
+        if (!taskRewardsList?.length) {
             return
         }
-        const { coin } = handleSpinReward(config?.dailyTask?.taskRewardsList || [])
-        console.log("reward", coin)
+        const { coin } = handleSpinReward(taskRewardsList)
         fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/set-user-points`, {
             method: "POST",
             body: JSON.stringify({ pointAmount: coin }),
             headers: {
                 authorization: `Bearer ${cookie}`,
-                // 'Content-type': 'application/json; charset=UTF-8',
                 "Content-type": "application/json; charset=UTF-8"
             }
         })
@@ -135,6 +173,7 @@ const DailyTask = () => {
                 setTimeout(() => {
                     if (data.success) {
                         setRewardAmount(coin)
+                        setDisableSpin(true)
                     }
                     if (data?.pointAmount) {
                         setUser((state) => {
@@ -148,8 +187,8 @@ const DailyTask = () => {
 
             })
     }
+ 
 
-    console.log("user", user)
 
     return (
         <div className='daily-task'>
@@ -244,7 +283,7 @@ const DailyTask = () => {
                         }
                     </div>}
                     {showSpin && <div className='spinner-section'>
-                        <LuckySpinner handleSpinClick={handleSpinClick} />
+                        <LuckySpinner handleSpinClick={handleSpinClick} disableSpin={disableSpin} />
                         {rewardAmount && <div className='congress-section'>
                             <h5>অভিনন্দন 🎉</h5>
                             <p>{`আপনি ${rewardAmount} টাকা টাক্স বোনাস পেয়েছেন।`}</p>

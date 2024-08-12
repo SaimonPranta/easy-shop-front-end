@@ -4,7 +4,7 @@ import spinnerWheel from "../../../../../assets/images/spinner wheel.png"
 // import trazary from "../../../../../assets/images/trazary.png"
 
 
-const Index = ({handleSpinClick}) => { 
+const Index = ({ handleSpinClick, disableSpin }) => {
     const [currentSpinNumber, setCurrentSpinNumber] = useState(null)
     const [spinStyes, setSpinStyles] = useState({})
 
@@ -29,6 +29,9 @@ const Index = ({handleSpinClick}) => {
             </div>
 
             <button className='spin-btn' onClick={() => {
+                if (disableSpin) {
+                    return 
+                }
                 handleSpinClick()
                 let spinSectionNumber = Math.floor(Math.random() * 10) + 1;
                 let spinNumber = 4;
