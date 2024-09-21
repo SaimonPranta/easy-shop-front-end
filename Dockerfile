@@ -1,13 +1,13 @@
-FROM ubuntu 
+FROM node:21.0.0
 
 WORKDIR /easy-shop
 
 COPY package.json ./
 COPY package-lock.json ./
 
-#RUN NPM INSTALL
+RUN npm install --force
 
-#COPY ./ ./
+COPY ./ ./
 
 EXPOSE 3000
 

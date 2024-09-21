@@ -134,9 +134,10 @@ const AdminAddDailyTask = () => {
   }
   const onConfigSubmit = async (e) => {
     e.preventDefault()
-    if (Number(config.maximumAmount) < 1) {
+    if (config.maximumAmount && Number(config.maximumAmount) < 1) {
       return
     }
+
     const response = await fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/set-config`, {
       method: "POST",
       body: JSON.stringify({ ...config }),
@@ -304,6 +305,10 @@ const AdminAddDailyTask = () => {
             <div className="validate-input">
               <input className={`input2 ${config.maximumAmount ? "fill" : ""}`} type="text" value={config.maximumAmount || ""} name="maximumAmount" onChange={handleConfigChange} />
               <span className="focus-input2">Max Amount</span>
+            </div>
+            <div className="validate-input">
+              <input className={`input2 ${config.tutorialVideoId ? "fill" : ""}`} type="text" value={config.tutorialVideoId || ""} name="tutorialVideoId" onChange={handleConfigChange} />
+              <span className="focus-input2">Tutorial Video ID</span>
             </div>
 
 

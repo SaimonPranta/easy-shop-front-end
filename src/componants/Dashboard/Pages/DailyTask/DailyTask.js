@@ -5,7 +5,7 @@ import LuckySpinner from './LuckySpinner/index'
 import { shortText } from './utilities/index'
 import { getCooki } from '../../../../shared/cooki';
 import { FcAddImage } from "react-icons/fc";
-import { TiDeleteOutline } from "react-icons/ti";
+import { TiDeleteOutline, TiVideo } from "react-icons/ti";
 import SuccessTost from '../../../../shared/components/SuccessTost/SuccessTost'
 import { ToastContainer } from 'react-toastify';
 import { configContext, userContext } from '../../../../App';
@@ -26,6 +26,7 @@ const DailyTask = () => {
     const [config, setConfig] = useContext(configContext)
     const [user, setUser] = useContext(userContext)
     const cookie = getCooki()
+
 
 
     useEffect(() => {
@@ -70,6 +71,8 @@ const DailyTask = () => {
 
     }, [config?.dailyTask?.taskRewardsList, spinPointHistory])
 
+    console.log("config ==>>", config)
+
     useEffect(() => {
         fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/spin-info`, {
             method: "GET",
@@ -106,6 +109,15 @@ const DailyTask = () => {
 
             setDailyTasks(updateTaskList)
             setImages([])
+
+        } catch (error) {
+            console.log("error", error)
+        }
+    }
+    const handleTutorial = async (taskInfo) => {
+        try {
+            window.open(taskInfo.currentTaskID.tutorialLink, '_blank');
+
 
         } catch (error) {
             console.log("error", error)
@@ -187,8 +199,8 @@ const DailyTask = () => {
 
             })
     }
- 
 
+console.log("https://www.youtube.com/embed/${config?.dailyTask?.tutorialVideoId =>", `https://www.youtube.com/embed/${config?.dailyTask?.tutorialVideoId}`)
 
     return (
         <div className='daily-task'>
@@ -212,6 +224,8 @@ const DailyTask = () => {
                     {!showSpin && <div className='task-list'>
                         {
                             dailyTasks.map((taskInfo, index) => {
+                                console.log("taskInfo?.currentTaskID?.taskLink ==>>", taskInfo?.currentTaskID?.taskLink)
+                                console.log("taskInfo?.currentTaskID?.description ==>>", taskInfo?.currentTaskID?.description)
                                 return <div className='task-item' key={index}>
                                     <div className='description-section'>
                                         <div className='img-section'>
@@ -275,6 +289,13 @@ const DailyTask = () => {
                                                 }
                                             </div>
                                         }
+                                        {
+                                            taskInfo?.currentTaskID?.tutorialLink && <div className='tutorial-btn'>
+                                                <button onClick={() => handleTutorial(taskInfo)}><TiVideo /></button>
+                                            </div>
+                                        }
+
+
 
 
                                     </div>
@@ -290,6 +311,15 @@ const DailyTask = () => {
                         </div>}
                     </div>}
 
+                    {config?.dailyTask?.tutorialVideoId && <div className='main-tutorial-section'>
+                        <div className='title-section'>
+                            <h3>Tutorial</h3>
+                        </div>
+                        <div className='frame-container'>
+                            <iframe width="560" height="315" src={`https://www.youtube.com/embed/${config?.dailyTask?.tutorialVideoId}`} title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+                        </div>
+                    </div>}
+
                 </div>
 
 
@@ -297,7 +327,7 @@ const DailyTask = () => {
             </div>
             <ToastContainer />
 
-        </div>
+        </div >
     );
 };
 

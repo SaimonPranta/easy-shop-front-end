@@ -78,7 +78,6 @@ const AdminDailyTask = () => {
       })
   }
 
-  console.log("selectTask ==>>", selectTask)
 
   return (
     <div className='admin-daily-task'>

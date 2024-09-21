@@ -46,7 +46,7 @@
                 .maximum-figure {
                     display: flex;
                     align-items: end;
-                    justify-content: end; 
+                    justify-content: end;
                     gap: 10px;
 
                     span {
@@ -200,6 +200,27 @@
 
                         width: 100%;
                         padding-bottom: 10px;
+                        position: relative;
+
+                        .tutorial-btn {
+                            position: absolute;
+                            right: 10px;
+                            top: 10px;
+
+                            button {
+                                padding: 0px;
+                                height: 100%;
+                                width: 100%;
+                                background-color: transparent;
+                                border-radius: 0px;
+
+                                svg {
+                                    height: 35px;
+                                    width: 35px;
+                                    color: #ff0000
+                                }
+                            }
+                        }
 
                         div {
                             display: flex;
@@ -260,6 +281,26 @@
                         font-weight: 600;
                     }
 
+                }
+            }
+
+            .main-tutorial-section {
+                .title-section {
+                    margin-top: 15px;
+                    display: flex;
+                    justify-content: center;
+                }
+
+                .frame-container{
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    iframe{
+                        background-color: #fff;
+                        padding: 10px;
+                        border: 1px solid #e4e4e4;
+                        border-radius: 4px;
+                    }
                 }
             }
         }
