@@ -1,209 +1,312 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { userContext } from "../../../../App";
-import "./Withdraw.css";
-import { getCooki } from "../../../../shared/cooki";
+import "./Withdraw.scss";
+import { getCookies, userHeader } from "../../../../shared/cooki";
+import bkash from '../../../../assets/images/bank_icon/bkash.png'
+import roket from '../../../../assets/images/bank_icon/roket.png'
+import upai from '../../../../assets/images/bank_icon/upai.png'
+import nogod from '../../../../assets/images/bank_icon/nogod.png'
+import wallet from '../../../../assets/images/dashboard/wallet.png'
+import { dateToString } from "../../../../shared/functions/dateConverter";
+const balanceNameArray = [
+  {
+    title: "Main Balance",
+    property: "balance"
+  },
+  {
+    title: "Sales Balance",
+    property: "balance"
+  },
+  {
+    title: "Task Balance",
+    property: "balance"
+  },
+]
+const tableBalanceArray = [
+  {
+    title: "Pending Balance",
+    property: "balance"
+  },
+  {
+    title: "Approve Balance",
+    property: "balance"
+  },
+  {
+    title: "Table Balance",
+    property: "balance"
+  },
+]
+const paymentArray = [
+  {
+    title: "বিকাশ",
+    property: "balance",
+    label: "Bkash",
+    bg: "#D02253",
+    img: bkash
+  },
+  {
+    title: "নগদ",
+    property: "balance",
+    label: "Nagad",
+    bg: "#F6941C",
+    img: nogod
+  },
+  {
+    title: "রকেট",
+    property: "balance",
+    label: "Rocket",
+    bg: "#8F3893",
+    img: roket
+  },
+  {
+    title: "উপায়",
+    property: "balance",
+    label: "Upai",
+    bg: "#FED602",
+    img: upai
+  },
+]
 
 const Withdraw = () => {
-  const [requestInfo, setRequestInfo] = useState({
-    charge: 0,
-    totalPendingBalance: 0,
+  const [input, setInput] = useState({
   });
-  const [message, setMessage] = useState({});
-  const [user, setUser] = useContext(userContext);
+  const [page, setPage] = useState(1);
+  const [currentPage, setCurrentPage] = useState(0);
+  const [tableItems, setTableItems] = useState([]);
+  const [loading, setLoading] = useState(false);
+  const [total, setTotal] = useState(0);
+  // const [user, setUser] = useContext(userContext);
 
-  useState(() => {
-    let totalPendingBalance = 0;
-    const currentInput = { ...requestInfo };
 
-    user.withdrawInfo.length &&
-      user.withdrawInfo.map((items) => {
-        if (!items.apporoval) {
-          totalPendingBalance = totalPendingBalance + Math.floor(items.amount);
-          currentInput["totalPendingBalance"] = totalPendingBalance;
-          setRequestInfo(currentInput);
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/withdraw?page=${page}`, {
+      headers: {
+        "content-type": "application/json; charset=UTF-8",
+        ...userHeader()
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("data ==>>", data)
+        if (data.data) {
+          setTableItems((state) => {
+            return [...state, ...data.data]
+          })
         }
-      });
-  }, [user]);
+        if (data.total) {
+          setTotal(data.total)
+        }
+      })
+  }, [page])
 
-  const cooki = getCooki()
-
-  const inputHandler = (e) => {
-    const currentInput = { ...requestInfo };
-    const inputFildName = e.target.name;
-    const inputFildValue = e.target.value;
-    if (inputFildName === "amount") {
-      const floorValue = Math.floor(inputFildValue);
-      const chargeValue = floorValue * (5 / 100);
-      const floorBalance = Math.floor(user.balance);
-      const total = chargeValue + floorValue;
-      if (total <= floorBalance) {
-        setMessage({});
-        currentInput["charge"] = chargeValue;
-        currentInput[inputFildName] = floorValue;
-        setRequestInfo(currentInput);
-      } else {
-        setMessage({
-          failed: `Sorry, you can't withdraw more then ${
-            user.balance ? user.balance : 0
-          }tk`,
-        });
-      }
-    } else if (inputFildName === "number") {
-      setMessage({});
-      currentInput[inputFildName] = inputFildValue;
-      setRequestInfo(currentInput);
-    } else {
-      currentInput[inputFildName] = inputFildValue;
-      setRequestInfo(currentInput);
+  const handleScroll = () => {
+    console.log("Call scroll")
+    if (loading) {
+      return
     }
-    setRequestInfo(currentInput);
+    if (total && total <= currentPage.length) {
+      return
+    }
+    const container = document.getElementById("table-list")
+    const scrollTop = container?.scrollTop || 0
+    const offsetHeight = container?.offsetHeight || 0
+    const scrollHeight = container?.scrollHeight || 0
+
+    if (
+      scrollHeight <= Number(scrollTop + offsetHeight) + 1
+    ) {
+
+      if (currentPage === page - 1) {
+        setPage((state) => state + 1);
+        setLoading(true)
+      }
+    }
   };
 
-  const withdrawFormHandler = (e) => {
+  const withdrawFormHandler = async (e) => {
     e.preventDefault();
-    const providerValue = document.getElementById("porvider").value;
-    const amountValue = document.getElementById("amount").value;
+    try {
+      const res = await fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/withdraw`, {
+        method: "POST",
+        body: JSON.stringify(input),
+        headers: {
+          "content-type": "application/json; charset=UTF-8",
+          ...userHeader()
+        },
+      })
+    } catch (error) {
 
-    const floorValue = Math.floor(amountValue);
-    const chargeValue = floorValue * (5 / 100);
-    const floorBalance = Math.floor(user.balance);
-    const totalPendinFloorBalance = Math.floor(requestInfo.totalPendingBalance);
-    const total = chargeValue + floorValue + totalPendinFloorBalance;
-
-    if (total <= floorBalance) {
-      if (!requestInfo.porvider) {
-        requestInfo["porvider"] = providerValue;
-      }
-      if (!requestInfo.amount) {
-        requestInfo["charge"] = chargeValue;
-        const floorValue = Math.floor(amountValue);
-        requestInfo["amount"] = floorValue;
-      }
-
-      if (Math.floor(requestInfo.amount) && Math.floor(requestInfo.number)) {
-        if (requestInfo.porvider && requestInfo.amount && requestInfo.number) {
-          setMessage({});
-          const floorValue = Math.floor(requestInfo.amount);
-          const floorBalance = Math.floor(user.balance);
-
-          if (floorValue <= floorBalance) {
-            const currentInput = { ...requestInfo };
-
-            fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/withdraw`, {
-              method: "POST",
-              body: JSON.stringify(requestInfo),
-              headers: {
-                "content-type": "application/json; charset=UTF-8",
-                authorization: `Bearer ${cooki}`,
-              },
-            })
-              .then((res) => res.json())
-              .then((data) => {
-                if (data.data) {
-                  const updatedUser = { ...data.data };
-                  setUser(updatedUser);
-                }
-                if (data.sucess) {
-                  setRequestInfo({});
-                  setMessage({ sucess: data.sucess });
-                  setTimeout(() => {
-                    setMessage({});
-                  }, 7000);
-                }
-                if (data.failed) {
-                  setRequestInfo(currentInput);
-                  setMessage({ failed: data.failed });
-                  setTimeout(() => {
-                    setMessage({});
-                  }, 7000);
-                }
-              });
-            setRequestInfo({});
-          } else {
-            setMessage({
-              failed: `Sorry, you can't withdraw more then ${user.balance}tk`,
-            });
-          }
-        } else {
-          setMessage({ failed: "Please fill the form and try angain" });
-          setTimeout(() => {
-            setMessage({});
-          }, 7000);
-        }
-      } else {
-        setMessage({ failed: `Phone Number and Amount must be number` });
-      }
-    } else {
-      setMessage({
-        failed: `Sorry, you can't withdraw more then ${user.balance}tk`,
-      });
     }
   };
+
+  const handleInputChange = (e) => {
+    const name = e.target.name
+    const value = e.target.value
+
+    setInput((state) => {
+      return {
+        ...state,
+        [name]: value
+      }
+    })
+  }
+  console.log("input ===>>>", input)
 
   return (
-    <div className="text-white">
-      <div className="balance-transfer-section m-auto withdraw">
-        <h4>WITHDRAW BALANCE</h4>
-        <div className="account-balance">
-          <p>Your Income Balance {user?.balance ? user.balance : 0} TK</p>
-        </div>
-        <div className="text-white withdraw-notice">
+    <div className="withdraw-page">
+      <div className="inner-section">
+        <h4 className="dashboard-title">Withdraw Request</h4>
+        <div className="withdraw-notice">
           <p>
-            Withdraw between 100TK to 500TK and 5% charge applicable for per
-            waithdraw.
+            Percentage Withdraw Charge 5%
           </p>
         </div>
-        <div>
-          <form onSubmit={withdrawFormHandler}>
-            <div>
-              <label>Withdraw Number</label>
-              <input
-                type="text"
-                name="number"
-                value={requestInfo.number ? requestInfo.number : ""}
-                placeholder="Number"
-                onChange={inputHandler}
-              />
-            </div>
-            <div>
-              <label>Select Payment Method</label>
-              <select name="porvider" onChange={inputHandler} id="porvider">
-                <option value="Bkash">bKash</option>
-                <option value="Rocket">Rocket</option>
-                <option value="Nagad">Nagad</option>
-              </select>
-            </div>
-            <div>
-              <label>Select Amount of TK</label>
-              <select name="amount" onChange={inputHandler} id="amount">
-                <option value="100">100TK</option>
-                <option value="200">200TK</option>
-                <option value="300">300TK</option>
-                <option value="400">400TK</option>
-                <option value="500">500TK</option>
-                {/* <option value="1000">1000TK</option> */}
-              </select>
-            </div>
-            <div>
-              <input type="submit" value="Submit" />
-            </div>
-            <div className="resposeContainer">
-              {!message.failed && message.sucess && (
-                <p className="sucess">{message.sucess}</p>
-              )}
-              {!message.sucess && message.failed && (
-                <p className="warning">{message.failed}</p>
-              )}
-            </div>
-          </form>
+
+        <div className="back-btn-section">
+          <button>Back</button>
         </div>
-        <div className="balance-transfer-history-section m-0 p-0 mt-4 m-auto withdraw-history">
-          <h4>WITHDRAW REQUEST HISTORY</h4>
-          <div className="withdraw-table">
+        <div className="form-container">
+          <div className="select-section">
+            <div className="title-section">
+              <p>Select your balance to withdraw</p>
+            </div>
+            <div className="grid-section">
+              {
+                balanceNameArray.map((item, index) => {
+                  return <div className="item" key={index}>
+                    <div className={`top ${item.title === input.balanceType ? "active" : ""}`}>
+                      <img src={wallet} alt="" />
+                      <strong>{item.title}</strong>
+                      <p><strong>৳</strong>4587</p>
+                    </div>
+                    <div className="bottom">
+                      <input type="radio" checked={item.title === input.balanceType ? true : false} onChange={() => {
+                        setInput((state) => {
+                          return {
+                            ...state,
+                            balanceType: item.title
+                          }
+                        })
+                      }} />
+                    </div>
+
+                  </div>
+                })
+              }
+            </div>
+          </div>
+          <div className="select-section">
+            <div className="title-section">
+              <p>Select withdrawal method</p>
+            </div>
+            <div className="grid-section">
+              {
+                paymentArray.map((item, index) => {
+                  return <div className="item payment" key={index}>
+                    <div className={`top ${item.label === input.provider ? "active" : ""}`}>
+                      <img src={item.img} alt="" />
+                      <strong style={{ background: item.bg }}>{item.title}</strong>
+                    </div>
+                    <div className="bottom">
+                      <input type="radio" checked={item.label === input.provider ? true : false} onClick={() => {
+                        setInput((state) => {
+                          return {
+                            ...state,
+                            provider: item.label
+                          }
+                        })
+                      }} />
+                    </div>
+
+                  </div>
+                })
+              }
+            </div>
+          </div>
+          <div className="input-section">
+            <label>Your Withdraw Number</label>
+            <input
+              type="text"
+              name="phoneNumber"
+              value={input.phoneNumber || ""}
+              placeholder="Your Number"
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="input-section">
+            <label>Select Withdraw Amount</label>
+            <select name="amount" onChange={handleInputChange}>
+              <option hidden>Select Amount</option>
+              <option value="100">100TK</option>
+              <option value="200">200TK</option>
+              <option value="300">300TK</option>
+              <option value="400">400TK</option>
+              <option value="500">500TK</option>
+              {/* <option value="1000">1000TK</option> */}
+            </select>
+          </div>
+          <div className="input-section">
+            <label>Your Account PIN</label>
+            <input
+              type="text"
+              name="accountPIN"
+              value={input.accountPIN || ""}
+              placeholder="Your PIN"
+              onChange={handleInputChange}
+            />
+          </div>
+          <div className="submit-section">
+            <button onClick={withdrawFormHandler} > Submit </button>
+          </div>
+
+
+        </div>
+        <div className="common-table-section">
+          <h4 className="dashboard-title">WITHDRAW  HISTORY</h4>
+          <div className="balance-section">
+            <div className="grid-section">
+              {
+                tableBalanceArray.map((item, index) => {
+                  return <div className="item" key={index}>
+                    <div className="top">
+                      <img src={wallet} alt="" />
+                      <strong>{item.title}</strong>
+                      <p><strong>৳</strong>3435</p>
+                    </div>
+
+                  </div>
+                })
+              }
+            </div>
+          </div>
+          <div className="filter-section">
+            <div className="input-section">
+              <div className="date">
+                <span>From</span>
+                <input type="date" />
+              </div>
+              <div className="date">
+                <span>To</span>
+                <input type="date" />
+              </div>
+              <select>
+                <option>Select Balance</option>
+                <option>Main Balance</option>
+                <option>Sales Balance</option>
+                <option>Task Balance</option>
+              </select>
+              <input type="text" placeholder="Search here ..." />
+            </div>
+
+            <div className="submit-section">
+              <button>Filter</button>
+            </div>
+          </div>
+          <div className="table-section" id="table-list" onScroll={handleScroll}>
             <table>
               <thead>
                 <tr>
-                  <th>#</th>
+                  <th className="small">#</th>
                   <th>Withdraw Method</th>
                   <th>Withdraw Number</th>
                   <th>Withdraw Amount</th>
@@ -211,32 +314,25 @@ const Withdraw = () => {
                   <th>Withdraw Status</th>
                 </tr>
               </thead>
-              <tbody>
-                {user &&
-                  user.withdrawInfo &&
-                  user.withdrawInfo.map((reqInfo, index) => {
-                    return (
-                      <tr key={reqInfo.requestID}>
-                        <td>{index + 1}</td>
-                        <td>{reqInfo.porvider}</td>
-                        <td>{reqInfo.number}</td>
-                        <td>{reqInfo.amount}</td>
-                        <td>{reqInfo.date}</td>
-                        {reqInfo.apporoval ? (
-                          <td className="approved">
-                            <button>Approved</button>
-                          </td>
-                        ) : (
-                          <td className="pending">
-                            <button>Pending</button>
-                          </td>
-                        )}
-                      </tr>
-                    );
-                  })}
+              <tbody >
+                {tableItems?.length > 0 && tableItems.map((reqInfo, index) => {
+                  return (
+                    <tr key={reqInfo._id}>
+                      <td className="small">{index + 1}</td>
+                      <td>{reqInfo?.withdraw?.provider}</td>
+                      <td>{reqInfo?.withdraw?.phoneNumber}</td>
+                      <td>{reqInfo?.amount}</td>
+                      <td className="date">{dateToString(reqInfo.createdAt)}</td>
+                      <td className={`btn ${reqInfo.status.toLowerCase()}`}>
+                        <button>{reqInfo.status}</button>
+                      </td>
+                    </tr>
+                  );
+                })}
               </tbody>
             </table>
           </div>
+
         </div>
       </div>
     </div>

@@ -71,9 +71,9 @@ const Routess = () => {
                         </PrivetRoute>
                     }></Route>
                     <Route path="/daily-task" element={
-                        // <PrivetRoute>
-                        <DailyTask />
-                        // </PrivetRoute>
+                        <PrivetRoute>
+                            <DailyTask />
+                        </PrivetRoute>
                     }></Route>
                     <Route path="/balance_request" element={
                         <PrivetRoute>
