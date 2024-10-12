@@ -103,8 +103,7 @@
 
     .table-section {
         overflow: scroll;
-        background-color: yellow !important;
-        height: 200px; 
+        height: 200px;
         overflow-x: scroll;
 
         table {
@@ -133,13 +132,38 @@
                         min-width: 200px;
                     }
 
-                    &.btn {
-                        button {
-                            border: none;
-                            outline: none;
-                            border-radius: 4px;
-                            color: #FFF;
+                    &.btn-container {
+                        div {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 4px;
+                            height: 100%;
 
+                            button {
+                                border: none;
+                                outline: none;
+                                border-radius: 4px;
+                                color: #FFF;
+                                background-color: red;
+
+                                &.reject {
+                                    background-color: blue;
+                                }
+
+                                &.approve {
+                                    background-color: green;
+                                }
+
+                                &:hover, &:disabled {
+                                    opacity: .6;
+                                }
+
+                                &:active {
+                                    transform: scale(.9);
+                                }
+
+                            }
                         }
 
                     }

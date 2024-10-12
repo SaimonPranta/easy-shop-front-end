@@ -29,9 +29,9 @@ const AdminDailyTask = () => {
         if (data.data) {
           if (page === 1) {
             setTableItems((state) => {
-              return [ ...data.data]
+              return [...data.data]
             })
-          }else{
+          } else {
             setTableItems((state) => {
               return [...state, ...data.data]
             })
@@ -79,16 +79,38 @@ const AdminDailyTask = () => {
 
   }
 
-const handleFilterSubmit = () => {
-  setPage(1)
-  setFilterInput((state) => {
-    return {
-      ...state,
-      searchSubmit: !state?.searchSubmit
-    }
-  })
-}
-console.log("filterInput ==>", filterInput)
+  const handleFilterSubmit = () => {
+    setPage(1)
+    setFilterInput((state) => {
+      return {
+        ...state,
+        searchSubmit: !state?.searchSubmit
+      }
+    })
+  }
+  console.log("filterInput ==>", filterInput)
+  const handleStatus = (status, id) => {
+    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/admin-withdraw/status`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json; charset=UTF-8",
+        ...userHeader(),
+      },
+      body: JSON.stringify({ status, id })
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.data) {
+          const updateTable = tableItems.map((item) => {
+            if (item._id === id) {
+              item.status = data.data?.status
+            }
+            return item
+          })
+          setTableItems(updateTable)
+        }
+      })
+  }
 
   return (
     <div className='admin-withdraw'>
@@ -118,7 +140,7 @@ console.log("filterInput ==>", filterInput)
             </div>
             <div className="date">
               <span>To</span>
-              <input type="date" name='toDate' value={filterInput.toDate || ""}  onChange={handleInputChange}  />
+              <input type="date" name='toDate' value={filterInput.toDate || ""} onChange={handleInputChange} />
             </div>
             <select name='balance' onChange={handleInputChange}>
               <option>Select Balance</option>
@@ -126,7 +148,7 @@ console.log("filterInput ==>", filterInput)
               <option>Sales Balance</option>
               <option>Task Balance</option>
             </select>
-            <input type="text" placeholder="Search here ..." name='search' value={filterInput.search || ""}  onChange={handleInputChange} />
+            <input type="text" placeholder="Search here ..." name='search' value={filterInput.search || ""} onChange={handleInputChange} />
           </div>
 
           <div className="submit-section" >
@@ -141,11 +163,12 @@ console.log("filterInput ==>", filterInput)
                 <th>User Name</th>
                 <th>User ID</th>
                 <th>Balance Type</th>
-                <th>Withdraw Method</th>
-                <th>Withdraw Number</th>
-                <th>Withdraw Amount</th>
-                <th>Withdraw Date</th>
-                <th>Withdraw Status</th>
+                <th>Method</th>
+                <th>Number</th>
+                <th>Amount</th>
+                <th>Date</th>
+                <th>Status</th>
+                <th>Actions</th>
               </tr>
             </thead>
             <tbody >
@@ -160,8 +183,16 @@ console.log("filterInput ==>", filterInput)
                     <td>{reqInfo?.withdraw?.phoneNumber}</td>
                     <td>{reqInfo?.amount}</td>
                     <td className="date">{dateToString(reqInfo.createdAt)}</td>
-                    <td className={`btn ${reqInfo.status.toLowerCase()}`}>
+                    {/* <td className={`btn ${reqInfo.status.toLowerCase()}`}>
                       <button>{reqInfo.status}</button>
+                    </td> */}
+                    <td>{reqInfo?.status}</td>
+                    <td className={`btn-container ${reqInfo.status.toLowerCase()}`}>
+                      <div>
+                        {reqInfo.status !== "Pending" && <button onClick={() => handleStatus("Pending", reqInfo._id)}>Pending</button>}
+                        {reqInfo.status !== "Reject" && <button className='reject' onClick={() => handleStatus("Reject", reqInfo._id)}>Reject </button>}
+                        {reqInfo.status !== "Approve" && <button className='approve' onClick={() => handleStatus("Approve", reqInfo._id)}>Approve</button>}
+                      </div>
                     </td>
                   </tr>
                 );

@@ -126,13 +126,13 @@ const MyBalance = () => {
                         <img src={dollarImage} alt='' />
 
                         <p>Sale Balance</p>
-                        <p className='tk'><span>৳</span> {user && user.shoppingBalance}</p>
+                        <p className='tk'><span>৳</span> {user && user.salesBalance}</p>
                     </div>
                     <div>
                         <img src={dollarImage} alt='' />
 
                         <p>Task Balance</p>
-                        <p className='tk'><span>৳</span> {user && user.shoppingBalance}</p>
+                        <p className='tk'><span>৳</span> {user && user.taskBalance}</p>
                     </div>
                     {/* <div>
                         <FaRegMoneyBillAlt />

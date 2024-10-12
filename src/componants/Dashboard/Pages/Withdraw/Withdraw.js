@@ -25,15 +25,15 @@ const balanceNameArray = [
 const tableBalanceArray = [
   {
     title: "Pending Balance",
-    property: "balance"
+    property: "pendingBalance"
   },
   {
     title: "Approve Balance",
-    property: "balance"
+    property: "approveBalance"
   },
   {
     title: "Table Balance",
-    property: "balance"
+    property: "totalBalance"
   },
 ]
 const paymentArray = [
@@ -75,6 +75,11 @@ const Withdraw = () => {
   const [tableItems, setTableItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
+  const [searchBalance, setSearchBalance] = useState({
+    pendingBalance: 0,
+    approveBalance: 0,
+    totalBalance: 0
+  })
   // const [user, setUser] = useContext(userContext);
 
 
@@ -271,7 +276,7 @@ const Withdraw = () => {
                     <div className="top">
                       <img src={wallet} alt="" />
                       <strong>{item.title}</strong>
-                      <p><strong>৳</strong>3435</p>
+                      <p><strong>৳</strong>{searchBalance[item.property]}</p>
                     </div>
 
                   </div>
@@ -307,11 +312,12 @@ const Withdraw = () => {
               <thead>
                 <tr>
                   <th className="small">#</th>
-                  <th>Withdraw Method</th>
-                  <th>Withdraw Number</th>
-                  <th>Withdraw Amount</th>
-                  <th>Withdraw Date</th>
-                  <th>Withdraw Status</th>
+                  <th> Method</th>
+                  <th> Number</th>
+                  <th>Amount</th>
+                  <th>Date</th>
+                  <th>Status</th>
+                  <th>Actions</th>
                 </tr>
               </thead>
               <tbody >
@@ -323,8 +329,11 @@ const Withdraw = () => {
                       <td>{reqInfo?.withdraw?.phoneNumber}</td>
                       <td>{reqInfo?.amount}</td>
                       <td className="date">{dateToString(reqInfo.createdAt)}</td>
-                      <td className={`btn ${reqInfo.status.toLowerCase()}`}>
-                        <button>{reqInfo.status}</button>
+                      <td>{reqInfo?.status}</td>
+                      <td className={`btn-container ${reqInfo.status.toLowerCase()}`}>
+                        <div>
+                          <button disabled={reqInfo.status !== "Pending"}>Reject</button>
+                        </div>
                       </td>
                     </tr>
                   );
