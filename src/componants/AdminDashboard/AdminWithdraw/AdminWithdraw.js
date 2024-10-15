@@ -1,9 +1,10 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import './style.scss'
 import SuccessTost from '../../../shared/components/SuccessTost/SuccessTost'
 import { ToastContainer } from 'react-toastify';
 import { userHeader } from '../../../shared/cooki';
 import { dateToString } from '../../../shared/functions/dateConverter';
+import { useNavigate } from 'react-router-dom';
 
 
 
@@ -14,41 +15,64 @@ const AdminDailyTask = () => {
   const [tableItems, setTableItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
+  const debounceState = useRef()
 
+  const navigate = useNavigate()
+
+
+  const resetTimeout = () => {
+    if (debounceState.current) {
+      clearTimeout(debounceState.current)
+    }
+  }
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/admin-withdraw?page=${page}`, {
-      method: "POST",
-      headers: {
-        "content-type": "application/json; charset=UTF-8",
-        ...userHeader()
-      },
-      body: JSON.stringify(filterInput)
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.data) {
-          if (page === 1) {
-            setTableItems((state) => {
-              return [...data.data]
-            })
-          } else {
-            setTableItems((state) => {
-              return [...state, ...data.data]
-            })
-          }
-        }
-        if (data.total) {
-          setTotal(data.total)
-        }
+    resetTimeout()
+    debounceState.current = setTimeout(() => {
+      fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/admin-withdraw?page=${page}`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json; charset=UTF-8",
+          ...userHeader()
+        },
+        body: JSON.stringify(filterInput)
       })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.data) {
+            if (page === 1) {
+              setTableItems((state) => {
+                return [...data.data]
+              })
+            } else {
+              setTableItems((state) => {
+                return [...state, ...data.data]
+              })
+            }
+          } else {
+            setTableItems([])
+          }
+          if (data.page) {
+            setCurrentPage(Number(data.page - 1))
+          }
+          if (data.total) {
+            setTotal(data.total)
+          }
+        }).finally(() => {
+          setLoading(false)
+        })
+    }, 3000);
+
+    return () => {
+      resetTimeout()
+    }
   }, [page, filterInput.searchSubmit])
 
   const handleScroll = () => {
-    console.log("Call scroll")
+    console.log("Call scroll", { currentPage, page, currentLength: tableItems.length, total })
     if (loading) {
       return
     }
-    if (total && total <= currentPage.length) {
+    if (total && total <= tableItems.length) {
       return
     }
     const container = document.getElementById("table-list")
@@ -88,7 +112,6 @@ const AdminDailyTask = () => {
       }
     })
   }
-  console.log("filterInput ==>", filterInput)
   const handleStatus = (status, id) => {
     fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/admin-withdraw/status`, {
       method: "PUT",
@@ -112,8 +135,15 @@ const AdminDailyTask = () => {
       })
   }
 
+  const handleConfigNavigation = () => {
+    navigate("/admin/withdraw-config")
+  }
+
   return (
     <div className='admin-withdraw'>
+      <div className='btn-container'>
+        <button onClick={handleConfigNavigation}>Set Config</button>
+      </div>
       <div className="common-table-section">
         <h4 className="dashboard-title">ADMIN WITHDRAW  HISTORY</h4>
         <div className="balance-section">
@@ -189,9 +219,9 @@ const AdminDailyTask = () => {
                     <td>{reqInfo?.status}</td>
                     <td className={`btn-container ${reqInfo.status.toLowerCase()}`}>
                       <div>
-                        {reqInfo.status !== "Pending" && <button onClick={() => handleStatus("Pending", reqInfo._id)}>Pending</button>}
-                        {reqInfo.status !== "Reject" && <button className='reject' onClick={() => handleStatus("Reject", reqInfo._id)}>Reject </button>}
-                        {reqInfo.status !== "Approve" && <button className='approve' onClick={() => handleStatus("Approve", reqInfo._id)}>Approve</button>}
+                        {reqInfo.status !== "Pending" && <button onClick={() => handleStatus("Pending", reqInfo._id)} disabled={reqInfo.status === "Cancel"} >Pending</button>}
+                        {reqInfo.status !== "Reject" && <button className='reject' onClick={() => handleStatus("Reject", reqInfo._id)} disabled={reqInfo.status === "Cancel"} >Reject </button>}
+                        {reqInfo.status !== "Approve" && <button className='approve' onClick={() => handleStatus("Approve", reqInfo._id)} disabled={reqInfo.status === "Cancel"} >Approve</button>}
                       </div>
                     </td>
                   </tr>

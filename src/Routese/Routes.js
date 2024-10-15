@@ -31,6 +31,7 @@ import Notice from '../componants/Dashboard/Pages/Notice/index';
 import DailyTask from '../componants/Dashboard/Pages/DailyTask/DailyTask';
 import AdminDailyTask from '../componants/AdminDashboard/AdminDailyTask/index';
 import AdminWithdraw from '../componants/AdminDashboard/AdminWithdraw/index';
+import AdminWithdrawConfig from '../componants/AdminDashboard/AdminWithdrawConfig/index';
 import AdminAddDailyTask from '../componants/AdminDashboard/AdminAddDailyTask/index';
 
 
@@ -129,6 +130,11 @@ const Routess = () => {
                     <Route path="/admin/withdraw" element={
                         <AdminPrivetRoute>
                             <AdminWithdraw />
+                        </AdminPrivetRoute>
+                    }></Route>
+                    <Route path="/admin/withdraw-config" element={
+                        <AdminPrivetRoute>
+                            <AdminWithdrawConfig />
                         </AdminPrivetRoute>
                     }></Route>
                     <Route path="/admin/add-daily-task" element={

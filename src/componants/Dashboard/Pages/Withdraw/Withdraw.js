@@ -1,5 +1,5 @@
-import React, { useContext, useEffect, useState } from "react";
-import { userContext } from "../../../../App";
+import React, { useContext, useEffect, useRef, useState } from "react";
+import { configContext, userContext } from "../../../../App";
 import "./Withdraw.scss";
 import { getCookies, userHeader } from "../../../../shared/cooki";
 import bkash from '../../../../assets/images/bank_icon/bkash.png'
@@ -8,18 +8,19 @@ import upai from '../../../../assets/images/bank_icon/upai.png'
 import nogod from '../../../../assets/images/bank_icon/nogod.png'
 import wallet from '../../../../assets/images/dashboard/wallet.png'
 import { dateToString } from "../../../../shared/functions/dateConverter";
+import { useNavigate } from "react-router-dom";
 const balanceNameArray = [
   {
     title: "Main Balance",
-    property: "balance"
+    property: "mainBalance"
   },
   {
     title: "Sales Balance",
-    property: "balance"
+    property: "salesBalance"
   },
   {
     title: "Task Balance",
-    property: "balance"
+    property: "taskBalance"
   },
 ]
 const tableBalanceArray = [
@@ -39,29 +40,29 @@ const tableBalanceArray = [
 const paymentArray = [
   {
     title: "বিকাশ",
-    property: "balance",
+    property: "bikash",
     label: "Bkash",
     bg: "#D02253",
     img: bkash
   },
   {
     title: "নগদ",
-    property: "balance",
+    property: "nagad",
     label: "Nagad",
     bg: "#F6941C",
     img: nogod
   },
   {
     title: "রকেট",
-    property: "balance",
+    property: "rocket",
     label: "Rocket",
     bg: "#8F3893",
     img: roket
   },
   {
     title: "উপায়",
-    property: "balance",
-    label: "Upai",
+    property: "upay",
+    label: "Upay",
     bg: "#FED602",
     img: upai
   },
@@ -71,20 +72,34 @@ const Withdraw = () => {
   const [input, setInput] = useState({
   });
   const [page, setPage] = useState(1);
+  const [filterInput, setFilterInput] = useState({});
   const [currentPage, setCurrentPage] = useState(0);
   const [tableItems, setTableItems] = useState([]);
-  const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
+  const [loading, setLoading] = useState(false);
+  const [lastBalance, setLastBalance] = useState({
+    mainBalance: 0,
+    salesBalance: 0,
+    taskBalance: 0,
+  });
   const [searchBalance, setSearchBalance] = useState({
     pendingBalance: 0,
     approveBalance: 0,
     totalBalance: 0
   })
+  const [config] = useContext(configContext)
+
+  const debounceState = useRef()
+  const navigate = useNavigate()
   // const [user, setUser] = useContext(userContext);
 
-
+  const resetTimeout = () => {
+    if (debounceState.current) {
+      clearTimeout(debounceState.current)
+    }
+  }
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/withdraw?page=${page}`, {
+    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/withdraw/last-balance`, {
       headers: {
         "content-type": "application/json; charset=UTF-8",
         ...userHeader()
@@ -92,24 +107,66 @@ const Withdraw = () => {
     })
       .then((res) => res.json())
       .then((data) => {
-        console.log("data ==>>", data)
         if (data.data) {
-          setTableItems((state) => {
-            return [...state, ...data.data]
-          })
-        }
-        if (data.total) {
-          setTotal(data.total)
+          setLastBalance(data.data)
         }
       })
-  }, [page])
+
+  }, [])
+
+  useEffect(() => {
+    resetTimeout()
+    debounceState.current = setTimeout(() => {
+      fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/withdraw/get-list?page=${page}`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json; charset=UTF-8",
+          ...userHeader()
+        },
+        body: JSON.stringify(filterInput)
+      })
+        .then((res) => res.json())
+        .then((data) => {
+          if (data.data) {
+            if (page === 1) {
+              setTableItems((state) => {
+                return [...data.data]
+              })
+            } else {
+              setTableItems((state) => {
+                return [...state, ...data.data]
+              })
+            }
+          } else {
+            setTableItems([])
+          }
+          if (data.page) {
+            setCurrentPage(Number(data.page) - 1)
+          }
+          if (data.total) {
+            setTotal(data.total)
+          }
+          setSearchBalance({
+            pendingBalance: data.pendingBalance || 0,
+            approveBalance: data.approveBalance || 0,
+            totalBalance: data.totalBalance || 0
+          })
+        }).finally(() => {
+          setLoading(false)
+        })
+    }, 3000);
+
+    return () => {
+      resetTimeout()
+    }
+  }, [page, filterInput.searchSubmit])
 
   const handleScroll = () => {
-    console.log("Call scroll")
+    console.log("Call scroll", { currentPage, page, currentLength: tableItems.length, total })
     if (loading) {
       return
     }
-    if (total && total <= currentPage.length) {
+    if (total && total <= tableItems.length) {
       return
     }
     const container = document.getElementById("table-list")
@@ -155,20 +212,68 @@ const Withdraw = () => {
       }
     })
   }
-  console.log("input ===>>>", input)
 
+  const handleFilterInputChange = (e) => {
+    const name = e.target.name
+    const value = e.target.value
+
+    setFilterInput((state) => {
+      return {
+        ...state,
+        [name]: value
+      }
+    })
+
+  }
+  console.log(" ==>>", {
+    page, currentPage
+  })
+  const handleFilterSubmit = () => {
+    setPage(1)
+    setFilterInput((state) => {
+      return {
+        ...state,
+        searchSubmit: !state?.searchSubmit
+      }
+    })
+  }
+  const handleStatus = (id) => {
+    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/withdraw/status`, {
+      method: "PUT",
+      headers: {
+        "content-type": "application/json; charset=UTF-8",
+        ...userHeader(),
+      },
+      body: JSON.stringify({ id })
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.data) {
+          const updateTable = tableItems.map((item) => {
+            if (item._id === id) {
+              item.status = data.data?.status
+            }
+            return item
+          })
+          setTableItems(updateTable)
+        }
+      })
+  }
+  const goBack = () => {
+    navigate(-1); 
+  };
   return (
     <div className="withdraw-page">
       <div className="inner-section">
         <h4 className="dashboard-title">Withdraw Request</h4>
         <div className="withdraw-notice">
           <p>
-            Percentage Withdraw Charge 5%
+            {`Percentage Withdraw Charge ${config?.withdraw?.withdrawCost || 0}%`}
           </p>
         </div>
 
         <div className="back-btn-section">
-          <button>Back</button>
+          <button onClick={goBack}>Back</button>
         </div>
         <div className="form-container">
           <div className="select-section">
@@ -178,6 +283,9 @@ const Withdraw = () => {
             <div className="grid-section">
               {
                 balanceNameArray.map((item, index) => {
+                  if (!config?.withdraw?.balances[item.property]) {
+                    return <></>
+                  }
                   return <div className="item" key={index}>
                     <div className={`top ${item.title === input.balanceType ? "active" : ""}`}>
                       <img src={wallet} alt="" />
@@ -207,6 +315,9 @@ const Withdraw = () => {
             <div className="grid-section">
               {
                 paymentArray.map((item, index) => {
+                  if (!config?.withdraw?.paymentMethods[item.property]) {
+                    return <></>
+                  }
                   return <div className="item payment" key={index}>
                     <div className={`top ${item.label === input.provider ? "active" : ""}`}>
                       <img src={item.img} alt="" />
@@ -241,12 +352,20 @@ const Withdraw = () => {
           <div className="input-section">
             <label>Select Withdraw Amount</label>
             <select name="amount" onChange={handleInputChange}>
-              <option hidden>Select Amount</option>
-              <option value="100">100TK</option>
-              <option value="200">200TK</option>
-              <option value="300">300TK</option>
-              <option value="400">400TK</option>
-              <option value="500">500TK</option>
+              <option hidden>-- Select Amount --</option>
+              {
+                config?.withdraw?.withdrawAmounts?.length > 0 && config?.withdraw?.withdrawAmounts.map((item, index) => {
+                  let disabled = true
+                  if(input.balanceType === "Main Balance" && lastBalance.lastMainBalance < item.balance){
+                    disabled = false
+                  } else if(input.balanceType === "Sales Balance" && lastBalance.lastSalesBalance < item.balance){
+                    disabled = false
+                  } else if(input.balanceType === "Task Balance" && lastBalance.lastTaskBalance < item.balance){
+                    disabled = false
+                  }
+                  return <option value={item.balance} key={index} disabled={disabled}>{`${item.balance}TK`}</option>
+                })
+              }
               {/* <option value="1000">1000TK</option> */}
             </select>
           </div>
@@ -267,7 +386,7 @@ const Withdraw = () => {
 
         </div>
         <div className="common-table-section">
-          <h4 className="dashboard-title">WITHDRAW  HISTORY</h4>
+          <h4 className="table-title">WITHDRAW  HISTORY</h4>
           <div className="balance-section">
             <div className="grid-section">
               {
@@ -288,23 +407,23 @@ const Withdraw = () => {
             <div className="input-section">
               <div className="date">
                 <span>From</span>
-                <input type="date" />
+                <input type="date" name='fromDate' value={filterInput.fromDate || ""} onChange={handleFilterInputChange} />
               </div>
               <div className="date">
                 <span>To</span>
-                <input type="date" />
+                <input type="date" name='toDate' value={filterInput.toDate || ""} onChange={handleFilterInputChange} />
               </div>
-              <select>
-                <option>Select Balance</option>
+              <select name='balance' onChange={handleFilterInputChange}>
+                <option hidden >Select Balance</option>
                 <option>Main Balance</option>
                 <option>Sales Balance</option>
                 <option>Task Balance</option>
               </select>
-              <input type="text" placeholder="Search here ..." />
+              <input type="text" placeholder="Search here ..." name='search' value={filterInput.search || ""} onChange={handleFilterInputChange} />
             </div>
 
-            <div className="submit-section">
-              <button>Filter</button>
+            <div className="submit-section" >
+              <button onClick={handleFilterSubmit}>Filter</button>
             </div>
           </div>
           <div className="table-section" id="table-list" onScroll={handleScroll}>
@@ -332,7 +451,10 @@ const Withdraw = () => {
                       <td>{reqInfo?.status}</td>
                       <td className={`btn-container ${reqInfo.status.toLowerCase()}`}>
                         <div>
-                          <button disabled={reqInfo.status !== "Pending"}>Reject</button>
+                          <button
+                            disabled={reqInfo.status !== "Pending"}
+                            onClick={() => handleStatus(reqInfo._id)}
+                          >Cancel</button>
                         </div>
                       </td>
                     </tr>

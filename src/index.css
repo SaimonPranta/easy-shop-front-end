@@ -3,6 +3,7 @@
   --default-color: #f85606;
   /* --default-color: #5a58e6; */
 }
+
 @import url('./shared/styles/commonTableStyles.scss');
 
 body {
@@ -22,6 +23,10 @@ body {
     font-size: medium;
     margin: 0px;
     color: #FFF;
+
+    @media only screen and (min-width:200px) and (max-width:750px) {
+      font-size: 14px;
+    }
   }
 }
 

@@ -1,16 +1,15 @@
 .withdraw-page {
-    display: flex;
+    display: flex !important;
     justify-content: center;
+    width: 100%;
 
     .inner-section {
-        width: 90%;
+        width: 95%;
         max-width: 800px;
 
         p {
             margin: 0px;
         }
-
-
 
         .withdraw-notice {
             background-color: #0F91DD;
@@ -158,4 +157,116 @@
 
 
 
-@media only screen and (min-width:200px) and (max-width:700px) {}
+@media only screen and (min-width:200px) and (max-width:750px) {
+    .withdraw-page {
+        width: 100vw;
+
+        .inner-section {
+            .withdraw-notice { 
+    
+                p {
+                    font-size: 12px;
+                }
+            }
+            .back-btn-section {
+                button {
+                    padding: 3px 5px;
+                    font-size: 12px;
+
+                }
+            }
+
+            .form-container {
+                .select-section {
+                    margin-bottom: 20px;
+
+                    .title-section {
+
+                        p {
+                            font-size: 14px;
+                        }
+                    }
+
+                    .grid-section {
+                        display: flex;
+                        width: 100%;
+                        gap: 5px;
+
+                        .item {
+                            width: 100%;
+
+                            &.payment {
+                                .top {
+                                    padding: 0px;
+                                    box-sizing: border-box;
+
+
+
+                                    img {
+                                        margin: 15px;
+                                    }
+
+                                    strong {
+                                        width: 100%;
+                                        text-align: center;
+                                        color: #FFF;
+                                        padding: 5px;
+                                    }
+                                }
+                            }
+
+                            .top {
+                                padding: 5px;
+                                font-size: 12px;
+
+
+                                svg,
+                                img {
+                                    height: 30px;
+                                    width: 30px;
+                                }
+                            }
+
+                            .bottom {
+                                margin-top: 5px;
+
+                                input {
+                                    height: 15px;
+                                    width: 15px;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .input-section {
+                    display: flex;
+                    flex-direction: column;
+                    margin-bottom: 15px;
+                    gap: 5px;
+
+                    input,
+                    select,
+                    label {
+                        font-size: 12px;
+
+                        option {
+                            font-size: 12px;
+                        }
+
+                    }
+
+                }
+
+                .submit-section {
+
+                    button {
+                        height: 25px;
+                        padding: 0px 15px;
+                        font-weight: 600;
+                    }
+                }
+            }
+        }
+    }
+}

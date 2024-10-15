@@ -75,7 +75,7 @@ const DashboardMenu = () => {
         <li className="nesting-menu">
           <NavLink to="/my-balance">
             <span>
-            <MdAccountBalanceWallet /> My Balance
+              <MdAccountBalanceWallet /> My Balance
             </span>
           </NavLink>
           {/* <p><span >My Balance <p className="upcomming">Upcoming</p></span></p> */}
@@ -87,7 +87,11 @@ const DashboardMenu = () => {
           </NavLink>
         </li>
         <li className="nesting-menu">
-          <p><RiProfileFill /> <span >  Daily Jobs <p className="upcomming">Upcoming</p></span></p>
+          <NavLink to="/daily-task">
+            <RiProfileFill />
+            <span> Daily Task</span>
+          </NavLink>
+          {/* <p><RiProfileFill /> <span >  Daily Jobs <p className="upcomming">Upcoming</p></span></p> */}
         </li>
         <li className="nesting-menu">
           <p><RiSecurePaymentFill /> <span>Payment Reviews <p className="upcomming">Upcoming</p></span></p>

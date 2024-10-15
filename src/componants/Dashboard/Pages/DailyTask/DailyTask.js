@@ -23,7 +23,7 @@ const DailyTask = () => {
     const [taskRewardsList, setTaskRewardsList] = useState([])
     const [showSpin, setShowSpin] = useState(false)
     const [rewardAmount, setRewardAmount] = useState(null)
-    const [config, setConfig] = useContext(configContext)
+    const [config] = useContext(configContext)
     const [user, setUser] = useContext(userContext)
     const cookie = getCooki()
 
@@ -199,8 +199,7 @@ const DailyTask = () => {
 
             })
     }
-
-console.log("https://www.youtube.com/embed/${config?.dailyTask?.tutorialVideoId =>", `https://www.youtube.com/embed/${config?.dailyTask?.tutorialVideoId}`)
+ 
 
     return (
         <div className='daily-task'>

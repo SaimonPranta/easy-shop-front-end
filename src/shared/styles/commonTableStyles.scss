@@ -1,5 +1,15 @@
 .common-table-section {
     margin-top: 20px;
+    width: 100%;
+
+    .table-title {
+        background-color: var(--default-color);
+        padding: 5px;
+        font-weight: 600;
+        font-size: medium;
+        margin: 0px;
+        color: #FFF;
+    }
 
     .balance-section {
         margin: 10px 0px;
@@ -54,11 +64,14 @@
         align-items: center;
         justify-content: space-between;
         margin: 15px 0px;
+        flex-wrap: wrap;
+        gap: 5px;
 
         .input-section {
             display: flex;
             align-items: center;
             gap: 5px;
+            flex-wrap: wrap;
 
             .date {
                 display: flex;
@@ -105,10 +118,10 @@
         overflow: scroll;
         height: 200px;
         overflow-x: scroll;
+        width: 100%;
 
         table {
             background-color: #FFF;
-            width: 100%;
 
             thead {
                 background-color: #e4e4e4;
@@ -155,7 +168,8 @@
                                     background-color: green;
                                 }
 
-                                &:hover, &:disabled {
+                                &:hover,
+                                &:disabled {
                                     opacity: .6;
                                 }
 
@@ -191,4 +205,165 @@
 
 
 
+}
+
+@media only screen and (min-width:200px) and (max-width:750px) {
+    .common-table-section {
+        margin-top: 15px;
+
+        .table-title {
+            font-size: 12px;
+        }
+
+        .balance-section {
+
+            .grid-section {
+                gap: 5px;
+
+                .item {
+
+                    .top {
+                        padding: 5px;
+                        gap: 4px;
+                        font-size: 12px;
+
+                        svg,
+                        img {
+                            height: 30px;
+                            width: 30px;
+                        }
+                    }
+                }
+            }
+        }
+
+        .filter-section {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin: 15px 0px;
+
+            .input-section {
+                gap: 5px;
+                font-size: 12px;
+
+                .date {
+                    height: 25px !important;
+                    font-size: 12px;
+
+                    span {
+                        padding: 0px 4px;
+                        box-sizing: border-box;
+                        display: flex;
+                        align-items: center;
+                    }
+
+                    input {
+                        max-height: 100%;
+                        padding: 0px;
+                        padding-left: 4px;
+                    }
+                }
+
+                input,
+                select {
+                    height: 25px !important;
+                    box-sizing: border-box;
+                    padding: 0px 5px;
+                }
+            }
+
+            .submit-section {
+                button {
+                    font-size: 12px;
+                    height: 20px;
+                    padding: 0px 15px;
+                }
+            }
+        }
+
+        .table-section {
+
+            table {
+                font-size: 12px;
+
+
+                tr {
+
+                    th,
+                    td {
+                        min-width: 100px;
+                        padding: 5px;
+                        border: 1px solid #e4e4e4;
+                        text-align: center;
+
+                        &.small {
+                            min-width: 30px !important;
+                        }
+
+                        &.date {
+                            min-width: 200px;
+                        }
+
+                        &.btn-container {
+                            div {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                gap: 4px;
+                                height: 100%;
+
+                                button {
+                                    border: none;
+                                    outline: none;
+                                    border-radius: 4px;
+                                    color: #FFF;
+                                    background-color: red;
+
+                                    &.reject {
+                                        background-color: blue;
+                                    }
+
+                                    &.approve {
+                                        background-color: green;
+                                    }
+
+                                    &:hover,
+                                    &:disabled {
+                                        opacity: .6;
+                                    }
+
+                                    &:active {
+                                        transform: scale(.9);
+                                    }
+
+                                }
+                            }
+
+                        }
+
+                        &.approved {
+                            button {
+                                background-color: green;
+                            }
+                        }
+
+                        &.pending {
+                            button {
+                                background-color: red;
+                            }
+                        }
+                    }
+
+                    th {
+                        border: 1px solid #f8f5f5;
+
+                    }
+                }
+            }
+        }
+
+
+
+    }
 }

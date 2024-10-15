@@ -1,7 +1,7 @@
 import React, { createContext, useContext } from "react";
 
 import { NavLink } from "react-router-dom";
-import { FaQrcode } from "react-icons/fa";
+import { FaDonate, FaQrcode } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
 import { userContext } from "../../../App";
 import {  MdSupport } from "react-icons/md";
@@ -39,13 +39,19 @@ const AdminNavigation = () => {
         <li>
           <NavLink to="/admin/notification">
             <IoNotifications />
-            <span> Admin Notification</span>
+            <span>Notification</span>
           </NavLink>
         </li>   
         <li>
           <NavLink to="/admin/daily-task">
           <MdOutlineAddTask />
             <span> Daily Task</span>
+          </NavLink>
+        </li>   
+        <li>
+          <NavLink to="/admin/withdraw">
+          <FaDonate />
+            <span> Withdraw</span>
           </NavLink>
         </li>   
         

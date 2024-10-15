@@ -1,7 +1,41 @@
 .admin-withdraw{
+  .btn-container{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    button{
+      border: none;
+      outline: none;
+      padding: 5px 10px;
+      background-color: var(--default-color);
+      color: #FFF;
+      font-weight: 600;
+      border-radius: 5px;
+      &:hover{
+        opacity: .9;
+      }
+      &:active{
+        transform: scale(.9);
+      }
+    }
+  }
   .common-table-section{
-    .table-section{
+    max-width: 1000px;
+    .table-section{ 
         height: 400px;
+    }
+  }
+}
+
+@media only screen and (min-width:200px) and (max-width:750px) {
+  .admin-withdraw{
+    .btn-container{ 
+      button{
+        font-size: 12px;
+      }
+    }
+    .common-table-section{
+      max-width: 100vw !important; 
     }
   }
 }

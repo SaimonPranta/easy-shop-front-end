@@ -1,14 +1,15 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import './style.scss'
 import index from '../AdminNotification/index';
 import { getCooki } from '../../../shared/cooki';
+import { configContext } from '../../../App';
 const colorArray = ["#e74c3c", "#3498db", "#2ecc71", "#f39c12", "#5F4B8BFF", "#F95700FF", "#D6ED17FF", "#2C5F2D", "#0063B2FF", "#2BAE66FF"]
 const cooki = getCooki()
 
 
 const AdminAddDailyTask = () => {
   const [input, setInput] = useState({ autoApprove: true })
-  const [config, setConfig] = useState({})
+  const [configInput, setConfigInput] = useState({})
   const [activeTab, setActiveTab] = useState("daily-task")
   const [currentStyle, setCurrentStyle] = useState("")
   const [coinArray, setCoinArray] = useState([{
@@ -16,6 +17,7 @@ const AdminAddDailyTask = () => {
     percentage: "",
     maxCount: ""
   }])
+  const [config, setConfig] = useContext(configContext)
 
   useEffect(() => {
     const handleStyle = async () => {
@@ -45,6 +47,17 @@ const AdminAddDailyTask = () => {
     }
     handleStyle()
   }, [coinArray])
+
+  useEffect(() => {
+    if (activeTab === "daily-task-config") {
+      setConfigInput({
+        maximumAmount: config?.dailyTask?.maximumAmount || "",
+        tutorialVideoId: config?.dailyTask?.tutorialVideoId || ""
+      })
+    } else if (activeTab === "task-reward" && config?.dailyTask?.taskRewardsList?.length) {
+      setCoinArray(config?.dailyTask?.taskRewardsList)
+    }
+  }, [activeTab])
 
   const handleChange = (e) => {
     const name = e.target.name
@@ -81,14 +94,13 @@ const AdminAddDailyTask = () => {
     const value = e.target.value
 
 
-    setConfig((state) => {
+    setConfigInput((state) => {
       return {
         ...state,
         [name]: value
       }
     })
   }
-  console.log("coinArray ==>>", coinArray)
 
   const onSubmit = (e) => {
     e.preventDefault()
@@ -107,7 +119,6 @@ const AdminAddDailyTask = () => {
       })
   }
   const onRewardsSubmit = async (e) => {
-    console.log("Hello from ")
     e.preventDefault()
     let totalPercentage = 0
 
@@ -130,24 +141,28 @@ const AdminAddDailyTask = () => {
       }
     })
     const data = await response.json()
-    console.log("data ==>>", data)
+    if (data.data) {
+      setConfig(data.data)
+    }
   }
   const onConfigSubmit = async (e) => {
     e.preventDefault()
-    if (config.maximumAmount && Number(config.maximumAmount) < 1) {
+    if (configInput.maximumAmount && Number(configInput.maximumAmount) < 1) {
       return
     }
 
     const response = await fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/set-config`, {
       method: "POST",
-      body: JSON.stringify({ ...config }),
+      body: JSON.stringify({ ...configInput }),
       headers: {
         'Content-type': 'application/json; charset=UTF-8',
         authorization: `Bearer ${cooki}`
       }
     })
     const data = await response.json()
-    console.log("data ==>>", data)
+    if (data.data) {
+      setConfig(data.data)
+    }
   }
 
   const handleSetCoin = (e, inputIndex) => {
@@ -303,11 +318,11 @@ const AdminAddDailyTask = () => {
             </span>
 
             <div className="validate-input">
-              <input className={`input2 ${config.maximumAmount ? "fill" : ""}`} type="text" value={config.maximumAmount || ""} name="maximumAmount" onChange={handleConfigChange} />
+              <input className={`input2 ${configInput.maximumAmount ? "fill" : ""}`} type="text" value={configInput.maximumAmount || ""} name="maximumAmount" onChange={handleConfigChange} />
               <span className="focus-input2">Max Amount</span>
             </div>
             <div className="validate-input">
-              <input className={`input2 ${config.tutorialVideoId ? "fill" : ""}`} type="text" value={config.tutorialVideoId || ""} name="tutorialVideoId" onChange={handleConfigChange} />
+              <input className={`input2 ${configInput.tutorialVideoId ? "fill" : ""}`} type="text" value={configInput.tutorialVideoId || ""} name="tutorialVideoId" onChange={handleConfigChange} />
               <span className="focus-input2">Tutorial Video ID</span>
             </div>
 
