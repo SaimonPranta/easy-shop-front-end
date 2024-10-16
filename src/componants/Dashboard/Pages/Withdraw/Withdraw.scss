@@ -32,12 +32,16 @@
                 border-radius: 4px;
                 font-weight: 800;
                 background-color: #ffc106;
+                color: #FFF;
             }
         }
 
         .form-container {
             .select-section {
                 margin-bottom: 20px;
+                background-color: #FFF;
+                border-radius: 10px;
+                padding: 15px;
 
                 .title-section {
                     width: auto;
@@ -51,6 +55,7 @@
                         margin: 0px;
                         border-radius: 4px;
                         font-size: 16px;
+                        padding: 5px;
                     }
                 }
 
@@ -66,8 +71,6 @@
                             .top {
                                 padding: 0px;
                                 box-sizing: border-box;
-
-
 
                                 img {
                                     margin: 15px;
@@ -91,6 +94,21 @@
                             align-items: center;
                             justify-content: center;
                             gap: 4px;
+                            box-shadow: 1px 1px 2px 1.5px #0000001d;
+
+                            strong {
+                                color: #4f4f4f;
+                            }
+
+                            p {
+                                font-weight: 600;
+                                color: red;
+                                font-size: 17px;
+
+                                strong {
+                                    color: red;
+                                }
+                            }
 
                             &:hover,
                             &.active {
@@ -162,12 +180,12 @@
         width: 100vw;
 
         .inner-section {
-            .withdraw-notice { 
-    
+            .withdraw-notice {
                 p {
                     font-size: 12px;
                 }
             }
+
             .back-btn-section {
                 button {
                     padding: 3px 5px;
@@ -190,7 +208,7 @@
                     .grid-section {
                         display: flex;
                         width: 100%;
-                        gap: 5px;
+                        gap: 8px;
 
                         .item {
                             width: 100%;
@@ -199,8 +217,6 @@
                                 .top {
                                     padding: 0px;
                                     box-sizing: border-box;
-
-
 
                                     img {
                                         margin: 15px;
@@ -219,6 +235,9 @@
                                 padding: 5px;
                                 font-size: 12px;
 
+                                p {
+                                    font-size: 15px;
+                                }
 
                                 svg,
                                 img {
@@ -239,31 +258,37 @@
                     }
                 }
 
-                .input-section {
-                    display: flex;
-                    flex-direction: column;
-                    margin-bottom: 15px;
-                    gap: 5px;
+                .input-section-container {
+                    background-color: #FFF;
+                    padding: 15px 10px;
+                    border-radius: 10px;
 
-                    input,
-                    select,
-                    label {
-                        font-size: 12px;
+                    .input-section {
+                        display: flex;
+                        flex-direction: column;
+                        margin-bottom: 15px;
+                        gap: 5px;
 
-                        option {
+                        input,
+                        select,
+                        label {
                             font-size: 12px;
+
+                            option {
+                                font-size: 12px;
+                            }
+
                         }
 
                     }
 
-                }
+                    .submit-section {
 
-                .submit-section {
-
-                    button {
-                        height: 25px;
-                        padding: 0px 15px;
-                        font-weight: 600;
+                        button {
+                            height: 25px;
+                            padding: 0px 15px;
+                            font-weight: 600;
+                        }
                     }
                 }
             }

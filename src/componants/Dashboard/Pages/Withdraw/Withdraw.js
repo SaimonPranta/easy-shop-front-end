@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import { configContext, userContext } from "../../../../App";
 import "./Withdraw.scss";
-import { getCookies, userHeader } from "../../../../shared/cooki";
+import { userHeader } from "../../../../shared/cooki";
 import bkash from '../../../../assets/images/bank_icon/bkash.png'
 import roket from '../../../../assets/images/bank_icon/roket.png'
 import upai from '../../../../assets/images/bank_icon/upai.png'
@@ -9,18 +9,29 @@ import nogod from '../../../../assets/images/bank_icon/nogod.png'
 import wallet from '../../../../assets/images/dashboard/wallet.png'
 import { dateToString } from "../../../../shared/functions/dateConverter";
 import { useNavigate } from "react-router-dom";
+import SuccessTost from '../../../../shared/components/SuccessTost/SuccessTost'
+import FailedTost from '../../../../shared/components/FailedTost/FailedTost'
+import { ToastContainer } from 'react-toastify';
+
+
 const balanceNameArray = [
   {
     title: "Main Balance",
-    property: "mainBalance"
+    property: "mainBalance",
+    mainProperty: "balance",
+
   },
   {
     title: "Sales Balance",
-    property: "salesBalance"
+    property: "salesBalance",
+    mainProperty: "salesBalance",
+
   },
   {
     title: "Task Balance",
-    property: "taskBalance"
+    property: "taskBalance",
+    mainProperty: "taskBalance",
+
   },
 ]
 const tableBalanceArray = [
@@ -88,6 +99,7 @@ const Withdraw = () => {
     totalBalance: 0
   })
   const [config] = useContext(configContext)
+  const [user] = useContext(userContext)
 
   const debounceState = useRef()
   const navigate = useNavigate()
@@ -187,6 +199,7 @@ const Withdraw = () => {
 
   const withdrawFormHandler = async (e) => {
     e.preventDefault();
+    setLoading(true)
     try {
       const res = await fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/withdraw`, {
         method: "POST",
@@ -196,7 +209,20 @@ const Withdraw = () => {
           ...userHeader()
         },
       })
+      const data = await res.json()
+      if (data.data) {
+        SuccessTost("Withdraw request submitted successfully")
+        setTableItems((state) => {
+          return [data.data, ...state]
+        })
+      }else{
+        FailedTost(data.message || "Withdraw request failed")
+      }
+
+      setLoading(false)
     } catch (error) {
+      FailedTost(error.message || "Withdraw request failed")
+      setLoading(false)
 
     }
   };
@@ -260,7 +286,7 @@ const Withdraw = () => {
       })
   }
   const goBack = () => {
-    navigate(-1); 
+    navigate(-1);
   };
   return (
     <div className="withdraw-page">
@@ -290,7 +316,7 @@ const Withdraw = () => {
                     <div className={`top ${item.title === input.balanceType ? "active" : ""}`}>
                       <img src={wallet} alt="" />
                       <strong>{item.title}</strong>
-                      <p><strong>৳</strong>4587</p>
+                      <p><strong>৳</strong>{user[item.mainProperty] || 0}</p>
                     </div>
                     <div className="bottom">
                       <input type="radio" checked={item.title === input.balanceType ? true : false} onChange={() => {
@@ -339,50 +365,52 @@ const Withdraw = () => {
               }
             </div>
           </div>
-          <div className="input-section">
-            <label>Your Withdraw Number</label>
-            <input
-              type="text"
-              name="phoneNumber"
-              value={input.phoneNumber || ""}
-              placeholder="Your Number"
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="input-section">
-            <label>Select Withdraw Amount</label>
-            <select name="amount" onChange={handleInputChange}>
-              <option hidden>-- Select Amount --</option>
-              {
-                config?.withdraw?.withdrawAmounts?.length > 0 && config?.withdraw?.withdrawAmounts.map((item, index) => {
-                  let disabled = true
-                  if(input.balanceType === "Main Balance" && lastBalance.lastMainBalance < item.balance){
-                    disabled = false
-                  } else if(input.balanceType === "Sales Balance" && lastBalance.lastSalesBalance < item.balance){
-                    disabled = false
-                  } else if(input.balanceType === "Task Balance" && lastBalance.lastTaskBalance < item.balance){
-                    disabled = false
-                  }
-                  return <option value={item.balance} key={index} disabled={disabled}>{`${item.balance}TK`}</option>
-                })
-              }
-              {/* <option value="1000">1000TK</option> */}
-            </select>
-          </div>
-          <div className="input-section">
-            <label>Your Account PIN</label>
-            <input
-              type="text"
-              name="accountPIN"
-              value={input.accountPIN || ""}
-              placeholder="Your PIN"
-              onChange={handleInputChange}
-            />
-          </div>
-          <div className="submit-section">
-            <button onClick={withdrawFormHandler} > Submit </button>
-          </div>
 
+          <div className="input-section-container">
+            <div className="input-section">
+              <label>Your Withdraw Number</label>
+              <input
+                type="text"
+                name="phoneNumber"
+                value={input.phoneNumber || ""}
+                placeholder="Your Number"
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="input-section">
+              <label>Select Withdraw Amount</label>
+              <select name="amount" onChange={handleInputChange}>
+                <option hidden>-- Select Amount --</option>
+                {
+                  config?.withdraw?.withdrawAmounts?.length > 0 && config?.withdraw?.withdrawAmounts.map((item, index) => {
+                    let disabled = true
+                    if (input.balanceType === "Main Balance" && lastBalance.lastMainBalance < item.balance) {
+                      disabled = false
+                    } else if (input.balanceType === "Sales Balance" && lastBalance.lastSalesBalance < item.balance) {
+                      disabled = false
+                    } else if (input.balanceType === "Task Balance" && lastBalance.lastTaskBalance < item.balance) {
+                      disabled = false
+                    }
+                    return <option value={item.balance} key={index} disabled={disabled}>{`${item.balance}TK`}</option>
+                  })
+                }
+                {/* <option value="1000">1000TK</option> */}
+              </select>
+            </div>
+            <div className="input-section">
+              <label>Your Account PIN</label>
+              <input
+                type="text"
+                name="accountPIN"
+                value={input.accountPIN || ""}
+                placeholder="Your PIN"
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="submit-section">
+              <button onClick={withdrawFormHandler} disabled={loading} > Submit </button>
+            </div>
+          </div>
 
         </div>
         <div className="common-table-section">
@@ -433,6 +461,7 @@ const Withdraw = () => {
                   <th className="small">#</th>
                   <th> Method</th>
                   <th> Number</th>
+                  <th> Balance</th>
                   <th>Amount</th>
                   <th>Date</th>
                   <th>Status</th>
@@ -446,7 +475,8 @@ const Withdraw = () => {
                       <td className="small">{index + 1}</td>
                       <td>{reqInfo?.withdraw?.provider}</td>
                       <td>{reqInfo?.withdraw?.phoneNumber}</td>
-                      <td>{reqInfo?.amount}</td>
+                      <td className="big">{reqInfo?.balanceType}</td>
+                      <td>৳{reqInfo?.amount}</td>
                       <td className="date">{dateToString(reqInfo.createdAt)}</td>
                       <td>{reqInfo?.status}</td>
                       <td className={`btn-container ${reqInfo.status.toLowerCase()}`}>
@@ -466,6 +496,8 @@ const Withdraw = () => {
 
         </div>
       </div>
+      <ToastContainer />
+
     </div>
   );
 };

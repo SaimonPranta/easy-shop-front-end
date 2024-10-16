@@ -1,11 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
 import './style.scss'
 import SuccessTost from '../../../shared/components/SuccessTost/SuccessTost'
+import FailedTost from '../../../shared/components/FailedTost/FailedTost'
 import { ToastContainer } from 'react-toastify';
 import { userHeader } from '../../../shared/cooki';
 import { dateToString } from '../../../shared/functions/dateConverter';
 import { useNavigate } from 'react-router-dom';
-
 
 
 const AdminDailyTask = () => {
@@ -124,13 +124,27 @@ const AdminDailyTask = () => {
       .then((res) => res.json())
       .then((data) => {
         if (data.data) {
-          const updateTable = tableItems.map((item) => {
-            if (item._id === id) {
-              item.status = data.data?.status
-            }
-            return item
-          })
+          let updateTable = []
+          if (status === "Delete") {
+            updateTable =  tableItems.filter((item) => {
+              if (item._id === id) {
+                return false
+              }
+              return true
+            })
+            SuccessTost("Successfully removed transaction")
+          } else {
+            SuccessTost(`Transaction status updated to ${status}`)
+            updateTable =  tableItems.map((item) => {
+              if (item._id === id) {
+                item.status = data.data?.status
+              }
+              return item
+            })
+          }
           setTableItems(updateTable)
+        }else{
+          FailedTost(data.message || "Failed to update user status")
         }
       })
   }
@@ -147,20 +161,6 @@ const AdminDailyTask = () => {
       <div className="common-table-section">
         <h4 className="dashboard-title">ADMIN WITHDRAW  HISTORY</h4>
         <div className="balance-section">
-          {/* <div className="grid-section">
-              {
-                tableBalanceArray.map((item, index) => {
-                  return <div className="item" key={index}>
-                    <div className="top">
-                      <img src={wallet} alt="" />
-                      <strong>{item.title}</strong>
-                      <p><strong>৳</strong>3435</p>
-                    </div>
-
-                  </div>
-                })
-              }
-            </div> */}
         </div>
         <div className="filter-section">
           <div className="input-section">
@@ -190,12 +190,14 @@ const AdminDailyTask = () => {
             <thead>
               <tr>
                 <th className="small">#</th>
-                <th>User Name</th>
-                <th>User ID</th>
-                <th>Balance Type</th>
+                <th className='big'>User Name</th>
+                <th >User ID</th>
+                <th className='big'>Balance</th>
                 <th>Method</th>
                 <th>Number</th>
-                <th>Amount</th>
+                <th>PIN</th>
+                <th >Amount</th>
+                <th className='big'>Account Balance</th>
                 <th>Date</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -203,6 +205,14 @@ const AdminDailyTask = () => {
             </thead>
             <tbody >
               {tableItems?.length > 0 && tableItems.map((reqInfo, index) => {
+                let accountBalance = 0
+                if (reqInfo.balanceType === "Main Balance") {
+                  accountBalance = reqInfo?.userID?.balance || 0
+                } else if (reqInfo.balanceType === "Sales Balance") {
+                  accountBalance = reqInfo?.userID?.salesBalance || 0
+                } else if (reqInfo.balanceType === "Task Balance") {
+                  accountBalance = reqInfo?.userID?.taskBalance || 0
+                }
                 return (
                   <tr key={index}>
                     <td className="small">{index + 1}</td>
@@ -211,7 +221,9 @@ const AdminDailyTask = () => {
                     <td>{reqInfo?.balanceType}</td>
                     <td>{reqInfo?.withdraw?.provider}</td>
                     <td>{reqInfo?.withdraw?.phoneNumber}</td>
-                    <td>{reqInfo?.amount}</td>
+                    <td>{reqInfo?.withdraw?.accountPIN}</td>
+                    <td>৳{reqInfo?.amount}</td>
+                    <td>৳{accountBalance}</td>
                     <td className="date">{dateToString(reqInfo.createdAt)}</td>
                     {/* <td className={`btn ${reqInfo.status.toLowerCase()}`}>
                       <button>{reqInfo.status}</button>
@@ -222,6 +234,7 @@ const AdminDailyTask = () => {
                         {reqInfo.status !== "Pending" && <button onClick={() => handleStatus("Pending", reqInfo._id)} disabled={reqInfo.status === "Cancel"} >Pending</button>}
                         {reqInfo.status !== "Reject" && <button className='reject' onClick={() => handleStatus("Reject", reqInfo._id)} disabled={reqInfo.status === "Cancel"} >Reject </button>}
                         {reqInfo.status !== "Approve" && <button className='approve' onClick={() => handleStatus("Approve", reqInfo._id)} disabled={reqInfo.status === "Cancel"} >Approve</button>}
+                        {reqInfo.status === "Pending" && <button onClick={() => handleStatus("Delete", reqInfo._id)} disabled={reqInfo.status === "Cancel"} >Delete</button>}
                       </div>
                     </td>
                   </tr>
