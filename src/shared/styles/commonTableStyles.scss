@@ -53,12 +53,14 @@
                     strong {
                         color: #4f4f4f;
                     }
-                    p{
+
+                    p {
                         font-weight: 600;
                         color: red;
                         font-size: 17px;
-                        strong{
-                        color: red;
+
+                        strong {
+                            color: red;
                         }
                     }
 
@@ -151,13 +153,36 @@
                     border: 1px solid #e4e4e4;
                     text-align: center;
 
+                    &.dotted {
+
+                        min-width: 150px;
+                        max-width: 150px;
+                        overflow: hidden;
+
+                        p,a {
+                            display: inline-block;
+                            width: 150px;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            display: -webkit-box;
+                            -webkit-box-orient: vertical;
+                            -webkit-line-clamp: 1;
+                            text-align: start;
+                            padding: 0px 3px;
+                            margin: 0px;
+                            box-sizing: border-box;
+                        }
+
+                    }
+
                     &.small {
                         min-width: 30px !important;
                     }
 
                     &.big {
-                        min-width:150px;
+                        min-width: 150px;
                     }
+
                     &.date {
                         min-width: 200px;
                     }
@@ -243,12 +268,15 @@
                         padding: 5px;
                         gap: 4px;
                         font-size: 12px;
+
                         strong {
                             color: #4f4f4f;
                         }
-                        p{
+
+                        p {
                             font-size: 15px;
                         }
+
                         svg,
                         img {
                             height: 30px;
@@ -310,7 +338,7 @@
                 font-size: 12px;
 
 
-                
+
             }
         }
 

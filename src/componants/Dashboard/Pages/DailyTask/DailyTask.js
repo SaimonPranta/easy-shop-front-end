@@ -125,12 +125,15 @@ const DailyTask = () => {
     }
     const handleTaskSubmit = async (taskInfo) => {
         try {
-            const formData = new FormData()
 
+            const formData = new FormData()
+            if (!images.length) {
+                return
+            }
             images.forEach((image, index) => formData.append(`img${index + 1}`, image))
             formData.append("taskListID", taskInfo?._id)
             formData.append("dailyTaskID", taskInfo?.currentTaskID?._id)
-
+            console.log("Hello form return")
             fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/create-user-history`, {
                 method: "POST",
                 body: formData,
@@ -199,7 +202,7 @@ const DailyTask = () => {
 
             })
     }
- 
+
 
     return (
         <div className='daily-task'>
@@ -309,6 +312,13 @@ const DailyTask = () => {
                             <p>{`আপনি ${rewardAmount} টাকা টাক্স বোনাস পেয়েছেন।`}</p>
                         </div>}
                     </div>}
+                    {/* {true && <div className='spinner-section'>
+                        <LuckySpinner handleSpinClick={handleSpinClick} disableSpin={disableSpin} />
+                        {true && <div className='congress-section'>
+                            <h5>অভিনন্দন 🎉</h5>
+                            <p>{`আপনি ${rewardAmount} টাকা টাক্স বোনাস পেয়েছেন।`}</p>
+                        </div>}
+                    </div>} */}
 
                     {config?.dailyTask?.tutorialVideoId && <div className='main-tutorial-section'>
                         <div className='title-section'>

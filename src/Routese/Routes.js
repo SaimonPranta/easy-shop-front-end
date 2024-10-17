@@ -28,8 +28,9 @@ import EditProduct from '../componants/Dashboard/Pages/Product/EditProduct/index
 import AdminHelpLine from '../componants/AdminDashboard/AdminHelpLine/index';
 import AdminNotification from '../componants/AdminDashboard/AdminNotification/index';
 import Notice from '../componants/Dashboard/Pages/Notice/index';
-import DailyTask from '../componants/Dashboard/Pages/DailyTask/DailyTask';
+import DailyTask from '../componants/Dashboard/Pages/DailyTask/index';
 import AdminDailyTask from '../componants/AdminDashboard/AdminDailyTask/index';
+import AdminDailyTaskList from '../componants/AdminDashboard/AdminDailyTaskList/index';
 import AdminWithdraw from '../componants/AdminDashboard/AdminWithdraw/index';
 import AdminWithdrawConfig from '../componants/AdminDashboard/AdminWithdrawConfig/index';
 import AdminAddDailyTask from '../componants/AdminDashboard/AdminAddDailyTask/index';
@@ -125,6 +126,11 @@ const Routess = () => {
                     <Route path="/admin/daily-task" element={
                         <AdminPrivetRoute>
                             <AdminDailyTask />
+                        </AdminPrivetRoute>
+                    }></Route>
+                    <Route path="/admin/daily-task-list" element={
+                        <AdminPrivetRoute>
+                            <AdminDailyTaskList />
                         </AdminPrivetRoute>
                     }></Route>
                     <Route path="/admin/withdraw" element={

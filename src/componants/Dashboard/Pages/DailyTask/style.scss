@@ -17,7 +17,7 @@
         }
 
         .task-container {
-            width: 90%;
+            width: 95%;
             display: block;
             margin: auto;
 
@@ -83,6 +83,7 @@
                             width: 65px;
                             border-radius: 50%;
                             position: relative;
+                            border: 1px solid #e4e4e4;
 
                             img {
                                 height: 65px;
@@ -289,17 +290,237 @@
                     margin-top: 15px;
                     display: flex;
                     justify-content: center;
+                    h3{
+                        font-size: 17px;
+                    }
                 }
 
-                .frame-container{
+                .frame-container {
                     display: flex;
                     align-items: center;
                     justify-content: center;
-                    iframe{
+
+                    iframe {
                         background-color: #fff;
                         padding: 10px;
                         border: 1px solid #e4e4e4;
                         border-radius: 4px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width:200px) and (max-width:750px) {
+    .daily-task {
+        width: 100vw;
+
+        .main-container {
+            width: 95%;
+
+            .title-container {
+
+                h6 {
+                    font-size: 16px;
+
+                }
+            }
+
+            .task-container {
+
+                .notification-container {
+                    color: #FFF;
+
+                    h5 {
+                        font-size: 12px;
+                    }
+                }
+
+                .heading-section {
+                    padding: 10px 0px;
+                    padding-bottom: 20px;
+
+                    h3 {
+                        font-size: 25px;
+                    }
+
+                    .maximum-figure {
+
+                        span {
+                            padding: 4px 7px;
+                            font-size: 12px;
+                        }
+                    }
+
+                }
+
+                .task-list {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+
+                    .task-item {
+                        border: 1px solid #B2B2B2;
+                        border-radius: 10px;
+                        padding: 8px;
+                        background-color: #FFF;
+
+                        .description-section {
+                            display: flex;
+
+                            .img-section {
+                                height: 45px;
+                                width: 45px;
+                                border-radius: 50%;
+
+                                img {
+                                    height: 45px;
+                                    width: 45px;
+                                }
+
+                                .task-status {
+                                    padding: 2px;
+                                    height: 18px;
+                                    width: 18px;
+
+                                    svg {
+                                        height: 16px;
+                                        width: 16px;
+                                    }
+                                }
+                            }
+
+                            .description {
+                                padding-top: 8px;
+                                margin-left: 10px;
+
+                                p {
+                                    font-size: 16px;
+
+                                }
+                            }
+                        }
+
+                        .upload-section {
+                            padding: 10px;
+
+                            .upload-list {
+                                height: 50px;
+                                gap: 15px;
+
+                                .img-container {
+                                    height: 40px;
+                                    width: 45px;
+
+                                    svg {
+                                        right: -10px;
+                                        top: -10px;
+                                        height: 20px;
+                                        width: 20px;
+                                    }
+
+                                    img {
+                                        height: 100%;
+                                        width: 100%;
+                                        border-radius: 4px;
+                                        border: 1px solid #b8abab;
+                                    }
+                                }
+                            }
+
+                            .input-section {
+                                height: 40px;
+                                position: relative;
+
+                                button,
+                                input {
+                                    height: 35px;
+                                    width: 90px;
+                                }
+
+                                button {
+
+                                    svg {
+                                        height: 30px;
+                                        width: 30px;
+                                    }
+                                }
+                            }
+                        }
+
+                        .action-section {
+
+                            .tutorial-btn {
+                                right: 0px;
+                                top: 16px;
+
+                                button {
+
+                                    svg {
+                                        height: 22px;
+                                        width: 22px;
+                                    }
+                                }
+                            }
+
+                            div {
+                                gap: 10px;
+
+                                button {
+                                    padding: 3px 20px;
+                                    font-weight: 600;
+                                    font-size: 12px;
+
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+                .spinner-section {
+                    border: 1px solid #B2B2B2;
+                    background-color: #FFF;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 50px;
+                    margin-top: 20px;
+                    padding: 8px;
+                    border-radius: 15px;
+
+                    .congress-section {
+                        width: 95%;
+                        gap: 5px;
+                        h5 {
+                            font-size: 20px;
+                            font-weight: 800;
+                        }
+
+                        p {
+                            font-size: 12px;
+                            font-weight: 600;
+                        }
+
+                    }
+                }
+
+                .main-tutorial-section {
+
+                    .frame-container {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+height: 200px;
+                        iframe {
+                            background-color: #fff;
+                            padding: 10px;
+                            border: 1px solid #e4e4e4;
+                            border-radius: 4px;
+                            height: 100%;
+                            max-height: 100%;
+                        }
                     }
                 }
             }
