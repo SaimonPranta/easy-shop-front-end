@@ -3,6 +3,7 @@ import './style.scss'
 import index from '../AdminNotification/index';
 import { getCooki } from '../../../shared/cooki';
 import { configContext } from '../../../App';
+import { useLocation, useNavigate } from 'react-router-dom';
 const colorArray = ["#e74c3c", "#3498db", "#2ecc71", "#f39c12", "#5F4B8BFF", "#F95700FF", "#D6ED17FF", "#2C5F2D", "#0063B2FF", "#2BAE66FF"]
 const cooki = getCooki()
 
@@ -10,6 +11,7 @@ const cooki = getCooki()
 const AdminAddDailyTask = () => {
   const [input, setInput] = useState({ autoApprove: true })
   const [configInput, setConfigInput] = useState({})
+  const [condition, setCondition] = useState({ btnLoading: false })
   const [activeTab, setActiveTab] = useState("daily-task")
   const [currentStyle, setCurrentStyle] = useState("")
   const [coinArray, setCoinArray] = useState([{
@@ -18,6 +20,31 @@ const AdminAddDailyTask = () => {
     maxCount: ""
   }])
   const [config, setConfig] = useContext(configContext)
+  const location = useLocation();
+  const navigate = useNavigate()
+
+  const queryParams = new URLSearchParams(location.search);
+  const taskListID = queryParams.get("taskListID");
+  const dailyTaskID = queryParams.get("dailyTaskID");
+
+  console.log("taskListID =>", taskListID)
+  useEffect(() => {
+    if (taskListID) {
+      setInput({ taskListID })
+    }else if (dailyTaskID) {
+      setInput({ dailyTaskID })
+      fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/get-daily-task-details?dailyTaskID=${dailyTaskID}`)
+        .then((data) => data.json())
+        .then((data) => {
+          console.log("data ===>>>", data)
+          if (data.data) { 
+            setInput(data.data)
+          }
+        })
+        
+    }
+  }, [taskListID, dailyTaskID])
+  console.log("input ==>", input)
 
   useEffect(() => {
     const handleStyle = async () => {
@@ -108,7 +135,12 @@ const AdminAddDailyTask = () => {
 
     formData.append("img", input.img)
     formData.append("data", JSON.stringify(input))
-
+    setCondition((state) => {
+      return {
+        ...state,
+        btnLoading: true
+      }
+    })
     fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/admin-create-task`, {
       method: "POST",
       body: formData
@@ -116,6 +148,18 @@ const AdminAddDailyTask = () => {
       .then((data) => data.json())
       .then((data) => {
         console.log("data ===>>>", data)
+        if (data.data) {
+          navigate(-1)
+          setInput({})
+        }
+      })
+      .finally(() => {
+        setCondition((state) => {
+          return {
+            ...state,
+            btnLoading: false
+          }
+        })
       })
   }
   const onRewardsSubmit = async (e) => {
@@ -208,18 +252,18 @@ const AdminAddDailyTask = () => {
 
       {
         activeTab === "daily-task" ? <div className='wrap-contact2'>
-          <form className="contact2-form validate-form" onSubmit={onSubmit}>
+          <form className="contact2-form validate-form">
             <span className="contact2-form-title">
               Add Daily Task
             </span>
 
-            <div className="validate-input">
+            {/* <div className="validate-input">
               <input className={`input2 ${input.title ? "fill" : ""}`} type="text" value={input.title || ""} name="title" onChange={handleChange} />
               <span className="focus-input2">TITLE</span>
-            </div>
+            </div> */}
             <div className="validate-input" >
               <input className={`input2 ${input.description ? "fill" : ""}`} type="text" value={input.description || ""} name="description" onChange={handleChange} />
-              <span className="focus-input2">DESCRIPTION</span>
+              <span className="focus-input2">TITLE</span>
             </div>
             <div className="validate-input" >
               <input className={`input2 ${input.taskLink ? "fill" : ""}`} type="text" value={input.taskLink || ""} name="taskLink" onChange={handleChange} />
@@ -237,17 +281,22 @@ const AdminAddDailyTask = () => {
               <span className="focus-input2">UPLOAD IMAGE</span>
               <input className="input2" name="img" onChange={handleChange} type="file" />
             </div>
-            <div className="validate-input calender-section" >
-              <span className="focus-input2"> EXPIRE DATE</span>
-              <input type='date' value={input.taskStartDate || ""} onChange={handleChange} name='taskStartDate' />
-            </div>
-            <div className="validate-input calender-section" >
-              <span className="focus-input2"> EXPIRE DATE</span>
-              <input type='date' value={input.taskExpireDate || ""} onChange={handleChange} name='taskExpireDate' />
-            </div>
+            {
+              !taskListID && <>
+                <div className="validate-input calender-section" >
+                  <span className="focus-input2"> EXPIRE DATE</span>
+                  <input type='date' value={input.taskStartDate || ""} onChange={handleChange} name='taskStartDate' />
+                </div>
+                <div className="validate-input calender-section" >
+                  <span className="focus-input2"> EXPIRE DATE</span>
+                  <input type='date' value={input.taskExpireDate || ""} onChange={handleChange} name='taskExpireDate' />
+                </div>
+              </>
+            }
+
 
             <div className="container-contact2-form-btn">
-              <button type='submit'>Submit</button>
+              <button type='submit' disabled={condition?.btnLoading} onClick={onSubmit} >Submit</button>
             </div>
           </form>
         </div > : activeTab === "task-reward" ? <div className='wrap-contact2'>

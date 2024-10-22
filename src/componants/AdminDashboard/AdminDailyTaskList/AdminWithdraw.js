@@ -10,7 +10,9 @@ import { dateToDateString } from '../../../shared/functions/formateDate';
 
 
 const AdminDailyTaskList = () => {
-  const [filterInput, setFilterInput] = useState({});
+  const [filterInput, setFilterInput] = useState({
+    // tableType: "Group Daily Task"
+  });
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(0);
   const [tableItems, setTableItems] = useState([]);
@@ -68,6 +70,7 @@ const AdminDailyTaskList = () => {
     }
   }, [page, filterInput.searchSubmit])
 
+
   const handleScroll = () => {
     console.log("Call scroll", { currentPage, page, currentLength: tableItems.length, total })
     if (loading) {
@@ -113,51 +116,46 @@ const AdminDailyTaskList = () => {
       }
     })
   }
-  const handleStatus = (status, id) => {
-    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/admin-withdraw/status`, {
-      method: "PUT",
+  const handleSelectDailyTask = (taskID, taskGroupID) => {
+    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/select-daily-task`, {
+      method: "POST",
       headers: {
         "content-type": "application/json; charset=UTF-8",
-        ...userHeader(),
+        ...userHeader()
       },
-      body: JSON.stringify({ status, id })
+      body: JSON.stringify({ taskID, taskGroupID })
     })
       .then((res) => res.json())
       .then((data) => {
-        if (data.data) {
-          let updateTable = []
-          if (status === "Delete") {
-            updateTable = tableItems.filter((item) => {
-              if (item._id === id) {
-                return false
-              }
-              return true
-            })
-            SuccessTost("Successfully removed transaction")
-          } else {
-            SuccessTost(`Transaction status updated to ${status}`)
-            updateTable = tableItems.map((item) => {
-              if (item._id === id) {
-                item.status = data.data?.status
-              }
-              return item
-            })
-          }
-          setTableItems(updateTable)
-        } else {
-          FailedTost(data.message || "Failed to update user status")
-        }
+        console.log("data ==>>", data)
       })
   }
 
-  const handleConfigNavigation = () => {
-    navigate("/admin/daily-task")
-  }
 
+  const handleConfigNavigation = (taskListID) => {
+    console.log("taskListID =>", taskListID)
+    if (taskListID) {
+      navigate(`/admin/add-daily-task?taskListID=${taskListID}`)
+    } else {
+      navigate("/admin/add-daily-task")
+    }
+  }
+  const handleSetEditTasklistNavigation = (taskListID) => {
+    navigate(`/admin/add-daily-task?dailyTaskID=${taskListID}`)
+
+  }
+  const handleGroupBtn = (id) => {
+    setFilterInput((state) => {
+      return {
+        groupID: id,
+        searchSubmit: !state.searchSubmit
+      }
+    })
+  }
   return (
     <div className='admin-withdraw'>
       <div className='btn-container'>
-        <button onClick={handleConfigNavigation}>Add Task</button>
+        <button onClick={() => handleConfigNavigation(null)}>Add Task</button>
       </div>
       <div className="common-table-section">
         <h4 className="dashboard-title">Admin Daily Task List</h4>
@@ -173,11 +171,9 @@ const AdminDailyTaskList = () => {
               <span>To</span>
               <input type="date" name='toDate' value={filterInput.toDate || ""} onChange={handleInputChange} />
             </div>
-            <select name='balance' onChange={handleInputChange}>
-              <option>Select Balance</option>
-              <option>Main Balance</option>
-              <option>Sales Balance</option>
-              <option>Task Balance</option>
+            <select name='tableType' onChange={handleInputChange}>
+              <option>Daily Task</option>
+              <option>Group Daily Task</option>
             </select>
             <input type="text" placeholder="Search here ..." name='search' value={filterInput.search || ""} onChange={handleInputChange} />
           </div>
@@ -187,7 +183,7 @@ const AdminDailyTaskList = () => {
           </div>
         </div>
         <div className="table-section" id="table-list" onScroll={handleScroll}>
-          <table>
+          {filterInput?.tableType !== "Group Daily Task" && <table>
             <thead>
               <tr>
                 <th className="small">#</th>
@@ -197,6 +193,7 @@ const AdminDailyTaskList = () => {
                 <th >Tutorial Link</th>
                 <th >From Date</th>
                 <th >To Date</th>
+                <th >Group</th>
               </tr>
             </thead>
             <tbody >
@@ -210,11 +207,64 @@ const AdminDailyTaskList = () => {
                     <td className='dotted'><a href={reqInfo?.tutorialLink} target="_blank">{reqInfo?.tutorialLink}</a></td>
                     <td >{dateToDateString(reqInfo?.taskListID?.taskStartDate)}</td>
                     <td >{dateToDateString(reqInfo?.taskListID?.taskExpireDate)}</td>
+                    <td className={`btn-container `}>
+                      <div>
+                        <button onClick={() => handleGroupBtn(reqInfo?.taskListID?._id)}>Group</button>
+                        <button
+                          disabled={reqInfo?.taskListID?.currentTaskID === reqInfo?._id}
+                          onClick={() => handleSelectDailyTask(reqInfo._id, reqInfo?.taskListID?._id)}>Select</button>
+                          <button onClick={() => handleSetEditTasklistNavigation(reqInfo?._id)}>Edit</button>
+                        <button onClick={() => handleConfigNavigation(reqInfo?.taskListID?._id)}>Add</button>
+                      </div>
+                    </td>
                   </tr>
                 );
               })}
             </tbody>
-          </table>
+          </table>}
+          {filterInput?.tableType === "Group Daily Task" && <table>
+            <thead>
+              <tr>
+                <th className="small">#</th>
+                <th >Image</th>
+                <th className='big'>Title</th>
+                <th>Task Link</th>
+                <th >Tutorial Link</th>
+                <th >From Date</th>
+                <th >To Date</th>
+                <th >Group</th>
+              </tr>
+            </thead>
+            <tbody >
+              {tableItems?.length > 0 && tableItems.map((taskListInfo, index) => {
+                return taskListInfo?.taskList?.map((reqInfo, subIndex) => {
+                  return (
+                    <tr key={index * subIndex}>
+                      {
+                        subIndex === 0 && <td className="small" rowSpan={taskListInfo?.taskList?.length}>{index + 1}</td>
+                      }
+                      <td className="small">{index + 1}</td>
+                      <td>{reqInfo?.description}</td>
+                      <td className='dotted'><a href={reqInfo?.taskLink} target="_blank">{reqInfo?.taskLink}</a></td>
+                      <td className='dotted'><a href={reqInfo?.tutorialLink} target="_blank">{reqInfo?.tutorialLink}</a></td>
+                      {subIndex === 0 && <> <td  rowSpan={taskListInfo?.taskList?.length}>{dateToDateString(reqInfo?.taskListID?.taskStartDate)}</td>
+                        <td rowSpan={taskListInfo?.taskList?.length} >{dateToDateString(reqInfo?.taskListID?.taskExpireDate)}</td> </>}
+                      <td className={`btn-container `}>
+                        <div>
+                          <button onClick={() => handleGroupBtn(reqInfo?.taskListID?._id)}>Group</button>
+                          <button
+                            disabled={reqInfo?.taskListID?.currentTaskID === reqInfo?._id}
+                            onClick={() => handleSelectDailyTask(reqInfo._id, reqInfo?.taskListID?._id)}>Select</button>
+                          <button onClick={() => handleSetEditTasklistNavigation(reqInfo?._id)}>Edit</button>
+                        </div>
+                      </td>
+                    </tr>
+                  );
+                })
+
+              })}
+            </tbody>
+          </table>}
         </div>
 
       </div>
