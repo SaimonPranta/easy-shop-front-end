@@ -215,6 +215,7 @@ const Withdraw = () => {
         setTableItems((state) => {
           return [data.data, ...state]
         })
+        setInput({})
       }else{
         FailedTost(data.message || "Withdraw request failed")
       }

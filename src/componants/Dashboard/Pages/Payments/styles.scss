@@ -1,4 +1,4 @@
-.withdraw-page {
+.payments-page {
     display: flex !important;
     justify-content: center;
     width: 100%;
@@ -11,12 +11,23 @@
             margin: 0px;
         }
 
-        .withdraw-notice {
+        .payments-notice {
             background-color: #0F91DD;
+            border-radius: 5px;
+            padding: 5px;
 
             p {
                 color: #FFF;
                 margin: 0px;
+            }
+
+            &.form-head {
+                p {
+                    font-weight: 600;
+                    font-size: 20px;
+                    text-align: center;
+                    padding: 5px;
+                }
             }
         }
 
@@ -71,6 +82,7 @@
                             .top {
                                 padding: 0px;
                                 box-sizing: border-box;
+                                gap: 0px;
 
                                 img {
                                     margin: 15px;
@@ -82,6 +94,44 @@
                                     color: #FFF;
                                     padding: 5px;
                                 }
+
+                                .number-section {
+                                    width: 100%;
+                                    text-align: center;
+                                    color: #FFF;
+                                    padding: 4px;
+                                    background-color: #e4e4e4;
+                                    display: flex;
+                                    justify-content: space-between;
+
+                                    p {
+                                        color: #000;
+                                    }
+
+                                    button {
+                                        border: none;
+                                        outline: none;
+                                        background-color: #FFF;
+                                        // background-color: green;
+                                        // background-color: transparent;
+                                        color: #765f5f;
+                                        height: 23px;
+                                        width: 23px;
+                                        padding: 0px;
+                                        border-radius: 5px;
+                                        display: flex;
+                                        align-items: center;
+                                        justify-content: center;
+                                        border: 1px solid #FFF;
+
+                                        svg {
+                                            height: 20px;
+                                            width: 20px;
+                                        }
+                                    }
+
+                                }
+
                             }
                         }
 
@@ -98,6 +148,44 @@
 
                             strong {
                                 color: #4f4f4f;
+                            }
+
+                            .number-section {
+                                width: 100%;
+                                text-align: center;
+                                color: #FFF;
+                                padding: 4px;
+                                background-color: #e4e4e4;
+                                display: flex;
+                                justify-content: space-between;
+
+                                p {
+                                    color: #000;
+                                    font-size: 12px;
+                                }
+
+                                button {
+                                    border: none;
+                                    outline: none;
+                                    background-color: #FFF;
+                                    // background-color: green;
+                                    // background-color: transparent;
+                                    color: #765f5f;
+                                    height: 23px;
+                                    width: 23px;
+                                    padding: 0px;
+                                    border-radius: 5px;
+                                    display: flex;
+                                    align-items: center;
+                                    justify-content: center;
+                                    border: 1px solid #FFF;
+
+                                    svg {
+                                        height: 20px;
+                                        width: 20px;
+                                    }
+                                }
+
                             }
 
                             p {
@@ -148,6 +236,7 @@
                     margin-bottom: 15px;
                     gap: 5px;
 
+
                     input,
                     select {
                         border: 1px solid #e4e4e4;
@@ -182,13 +271,22 @@
 
 
 @media only screen and (min-width:200px) and (max-width:750px) {
-    .withdraw-page {
+    .payments-page {
         width: 100vw;
 
         .inner-section {
-            .withdraw-notice {
+            .payments-notice {
                 p {
                     font-size: 12px;
+                }
+
+                &.form-head {
+                    p {
+                        font-weight: 600;
+                        font-size: 15px;
+                        text-align: center;
+                        padding: 5px;
+                    }
                 }
             }
 
@@ -233,6 +331,43 @@
                                         text-align: center;
                                         color: #FFF;
                                         padding: 5px;
+                                    }
+
+                                    .number-section {
+                                        width: 100%;
+                                        text-align: center;
+                                        color: #FFF;
+                                        padding: 2px;
+                                        background-color: #e4e4e4;
+                                        display: flex;
+                                        justify-content: space-between;
+
+                                        p {
+                                            color: #000;
+                                            font-size: 10px;
+                                        }
+
+                                        button {
+                                            border: none;
+                                            outline: none;
+                                            background-color: #FFF;
+                                            // background-color: transparent;
+                                            color: #765f5f;
+                                            height: 15px;
+                                            width: 15px;
+                                            padding: 0px;
+                                            border-radius: 2px;
+                                            display: flex;
+                                            align-items: center;
+                                            justify-content: center;
+                                            border: 1px solid #FFF;
+
+                                            svg {
+                                                height: 12px;
+                                                width: 12px;
+                                            }
+                                        }
+
                                     }
                                 }
                             }

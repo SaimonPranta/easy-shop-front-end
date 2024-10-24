@@ -1,16 +1,12 @@
-
 .side-nav-container {
     padding: 0px;
     transition: .5s ease-in-out;
     background-color: #1e2841;
-    /* position: fixed;
-    top:60px;
-    left: 0px; */
     overflow-y: auto;
 }
 
 .side-nav-container .user-profile {
-    height: 120px;
+    height: 150px;
     width: 100%;
     background-color: #FFF;
     display: flex;
@@ -20,12 +16,73 @@
     color: #90919e;
     border-bottom: 1px solid #90919e3e;
     margin-bottom: 10px;
+
+    .profile-pic-btn {
+        $size: "100px";
+        position: relative;
+        border: none;
+        outline: none;
+        padding: 0px;
+        height: 100px !important;
+        width: 100px !important;
+        min-height: 100px !important;
+        min-width: 100px !important;
+        border-radius: 50%;
+        overflow: hidden;
+        border: 2px solid #e4e4e4;
+        &:hover{
+            label{
+                display: flex;
+            }
+        }
+        .picture-container {
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            z-index: 1;
+            height: 100%;
+            width: 100%;
+           
+
+            svg,
+            img {
+                height: 100%;
+                width: 100%;
+            }
+        }
+
+        input {
+            display: none;
+        }
+
+        label { 
+            position: absolute;
+            left: 0px;
+            top: 0px;
+            height: 100%;
+            width: 100%;
+            border: none;
+            outline: none;
+            margin: 0px;
+            padding: 0px;
+            z-index: 3;
+            background-color: transparent;
+            background-color: #1c14145c;
+            display: none;
+            align-items: center;
+            justify-content: center;
+cursor: pointer;
+            svg {
+                height: 45px;
+                width: 45px;
+                color: #FFF;
+            }
+
+        }
+
+    }
 }
 
-.side-nav-container .user-profile svg {
-    height: 50%;
-    width: 50%;
-}
 
 .side-nav-container .user-profile p {
     font-size: 1.2rem;

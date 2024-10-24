@@ -138,6 +138,8 @@
 
         table {
             background-color: #FFF;
+            width: 100%;
+
 
             thead {
                 background-color: #e4e4e4;
@@ -159,7 +161,8 @@
                         max-width: 150px;
                         overflow: hidden;
 
-                        p,a {
+                        p,
+                        a {
                             display: inline-block;
                             width: 150px;
                             overflow: hidden;
@@ -186,14 +189,22 @@
                     &.date {
                         min-width: 200px;
                     }
+                    &.img{
+                        img{
+                            height: 40px;
+                            width: 40px;
+                            border-radius: 4px;
+                        }
+                    }
 
-                    &.btn-container {
+                    &.btn-container, &.btn-container-center { 
                         div {
                             display: flex;
                             align-items: center;
                             justify-content: center;
                             gap: 4px;
                             height: 100%;
+                            width: 100%; 
 
                             button {
                                 border: none;

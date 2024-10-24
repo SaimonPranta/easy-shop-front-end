@@ -71,8 +71,6 @@ const DailyTask = () => {
 
     }, [config?.dailyTask?.taskRewardsList, spinPointHistory])
 
-    console.log("config ==>>", config)
-
     useEffect(() => {
         fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/spin-info`, {
             method: "GET",
@@ -226,8 +224,6 @@ const DailyTask = () => {
                     {!showSpin && <div className='task-list'>
                         {
                             dailyTasks.map((taskInfo, index) => {
-                                console.log("taskInfo?.currentTaskID?.taskLink ==>>", taskInfo?.currentTaskID?.taskLink)
-                                console.log("taskInfo?.currentTaskID?.description ==>>", taskInfo?.currentTaskID?.description)
                                 return <div className='task-item' key={index}>
                                     <div className='description-section'>
                                         <div className='img-section'>
@@ -296,10 +292,6 @@ const DailyTask = () => {
                                                 <button onClick={() => handleTutorial(taskInfo)}><TiVideo /></button>
                                             </div>
                                         }
-
-
-
-
                                     </div>
                                 </div>
                             })

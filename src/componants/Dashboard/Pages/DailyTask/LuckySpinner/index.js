@@ -18,14 +18,11 @@ const Index = ({ handleSpinClick, disableSpin }) => {
                 // transform: `rotate(146deg)`
             }}>
                 <img src={spinnerWheel} alt='' />
-                {
+                {/* {
                     new Array(10).fill().map((con, index) => {
-                        // if (currentSpinNumber && currentSpinNumber === index + 1) {
-                        //     return <p className="spin-section-item">{currentSpinNumber}</p>
-                        // }
                         return <p className="spin-section-item">Lucky?</p>
                     })
-                }
+                } */}
             </div>
 
             <button className='spin-btn' onClick={() => {

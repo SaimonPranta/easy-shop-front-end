@@ -12,6 +12,7 @@ import BalanceRequest from '../componants/Dashboard/Pages/BalanceRequest/index';
 import BalanceTransfer from '../componants/Dashboard/Pages/BalanceTransfer/Index';
 import MobileRecharge from '../componants/Dashboard/Pages/MobileRecharge/Index';
 import Withdraw from '../componants/Dashboard/Pages/Withdraw/Index';
+import Payments from '../componants/Dashboard/Pages/Payments/Index';
 import ChangePassword from '../componants/Dashboard/Pages/ChangePassword/Index';
 import UpdateProfile from '../componants/Dashboard/Pages/UpdateProfile/Index';
 import RankHistory from '../componants/Dashboard/Pages/RankHistory/index';
@@ -33,7 +34,7 @@ import AdminDailyTask from '../componants/AdminDashboard/AdminDailyTask/index';
 import AdminDailyTaskList from '../componants/AdminDashboard/AdminDailyTaskList/index';
 import AdminWithdraw from '../componants/AdminDashboard/AdminWithdraw/index';
 import AdminWithdrawConfig from '../componants/AdminDashboard/AdminWithdrawConfig/index';
-import AdminAddDailyTask from '../componants/AdminDashboard/AdminAddDailyTask/index';
+import AdminAddDailyTask from '../componants/AdminDashboard/AdminAddDailyTask/index'; 
 
 
 const Routess = () => {
@@ -96,6 +97,11 @@ const Routess = () => {
                     <Route path="/withdraw" element={
                         <PrivetRoute>
                             <Withdraw />
+                        </PrivetRoute>
+                    }></Route>
+                    <Route path="/payments" element={
+                        <PrivetRoute>
+                            <Payments />
                         </PrivetRoute>
                     }></Route>
                     <Route path="/porfile/change_password" element={

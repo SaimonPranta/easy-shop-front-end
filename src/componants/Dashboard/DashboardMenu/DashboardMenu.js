@@ -1,12 +1,15 @@
-
 import React, { createContext, useContext } from "react";
-import "./DashboardMenu.css";
+// import "./DashboardMenu.scss";
 import { NavLink } from "react-router-dom";
 
-import { FaHome, FaSearchDollar, FaTh } from "react-icons/fa";
+import { FaHome, FaSearchDollar } from "react-icons/fa";
 import { FaMoneyCheckAlt } from "react-icons/fa";
 import { FaQrcode } from "react-icons/fa";
-import { RiProductHuntLine, RiProfileFill, RiSecurePaymentFill } from "react-icons/ri";
+import {
+  RiProductHuntLine,
+  RiProfileFill,
+  RiSecurePaymentFill,
+} from "react-icons/ri";
 import { FaUsersCog } from "react-icons/fa";
 import { FaUserAlt } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
@@ -24,6 +27,13 @@ import { GiRank3 } from "react-icons/gi";
 import { MdCompost } from "react-icons/md";
 import { HiShoppingBag } from "react-icons/hi";
 import { FaRegUserCircle } from "react-icons/fa";
+import { MdOutlineEdit } from "react-icons/md";
+import { userHeader } from "../../../shared/cooki";
+import FailedTost from "../../../shared/components/FailedTost/FailedTost";
+import SuccessTost from "../../../shared/components/SuccessTost/SuccessTost";
+
+import { ToastContainer } from "react-toastify";
+import getImageUrl from "../../../shared/functions/getImageUrl";
 
 const DashboardMenu = () => {
   const [user, setUser] = useContext(userContext);
@@ -34,12 +44,53 @@ const DashboardMenu = () => {
     document.cookie = "token=";
     setUser({});
   };
+  const handleProfileImgSubmit = (e) => {
+    const file = e.target.files[0];
+    const formData = new FormData();
+
+    formData.append("img", file);
+
+    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/profile/profile-pic`, {
+      method: "POST",
+      headers: {
+        ...userHeader(),
+      },
+      body: formData,
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("data ==>>", data);
+        if (data.data) {
+          setUser(data.data);
+          SuccessTost("Profile picture has been uploaded successfully");
+        } else if (data.message) {
+          FailedTost(data.message);
+        }
+      });
+  };
 
   return (
     <>
       <ul className="side-nav-container">
         <div className="user-profile">
-          <FaRegUserCircle />
+          <button className="profile-pic-btn">
+            <div className="picture-container">
+              {user.profilePicture && (
+                <img src={getImageUrl(user.profilePicture)} alt="" />
+              )}
+              {!user.profilePicture && <FaRegUserCircle />}
+            </div>
+            <>
+              <label htmlFor="fileUpload">
+                <MdOutlineEdit />
+              </label>
+              <input
+                type="file"
+                id="fileUpload"
+                onChange={handleProfileImgSubmit}
+              />
+            </>
+          </button>
           <p>{`${user?.firstName} ${user?.lastName}`} </p>
         </div>
         <li>
@@ -50,10 +101,18 @@ const DashboardMenu = () => {
         </li>
 
         <li className="nesting-menu">
-          <p><FaHome /> <span > Home <p className="upcomming">Upcoming</p></span></p>
+          <p>
+            <FaHome />{" "}
+            <span>
+              {" "}
+              Home <p className="upcomming">Upcoming</p>
+            </span>
+          </p>
         </li>
         <li className="nesting-menu">
-          <p><FaUserAlt /> <span onClick={handleSubMenu}> Profile</span></p>
+          <p>
+            <FaUserAlt /> <span onClick={handleSubMenu}> Profile</span>
+          </p>
           <ul className="sub-menu" id="sub-menu">
             <li>
               <NavLink to="/porfile/update_profile">
@@ -94,33 +153,83 @@ const DashboardMenu = () => {
           {/* <p><RiProfileFill /> <span >  Daily Jobs <p className="upcomming">Upcoming</p></span></p> */}
         </li>
         <li className="nesting-menu">
-          <p><RiSecurePaymentFill /> <span>Payment Reviews <p className="upcomming">Upcoming</p></span></p>
+          <NavLink to="/payments">
+            <RiSecurePaymentFill />
+            <span> Payments</span>
+          </NavLink>
+        </li>
+        {/* <li className="nesting-menu">
+          <p>
+            <RiSecurePaymentFill />{" "}
+            <span>
+              Payment Reviews <p className="upcomming">Upcoming</p>
+            </span>
+          </p>
+        </li> */}
+        <li className="nesting-menu">
+          <p>
+            <AiFillAccountBook />{" "}
+            <span>
+              Premium Account <p className="upcomming">Upcoming</p>
+            </span>
+          </p>
         </li>
         <li className="nesting-menu">
-          <p><AiFillAccountBook /> <span>Premium Account <p className="upcomming">Upcoming</p></span></p>
+          <p>
+            <FaSearchDollar />{" "}
+            <span>
+              Earnings <p className="upcomming">Upcoming</p>
+            </span>
+          </p>
         </li>
         <li className="nesting-menu">
-          <p><FaSearchDollar /> <span>Earnings <p className="upcomming">Upcoming</p></span></p>
+          <p>
+            <MdLiveHelp />{" "}
+            <span>
+              Help Line <p className="upcomming">Upcoming</p>
+            </span>
+          </p>
         </li>
         <li className="nesting-menu">
-          <p><MdLiveHelp /> <span >Help Line <p className="upcomming">Upcoming</p></span></p>
+          <p>
+            <MdCompost />{" "}
+            <span>
+              Competitions <p className="upcomming">Upcoming</p>
+            </span>
+          </p>
         </li>
         <li className="nesting-menu">
-          <p><MdCompost /> <span >Competitions <p className="upcomming">Upcoming</p></span></p>
+          <p>
+            <MdVolunteerActivism />{" "}
+            <span>
+              Active User <p className="upcomming">Upcoming</p>
+            </span>
+          </p>
         </li>
         <li className="nesting-menu">
-          <p><MdVolunteerActivism /> <span >Active User <p className="upcomming">Upcoming</p></span></p>
+          <p>
+            <HiShoppingBag />{" "}
+            <span>
+              Shop Now <p className="upcomming">Upcoming</p>
+            </span>
+          </p>
         </li>
         <li className="nesting-menu">
-          <p><HiShoppingBag /> <span >Shop Now <p className="upcomming">Upcoming</p></span></p>
+          <p>
+            <SiMicrosoftteams />{" "}
+            <span>
+              Refer Team Members <p className="upcomming">Upcoming</p>
+            </span>
+          </p>
         </li>
         <li className="nesting-menu">
-          <p><SiMicrosoftteams /> <span >Refer Team Members <p className="upcomming">Upcoming</p></span></p>
+          <p>
+            <GiRank3 />{" "}
+            <span>
+              Rank Leaders <p className="upcomming">Upcoming</p>
+            </span>
+          </p>
         </li>
-        <li className="nesting-menu">
-          <p><GiRank3 /> <span >Rank Leaders <p className="upcomming">Upcoming</p></span></p>
-        </li>
-
 
         {user.role === "admin" && (
           <li>
@@ -171,6 +280,7 @@ const DashboardMenu = () => {
           </a>
         </li>
       </ul>
+      <ToastContainer />
     </>
   );
 };

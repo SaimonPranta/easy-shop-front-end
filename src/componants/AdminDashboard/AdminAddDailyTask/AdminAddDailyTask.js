@@ -32,13 +32,12 @@ const AdminAddDailyTask = () => {
     if (taskListID) {
       setInput({ taskListID })
     }else if (dailyTaskID) {
-      setInput({ dailyTaskID })
       fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/get-daily-task-details?dailyTaskID=${dailyTaskID}`)
         .then((data) => data.json())
         .then((data) => {
           console.log("data ===>>>", data)
           if (data.data) { 
-            setInput(data.data)
+            setInput({...data.data, dailyTaskID})
           }
         })
         
@@ -94,6 +93,7 @@ const AdminAddDailyTask = () => {
       return setInput((state) => {
         return {
           ...state,
+          imageUpdate: true,
           [name]: e.target.files[0]
         }
       }
@@ -141,7 +141,13 @@ const AdminAddDailyTask = () => {
         btnLoading: true
       }
     })
-    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/admin-create-task`, {
+    let endPoint = "/daily-task/admin-create-task"
+
+    if (dailyTaskID) {
+     endPoint = "/daily-task/admin-edit-task"
+    }
+
+    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}${endPoint}`, {
       method: "POST",
       body: formData
     })

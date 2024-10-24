@@ -289,7 +289,7 @@
             top: 50%;
             transform: translate(-50%, -50%);
             border: 0px;
-            font-size: 35px;
+            font-size: 25px;
             font-weight: 1000;
             outline: none;
             padding: 0px;
@@ -298,7 +298,7 @@
             width: 102px;
             border-radius: 50%;
             color: #194959;
-            background-color: #FFF;
+            background-color: #FFF; 
 
             &::before {
                 content: "";
@@ -310,7 +310,7 @@
                 left: 50%;
                 border-radius: 50%;
                 transform: translate(-50%, -50%);
-                outline: 3px solid #cbcbcb;
+                outline: 0px solid transparent;
 
             }
 

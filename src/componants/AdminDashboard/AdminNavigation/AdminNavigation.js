@@ -1,5 +1,4 @@
-import React, { createContext, useContext } from "react";
-
+import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { FaDonate, FaQrcode } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
@@ -8,6 +7,7 @@ import { MdSupport } from "react-icons/md";
 import { IoNotifications } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
 import { MdOutlineAddTask } from "react-icons/md";
+import getImageUrl from "../../../shared/functions/getImageUrl";
 
 const AdminNavigation = () => {
   const [user, setUser] = useContext(userContext);
@@ -21,8 +21,14 @@ const AdminNavigation = () => {
     <>
       <ul className="side-nav-container">
         <div className="user-profile">
-          <FaRegUserCircle />
-          <p>{`${user?.firstName} ${user?.lastName}`} </p>
+          <button className="profile-pic-btn">
+            <div className="picture-container">
+              {user.profilePicture && (
+                <img src={getImageUrl(user.profilePicture)} alt="" />
+              )}
+              {!user.profilePicture && <FaRegUserCircle />}
+            </div>
+          </button>
         </div>
         <li>
           <NavLink to="/dashboard">
