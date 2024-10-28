@@ -17,21 +17,21 @@ import { IoMdCopy } from "react-icons/io";
 const paymentNumberArray = [
   {
     title: "বিকাশ",
-    property: "bikash",
+    property: "bkashNumber",
     label: "Bkash",
     bg: "#D02253",
     img: bkash,
   },
   {
     title: "নগদ",
-    property: "nagad",
+    property: "nagadNumber",
     label: "Nagad",
     bg: "#F6941C",
     img: nogod,
   },
   {
     title: "রকেট",
-    property: "rocket",
+    property: "rocketNumber",
     label: "Rocket",
     bg: "#8F3893",
     img: roket,
@@ -196,11 +196,12 @@ const Withdraw = () => {
       }
     }
   };
-
+ 
   const paymentsFormHandler = async (e) => {
-    e.preventDefault();
-    console.log("input ==>>", input)
+    e.preventDefault(); 
+
     if (
+      user.isActive ||
       !input.paymentMethod ||
       !input.paymentNumber ||
       !input.transitionNumber ||
@@ -210,8 +211,8 @@ const Withdraw = () => {
       return;
     }
     const formData = new FormData();
-    formData.append("img", input.img)
-    formData.append("data", JSON.stringify(input))
+    formData.append("img", input.img);
+    formData.append("data", JSON.stringify(input));
 
     setLoading(true);
 
@@ -232,7 +233,7 @@ const Withdraw = () => {
         setTableItems((state) => {
           return [data.data, ...state];
         });
-        setInput({})
+        setInput({});
       } else {
         FailedTost(data.message || "Withdraw request failed");
       }
@@ -247,7 +248,9 @@ const Withdraw = () => {
   const handleInputChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
-
+    if (user.isActive) {
+      return;
+    }
     if (name === "amount") {
       if (value && isNaN(value)) {
         return;
@@ -271,42 +274,9 @@ const Withdraw = () => {
     });
   };
 
-  const handleFilterInputChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-
-    setFilterInput((state) => {
-      return {
-        ...state,
-        [name]: value,
-      };
-    });
-  };
-  console.log(" ==>>", {
-    page,
-    currentPage,
-  });
-  const handleStatus = (id) => {
-    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/withdraw/status`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json; charset=UTF-8",
-        ...userHeader(),
-      },
-      body: JSON.stringify({ id }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.data) {
-          const updateTable = tableItems.map((item) => {
-            if (item._id === id) {
-              item.status = data.data?.status;
-            }
-            return item;
-          });
-          setTableItems(updateTable);
-        }
-      });
+  const handleNumberCopy = (number) => {
+    navigator.clipboard.writeText(number);
+    SuccessTost("Copied");
   };
   const goBack = () => {
     navigate(-1);
@@ -318,19 +288,17 @@ const Withdraw = () => {
         <div className="back-btn-section">
           <button onClick={goBack}>Back</button>
         </div>
-        <div className="payments-notice">
-          <p>
-            একাউন্ট এক্টিভ করার জন্য আপনার বিকাশ, নগদ, রকেট একাউন্ট থেকে নিচের
-            যেকোনো ১ টা নাম্বারে ১০০ টাকা সেন্ডমানি করুন। এই ১০০ টাকা কোনো এড ফি
-            বা ইনভেস্ট নয়, এই ১০০ টাকা আপনার একাউন্টে যুক্ত হবে আপনি আবার কাজ
-            করার মাধ্যমে উইথড্র করে নিতে পারবেন।
-          </p>
-        </div>
+        {config?.payment?.paymentNotice && (
+          <div className="payments-notice">
+            <p>{config?.payment?.paymentNotice}</p>
+          </div>
+        )}
         <div className="form-container">
           <div className="select-section">
             <div className="grid-section">
               {paymentNumberArray.map((item, index) => {
-                if (!config?.withdraw?.paymentMethods[item.property]) {
+                let number = config?.payment?.paymentsNumbers[item.property];
+                if (!number) {
                   return <></>;
                 }
                 return (
@@ -345,8 +313,8 @@ const Withdraw = () => {
                         {item.title}
                       </strong>
                       <div className="number-section">
-                        <p>01881476432</p>
-                        <button>
+                        <p>{number}</p>
+                        <button onClick={() => handleNumberCopy(number)}>
                           <IoMdCopy />
                         </button>
                       </div>
@@ -356,9 +324,11 @@ const Withdraw = () => {
               })}
             </div>
           </div>
-          <div className="payments-notice form-head">
-            <p>সেন্ডমানি সাকসেসফুল হলে, সঠিকভাবে নিচের ফর্মটি পূরণ করুন।</p>
-          </div>
+          {config?.payment?.paymentFormNotice && (
+            <div className="payments-notice form-head">
+              <p>{config?.payment?.paymentFormNotice}</p>
+            </div>
+          )}
           <div className="input-section-container">
             <div className="input-section">
               <label>আপনি কোন মাধ্যমে টাকা পাঠিয়েছেন সেটি সিলেক্ট করুন</label>
@@ -411,7 +381,7 @@ const Withdraw = () => {
             </div>
             <div className="submit-section">
               <button onClick={paymentsFormHandler} disabled={loading}>
-                Submit{" "}
+                Submit 
               </button>
             </div>
           </div>
@@ -429,9 +399,10 @@ const Withdraw = () => {
                 <tr>
                   <th className="small">#</th>
                   <th> Method</th>
-                  <th> Number</th> 
+                  <th> Number</th>
                   <th>Amount</th>
-                  <th>Date</th>
+                  <th>Transaction Number</th>
+                  {/* <th>Date</th> */}
                   <th>Status</th>
                   {/* <th>Actions</th> */}
                 </tr>
@@ -445,11 +416,11 @@ const Withdraw = () => {
                         <td>{reqInfo?.payments?.paymentMethod}</td>
                         <td>{reqInfo?.payments?.paymentNumber}</td>
                         <td>৳{reqInfo?.amount}</td>
-                        <td className="date">
+                        <td>{reqInfo?.payments?.transitionNumber}</td>
+                        {/* <td className="date">
                           {dateToString(reqInfo.createdAt)}
-                        </td>
+                        </td> */}
                         <td>{reqInfo?.status}</td>
-                         
                       </tr>
                     );
                   })}

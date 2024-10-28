@@ -34,7 +34,9 @@ import AdminDailyTask from '../componants/AdminDashboard/AdminDailyTask/index';
 import AdminDailyTaskList from '../componants/AdminDashboard/AdminDailyTaskList/index';
 import AdminWithdraw from '../componants/AdminDashboard/AdminWithdraw/index';
 import AdminWithdrawConfig from '../componants/AdminDashboard/AdminWithdrawConfig/index';
+import AdminPaymentsConfig from '../componants/AdminDashboard/AdminPaymentsConfig/index';
 import AdminAddDailyTask from '../componants/AdminDashboard/AdminAddDailyTask/index'; 
+import AdminPayments from '../componants/AdminDashboard/AdminPayments/index';
 
 
 const Routess = () => {
@@ -147,6 +149,16 @@ const Routess = () => {
                     <Route path="/admin/withdraw-config" element={
                         <AdminPrivetRoute>
                             <AdminWithdrawConfig />
+                        </AdminPrivetRoute>
+                    }></Route>
+                     <Route path="/admin/payments" element={
+                        <AdminPrivetRoute>
+                            <AdminPayments />
+                        </AdminPrivetRoute>
+                    }></Route>
+                    <Route path="/admin/payments-config" element={
+                        <AdminPrivetRoute>
+                            <AdminPaymentsConfig />
                         </AdminPrivetRoute>
                     }></Route>
                     <Route path="/admin/add-daily-task" element={

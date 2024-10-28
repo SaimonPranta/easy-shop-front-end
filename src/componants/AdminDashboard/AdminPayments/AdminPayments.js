@@ -10,15 +10,16 @@ import { FaRegUserCircle } from "react-icons/fa";
 import getImageUrl from "../../../shared/functions/getImageUrl";
 import { imageContext } from "../../../App";
 
-const AdminDailyTask = () => {
+const AdminPayments = () => {
   const [filterInput, setFilterInput] = useState({});
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(0);
   const [tableItems, setTableItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
+  const { setViewImage } = useContext(imageContext);
+
   const debounceState = useRef();
-  const {setViewImage} = useContext(imageContext)
 
   const navigate = useNavigate();
 
@@ -31,7 +32,7 @@ const AdminDailyTask = () => {
     resetTimeout();
     debounceState.current = setTimeout(() => {
       fetch(
-        `${process.env.REACT_APP_SERVER_HOST_URL}/admin-withdraw?page=${page}`,
+        `${process.env.REACT_APP_SERVER_HOST_URL}/admin-payments?page=${page}`,
         {
           method: "POST",
           headers: {
@@ -74,12 +75,6 @@ const AdminDailyTask = () => {
   }, [page, filterInput.searchSubmit]);
 
   const handleScroll = () => {
-    console.log("Call scroll", {
-      currentPage,
-      page,
-      currentLength: tableItems.length,
-      total,
-    });
     if (loading) {
       return;
     }
@@ -120,7 +115,7 @@ const AdminDailyTask = () => {
     });
   };
   const handleStatus = (status, id) => {
-    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/admin-withdraw/status`, {
+    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/admin-payments/status`, {
       method: "PUT",
       headers: {
         "content-type": "application/json; charset=UTF-8",
@@ -157,7 +152,7 @@ const AdminDailyTask = () => {
   };
 
   const handleConfigNavigation = () => {
-    navigate("/admin/withdraw-config");
+    navigate("/admin/payments-config");
   };
 
   return (
@@ -166,7 +161,7 @@ const AdminDailyTask = () => {
         <button onClick={handleConfigNavigation}>Set Config</button>
       </div>
       <div className="common-table-section">
-        <h4 className="dashboard-title">ADMIN WITHDRAW HISTORY</h4>
+        <h4 className="dashboard-title">ADMIN PAYMENTS HISTORY</h4>
         <div className="balance-section"></div>
         <div className="filter-section">
           <div className="input-section">
@@ -188,12 +183,7 @@ const AdminDailyTask = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <select name="balance" onChange={handleInputChange}>
-              <option>Select Balance</option>
-              <option>Main Balance</option>
-              <option>Sales Balance</option>
-              <option>Task Balance</option>
-            </select>
+
             <input
               type="text"
               placeholder="Search here ..."
@@ -215,12 +205,12 @@ const AdminDailyTask = () => {
                 <th className="img">Img</th>
                 <th className="big">User Name</th>
                 <th>User ID</th>
-                <th className="big">Balance</th>
                 <th>Method</th>
                 <th>Number</th>
-                <th>PIN</th>
+                <th>Transaction Number</th>
                 <th>Amount</th>
                 <th className="big">Account Balance</th>
+                <th>Screen Short</th>
                 <th>Ago</th>
                 <th>Date</th>
                 <th>Status</th>
@@ -246,7 +236,11 @@ const AdminDailyTask = () => {
                           <img
                             src={getImageUrl(reqInfo?.userID?.profilePicture)}
                             alt=""
-                            onDoubleClick={() => setViewImage(getImageUrl(reqInfo?.userID?.profilePicture))}
+                            onDoubleClick={() =>
+                              setViewImage(
+                                getImageUrl(reqInfo?.userID?.profilePicture)
+                              )
+                            }
                           />
                         )}
                         {!reqInfo?.userID?.profilePicture && (
@@ -255,12 +249,22 @@ const AdminDailyTask = () => {
                       </td>
                       <td>{reqInfo?.userID?.fullName}</td>
                       <td>{reqInfo?.userID?.phoneNumber}</td>
-                      <td>{reqInfo?.balanceType}</td>
-                      <td>{reqInfo?.withdraw?.provider}</td>
-                      <td>{reqInfo?.withdraw?.phoneNumber}</td>
-                      <td>{reqInfo?.withdraw?.accountPIN}</td>
+                      <td>{reqInfo?.payments?.paymentMethod}</td>
+                      <td>{reqInfo?.payments?.paymentNumber}</td>
+                      <td>{reqInfo?.payments?.transitionNumber}</td>
                       <td>৳{reqInfo?.amount}</td>
                       <td>৳{accountBalance}</td>
+                      <td className="img big">
+                        <img
+                          src={getImageUrl(reqInfo?.payments?.img)}
+                          alt=""
+                          onDoubleClick={() =>
+                            setViewImage(
+                              getImageUrl(reqInfo?.payments?.img)
+                            )
+                          }
+                        />
+                      </td>
                       <td className="date">{timeAgo(reqInfo.createdAt)}</td>
                       <td className="date">
                         {dateToString(reqInfo.createdAt)}
@@ -330,4 +334,4 @@ const AdminDailyTask = () => {
   );
 };
 
-export default AdminDailyTask;
+export default AdminPayments;

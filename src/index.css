@@ -29,6 +29,48 @@ body {
       font-size: 14px;
     }
   }
+
+  .image-viewer {
+    position: fixed;
+    height: 100vh;
+    width: 100vw;
+    left: 0px;
+    top: 0px;
+    z-index: 99999;
+    background-color: #FFF;
+
+    .inner-container {
+      height: 100%;
+      width: 100%;
+      position: relative;
+
+      button {
+        position: absolute;
+        right: 40px;
+        top: 20px;
+        border: 1px solid #e4e4e4;
+        border-radius: 4px;
+        background-color: rgba(0, 0, 0, 0.17);
+        backdrop-filter: blur(5px);
+        svg {
+          height: 40px;
+          width: 40px;
+          color: #FFF;
+        }
+        &:hover{
+          opacity: .7;
+        }
+        &:active{
+          transform: scale(.95);
+        }
+      }
+
+      img {
+        height: 100vh;
+        width: 100vw;
+      }
+    }
+  }
 }
 
 code {

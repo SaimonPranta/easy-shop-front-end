@@ -8,6 +8,7 @@ import { IoNotifications } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
 import { MdOutlineAddTask } from "react-icons/md";
 import getImageUrl from "../../../shared/functions/getImageUrl";
+import { RiSecurePaymentFill } from "react-icons/ri";
 
 const AdminNavigation = () => {
   const [user, setUser] = useContext(userContext);
@@ -64,6 +65,12 @@ const AdminNavigation = () => {
           <NavLink to="/admin/withdraw">
             <FaDonate />
             <span> Withdraw</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/admin/payments">
+            <RiSecurePaymentFill />
+            <span> Payments</span>
           </NavLink>
         </li>
 

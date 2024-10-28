@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./style.scss";
 import { useNavigate } from "react-router-dom";
 import { dateToDateString } from "../../../shared/functions/formateDate";
@@ -8,6 +8,7 @@ import { ToastContainer } from "react-toastify";
 import { getCooki } from "../../../shared/cooki";
 import getImageUrl from "../../../shared/functions/getImageUrl";
 import { FaRegUserCircle } from "react-icons/fa";
+import { imageContext } from "../../../App";
 
 const cookie = getCooki();
 
@@ -16,6 +17,7 @@ const AdminDailyTask = () => {
   const [taskList, setTaskList] = useState([]);
   const [selectTask, setSelectTask] = useState({});
   const [user, setUser] = useState({});
+  const {setViewImage} = useContext(imageContext)
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -117,6 +119,8 @@ const AdminDailyTask = () => {
                             <img
                               alt=""
                               src={getImageUrl(task?.userID?.profilePicture)}
+                              onDoubleClick={() => setViewImage(getImageUrl(task?.userID?.profilePicture))}
+                            
                             />
                           )}
                           {!task?.userID?.profilePicture && <FaRegUserCircle />}
@@ -174,8 +178,9 @@ const AdminDailyTask = () => {
                         <td className="user-profile">
                           <div className="">
                             <img
-                              src={`${process.env.REACT_APP_SERVER_HOST_URL}/${task?.dailyTaskID?.img}`}
+                              src={getImageUrl(task?.dailyTaskID?.img)}
                               alt=""
+                              onDoubleClick={() => setViewImage(getImageUrl(task?.dailyTaskID?.img))}
                             />
                             <h4>{task?.dailyTaskID?.description}</h4>
                           </div>
@@ -208,8 +213,9 @@ const AdminDailyTask = () => {
                 return (
                   <div key={index} className="list-item">
                     <img
-                      src={`${process.env.REACT_APP_SERVER_HOST_URL}/${img}`}
+                      src={getImageUrl(img)}
                       alt=" "
+                      onDoubleClick={() => setViewImage(getImageUrl(img))}
                     />
                   </div>
                 );

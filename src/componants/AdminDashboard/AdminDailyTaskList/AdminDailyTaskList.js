@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./style.scss";
 import SuccessTost from "../../../shared/components/SuccessTost/SuccessTost";
 import FailedTost from "../../../shared/components/FailedTost/FailedTost";
@@ -7,6 +7,8 @@ import { userHeader } from "../../../shared/cooki";
 import { dateToString } from "../../../shared/functions/dateConverter";
 import { useNavigate } from "react-router-dom";
 import { dateToDateString } from "../../../shared/functions/formateDate";
+import getImageUrl from "../../../shared/functions/getImageUrl";
+import { imageContext, } from "../../../App";
 
 const AdminDailyTaskList = () => {
   const [filterInput, setFilterInput] = useState({
@@ -19,6 +21,7 @@ const AdminDailyTaskList = () => {
   const [total, setTotal] = useState(0);
   const [reRender, setReRender] = useState(false);
   const debounceState = useRef();
+  const { setViewImage } = useContext(imageContext);
 
   const navigate = useNavigate();
 
@@ -247,8 +250,11 @@ const AdminDailyTaskList = () => {
                         <td className="small">{index + 1}</td>
                         <td className="img">
                           <img
-                            src={`${process.env.REACT_APP_SERVER_HOST_URL}/${reqInfo?.img}`}
+                            src={getImageUrl(reqInfo?.img)}
                             alt=""
+                            onDoubleClick={() =>
+                              setViewImage(getImageUrl(reqInfo?.img))
+                            }
                           />
                         </td>
                         <td>{reqInfo?.description}</td>

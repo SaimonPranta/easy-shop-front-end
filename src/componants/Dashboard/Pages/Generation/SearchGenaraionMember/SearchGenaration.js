@@ -27,7 +27,7 @@ const SearchGenaration = ({ userr }) => {
 
                              return <tr key={user._id}>
                                  <td>{index + 1}</td>
-                                 <td>{user.firstName} {user.lastName}</td>
+                                 <td>{user.name}</td>
                                  <td>{user.phoneNumber}</td>
                                  <td>{user.referNumber}</td>
                                  <td>{user.joinDate}</td>
