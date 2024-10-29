@@ -1,0 +1,51 @@
+.refer-team-member-page {
+    display: flex !important;
+    justify-content: center;
+    width: 100%;
+
+    .inner-section {
+        width: 95%;
+        max-width: 800px;
+
+        .back-btn-section {
+            padding: 10px 0px;
+            display: flex;
+            justify-content: right;
+
+            button {
+                padding: 5px;
+                border: 0px;
+                outline: 0px;
+                border-radius: 4px;
+                font-weight: 800;
+                background-color: #ffc106;
+                color: #FFF;
+            }
+        }
+    }
+}
+
+
+
+@media only screen and (min-width:200px) and (max-width:750px) {
+    .withdraw-page {
+        width: 100vw;
+
+        .inner-section {
+            .withdraw-notice {
+                p {
+                    font-size: 12px;
+                }
+            }
+
+            .back-btn-section {
+                button {
+                    padding: 3px 5px;
+                    font-size: 12px;
+
+                }
+            }
+ 
+        }
+    }
+}

@@ -12,16 +12,12 @@ import { ToastContainer } from "react-toastify";
 import { configContext, userContext } from "../../../../App";
 import handleSpinReward from "./utilities/hadleSpinReward";
 
-
-
-
-
-
 const DailyTask = () => {
   const [dailyTasks, setDailyTasks] = useState([]);
   const [seeMoreID, setSeeMoreID] = useState("");
   const [isAllCompleted, setIsAllCompleted] = useState(false);
   const [disableSpin, setDisableSpin] = useState(false);
+  const [isButtonDisable, setIsButtonDisable] = useState(false);
   const [reRender, setRerender] = useState(false);
   const [images, setImages] = useState([]);
   const [spinPointHistory, setPinPointHistory] = useState([]);
@@ -123,6 +119,8 @@ const DailyTask = () => {
     try {
       const formData = new FormData();
       if (!images.length) {
+        FailedTost("Task prove Image are required");
+
         return;
       }
       images.forEach((image, index) =>
@@ -130,7 +128,7 @@ const DailyTask = () => {
       );
       formData.append("taskListID", taskInfo?._id);
       formData.append("dailyTaskID", taskInfo?.currentTaskID?._id);
-      console.log("Hello form return");
+      setIsButtonDisable(true);
       fetch(
         `${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/create-user-history`,
         {
@@ -149,6 +147,9 @@ const DailyTask = () => {
           if (data.success) {
             setRerender((state) => !state);
           }
+        })
+        .finally(() => {
+          setIsButtonDisable(false);
         });
     } catch (error) {
       console.log("error", error);
@@ -157,6 +158,7 @@ const DailyTask = () => {
 
   const handleImgUpload = (e) => {
     if (images.length >= 8) {
+      FailedTost("You can't upload more than eight image");
       return;
     }
     setImages((state) => {
@@ -194,7 +196,7 @@ const DailyTask = () => {
             setUser((state) => {
               return {
                 ...state,
-                pointAmount: (state?.pointAmount || 0) + data?.pointAmount,
+                pointAmount: data?.pointAmount || 0,
               };
             });
           }
@@ -208,13 +210,13 @@ const DailyTask = () => {
         <div className="title-container">
           <h6>Daily Task</h6>
         </div>
+
         <div className="task-container">
-          <div className="notification-container">
-            <h5>
-              ফেসবুক ইউটিউবে এবং টিকটকে লাইক ফলো ও সাবস্ক্রাইব নিতে 01936396595
-              এই নাম্বারে WhatsApp যোগাযোগ করবেন।
-            </h5>
-          </div>
+          {config?.dailyTask?.taskNotice && (
+            <div className="notification-container">
+              <h5>{config?.dailyTask?.taskNotice}</h5>
+            </div>
+          )}
           <div className="heading-section">
             <h3>আজকের ডেইলি টাক্স এর কাজ হলো </h3>
 
@@ -277,7 +279,8 @@ const DailyTask = () => {
                         )}
                         <div className="input-section">
                           <button>
-                            <FcAddImage />
+                            {/* <FcAddImage /> */}
+                            Upload Files
                           </button>
                           <input
                             type="file"
@@ -298,9 +301,28 @@ const DailyTask = () => {
                                 );
                                 return;
                               }
-                              if (!user.availableForTask) {
+                              let disableStartDate = null;
+                              let disableEndDate = null;
+                              if (config?.dailyTask?.taskStartDate) {
+                                disableStartDate = new Date(
+                                  config?.dailyTask?.taskStartDate
+                                );
+                              }
+                              if (config?.dailyTask?.taskExpireDate) {
+                                disableEndDate = new Date(
+                                  config?.dailyTask?.taskExpireDate
+                                );
+                              }
+
+                              if (
+                                disableStartDate &&
+                                disableEndDate &&
+                                disableStartDate < new Date() &&
+                                disableEndDate > new Date()
+                              ) {
                                 FailedTost(
-                                  "This section is temporary disable for you, to enable this section you need to refer minimum 4 parson in last 15 days"
+                                  config?.dailyTask?.taskOffNotice ||
+                                    "Today daily task section holiday"
                                 );
                                 return;
                               }
@@ -327,6 +349,7 @@ const DailyTask = () => {
                                 Close
                               </button>
                               <button
+                                disabled={isButtonDisable}
                                 onClick={() => handleTaskSubmit(taskInfo)}
                               >
                                 Task Submit

@@ -8,10 +8,8 @@ import Login from '../componants/Login/Login';
 import Dashboard from '../componants/Dashboard/Dashboard';
 import MyBalance from '../componants//Dashboard/Pages/MyBalance/index';
 import Generation from '../componants/Dashboard/Pages/Generation/Index';
-import BalanceRequest from '../componants/Dashboard/Pages/BalanceRequest/index';
-import BalanceTransfer from '../componants/Dashboard/Pages/BalanceTransfer/Index';
-import MobileRecharge from '../componants/Dashboard/Pages/MobileRecharge/Index';
 import Withdraw from '../componants/Dashboard/Pages/Withdraw/Index';
+import ReferTeamMember from '../componants/Dashboard/Pages/ReferTeamMember/Index';
 import Payments from '../componants/Dashboard/Pages/Payments/Index';
 import ChangePassword from '../componants/Dashboard/Pages/ChangePassword/Index';
 import UpdateProfile from '../componants/Dashboard/Pages/UpdateProfile/Index';
@@ -71,6 +69,11 @@ const Routess = () => {
                             <Generation />
                         </PrivetRoute>
                     }></Route>
+                    <Route path="/refer-team-member" element={
+                        <PrivetRoute>
+                            <ReferTeamMember />
+                        </PrivetRoute>
+                    }></Route>
                     <Route path="/rank_history" element={
                         <PrivetRoute>
                             <RankHistory />
@@ -81,11 +84,11 @@ const Routess = () => {
                             <DailyTask />
                         </PrivetRoute>
                     }></Route>
-                    <Route path="/balance_request" element={
+                    {/* <Route path="/balance_request" element={
                         <PrivetRoute>
                             <BalanceRequest />
                         </PrivetRoute>
-                    }></Route>
+                    }></Route> */}
                     {/* <Route path="/balance_transfer" element={
                         <PrivetRoute>
                             <BalanceTransfer />

@@ -40,6 +40,18 @@ const timeAgo = (inputDate = new Date()) => {
     return `${Math.floor(seconds)} seconds ago`;
 }
 
+const dateToCalenderFormat = (isoString) => {
+    // Parse the ISO date string
+    const date = new Date(isoString);
+
+    // Extract year, month, and day
+    const year = date.getUTCFullYear();
+    const month = String(date.getUTCMonth() + 1).padStart(2, "0"); // Months are 0-based, so add 1
+    const day = String(date.getUTCDate()).padStart(2, "0");
+
+    // Return the formatted date
+    return `${year}-${month}-${day}`;
+  }
  
 
-export { dateToString, timeAgo };
+export { dateToString, timeAgo, dateToCalenderFormat};

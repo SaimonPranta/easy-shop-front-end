@@ -1,22 +1,22 @@
 import React from 'react';
 import DashboardMenu from '../../DashboardMenu/DashboardMenu';
 import DashboardHeader from '../DashboardHeader/DashboardHeader';
-import BalanceRequest from './BalanceRequest';
+import ReferTeamMember from './ReferTeamMember';
 
-const index = () => {
+const Index = () => {
     return (
         <div className='dashboard-section' id='dastbord-menu-controler-contaienr'>
             <DashboardHeader />
-            <div className='dashboard-container dashboard-container-active'>
+            <div className='dashboard-container'>
                 <div className='dashboard-menu'>
                     <DashboardMenu />
                 </div>
                 <div className="dashbord-main-body-container">
-                    <BalanceRequest />
+                    <ReferTeamMember />
                 </div>
             </div>
         </div>
     );
 };
 
-export default index;
+export default Index;

@@ -21,6 +21,7 @@
 
             .item {
                 width: 100%;
+                max-width: 40%;
 
                 &.payment {
                     .top {
@@ -189,22 +190,24 @@
                     &.date {
                         min-width: 200px;
                     }
-                    &.img{
-                        img{
+
+                    &.img {
+                        img {
                             height: 40px;
                             width: 40px;
                             border-radius: 4px;
                         }
                     }
 
-                    &.btn-container, &.btn-container-center { 
+                    &.btn-container,
+                    &.btn-container-center {
                         div {
                             display: flex;
                             align-items: center;
                             justify-content: center;
                             gap: 4px;
                             height: 100%;
-                            width: 100%; 
+                            width: 100%;
 
                             button {
                                 border: none;

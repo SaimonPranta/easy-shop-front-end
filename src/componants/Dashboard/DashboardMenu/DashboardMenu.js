@@ -183,12 +183,10 @@ const DashboardMenu = () => {
           </p>
         </li>
         <li className="nesting-menu">
-          <p>
-            <MdLiveHelp />{" "}
-            <span>
-              Help Line <p className="upcomming">Upcoming</p>
-            </span>
-          </p>
+          <NavLink to="/helpline">
+            <MdLiveHelp />
+            <span> Help Line</span>
+          </NavLink>
         </li>
         <li className="nesting-menu">
           <p>
@@ -207,12 +205,10 @@ const DashboardMenu = () => {
           </p>
         </li>
         <li className="nesting-menu">
-          <p>
-            <HiShoppingBag />{" "}
-            <span>
-              Shop Now <p className="upcomming">Upcoming</p>
-            </span>
-          </p>
+          <NavLink to="/">
+            <MdLiveHelp />
+            <span> Shop Now </span>
+          </NavLink>
         </li>
         <li className="nesting-menu">
           <p>
