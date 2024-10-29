@@ -56,7 +56,16 @@ const Withdraw = () => {
               setTableItems((state) => {
                 return [...data.data];
               });
+              setSearchBalance({
+                totalReferUser: data.totalReferUser || 0
+              });
             } else {
+              setSearchBalance((state) => {
+                return {
+                  ...state,
+                  totalReferUser : state.totalReferUser + data.totalReferUser
+                }
+              }) 
               setTableItems((state) => {
                 return [...state, ...data.data];
               });
@@ -70,9 +79,7 @@ const Withdraw = () => {
           if (data.total) {
             setTotal(data.total);
           }
-          setSearchBalance({
-            totalReferUser: data.totalReferUser || 0
-          });
+         
         })
         .finally(() => {
           setLoading(false);

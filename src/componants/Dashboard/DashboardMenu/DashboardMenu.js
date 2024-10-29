@@ -210,13 +210,19 @@ const DashboardMenu = () => {
             <span> Shop Now </span>
           </NavLink>
         </li>
-        <li className="nesting-menu">
+        {/* <li className="nesting-menu">
           <p>
             <SiMicrosoftteams />{" "}
             <span>
-              Refer Team Members <p className="upcomming">Upcoming</p>
+               <p className="upcomming">Upcoming</p>
             </span>
           </p>
+        </li> */}
+        <li>
+          <NavLink to="/refer-team-member">
+            <SiMicrosoftteams />
+            <span> Refer Team Members</span>
+          </NavLink>
         </li>
         <li className="nesting-menu">
           <p>
