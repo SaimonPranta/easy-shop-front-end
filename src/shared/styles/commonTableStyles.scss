@@ -199,6 +199,27 @@
                         }
                     }
 
+                    &.img-name {
+                        text-align: start;
+
+                        div {
+                            display: flex;
+                            align-items: center;
+                            gap: 5px;
+
+                            p {
+                                margin: 0px;
+                                padding: 0px;
+                            }
+
+                            img {
+                                height: 40px;
+                                width: 40px;
+                                border-radius: 4px;
+                            }
+                        }
+                    }
+
                     &.btn-container,
                     &.btn-container-center {
                         div {
@@ -215,6 +236,7 @@
                                 border-radius: 4px;
                                 color: #FFF;
                                 background-color: red;
+                                width: max-content;
 
                                 &.reject {
                                     background-color: blue;

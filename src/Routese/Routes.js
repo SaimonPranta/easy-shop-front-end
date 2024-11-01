@@ -31,9 +31,11 @@ import DailyTask from '../componants/Dashboard/Pages/DailyTask/index';
 import AdminDailyTask from '../componants/AdminDashboard/AdminDailyTask/index';
 import AdminDailyTaskList from '../componants/AdminDashboard/AdminDailyTaskList/index';
 import AdminWithdraw from '../componants/AdminDashboard/AdminWithdraw/index';
+import AdminUser from '../componants/AdminDashboard/AdminUser/index';
 import AdminWithdrawConfig from '../componants/AdminDashboard/AdminWithdrawConfig/index';
 import AdminPaymentsConfig from '../componants/AdminDashboard/AdminPaymentsConfig/index';
 import AdminAddDailyTask from '../componants/AdminDashboard/AdminAddDailyTask/index'; 
+import AdminAddRanks from '../componants/AdminDashboard/AdminAddRanks/index'; 
 import AdminPayments from '../componants/AdminDashboard/AdminPayments/index';
 
 
@@ -149,6 +151,11 @@ const Routess = () => {
                             <AdminWithdraw />
                         </AdminPrivetRoute>
                     }></Route>
+                    <Route path="/admin/user" element={
+                        <AdminPrivetRoute>
+                            <AdminUser />
+                        </AdminPrivetRoute>
+                    }></Route>
                     <Route path="/admin/withdraw-config" element={
                         <AdminPrivetRoute>
                             <AdminWithdrawConfig />
@@ -168,7 +175,11 @@ const Routess = () => {
                         <AdminPrivetRoute>
                             <AdminAddDailyTask />
                         </AdminPrivetRoute>
-
+                    }></Route>
+                    <Route path="/admin/add-ranks/:userID" element={
+                        <AdminPrivetRoute>
+                            <AdminAddRanks />
+                        </AdminPrivetRoute>
                     }></Route>
                     <Route path="/product" element={
                         <AdminPrivetRoute>

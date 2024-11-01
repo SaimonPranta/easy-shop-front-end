@@ -283,7 +283,7 @@ const AdminAddDailyTask = () => {
           className={activeTab === "daily-task" ? "active" : ""}
           onClick={() => setActiveTab("daily-task")}
         >
-          Add Daily Task
+    Add Daily Task
         </button>
         <button
           className={activeTab === "task-reward" ? "active" : ""}

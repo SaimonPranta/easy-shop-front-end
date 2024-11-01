@@ -1,0 +1,250 @@
+ .rank-history-page {
+     display: flex;
+     align-items: center !important;
+     justify-content: center !important;
+     width: 100%;
+
+     .inner-container {
+         width: calc(100% - 40px);
+         max-width: 800px;
+         display: flex;
+         flex-direction: column;
+         //  justify-content: center;
+         align-items: center;
+         //  align-items: center;
+         justify-content: center;
+
+         .title-section {
+             width: 100%;
+         }
+
+         .no-rank {
+             width: 100%;
+             margin-top: 120px;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+
+             .cart {
+                 position: relative;
+                 background-color: #0ea284;
+                 width: 90%;
+                 color: #FFF;
+                 padding: 70px 10px 10px 10px;
+
+                 .icon-section {
+                     position: absolute;
+                     height: 130px;
+                     width: 130px;
+                     border-radius: 50%;
+                     border: 1px solid #e4e4e4;
+                     display: flex;
+                     align-items: center;
+                     justify-content: center;
+                     left: 50%;
+                     top: -50%;
+                     transform: translateX(-50%);
+                     background-color: #0ea284;
+
+                     svg {
+                         height: 60%;
+                         width: 60%;
+                     }
+                 }
+
+                 .des-section {
+                     h6 {
+                         text-align: center;
+                         width: 100%;
+                         font-size: 28px;
+                         font-weight: 600;
+                     }
+
+                     p {
+                         text-align: center;
+                         width: max-content;
+                         margin: 10px auto;
+                         color: #f4c511;
+                         font-size: 22px;
+                         position: relative;
+                         padding: 0px;
+
+                         &::after {
+                             position: absolute;
+                             content: "";
+                             left: 0px;
+                             top: 0px;
+                             width: 70%;
+                             height: 1px;
+                             background-color: #f4c511;
+                         }
+                     }
+                 }
+             }
+         }
+
+         .rank-info-grid {
+             margin-top: 20px;
+             width: 100%;
+             display: flex;
+             align-items: center;
+             justify-content: center;
+
+             .cart {
+                 width: 100%;
+                 background-color: #FFF;
+                 width: 100%;
+                 border-radius: 20px;
+                 padding: 20px;
+
+                 .profile-pic-section {
+                     display: flex;
+                     flex-direction: column;
+                     align-items: center;
+                     gap: 10px;
+
+                     .img {
+                         height: 140px;
+                         width: 140px;
+                         border: 1px solid #e4e4e4;
+                         border-radius: 50%;
+                         //  overflow: hidden;
+                         position: relative;
+
+                         .main {
+                             height: 100%;
+                             width: 100%;
+                             overflow: hidden;
+                             border-radius: 50%;
+
+
+                             svg,
+                             img {
+                                 height: 100%;
+                                 width: 100%;
+                             }
+                         }
+
+                         .star {
+                             height: 40px;
+                             width: 40px;
+                             position: absolute;
+                             right: -5px;
+                             top: 5px;
+                         }
+                     }
+
+                     p {
+                         background-color: #00a2ff;
+                         font-size: 24px;
+                         border-radius: 4px;
+                         color: #FFF
+                     }
+                 }
+
+                 .des-section {
+                     .list-item {
+                         display: flex;
+                         padding: 0px 20px;
+                         padding-left: 30px;
+                         align-items: center;
+                         gap: 10px;
+                         border-top: 1px dotted #e4e4e4;
+                         position: relative;
+
+                         &:last-child {
+                             border-bottom: 1px dotted #e4e4e4;
+
+                         }
+
+                         &:nth-child(even) {
+                             background-color: #f5ebeb;
+                         }
+
+                         &::before {
+                             position: absolute;
+                             content: "";
+                             height: 8px;
+                             width: 8px;
+                             border-radius: 50%;
+                             background-color: #000;
+                             left: 5px;
+                             top: 50%;
+                             transform: translateY(-50%);
+                         }
+
+                         p,
+                         strong {
+                             margin: 0px;
+                             padding: 0px;
+                             font-size: 18px;
+                         }
+                     }
+                 }
+             }
+         }
+     }
+ }
+
+ @media only screen and (min-width:200px) and (max-width:750px) {
+
+     .rank-history-page {
+         width: 100vw;
+         display: flex !important;
+
+         .inner-container {
+
+             .no-rank {
+                 margin-top: 100px;
+
+                 .cart {
+
+                     .icon-section {
+                         height: 100px;
+                         width: 100px;
+                         top: -30%;
+
+                         svg {
+                             height: 60%;
+                             width: 60%;
+                         }
+                     }
+
+                     .des-section {
+                         h6 {}
+
+                         p {}
+                     }
+                 }
+             }
+
+             .rank-info-grid {
+
+                 .cart {
+
+                     .profile-pic-section {
+
+                         .img {
+                             height: 100px;
+                             width: 100px;
+
+                             .main {}
+
+                             .star {}
+                         }
+
+                         p {}
+                     }
+
+                     .des-section {
+                         .list-item {
+                             p,
+                             strong {}
+                         }
+                     }
+                 }
+             }
+         }
+     }
+
+ }

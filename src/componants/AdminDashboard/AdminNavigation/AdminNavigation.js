@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { FaDonate, FaQrcode } from "react-icons/fa";
+import { FaDonate, FaQrcode, FaUsersCog } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
 import { userContext } from "../../../App";
 import { MdSupport } from "react-icons/md";
@@ -35,6 +35,12 @@ const AdminNavigation = () => {
           <NavLink to="/dashboard">
             <FaQrcode />
             <span> Dashboard</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/admin/user">
+          <FaUsersCog />
+            <span> User List</span>
           </NavLink>
         </li>
         <li>
