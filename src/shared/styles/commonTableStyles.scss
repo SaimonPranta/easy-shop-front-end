@@ -18,6 +18,7 @@
             display: flex;
             width: 100%;
             gap: 20px;
+            justify-content: center;
 
             .item {
                 width: 100%;
@@ -53,6 +54,7 @@
 
                     strong {
                         color: #4f4f4f;
+                        text-align: center;
                     }
 
                     p {
@@ -196,6 +198,31 @@
                             height: 40px;
                             width: 40px;
                             border-radius: 4px;
+                        }
+                    }
+
+                    &.description {
+                        div {
+                            
+                            &.ellipsis{
+                                height: 40px;
+                                overflow: hidden;
+                                p {
+                                    display: inline-block;
+                                    width: 100%;
+                                    height: 60px;
+                                    overflow: hidden;
+                                    text-overflow: ellipsis;
+                                    display: -webkit-box;
+                                    -webkit-box-orient: vertical;
+                                    -webkit-line-clamp: 2;
+                                    line-height: 20px;
+                                     
+    
+                                }
+                            }
+
+                           
                         }
                     }
 

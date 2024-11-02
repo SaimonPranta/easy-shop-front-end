@@ -1,4 +1,4 @@
-.admin-withdraw{
+.admin-user{
   .btn-container{
     display: flex;
     align-items: center;
@@ -21,14 +21,25 @@
   }
   .common-table-section{
     max-width: 1000px;
+    .balance-section{
+      .grid-section{
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        grid-gap: 20px; 
+        .item{
+          max-width: 100%; 
+        }
+      }
+    }
     .table-section{ 
         height: 400px;
     }
+
   }
 }
 
 @media only screen and (min-width:200px) and (max-width:750px) {
-  .admin-withdraw{
+  .admin-user{
     .btn-container{ 
       button{
         font-size: 12px;

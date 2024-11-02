@@ -1,6 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import "./style.scss";
-import index from "../AdminNotification/index";
+import "./style.scss"; 
 import { getCooki } from "../../../shared/cooki";
 import { configContext } from "../../../App";
 import { useLocation, useNavigate } from "react-router-dom";

@@ -6,14 +6,47 @@ import { ToastContainer } from "react-toastify";
 import { userHeader } from "../../../shared/cooki";
 import { dateToString, timeAgo } from "../../../shared/functions/dateConverter";
 import { useNavigate } from "react-router-dom";
-import { FaRegUserCircle } from "react-icons/fa";
+import { FaRegUserCircle, FaUsers } from "react-icons/fa";
 import getImageUrl from "../../../shared/functions/getImageUrl";
 import { imageContext } from "../../../App";
+import wallet from "../../../assets/images/dashboard/wallet.png";
 
+const tableBalanceArray = [
+  {
+    title: "Total User",
+    property: "total",
+    user: true,
+  },
+  {
+    title: "Total Active User",
+    property: "activeUser",
+    user: true,
+  },
+  {
+    title: "Total Inactive User",
+    property: "unactiveUser",
+    user: true,
+  },
+  {
+    title: "Active User Balance",
+    property: "totalUserBalance",
+  },
+  {
+    title: "Active User Income Balance",
+    property: "totalActiveUserBalance",
+  },
+];
 const AdminDailyTask = () => {
   const [filterInput, setFilterInput] = useState({});
   const [page, setPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(0);
+  const [balance, setBalance] = useState({
+    total: 0,
+    activeUser: 0,
+    unactiveUser: 0,
+    totalUserBalance: 0,
+    totalActiveUserBalance: 0,
+  });
   const [tableItems, setTableItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
@@ -31,12 +64,17 @@ const AdminDailyTask = () => {
     resetTimeout();
     debounceState.current = setTimeout(() => {
       fetch(
-        `${process.env.REACT_APP_SERVER_HOST_URL}/admin-profile/all-user?page=${page}&search=${filterInput.search || ""}&fromDate=${filterInput.fromDate || ""}&toDate=${filterInput.toDate || ""}&userType=${filterInput.userType || ""}`,
+        `${
+          process.env.REACT_APP_SERVER_HOST_URL
+        }/admin-profile/all-user?page=${page}&search=${
+          filterInput.search || ""
+        }&fromDate=${filterInput.fromDate || ""}&toDate=${
+          filterInput.toDate || ""
+        }&userType=${filterInput.userType || ""}`,
         {
           method: "GET",
           headers: {
             "Content-type": "application/json; charset=UTF-8",
-            // authorization: `Bearer ${cookie}`
             ...userHeader(),
           },
         }
@@ -73,6 +111,20 @@ const AdminDailyTask = () => {
     };
   }, [page, filterInput.searchSubmit]);
 
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/admin/user-count`, {
+      method: "GET",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        ...userHeader(),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        setBalance(data.count);
+      });
+  }, []);
+
   const handleScroll = () => {
     if (loading) {
       return;
@@ -93,21 +145,6 @@ const AdminDailyTask = () => {
     }
   };
 
-//   const search_handler = () => { 
-//     fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/admin/users?page=1&search=${search}`, {
-//         method: "GET",
-//         headers: {
-//             'Content-type': 'application/json; charset=UTF-8',
-//             ...userHeader()
-//         }
-//     }).then(res => res.json())
-//         .then(data => {
-//             if (data.failed) {
-//             } else if(data.data) {
-//               setTableItems(data.data);
-//             }
-//         })
-// }
   const handleInputChange = (e) => {
     const name = e.target.name;
     const value = e.target.value;
@@ -130,9 +167,6 @@ const AdminDailyTask = () => {
     });
   };
 
-  const handleConfigNavigation = () => {
-    navigate("/admin/withdraw-config");
-  };
   const handleViewDetails = (userID) => {
     navigate(`/user/${userID}`);
   };
@@ -144,10 +178,29 @@ const AdminDailyTask = () => {
   };
 
   return (
-    <div className="admin-withdraw"> 
+    <div className="admin-user">
       <div className="common-table-section">
         <h4 className="dashboard-title">ADMIN USER</h4>
-        <div className="balance-section"></div>
+        <div className="balance-section">
+          <div className="grid-section">
+            {tableBalanceArray.map((item, index) => {
+              return (
+                <div className="item" key={index}>
+                  <div className="top">
+                    {item.user && <FaUsers />}
+                    {!item.user && <img src={wallet} alt="" />}
+                    <strong>{item.title}</strong>
+                    <p>
+                      {!item.user && <strong>৳</strong>}
+
+                      {balance[item.property]}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
         <div className="filter-section">
           <div className="input-section">
             <div className="date">
@@ -171,7 +224,7 @@ const AdminDailyTask = () => {
             <select name="userType" onChange={handleInputChange}>
               <option hidden>Select User</option>
               <option>Active</option>
-              <option>Inactive</option> 
+              <option>Inactive</option>
             </select>
             <input
               type="text"
@@ -259,9 +312,7 @@ const AdminDailyTask = () => {
                       {/* <td className={`btn ${reqInfo.status.toLowerCase()}`}>
                       <button>{reqInfo.status}</button>
                     </td> */}
-                      <td
-                        className={`btn-container `}
-                      >
+                      <td className={`btn-container `}>
                         <div>
                           <button
                             onClick={() => handleViewDetails(reqInfo._id)}
@@ -273,9 +324,7 @@ const AdminDailyTask = () => {
                           >
                             Edit Details
                           </button>
-                          <button
-                            onClick={() => handleSetRank(reqInfo._id)}
-                          >
+                          <button onClick={() => handleSetRank(reqInfo._id)}>
                             Set Rank
                           </button>
                         </div>

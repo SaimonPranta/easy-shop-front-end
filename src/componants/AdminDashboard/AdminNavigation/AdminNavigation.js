@@ -4,11 +4,12 @@ import { FaDonate, FaQrcode, FaUsersCog } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
 import { userContext } from "../../../App";
 import { MdSupport } from "react-icons/md";
-import { IoNotifications } from "react-icons/io5";
+import { IoConstructOutline, IoNotifications } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
 import { MdOutlineAddTask } from "react-icons/md";
 import getImageUrl from "../../../shared/functions/getImageUrl";
-import { RiSecurePaymentFill } from "react-icons/ri";
+import { RiSecurePaymentFill } from "react-icons/ri"; 
+
 
 const AdminNavigation = () => {
   const [user, setUser] = useContext(userContext);
@@ -77,6 +78,12 @@ const AdminNavigation = () => {
           <NavLink to="/admin/payments">
             <RiSecurePaymentFill />
             <span> Payments</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/admin_panel">
+            <IoConstructOutline />
+            <span> Config</span>
           </NavLink>
         </li>
 

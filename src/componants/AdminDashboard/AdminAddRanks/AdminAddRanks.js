@@ -98,8 +98,7 @@ const AdminAddDailyTask = () => {
         });
       });
   };
-
-  console.log("input ===>>", input)
+ 
   return (
     <div className="admin-add-daily-task">
       <div className="wrap-contact2">

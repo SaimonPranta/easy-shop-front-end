@@ -1,0 +1,51 @@
+.prove-page {
+    display: flex !important;
+    justify-content: center;
+    width: 100%;
+
+    .inner-section {
+        width: 95%;
+        max-width: 800px;
+
+        p {
+            margin: 0px;
+        }
+
+        .add-btn {
+            height: 50px;
+            display: flex;
+            justify-content: center;
+
+            button {
+                padding: 5px 10px;
+                background-color: var(--default-color);
+                color: #FFF;
+                border: none;
+                outline: none;
+                border-radius: 4px;
+                height: 40px;
+                font-weight: 700;
+
+                &:hover {
+                    opacity: .7;
+                }
+
+                &:active {
+                    transform: scale(.95);
+                }
+            }
+        }
+
+
+    }
+}
+
+
+
+@media only screen and (min-width:200px) and (max-width:750px) {
+    .prove-page {
+        width: 100vw;
+
+        .inner-section {}
+    }
+}

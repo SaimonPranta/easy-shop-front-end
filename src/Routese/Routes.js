@@ -9,6 +9,8 @@ import Dashboard from '../componants/Dashboard/Dashboard';
 import MyBalance from '../componants//Dashboard/Pages/MyBalance/index';
 import Generation from '../componants/Dashboard/Pages/Generation/Index';
 import Withdraw from '../componants/Dashboard/Pages/Withdraw/Index';
+import WIthdrawProve from '../componants/Dashboard/Pages/AddProve/Index';
+import Prove from '../componants/Dashboard/Pages/Prove/Index';
 import ReferTeamMember from '../componants/Dashboard/Pages/ReferTeamMember/Index';
 import Payments from '../componants/Dashboard/Pages/Payments/Index';
 import ChangePassword from '../componants/Dashboard/Pages/ChangePassword/Index';
@@ -106,6 +108,16 @@ const Routess = () => {
                             <Withdraw />
                         </PrivetRoute>
                     }></Route>
+                     <Route path="/prove" element={
+                        <PrivetRoute>
+                            <Prove />
+                        </PrivetRoute>
+                    }></Route>
+                     <Route path="/add-prove" element={
+                        <PrivetRoute>
+                            <WIthdrawProve />
+                        </PrivetRoute>
+                    }></Route>
                     <Route path="/payments" element={
                         <PrivetRoute>
                             <Payments />
@@ -181,6 +193,7 @@ const Routess = () => {
                             <AdminAddRanks />
                         </AdminPrivetRoute>
                     }></Route>
+                   
                     <Route path="/product" element={
                         <AdminPrivetRoute>
                             <Product />

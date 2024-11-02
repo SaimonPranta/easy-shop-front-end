@@ -19,7 +19,7 @@ import { FaUserEdit } from "react-icons/fa";
 import { FaUserCog } from "react-icons/fa";
 import { FaMedal } from "react-icons/fa";
 import { userContext } from "../../../App";
-import { MdAccountBalanceWallet, MdVolunteerActivism } from "react-icons/md";
+import { MdAccountBalanceWallet, MdOutlineSelfImprovement, MdVolunteerActivism } from "react-icons/md";
 import { AiFillAccountBook } from "react-icons/ai";
 import { MdLiveHelp } from "react-icons/md";
 import { SiMicrosoftteams } from "react-icons/si";
@@ -235,7 +235,7 @@ const DashboardMenu = () => {
 
         {user.role === "admin" && (
           <li>
-            <NavLink to="/admin_panel">
+            <NavLink to="/admin/user">
               <FaUserCog />
               <span> Admin Panel </span>
             </NavLink>
@@ -265,6 +265,12 @@ const DashboardMenu = () => {
           <NavLink to="/withdraw">
             <FaDonate />
             <span> Withdraw </span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/prove">
+            <MdOutlineSelfImprovement />
+            <span> Prove </span>
           </NavLink>
         </li>
         {user.role === "admin" && (
