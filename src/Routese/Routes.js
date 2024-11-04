@@ -35,6 +35,8 @@ import AdminDailyTaskList from '../componants/AdminDashboard/AdminDailyTaskList/
 import AdminWithdraw from '../componants/AdminDashboard/AdminWithdraw/index';
 import AdminUser from '../componants/AdminDashboard/AdminUser/index';
 import AdminWithdrawConfig from '../componants/AdminDashboard/AdminWithdrawConfig/index';
+import AdminProvePost from '../componants/AdminDashboard/AdminProvePost/index';
+import AdminProvePostConfig from '../componants/AdminDashboard/AdminProvePostConfig/index';
 import AdminPaymentsConfig from '../componants/AdminDashboard/AdminPaymentsConfig/index';
 import AdminAddDailyTask from '../componants/AdminDashboard/AdminAddDailyTask/index'; 
 import AdminAddRanks from '../componants/AdminDashboard/AdminAddRanks/index'; 
@@ -171,6 +173,16 @@ const Routess = () => {
                     <Route path="/admin/withdraw-config" element={
                         <AdminPrivetRoute>
                             <AdminWithdrawConfig />
+                        </AdminPrivetRoute>
+                    }></Route>
+                     <Route path="/admin/prove-post" element={
+                        <AdminPrivetRoute>
+                            <AdminProvePost />
+                        </AdminPrivetRoute>
+                    }></Route>
+                     <Route path="/admin/prove-post-config" element={
+                        <AdminPrivetRoute>
+                            <AdminProvePostConfig />
                         </AdminPrivetRoute>
                     }></Route>
                      <Route path="/admin/payments" element={

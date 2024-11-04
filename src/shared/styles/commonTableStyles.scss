@@ -202,6 +202,7 @@
                     }
 
                     &.description {
+                        min-width: 400px; 
                         div {
                             
                             &.ellipsis{
@@ -228,18 +229,19 @@
 
                     &.img-name {
                         text-align: start;
+                        min-width: 250px;
 
                         div {
                             display: flex;
                             align-items: center;
-                            gap: 5px;
+                            gap: 8px;
 
                             p {
                                 margin: 0px;
                                 padding: 0px;
                             }
 
-                            img {
+                            img, svg{
                                 height: 40px;
                                 width: 40px;
                                 border-radius: 4px;

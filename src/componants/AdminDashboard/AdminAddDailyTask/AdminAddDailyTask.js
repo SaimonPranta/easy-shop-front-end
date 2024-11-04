@@ -39,7 +39,6 @@ const AdminAddDailyTask = () => {
   const taskListID = queryParams.get("taskListID");
   const dailyTaskID = queryParams.get("dailyTaskID");
 
-  console.log("taskListID =>", taskListID);
   useEffect(() => {
     if (taskListID) {
       setInput({ taskListID });

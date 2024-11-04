@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { FaDonate, FaQrcode, FaUsersCog } from "react-icons/fa";
 import { BiLogOut } from "react-icons/bi";
 import { userContext } from "../../../App";
-import { MdSupport } from "react-icons/md";
+import { MdPostAdd, MdSupport } from "react-icons/md";
 import { IoConstructOutline, IoNotifications } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
 import { MdOutlineAddTask } from "react-icons/md";
@@ -78,6 +78,12 @@ const AdminNavigation = () => {
           <NavLink to="/admin/payments">
             <RiSecurePaymentFill />
             <span> Payments</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/admin/prove-post">
+          <MdPostAdd />
+            <span> Prove Post</span>
           </NavLink>
         </li>
         <li>

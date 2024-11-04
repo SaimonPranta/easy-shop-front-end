@@ -1,13 +1,42 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles.scss";
-// import { userHeader } from "../../shared/cooki";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { userHeader } from "../../../../shared/cooki";
+import getImageUrl from "../../../../shared/functions/getImageUrl";
 
 const WithdrawProve = () => {
-  const [input, setInput] = useState({ images: [] });
+  const [input, setInput] = useState({ images: [], removeImages: [] });
   const [condition, setCondition] = useState({ btnLoading: false });
   const navigate = useNavigate();
+  const location = useLocation();
+  const queryParams = new URLSearchParams(location.search);
+  const postID = queryParams.get("postID");
+
+  console.log("input ==>>", input);
+  useEffect(() => {
+    if (postID) {
+      fetch(
+        `${process.env.REACT_APP_SERVER_HOST_URL}/prove/get-post-details?postID=${postID}`,
+        {
+          method: "GET",
+          headers: {
+            ...userHeader(),
+          },
+        }
+      )
+        .then((data) => data.json())
+        .then((data) => {
+          if (data.data) {
+            setInput((state) => {
+              return {
+                ...state,
+                ...data.data,
+              };
+            });
+          }
+        });
+    }
+  }, [postID]);
 
   const handleChange = (e) => {
     const name = e.target.name;
@@ -37,12 +66,16 @@ const WithdrawProve = () => {
       };
     });
   };
-  console.log("images ===>>", input);
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
-
-    formData.append("img", input.img);
+    if (input?.images?.length) {
+      input.images.forEach((img, index) => {
+        if (typeof img !== "string") {
+          formData.append(`img-${index + 1}`, img);
+        }
+      });
+    }
     formData.append("data", JSON.stringify(input));
     setCondition((state) => {
       return {
@@ -50,8 +83,13 @@ const WithdrawProve = () => {
         btnLoading: true,
       };
     });
+    let endPoint = "add-prove"
+    if (input._id) {
+     endPoint = "edit-prove"
+      
+    }
 
-    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/prove/add-prove`, {
+    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/prove/${endPoint}`, {
       method: "POST",
       body: formData,
       headers: {
@@ -75,12 +113,20 @@ const WithdrawProve = () => {
       });
   };
   const handleImgRemove = (index) => {
-    console.log("index ==>>",index)
     setInput((state) => {
       const images = state.images.filter((item, i) => i !== index);
+      const imgInfo = state.images.find((item, i) => i === index);
+
+      let removeImages = [...state.removeImages];
+      if (typeof imgInfo === "string") {
+        removeImages.push(imgInfo);
+      }
+
+      state.images.filter((item, i) => i !== index);
       return {
         ...state,
-        images: images
+        images: images,
+        removeImages: removeImages,
       };
     });
   };
@@ -115,10 +161,21 @@ const WithdrawProve = () => {
             <div className="validate-input image-view-section">
               <div className="grid-section">
                 {input.images.map((item, index) => {
+                  let imgUrl = "";
+                  if (typeof item === "string") {
+                    imgUrl = getImageUrl(item);
+                  } else {
+                    imgUrl = URL.createObjectURL(item);
+                  }
                   return (
                     <div className="cart" key={index}>
-                      <img src={URL.createObjectURL(item)} alt="" />
-                      <button type="button" onClick={() => handleImgRemove(index)}>x</button>
+                      <img src={imgUrl} alt="" />
+                      <button
+                        type="button"
+                        onClick={() => handleImgRemove(index)}
+                      >
+                        x
+                      </button>
                     </div>
                   );
                 })}

@@ -1,9 +1,10 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useContext, useEffect, useRef, useState } from "react";
 import "./styles.scss";
 import { userHeader } from "../../../../shared/cooki";
 import { dateToString } from "../../../../shared/functions/dateConverter";
 import { useNavigate } from "react-router-dom";
 import getImageUrl from "../../../../shared/functions/getImageUrl";
+import { imageContext } from "../../../../App";
 
 const Withdraw = () => {
   const [page, setPage] = useState(1);
@@ -13,6 +14,7 @@ const Withdraw = () => {
   const [loading, setLoading] = useState(false);
   const [seeMoreID, setSeeMoreID] = useState("");
   const navigate = useNavigate();
+  const {  setViewImage } = useContext(imageContext);
 
   const debounceState = useRef();
 
@@ -67,13 +69,7 @@ const Withdraw = () => {
     };
   }, [page]);
 
-  const handleScroll = () => {
-    console.log("Call scroll", {
-      currentPage,
-      page,
-      currentLength: tableItems.length,
-      total,
-    });
+  const handleScroll = () => { 
     if (loading) {
       return;
     }
@@ -93,24 +89,17 @@ const Withdraw = () => {
     }
   };
 
-  const handleStatus = (id) => {
-    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/withdraw/status`, {
-      method: "PUT",
+  const handleDelete = (id) => {
+    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/prove/delete?postID=${id}`, {
+      method: "DELETE", 
       headers: {
-        "content-type": "application/json; charset=UTF-8",
         ...userHeader(),
       },
-      body: JSON.stringify({ id }),
     })
       .then((res) => res.json())
       .then((data) => {
         if (data.data) {
-          const updateTable = tableItems.map((item) => {
-            if (item._id === id) {
-              item.status = data.data?.status;
-            }
-            return item;
-          });
+          const updateTable = tableItems.filter((item) => item._id !== id);
           setTableItems(updateTable);
         }
       });
@@ -134,13 +123,13 @@ const Withdraw = () => {
             id="table-list"
             onScroll={handleScroll}
           >
-            <h4 className="table-title">WITHDRAW HISTORY</h4>
+            <h4 className="table-title">PROVE POST HISTORY</h4>
             <table>
               <thead>
                 <tr>
                   <th className="small">#</th>
                   <th> Image</th>
-                  <th> Description </th>
+                  <th className="big"> Description </th>
                   <th>Date</th>
                   <th>Status</th>
                   <th>Actions</th>
@@ -153,7 +142,7 @@ const Withdraw = () => {
                       <tr key={reqInfo._id}>
                         <td className="small">{index + 1}</td>
                         <td className="img">
-                          <img src={getImageUrl(reqInfo.images)} alt="" />
+                          <img src={getImageUrl(reqInfo.images)} onClick={() => setViewImage(reqInfo.images)} alt="" />
                         </td>
                         <td className={`big description`}>
                           <div
@@ -169,7 +158,7 @@ const Withdraw = () => {
                           {dateToString(reqInfo.createdAt)}
                         </td>
                         <td className="date">
-                         {reqInfo.disabled ? "Disable" : "Active"}
+                         {reqInfo.disable ? "Disable" : "Active"}
                         </td>
                         <td className={`btn-container`}>
                           <div>
@@ -181,9 +170,9 @@ const Withdraw = () => {
                               Edit
                             </button>
                             <button
-                              disabled={reqInfo.status !== "Pending"}
+                              // disabled={reqInfo.status !== "Pending"}
                               onClick={() => {
-                                handleStatus(reqInfo._id);
+                                handleDelete(reqInfo._id);
                               }}
                             >
                               Delete

@@ -12,7 +12,7 @@ export const imageContext = createContext();
 function App() {
   const [user, setUser] = useState({});
   const [config, setConfig] = useState({});
-  const [viewImage, setViewImage] = useState(""); 
+  const [viewImage, setViewImage] = useState([]); 
 
   useEffect(() => {
     const cooki = getCooki();

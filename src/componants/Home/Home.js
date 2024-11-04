@@ -13,6 +13,7 @@ import DisplayAdsThree from '../../GoogleADs/DisplayAdsThree'
 import MultiplexAdsOne from '../../GoogleADs/MultiplexAdsTwo'
 import MultiplexAdsTwo from '../../GoogleADs/MultiplexAdsTwo'
 import MultiplexAdsThree from '../../GoogleADs/MultiplexAdsThree'
+import PostProve from'./PostProve/index'
 
 
 
@@ -63,6 +64,10 @@ const Home = () => {
         data-full-width-responsive="true"
       ></ins>   */}
       <Slider />
+      <PostProve/>
+      <idv>
+
+      </idv>
       <div id="ads_show_div">
         <ins
           className="adsbygoogle"
