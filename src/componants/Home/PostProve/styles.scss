@@ -82,17 +82,16 @@
 
     .post-list {
 
-        max-width: 800px;
+        max-width: 900px;
         width: calc(100% - 20px);
         margin: 20px auto;
         display: flex;
         flex-direction: column;
         gap: 20px;
 
-        .card {
-            padding: 10px;
+        .card { 
             border: 1px solid #e4e4e4;
-            border-radius: 20px 20px 40px 20px;
+            padding: 20px 20px 25px 20px;
 
             .head {
                 display: flex;
@@ -137,6 +136,8 @@
                     p {
                         font-size: 20px;
                         font-weight: 500;
+                        margin: 0px;  
+                        padding: 5px;
                     }
                 }
 
@@ -288,6 +289,168 @@
                 }
 
                 .like {}
+            }
+        }
+    }
+}
+@media only screen and (min-width:200px) and (max-width:750px) {
+    .prove-post { 
+        .post-header { 
+            .title-section,
+            .search-section {
+                max-width: 300px;
+                height: 35px; 
+    
+            }
+            .title-section {
+                p { 
+                    font-size: 18px;
+                }
+            }
+    
+            .search-section {  
+    
+                button { 
+                }
+            }
+        }
+    
+        .post-list { 
+            .card { 
+                .head { 
+                    img {
+                        height: 60px;
+                        width: 60px; 
+                    }
+    
+                    .name-section { 
+    
+                        h6 { 
+                            padding: 3px; 
+                        } 
+                        p {
+                            font-size: 14px;
+                        }
+                    }
+                }
+    
+                .body {
+                    .des { 
+    
+                        p {
+                            font-size: 18px; 
+                        }
+                    }
+    
+                    .img-grid { 
+                        height: 400px; 
+    
+                        .img-card { 
+                            min-height: 200px;  
+                        }
+    
+                        &.img-1 {
+                            max-height: 300px;
+                        }
+    
+                        &.img-2 {
+                            max-height: 200px; 
+                        }
+    
+                        &.img-3 {
+                            max-height: 400px; 
+                        }
+    
+                        &.img-4 {
+                            max-height: 400px; 
+                        }
+    
+                        &.more-img {
+                            max-height: 400px;
+                        }
+    
+    
+                    }
+                }
+    
+                .footer {
+                    button {
+                        height: 25px 
+    
+                        svg,
+                        p { 
+                            font-size: 16px;
+                        }
+    
+                        svg {
+                            height: 25px;
+                            width: 25px;
+                        }
+                    }
+    
+                    .like {}
+                }
+            }
+        }
+    }
+}
+@media only screen and (min-width:200px) and (max-width:550px) {
+    .prove-post {  
+    
+        .post-list { 
+            .card { 
+                .head { 
+                    img {
+                        height: 60px;
+                        width: 60px; 
+                    }
+    
+                    .name-section { 
+    
+                        h6 { 
+                            padding: 3px; 
+                        } 
+                    }
+                }
+    
+                .body {
+                    .des { 
+    
+                        p {
+                            font-size: 18px; 
+                        }
+                    }
+    
+                    .img-grid { 
+                        height: 350px; 
+    
+                        .img-card { 
+                            min-height: 150px;  
+                        }
+    
+                        &.img-1 {
+                            max-height: 220px;
+                        }
+    
+                        &.img-2 {
+                            max-height: 200px; 
+                        }
+    
+                        &.img-3 {
+                            max-height: 400px; 
+                        }
+    
+                        &.img-4 {
+                            max-height: 400px; 
+                        }
+    
+                        &.more-img {
+                            max-height: 400px;
+                        }
+                    }
+                }
+    
+            
             }
         }
     }

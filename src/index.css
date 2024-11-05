@@ -85,7 +85,7 @@ body {
         left: 50%;
         transform: translateX(-50%);
         width: 80%;
-        height: 100px;
+        height: 80px;
         backdrop-filter: blur(5px);
         background-color: #00000018;
         /* overflow-x: auto; */
@@ -97,7 +97,7 @@ body {
 
         button {
           height: 100%;
-          width: 150px;
+          width: 120px;
           border: none;
           outline: none;
           background-color: transparent;
@@ -106,9 +106,10 @@ body {
 
           &.active {
             border: 2px solid #e4e4e4;
-            height: calc(100% + 20px);
-            width: 180px;
-            margin-top: -10px;
+            height: calc(100% + 10px);
+            width: 130px;
+
+            margin-top: -5px;
           }
 
           img {
@@ -132,8 +133,67 @@ code {
   width: 95%;
 }
 
+@media only screen and (min-width:200px) and (max-width:950px) {
+ 
+  body{
+    .image-viewer { 
+  
+      .inner-container {    
+  
+        .close-btn { 
+          right: 20px;
+          top: 20px;
+          svg {
+            height: 25px;
+            width: 25px;
+            color: #FFF;
+          } 
+        }
+        .img-list {  
+          height: 60px; 
+  
+          button { 
+            width: 80px; 
+  
+            &.active { 
+              height: calc(100% + 10px);
+              width: 100px;
+            } 
+          }
+        }
+      }
+    }
+  }
+}
 @media only screen and (min-width:200px) and (max-width:650px) {
   .wraper {
     width: 96%;
+  }
+  body{
+    .image-viewer { 
+  
+      .inner-container {    
+  
+        .close-btn { 
+          svg {
+            height: 20px;
+            width: 20px; 
+          } 
+        }
+        .img-list {  
+          height: 40px; 
+  
+          button { 
+            width: 60px; 
+  
+            &.active { 
+              margin-top: -2px;
+              height: calc(100% + 5px);
+              width: 65px;
+            } 
+          }
+        }
+      }
+    }
   }
 }

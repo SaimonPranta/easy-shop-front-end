@@ -1,0 +1,16 @@
+.hero-section { 
+     .e-commerce-hero-section { 
+          width: 100%; 
+         .slid-item{ 
+           width: 100%;
+           aspect-ratio: 16/7;
+           max-height: 550px;
+           border-radius: 10px;
+           overflow: hidden;
+           img{
+               height: 100%;
+               width: 100%;
+           }
+         }
+     }
+}

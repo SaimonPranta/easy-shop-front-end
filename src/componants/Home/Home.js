@@ -7,18 +7,18 @@ import TopHeader from "../TopHeader/TopHeader";
 import HotSale from "./HotSale/HotSale";
 import JustForYou from "./JustForYou/JustForYou";
 import Slider from "./Slider/Slider";
-import DisplayAdsOne from '../../GoogleADs/DisplayAdsOne'
-import DisplayAdsTwo from '../../GoogleADs/DisplayAdsTwo'
-import DisplayAdsThree from '../../GoogleADs/DisplayAdsThree'
-import MultiplexAdsOne from '../../GoogleADs/MultiplexAdsTwo'
-import MultiplexAdsTwo from '../../GoogleADs/MultiplexAdsTwo'
-import MultiplexAdsThree from '../../GoogleADs/MultiplexAdsThree'
-import PostProve from'./PostProve/index'
+import DisplayAdsOne from "../../GoogleADs/DisplayAdsOne";
+import DisplayAdsTwo from "../../GoogleADs/DisplayAdsTwo";
+import DisplayAdsThree from "../../GoogleADs/DisplayAdsThree";
+import MultiplexAdsOne from "../../GoogleADs/MultiplexAdsTwo";
+import MultiplexAdsTwo from "../../GoogleADs/MultiplexAdsTwo";
+import MultiplexAdsThree from "../../GoogleADs/MultiplexAdsThree";
+import PostProve from "./PostProve/index";
+import ECommerce from "./ECommerce/index";
 
-
-
-const Home = () => { 
+const Home = () => {
   const [allProducts, setAllProducts] = useState([]);
+  const [page, setPage] = useState("earn-page");
   const [hotSales, setHotSales] = useState([]);
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/product`)
@@ -45,9 +45,6 @@ const Home = () => {
     // }
   }, []);
 
-
-
-
   return (
     <div>
       <Header />
@@ -64,10 +61,9 @@ const Home = () => {
         data-full-width-responsive="true"
       ></ins>   */}
       <Slider />
-      <PostProve/>
-      <idv>
+      {page !== "earn-page" && <PostProve />}
+      {page === "earn-page" && <ECommerce />}
 
-      </idv>
       <div id="ads_show_div">
         <ins
           className="adsbygoogle"

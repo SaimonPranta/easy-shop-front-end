@@ -28,7 +28,7 @@ const Index = () => {
         setImageList([...finalImgList]);
       }
     }
-    setImgIndex(0)
+    setImgIndex(0);
   }, [viewImage]);
   if (!imageList || !imageList.length) {
     return <></>;
