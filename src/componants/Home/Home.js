@@ -18,7 +18,8 @@ import ECommerce from "./ECommerce/index";
 
 const Home = () => {
   const [allProducts, setAllProducts] = useState([]);
-  const [page, setPage] = useState("earn-page");
+  const [page, setPage] = useState("");
+  // const [page, setPage] = useState("earn-page");
   const [hotSales, setHotSales] = useState([]);
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/product`)
@@ -48,8 +49,9 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <TopHeader />
-
+      {
+        page !== "earn-page" &&  <TopHeader />
+      }
       <DisplayAdsOne />
       <MultiplexAdsOne />
       {/* <ins
@@ -60,7 +62,7 @@ const Home = () => {
         data-ad-format="auto"
         data-full-width-responsive="true"
       ></ins>   */}
-      <Slider />
+      {page !== "earn-page" && <Slider />}
       {page !== "earn-page" && <PostProve />}
       {page === "earn-page" && <ECommerce />}
 
@@ -85,82 +87,84 @@ const Home = () => {
         ></ins>
       </div>
 
-      <div classNameName="wraper">
-        <HotSale hotSales={hotSales} />
-        <div>
-          <ins
-            className="adsbygoogle"
-            style={{ display: "block" }}
-            data-ad-format="autorelaxed"
-            data-ad-client="ca-pub-6382147321235149"
-            data-ad-slot="8543138146"
-          ></ins>
-        </div>
+      {page === "earn-page" && (
+        <div classNameName="wraper">
+          <HotSale hotSales={hotSales} />
+          <div>
+            <ins
+              className="adsbygoogle"
+              style={{ display: "block" }}
+              data-ad-format="autorelaxed"
+              data-ad-client="ca-pub-6382147321235149"
+              data-ad-slot="8543138146"
+            ></ins>
+          </div>
 
-        <div classNameName="mobile gird-2">
-          <div>
-            <ins
-              className="adsbygoogle easyshop_mobile_one_h200_w170"
-              data-ad-client="ca-pub-6382147321235149"
-              data-ad-slot="1485144898"
-            ></ins>
+          <div classNameName="mobile gird-2">
+            <div>
+              <ins
+                className="adsbygoogle easyshop_mobile_one_h200_w170"
+                data-ad-client="ca-pub-6382147321235149"
+                data-ad-slot="1485144898"
+              ></ins>
+            </div>
+            <div>
+              <ins
+                className="adsbygoogle easyshop_mobile_two_h200_w170"
+                data-ad-client="ca-pub-6382147321235149"
+                data-ad-slot="2672467001"
+              ></ins>
+            </div>
           </div>
-          <div>
-            <ins
-              className="adsbygoogle easyshop_mobile_two_h200_w170"
-              data-ad-client="ca-pub-6382147321235149"
-              data-ad-slot="2672467001"
-            ></ins>
-          </div>
-        </div>
-        <MultiplexAdsThree />
-        <DisplayAdsTwo />
-        <MultiplexAdsTwo />
-        {/* <div className="desktop">
+          <MultiplexAdsThree />
+          <DisplayAdsTwo />
+          <MultiplexAdsTwo />
+          {/* <div className="desktop">
           <ins
             class="adsbygoogle easyshop_Desktop_one"
             data-ad-client="ca-pub-6382147321235149"
             data-ad-slot="5586389048"
           ></ins>
         </div> */}
-        {/* <Categories /> */}
-        <JustForYou allProducts={allProducts} />
-        <div classNameName="mobile gird-2">
-          <div>
-            <ins
-              class="adsbygoogle easyshop_mobile_three_h200_w170"
-              data-ad-client="ca-pub-6382147321235149"
-              data-ad-slot="6162756505"
-            ></ins>
-          </div>
+          {/* <Categories /> */}
+          <JustForYou allProducts={allProducts} />
+          <div classNameName="mobile gird-2">
+            <div>
+              <ins
+                class="adsbygoogle easyshop_mobile_three_h200_w170"
+                data-ad-client="ca-pub-6382147321235149"
+                data-ad-slot="6162756505"
+              ></ins>
+            </div>
 
-          <div>
+            <div>
+              <ins
+                class="adsbygoogle easyshop_mobile_four_h200_w170"
+                data-ad-client="ca-pub-6382147321235149"
+                data-ad-slot="5570077174"
+              ></ins>
+            </div>
+          </div>
+          <div className="desktop">
             <ins
-              class="adsbygoogle easyshop_mobile_four_h200_w170"
+              class="adsbygoogle easyshop_Desktop_two"
               data-ad-client="ca-pub-6382147321235149"
-              data-ad-slot="5570077174"
+              data-ad-slot="9883343812"
             ></ins>
           </div>
+          <div>
+            <ins
+              className="adsbygoogle"
+              style={{ display: "block" }}
+              data-ad-format="fluid"
+              data-ad-layout-key="-gw-3+1f-3d+2z"
+              data-ad-client="ca-pub-6382147321235149"
+              data-ad-slot="6678542075"
+            ></ins>
+          </div>
+          <Footer />
         </div>
-        <div className="desktop">
-          <ins
-            class="adsbygoogle easyshop_Desktop_two"
-            data-ad-client="ca-pub-6382147321235149"
-            data-ad-slot="9883343812"
-          ></ins>
-        </div>
-        <div>
-          <ins
-            className="adsbygoogle"
-            style={{ display: "block" }}
-            data-ad-format="fluid"
-            data-ad-layout-key="-gw-3+1f-3d+2z"
-            data-ad-client="ca-pub-6382147321235149"
-            data-ad-slot="6678542075"
-          ></ins>
-        </div>
-        <Footer />
-      </div>
+      )}
     </div>
   );
 };

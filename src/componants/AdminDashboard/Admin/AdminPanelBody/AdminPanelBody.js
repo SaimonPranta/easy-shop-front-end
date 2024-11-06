@@ -10,10 +10,8 @@ import { getCooki } from '../../../../shared/cooki';
 export const allUserContext = createContext();
 
 
-const AdminPanelBody = () => {
-    const [allUser, setAllUser] = useState([])
-    const [condition, setCondition] = useState(1)
-    const [offset, setOffset] = useState(1)
+const AdminPanelBody = () => { 
+    const [condition, setCondition] = useState(1) 
 
 
     const handleScroll = () => {

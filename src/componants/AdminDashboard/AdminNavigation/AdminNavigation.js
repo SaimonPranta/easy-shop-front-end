@@ -1,15 +1,14 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
 import { FaDonate, FaQrcode, FaUsersCog } from "react-icons/fa";
-import { BiLogOut } from "react-icons/bi";
+import { BiCategory, BiLogOut } from "react-icons/bi";
 import { userContext } from "../../../App";
-import { MdPostAdd, MdSupport } from "react-icons/md";
+import { MdOutlineViewCarousel, MdPostAdd, MdSupport } from "react-icons/md";
 import { IoConstructOutline, IoNotifications } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
 import { MdOutlineAddTask } from "react-icons/md";
 import getImageUrl from "../../../shared/functions/getImageUrl";
-import { RiSecurePaymentFill } from "react-icons/ri"; 
-
+import { RiSecurePaymentFill } from "react-icons/ri";   
 
 const AdminNavigation = () => {
   const [user, setUser] = useContext(userContext);
@@ -84,6 +83,18 @@ const AdminNavigation = () => {
           <NavLink to="/admin/prove-post">
           <MdPostAdd />
             <span> Prove Post</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/admin/slider">
+          <MdOutlineViewCarousel />
+            <span> Slider</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/admin/categories">
+          <BiCategory />
+            <span> Categories</span>
           </NavLink>
         </li>
         <li>

@@ -1,0 +1,109 @@
+.add-categories-modal {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    top: 0px;
+    left: 0px;
+    backdrop-filter: blur(2px);
+    align-items: center;
+    justify-content: center;
+    display: none;
+
+    &.active-modal {
+        display: flex;
+
+        .form{
+            transition: 5s;
+        }
+    }
+
+    .form {
+        width: 60%;
+        margin: auto;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        background-color: #FFF;
+        position: relative;
+        transition: 5s;
+
+        .clone-btn {
+            position: absolute;
+            right: 10px;
+            top: 10px;
+            border: none;
+            outline: none;
+            border-radius: 4px;
+            height: 25px;
+            width: 25px;
+            background-color: rgba(0, 0, 255, 0.166);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding-bottom: 3px;
+
+        }
+
+        .item {
+            padding: 20px;
+            background-color: rgba(0, 0, 255, 0.103);
+            border: 1px solid blue;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            border-radius: 5px;
+
+            &>div {
+                display: flex;
+                flex-direction: column;
+                gap: 4px;
+
+                input {
+                    border: none;
+                    outline: none;
+                    border-radius: 4px;
+                    background-color: #ffffff98;
+                    padding: 5px 10px;
+
+                }
+
+                &>div {
+                    display: flex;
+                    gap: 10px;
+                    justify-content: space-between;
+
+                    input {
+                        background-color: transparent;
+                    }
+
+                    img {
+                        height: 35px;
+                        width: 50px;
+                    }
+                }
+
+            }
+
+            .button-container {
+                display: flex;
+                align-content: center;
+                justify-content: center;
+                width: 100px;
+
+                button {
+                    padding: 5px 15px;
+                    outline: none;
+                    border: none;
+                    border-radius: 5px;
+                    background-color: blue;
+                    color: #FFF;
+                    cursor: pointer;
+
+                    &:hover {
+                        opacity: .7;
+                    }
+                }
+            }
+        }
+    }
+}

@@ -6,6 +6,7 @@ import { userHeader } from "../../../shared/cooki";
 import getImageUrl from "../../../shared/functions/getImageUrl";
 import { imageContext } from "../../../App";
 import { dateToDateString } from "../../../shared/functions/dateConverter";
+import Test from "./test/index";
 
 const Index = () => {
   const [posts, setPosts] = useState([]);
@@ -14,7 +15,9 @@ const Index = () => {
   const [page, setPage] = useState(1);
   const [total, setTotal] = useState(0);
   const { setViewImage } = useContext(imageContext);
+  const [showLastElemt, setShowLastElemt] = useState(false);
 
+  const lastElementRef = useRef(null);
   const debounceState = useRef();
 
   const resetTimeout = () => {
@@ -67,32 +70,43 @@ const Index = () => {
     };
   }, [page]);
 
-  const handleScroll = () => {
-    console.log("Call scroll", {
-      currentPage,
-      page,
-      currentLength: posts.length,
-      total,
-    });
-    if (loading) {
-      return;
-    }
-    if (total && total <= posts.length) {
-      return;
-    }
-    const container = document.getElementById("table-list");
-    const scrollTop = container?.scrollTop || 0;
-    const offsetHeight = container?.offsetHeight || 0;
-    const scrollHeight = container?.scrollHeight || 0;
-
-    if (scrollHeight <= Number(scrollTop + offsetHeight) + 1) {
-      if (currentPage === page - 1) {
-        setPage((state) => state + 1);
-        setLoading(true);
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;  
+        if (entry.isIntersecting) {
+          if (loading) {
+            return;
+          }
+          if (total && total <= posts.length) {
+            return;
+          }
+          if (currentPage === page - 1) {
+            setPage((state) => state + 1);
+            setLoading(true);
+          }
+        } else {
+        }
+      },
+      {
+        root: null, // Observe within the viewport
+        rootMargin: "0px",
+        threshold: 0.1, // Trigger when 10% of the element is visible
       }
+    );
+
+    if (lastElementRef.current) {
+      observer.observe(lastElementRef.current);
+      console.log("Observer attached to the last element"); // Debugging
     }
-  };
- 
+
+    return () => {
+      if (lastElementRef.current) {
+        observer.unobserve(lastElementRef.current);
+        console.log("Observer detached from the last element"); // Debugging
+      }
+    };
+  }, [showLastElemt]);
 
   return (
     <div className="prove-post">
@@ -107,10 +121,13 @@ const Index = () => {
           </button>
         </div>
       </header>
-      <section className="post-list">
-        {posts.map((post, index) => {
-          console.log("post ====>>", post);
-          const extraImg = post.images?.slice(3, post.images?.length)
+
+      <section
+        className="post-list"
+        style={{ minHeight: "150vh", padding: "20px" }}
+      >
+        {[...posts].map((post, index) => {
+          const extraImg = post.images?.slice(3, post.images?.length);
           const imgClass =
             post.images?.length <= 4
               ? `img-${post?.images?.length}`
@@ -146,7 +163,10 @@ const Index = () => {
                           onClick={() => setViewImage(post.images)}
                           alt=""
                         />
-                        <span className="extra-img-length" onClick={() => setViewImage(post.images)}>{`+${extraImg.length}`}</span>
+                        <span
+                          className="extra-img-length"
+                          onClick={() => setViewImage(post.images)}
+                        >{`+${extraImg.length}`}</span>
                       </div>
                     );
                   })}
@@ -161,7 +181,24 @@ const Index = () => {
             </div>
           );
         })}
+        <div ref={lastElementRef} className="scroll-selector" />
       </section>
+      {/* <div style={{ minHeight: "150vh", padding: "20px" }}>
+        {[...Array(10)].map((_, index) => (
+          <div
+            key={index}
+            ref={index === 9 ? lastElementRef : null} // Attach ref to the last div element
+            style={{
+              height: "100px",
+              margin: "20px",
+              backgroundColor: index === 9 ? "lightcoral" : "lightblue",
+            }}
+          >
+            Element {index + 1}
+          </div>
+        ))}
+        <div>Last element is {showLastElemt ? "visible" : "not visible"}.</div>
+      </div> */}
     </div>
   );
 };

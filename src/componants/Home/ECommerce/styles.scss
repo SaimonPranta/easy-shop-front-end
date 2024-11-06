@@ -1,15 +1,15 @@
-.e-commerce-page{
+.e-commerce-page {
     display: flex;
     flex-direction: column;
     align-content: baseline;
     justify-content: center;
     gap: 20px;
-    .common-width{
+
+    .common-width {
         width: calc(100% - 40px);
         margin: auto;
-        
+
     }
-    .hero-section{
-        
-    }
+
+    .hero-section {}
 }

@@ -31,6 +31,8 @@ import AdminNotification from '../componants/AdminDashboard/AdminNotification/in
 import Notice from '../componants/Dashboard/Pages/Notice/index';
 import DailyTask from '../componants/Dashboard/Pages/DailyTask/index';
 import AdminDailyTask from '../componants/AdminDashboard/AdminDailyTask/index';
+import AdminSlider from '../componants/AdminDashboard/AdminSlider/index';
+import AdminCategories from '../componants/AdminDashboard/AdminCategories/index';
 import AdminDailyTaskList from '../componants/AdminDashboard/AdminDailyTaskList/index';
 import AdminWithdraw from '../componants/AdminDashboard/AdminWithdraw/index';
 import AdminUser from '../componants/AdminDashboard/AdminUser/index';
@@ -134,7 +136,7 @@ const Routess = () => {
                         <PrivetRoute>
                             <UpdateProfile />
                         </PrivetRoute>
-                    }></Route>
+                    }></Route> 
                     <Route path="/admin_panel" element={
                         <AdminPrivetRoute>
                             <AdminPanel />
@@ -198,6 +200,16 @@ const Routess = () => {
                     <Route path="/admin/add-daily-task" element={
                         <AdminPrivetRoute>
                             <AdminAddDailyTask />
+                        </AdminPrivetRoute>
+                    }></Route>
+                    <Route path="/admin/slider" element={
+                        <AdminPrivetRoute>
+                            <AdminSlider />
+                        </AdminPrivetRoute>
+                    }></Route>
+                    <Route path="/admin/categories" element={
+                        <AdminPrivetRoute>
+                            <AdminCategories />
                         </AdminPrivetRoute>
                     }></Route>
                     <Route path="/admin/add-ranks/:userID" element={

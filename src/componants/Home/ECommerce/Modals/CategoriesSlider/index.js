@@ -7,54 +7,10 @@ import "swiper/css";
 import "swiper/css/pagination";
 import "./styles.scss";
 import { Pagination } from "swiper/modules";
+import getImageUrl from "../../../../../shared/functions/getImageUrl";
 
-const cetegoriesList = [
-  {
-    img: "https://img.drz.lazcdn.com/static/bd/p/0d7e9c8d49935588a7e5bbe13fcf6013.jpg_170x170q80.jpg",
-    label: "Earn Coins",
-  },
-  {
-    img: "https://img.drz.lazcdn.com/static/bd/p/0d7e9c8d49935588a7e5bbe13fcf6013.jpg_170x170q80.jpg",
-    label: "Earn Coins",
-  },
-  {
-    img: "https://img.drz.lazcdn.com/static/bd/p/0d7e9c8d49935588a7e5bbe13fcf6013.jpg_170x170q80.jpg",
-    label: "Earn Coins",
-  },
-  {
-    img: "https://img.drz.lazcdn.com/static/bd/p/0d7e9c8d49935588a7e5bbe13fcf6013.jpg_170x170q80.jpg",
-    label: "Earn Coins",
-  },
-  {
-    img: "https://img.drz.lazcdn.com/static/bd/p/0d7e9c8d49935588a7e5bbe13fcf6013.jpg_170x170q80.jpg",
-    label: "Earn Coins",
-  },
-  {
-    img: "https://img.drz.lazcdn.com/static/bd/p/0d7e9c8d49935588a7e5bbe13fcf6013.jpg_170x170q80.jpg",
-    label: "Earn Coins",
-  },
-  {
-    img: "https://img.drz.lazcdn.com/static/bd/p/0d7e9c8d49935588a7e5bbe13fcf6013.jpg_170x170q80.jpg",
-    label: "Earn Coins",
-  },
-  {
-    img: "https://img.drz.lazcdn.com/static/bd/p/0d7e9c8d49935588a7e5bbe13fcf6013.jpg_170x170q80.jpg",
-    label: "Earn Coins",
-  },
-  {
-    img: "https://img.drz.lazcdn.com/static/bd/p/0d7e9c8d49935588a7e5bbe13fcf6013.jpg_170x170q80.jpg",
-    label: "Earn Coins",
-  },
-  {
-    img: "https://img.drz.lazcdn.com/static/bd/p/0d7e9c8d49935588a7e5bbe13fcf6013.jpg_170x170q80.jpg",
-    label: "Earn Coins",
-  },
-  {
-    img: "https://img.drz.lazcdn.com/static/bd/p/0d7e9c8d49935588a7e5bbe13fcf6013.jpg_170x170q80.jpg",
-    label: "Earn Coins",
-  },
-];
-export default function App() {
+ 
+export default function App({categories}) {
   return (
     <>
       <Swiper
@@ -101,11 +57,11 @@ export default function App() {
         modules={[Pagination]}
         className="category-creosol"
       >
-        {[...cetegoriesList, ...cetegoriesList, ...cetegoriesList, ...cetegoriesList].map((item, index) => {
+        {categories.map((item, index) => {
           return (
             <SwiperSlide>
               <div className="categories-cart">
-                <img src={item.img} alt="" />
+                <img src={getImageUrl(item.img)} alt="" />
                 <p>{item.label}</p>
               </div>
             </SwiperSlide>

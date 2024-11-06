@@ -7,7 +7,7 @@ const Slider = () => {
     const [slider, setSlider] = useState([]);
 
     useEffect(() => {
-        fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/slider_provider`)
+        fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/slider_provider?tab="work-slider"`)
             .then(res => res.json())
             .then(data => {
                 setSlider(data)
@@ -16,13 +16,13 @@ const Slider = () => {
 
 
     return (
-        <section className=' slider-section'>
+        <section className='slider-section'>
             <Carousel>
                 {
                     slider?.length > 0 && slider.map((image, index) => {
                         return <Carousel.Item key={index} interval={5000} >
                             <img
-                                className="d-block w-100"
+                                className="d-block"
                                 src={`${process.env.REACT_APP_SERVER_HOST_URL}/${image.img}`}
                                 alt={"slider" + index}
                             />

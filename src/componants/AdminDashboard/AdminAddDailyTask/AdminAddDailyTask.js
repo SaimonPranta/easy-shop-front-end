@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import "./style.scss"; 
+import "./style.scss";
 import { getCooki } from "../../../shared/cooki";
 import { configContext } from "../../../App";
 import { useLocation, useNavigate } from "react-router-dom";
@@ -47,7 +47,7 @@ const AdminAddDailyTask = () => {
         `${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/get-daily-task-details?dailyTaskID=${dailyTaskID}`
       )
         .then((data) => data.json())
-        .then((data) => { 
+        .then((data) => {
           if (data.data) {
             setInput({ ...data.data, dailyTaskID });
           }
@@ -95,8 +95,12 @@ const AdminAddDailyTask = () => {
         pointConvertAmount: config?.dailyTask?.pointConvertAmount || "",
         taskNotice: config?.dailyTask?.taskNotice || "",
         taskOffNotice: config?.dailyTask?.taskOffNotice || "",
-        taskStartDate: config?.dailyTask?.taskStartDate ? dateToCalenderFormat(config?.dailyTask?.taskStartDate ) : "",
-        taskExpireDate: config?.dailyTask?.taskExpireDate ? dateToCalenderFormat(config?.dailyTask?.taskExpireDate) : "",
+        taskStartDate: config?.dailyTask?.taskStartDate
+          ? dateToCalenderFormat(config?.dailyTask?.taskStartDate)
+          : "",
+        taskExpireDate: config?.dailyTask?.taskExpireDate
+          ? dateToCalenderFormat(config?.dailyTask?.taskExpireDate)
+          : "",
       });
     } else if (
       activeTab === "task-reward" &&
@@ -150,7 +154,7 @@ const AdminAddDailyTask = () => {
   const onSubmit = (e) => {
     e.preventDefault();
     const formData = new FormData();
-
+    
     formData.append("img", input.img);
     formData.append("data", JSON.stringify(input));
     setCondition((state) => {
@@ -281,7 +285,7 @@ const AdminAddDailyTask = () => {
           className={activeTab === "daily-task" ? "active" : ""}
           onClick={() => setActiveTab("daily-task")}
         >
-    Add Daily Task
+          Add Daily Task
         </button>
         <button
           className={activeTab === "task-reward" ? "active" : ""}
