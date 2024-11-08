@@ -1,0 +1,121 @@
+.hot-sale {
+    margin: 20px auto;
+}
+
+.hot-sale h3 {
+    color: blueviolet;
+}
+
+.hot-sale-cart-container {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    grid-gap: 10px;
+
+    .cart-skeleton {
+        background-color: #FFF;
+        width: 100%;
+        max-width: 100%;
+        aspect-ratio: 1/.8;
+        box-shadow: 4px 5px 2px rgba(156, 136, 136, 0.247), 4px 5px 12px rgba(156, 136, 136, 0.151), -2px -2px rgba(156, 136, 136, 0.0);
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        overflow: hidden;
+        border-radius: 10px;
+
+        span {
+            display: inline-block;
+            background-color: #e4e4e4;
+            border-radius: 4px;
+
+            &.img {
+                width: 100%;
+                aspect-ratio: 1/ .4;
+                margin-bottom: 10px;
+                border-radius: 0px;
+
+            }
+
+
+        }
+
+        .des {
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .title {
+                height: 18px;
+                width: 100%;
+
+            }
+
+            .title-2 {
+                height: 18px;
+                width: 80% !important;
+            }
+
+            .price {
+                height: 18px;
+                width: 120px;
+                margin-top: 10px;
+            }
+
+            .price-2 {
+                height: 18px;
+                width: 100px;
+            }
+        }
+
+
+    }
+}
+
+.product-sction-titile {
+    position: relative;
+    z-index: -3;
+}
+
+.product-sction-titile h3 {
+    background-color: #fff;
+    display: inline-block;
+    z-index: 2 !important;
+}
+
+.product-sction-titile::after {
+    position: absolute;
+    content: "";
+    background-color: #BA2BE2;
+    width: 100%;
+    height: 1px;
+    top: 45%;
+    right: 0px;
+    z-index: -1;
+
+}
+
+.product-sction-titile::before {
+    position: absolute;
+    content: "";
+    background-color: #BA2BE2;
+    width: 100%;
+    height: 1px;
+    top: 50%;
+    /* transform: translateY(50%); */
+    right: 0px;
+    z-index: -1;
+
+}
+
+@media only screen and (min-width:200px) and (max-width:1000px) {
+    .hot-sale-cart-container {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media only screen and (min-width:200px) and (max-width:550px) {
+    .hot-sale-cart-container {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

@@ -2,7 +2,7 @@ import React, { createContext, useContext } from "react";
 // import "./DashboardMenu.scss";
 import { NavLink } from "react-router-dom";
 
-import { FaHome, FaSearchDollar } from "react-icons/fa";
+import { FaHome, FaSearchDollar, FaUniversalAccess } from "react-icons/fa";
 import { FaMoneyCheckAlt } from "react-icons/fa";
 import { FaQrcode } from "react-icons/fa";
 import {
@@ -233,14 +233,7 @@ const DashboardMenu = () => {
           </p>
         </li>
 
-        {user.role === "admin" && (
-          <li>
-            <NavLink to="/admin/user">
-              <FaUserCog />
-              <span> Admin Panel </span>
-            </NavLink>
-          </li>
-        )}
+      
         {/* <li>
           <NavLink to="/balance_transfer">
             <FaHandshake />
@@ -268,6 +261,12 @@ const DashboardMenu = () => {
           </NavLink>
         </li>
         <li>
+          <NavLink to="/salary">
+            <FaUniversalAccess />
+            <span> Salary </span>
+          </NavLink>
+        </li>
+        <li>
           <NavLink to="/prove">
             <MdOutlineSelfImprovement />
             <span> Prove </span>
@@ -278,6 +277,14 @@ const DashboardMenu = () => {
             <NavLink to="/product">
               <RiProductHuntLine />
               <span>Product</span>
+            </NavLink>
+          </li>
+        )}
+          {user.role === "admin" && (
+          <li>
+            <NavLink to="/admin/user">
+              <FaUserCog />
+              <span> Admin Panel </span>
             </NavLink>
           </li>
         )}

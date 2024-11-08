@@ -6,32 +6,34 @@ import Header from "../Header/Header";
 import TopHeader from "../TopHeader/TopHeader";
 import HotSale from "./HotSale/HotSale";
 import JustForYou from "./JustForYou/JustForYou";
-import Slider from "./Slider/Slider";
 import DisplayAdsOne from "../../GoogleADs/DisplayAdsOne";
 import DisplayAdsTwo from "../../GoogleADs/DisplayAdsTwo";
-import DisplayAdsThree from "../../GoogleADs/DisplayAdsThree";
 import MultiplexAdsOne from "../../GoogleADs/MultiplexAdsTwo";
 import MultiplexAdsTwo from "../../GoogleADs/MultiplexAdsTwo";
 import MultiplexAdsThree from "../../GoogleADs/MultiplexAdsThree";
-import PostProve from "./PostProve/index";
 import ECommerce from "./ECommerce/index";
+import { useNavigate, useParams } from "react-router-dom";
 
 const Home = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(true);
   const [hotProductLoading, setHotProductLoading] = useState(true);
-  const [page, setPage] = useState("earn-page");
-  const [hotSales, setHotSales] = useState([]);
+  const params = useParams();
+  const navigate = useNavigate();
   useEffect(() => {
-    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/product`)
+    console.log("params?.search ==>", params?.search)
+    if (!params?.search) {
+      navigate("/");
+    }
+    fetch(
+      `${process.env.REACT_APP_SERVER_HOST_URL}/product?search=${
+        params?.search || ""
+      }`
+    )
       .then((res) => res.json())
       .then((data) => {
         if (data.data) {
           setAllProducts(data.data);
-          const hotProductArray = data.data.filter(
-            (pd) => pd.viewAs === "Hot Sales"
-          );
-          setHotSales(hotProductArray);
         } else {
         }
       })
@@ -39,7 +41,7 @@ const Home = () => {
         setLoading(false);
         setHotProductLoading(false);
       });
-  }, []);
+  }, [params?.search]);
   useEffect(() => {
     if (document.getElementById("ads_show_div")) {
       console.log("html elements", document.getElementById("ads_show_div"));
@@ -54,51 +56,8 @@ const Home = () => {
   return (
     <div>
       <Header />
-      <DisplayAdsOne />
-      <MultiplexAdsOne />
-      {/* <ins
-        class="adsbygoogle easyshop_responsive_two"
-        style={{ display: "block" }}
-        data-ad-client="ca-pub-6382147321235149"
-        data-ad-slot="8350770298"
-        data-ad-format="auto"
-        data-full-width-responsive="true"
-      ></ins>   */}
-      <ECommerce />
-
-      <div id="ads_show_div">
-        <ins
-          className="adsbygoogle"
-          style={{ display: "block" }}
-          data-ad-client="ca-pub-6382147321235149"
-          data-ad-slot="6866260249"
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        ></ins>
-      </div>
-      <div>
-        <ins
-          className="adsbygoogle"
-          style={{ display: "block" }}
-          data-ad-client="ca-pub-6382147321235149"
-          data-ad-slot="8080103715"
-          data-ad-format="auto"
-          data-full-width-responsive="true"
-        ></ins>
-      </div>
 
       <div classNameName="wraper">
-        <HotSale hotSales={hotSales} loading={hotProductLoading} />
-        <div>
-          <ins
-            className="adsbygoogle"
-            style={{ display: "block" }}
-            data-ad-format="autorelaxed"
-            data-ad-client="ca-pub-6382147321235149"
-            data-ad-slot="8543138146"
-          ></ins>
-        </div>
-
         <div classNameName="mobile gird-2">
           <div>
             <ins
@@ -115,17 +74,6 @@ const Home = () => {
             ></ins>
           </div>
         </div>
-        <MultiplexAdsThree />
-        <DisplayAdsTwo />
-        <MultiplexAdsTwo />
-        {/* <div className="desktop">
-          <ins
-            class="adsbygoogle easyshop_Desktop_one"
-            data-ad-client="ca-pub-6382147321235149"
-            data-ad-slot="5586389048"
-          ></ins>
-        </div> */}
-        {/* <Categories /> */}
         <JustForYou allProducts={allProducts} loading={loading} />
         <div classNameName="mobile gird-2">
           <div>

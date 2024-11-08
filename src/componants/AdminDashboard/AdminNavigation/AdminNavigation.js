@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { NavLink } from "react-router-dom";
-import { FaDonate, FaQrcode, FaUsersCog } from "react-icons/fa";
+import { FaDonate, FaQrcode, FaUniversalAccess, FaUsersCog } from "react-icons/fa";
 import { BiCategory, BiLogOut } from "react-icons/bi";
 import { userContext } from "../../../App";
 import { MdOutlineViewCarousel, MdPostAdd, MdSupport } from "react-icons/md";
@@ -83,6 +83,12 @@ const AdminNavigation = () => {
           <NavLink to="/admin/prove-post">
           <MdPostAdd />
             <span> Prove Post</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/admin/salary">
+          <FaUniversalAccess />
+            <span> Admin Salary</span>
           </NavLink>
         </li>
         <li>

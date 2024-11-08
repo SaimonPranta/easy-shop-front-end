@@ -1,0 +1,78 @@
+.categories{
+    width: 80%;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-gap: 20px;
+    margin: auto;
+    margin-bottom: 10px;
+}
+.categories div{
+    background: rgb(0,212,255);
+    background: linear-gradient(69deg, rgba(0,212,255,1) 0%, rgba(124,16,8,1) 77%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 60px;
+    border-radius: 50px 10px;
+    cursor: pointer;
+}
+.categories div:nth-child(2){
+    background: rgb(2,0,36);
+    background: linear-gradient(69deg, rgba(2,0,36,1) 0%, rgba(121,9,9,1) 0%, rgba(236,255,0,1) 100%);
+}
+.categories div:nth-child(3){
+    background: rgb(208,222,5);
+ background: linear-gradient(69deg, rgba(208,222,5,1) 0%, rgba(142,0,249,1) 87%);
+    
+}
+.categories div h6{
+    font-weight: 1000;
+    color: #fff;
+    letter-spacing: 2px;
+}
+@media only screen and (min-width:200px) and (max-width:1250px) { 
+    .categories div h6{
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: 1.2px;
+    }
+}
+@media only screen and (min-width:200px) and (max-width:900px) { 
+    .categories{
+        width: 90%;
+    }
+    .categories div h6{
+        font-weight: 500;
+        font-size: .9rem;
+        color: #fff;
+        letter-spacing: 1.1px;
+    }
+}
+@media only screen and (min-width:200px) and (max-width:750px) { 
+    .categories{
+        width: 95%;
+        grid-gap: 10px;
+    }
+    .categories div{
+        height: 50px;
+    }
+    .categories div h6{
+        font-weight: 500;
+        font-size: .8rem;
+        color: #fff;
+        letter-spacing: 1px;
+    }
+}
+@media only screen and (min-width:200px) and (max-width:480px) { 
+    .categories{
+        grid-gap: 5px;
+    }
+    .categories div{
+        height: 40px;
+    }
+    .categories div h6{
+        font-weight: 400;
+        font-size: .7rem;
+        letter-spacing: .1px;
+    }
+}

@@ -1,0 +1,110 @@
+.just-for-you-head h3 {
+    color: blueviolet;
+}
+
+.just-for-you {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-gap: 10px;
+    margin: 20px 0;
+
+    .cart-skeleton {
+        background-color: #FFF;
+        width: 100%;
+        aspect-ratio: 1/.8;
+        box-shadow: 1px 2px 3px rgba(136, 107, 107, 0.418), 2px 3px 7px rgba(136, 107, 107, 0.288), 1px 1px 4px rgba(136, 107, 107);
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+
+        span {
+            display: inline-block;
+            background-color: #e4e4e4;
+            border-radius: 4px;
+
+            &.img {
+                width: 100%;
+                aspect-ratio: 16/ 5;
+                margin-bottom: 10px;
+                border-radius: 0px;
+
+            }
+
+
+        }
+
+        .des {
+            padding: 5px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+
+            .title {
+                height: 18px;
+                width: 100%;
+
+            }
+
+            .title-2 {
+                height: 18px;
+                width: 80% !important;
+            }
+
+            .price {
+                height: 18px;
+                width: 120px;
+                margin-top: 10px;
+            }
+
+            .price-2 {
+                height: 18px;
+                width: 100px;
+            }
+
+            .point {
+                height: 18px;
+                width: 110px;
+            }
+
+            .star {
+                height: 18px;
+                width: 150px;
+            }
+        }
+
+        .btn-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+
+            span {
+                width: 100%;
+                height: 35px;
+
+            }
+        }
+
+    }
+
+}
+
+@media only screen and (min-width:200px) and (max-width:1350px) {
+    .just-for-you {
+        grid-template-columns: repeat(4, 1fr);
+    }
+}
+
+@media only screen and (min-width:200px) and (max-width:1100px) {
+    .just-for-you {
+        grid-template-columns: repeat(3, 1fr);
+    }
+}
+
+@media only screen and (min-width:200px) and (max-width:800px) {
+    .just-for-you {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}

@@ -1,0 +1,181 @@
+.notice-page {
+    display: flex !important;
+    justify-content: center;
+    width: 100%;
+
+    .inner-section {
+        width: 95%;
+        max-width: 800px;
+
+        .form-container {
+            background-color: #FFF;
+            padding: 0px 30px 30px 30px ;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            padding-top: 20px;
+
+            p {
+                margin: 0px;
+            }
+
+            .notice-notice {
+                background-color: #0F91DD;
+                padding: 20px;
+                border-radius: 10px;
+
+                &.white {
+                    background-color: #FFF;
+                    box-shadow: 1px 1px 1px 2px #8e727233;
+
+                    p {
+                        color: #000;
+                    }
+                }
+
+                &.des {
+                    .more-btn-container {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        button {
+                            border: none;
+                            outline: none;
+                            padding: 4px 7px;
+                            border-radius: 4px;
+                            color: #FFF;
+                            background-color: var(--default-color);
+                        }
+                    }
+                }
+
+                p {
+                    color: #FFF;
+                    margin: 0px;
+                    font-size: 24px;
+                    font-weight: 600;
+                    text-align: center;
+                }
+            }
+
+            .grid-section {
+                &.salary {
+                    justify-content: start;
+
+                    .item {
+                        width: 170px;
+                        display: flex;
+                        flex-direction: column;
+                        align-items: center;
+                        justify-content: center;
+                        aspect-ratio: 2/1.8 !important;
+                        box-shadow: 1px 1px 1px 2px #8e727233;
+
+                    }
+
+                }
+            }
+
+            .history-section {
+                display: flex;
+                flex-direction: column;
+                gap: 20px;
+
+                p {
+                    font-size: 19px;
+                }
+
+                .cart {
+                    box-shadow: 1px 1px 1px 2px #8e727233;
+                    padding: 20px;
+                    border-radius: 10px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+
+                    .salary-bonus {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+
+                        p {
+                            width: max-content;
+                            padding: 5px;
+                            background-color: var(--default-color);
+                            color: #FFF;
+                            border-radius: 4px;
+                        }
+                    }
+
+                    .des {
+                        p {
+                            font-size: 20px;
+                            text-align: center;
+                            font-weight: 500;
+                        }
+                    }
+
+                    .date-section {
+                        border-top: 10px solid #04A1FF;
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        strong {
+                            color: var(--default-color);
+                            font-size: 21px;
+                        }
+                    }
+
+                    .footer-section {
+                        display: flex;
+                        align-items: center;
+                        justify-content: space-between;
+
+                        button {
+                            background-color: #FEC501;
+                            color: #FFF;
+                            outline: none;
+                            border: none;
+                            border-radius: 4px;
+                            font-size: 20px;
+                        }
+                    }
+
+
+                }
+            }
+
+
+        }
+
+
+    }
+}
+
+
+
+@media only screen and (min-width:200px) and (max-width:750px) {
+    .notice-page {
+        width: 100vw;
+
+        .inner-section {
+            .notice-notice {
+                p {
+                    font-size: 12px;
+                }
+            }
+
+            .back-btn-section {
+                button {
+                    padding: 3px 5px;
+                    font-size: 12px;
+
+                }
+            }
+
+
+        }
+    }
+}

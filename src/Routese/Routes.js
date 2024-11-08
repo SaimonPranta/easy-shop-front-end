@@ -1,6 +1,7 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Home from '../componants/Home/Home';
+import WorkPage from '../componants/WorkPage/index';
 import AboutUs from '../componants/AboutUs/AboutUs';
 import HelpLine from '../componants/HelpLine/index';
 import Registration from '../componants/Registration/Registration';
@@ -9,6 +10,7 @@ import Dashboard from '../componants/Dashboard/Dashboard';
 import MyBalance from '../componants//Dashboard/Pages/MyBalance/index';
 import Generation from '../componants/Dashboard/Pages/Generation/Index';
 import Withdraw from '../componants/Dashboard/Pages/Withdraw/Index';
+import Salary from '../componants/Dashboard/Pages/Salary/Index.js';
 import WIthdrawProve from '../componants/Dashboard/Pages/AddProve/Index';
 import Prove from '../componants/Dashboard/Pages/Prove/Index';
 import ReferTeamMember from '../componants/Dashboard/Pages/ReferTeamMember/Index';
@@ -40,9 +42,12 @@ import AdminWithdrawConfig from '../componants/AdminDashboard/AdminWithdrawConfi
 import AdminProvePost from '../componants/AdminDashboard/AdminProvePost/index';
 import AdminProvePostConfig from '../componants/AdminDashboard/AdminProvePostConfig/index';
 import AdminPaymentsConfig from '../componants/AdminDashboard/AdminPaymentsConfig/index';
+import AdminSalaryConfig from '../componants/AdminDashboard/AdminSalaryConfig/index.js';
 import AdminAddDailyTask from '../componants/AdminDashboard/AdminAddDailyTask/index'; 
 import AdminAddRanks from '../componants/AdminDashboard/AdminAddRanks/index'; 
 import AdminPayments from '../componants/AdminDashboard/AdminPayments/index';
+import AdminSalary from '../componants/AdminDashboard/AdminSalary/index.js';
+import ProductSearch from '../componants/Search Product/index.js';
 
 
 const Routess = () => {
@@ -51,11 +56,13 @@ const Routess = () => {
             <BrowserRouter>
                 <Routes>
                     <Route path="/" element={<Home />}></Route>
+                    <Route path="/earn-money" element={<WorkPage />}></Route>
                     <Route path="/about_us" element={<AboutUs />}></Route>
                     <Route path="/helpline" element={<HelpLine />}></Route>
                     <Route path="/registration" element={<Registration />}></Route>
                     <Route path="/login" element={<Login />}></Route>
                     <Route path="/cart" element={<Cart />}></Route>
+                    <Route path="/search/:search" element={<ProductSearch />}></Route>
                     <Route path="/product/:id" element={<ProductDetails />}></Route>
                     <Route path="/dashboard" element={
                         <PrivetRoute>
@@ -110,6 +117,11 @@ const Routess = () => {
                     <Route path="/withdraw" element={
                         <PrivetRoute>
                             <Withdraw />
+                        </PrivetRoute>
+                    }></Route>
+                    <Route path="/salary" element={
+                        <PrivetRoute>
+                            <Salary />
                         </PrivetRoute>
                     }></Route>
                      <Route path="/prove" element={
@@ -192,9 +204,19 @@ const Routess = () => {
                             <AdminPayments />
                         </AdminPrivetRoute>
                     }></Route>
+                     <Route path="/admin/salary" element={
+                        <AdminPrivetRoute>
+                            <AdminSalary />
+                        </AdminPrivetRoute>
+                    }></Route>
                     <Route path="/admin/payments-config" element={
                         <AdminPrivetRoute>
                             <AdminPaymentsConfig />
+                        </AdminPrivetRoute>
+                    }></Route>
+                    <Route path="/admin/salary-config" element={
+                        <AdminPrivetRoute>
+                            <AdminSalaryConfig />
                         </AdminPrivetRoute>
                     }></Route>
                     <Route path="/admin/add-daily-task" element={

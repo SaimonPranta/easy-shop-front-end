@@ -6,8 +6,6 @@ import bkash from "../../../../assets/images/bank_icon/bkash.png";
 import roket from "../../../../assets/images/bank_icon/roket.png";
 import upai from "../../../../assets/images/bank_icon/upai.png";
 import nogod from "../../../../assets/images/bank_icon/nogod.png";
-import wallet from "../../../../assets/images/dashboard/wallet.png";
-import { dateToString } from "../../../../shared/functions/dateConverter";
 import { useNavigate } from "react-router-dom";
 import SuccessTost from "../../../../shared/components/SuccessTost/SuccessTost";
 import FailedTost from "../../../../shared/components/FailedTost/FailedTost";

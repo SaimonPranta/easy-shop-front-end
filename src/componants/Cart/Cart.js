@@ -5,7 +5,6 @@ import Header from '../Header/Header';
 import CartPorduct from './CartPorduct/CartPorduct';
 import { useEffect } from 'react';
 import { useState } from 'react';
-import porducts from '../../assets/DB/products.json';
 
 const Cart = () => {
     const [cartProducts, setCartProducts] = useState([]);
@@ -60,23 +59,7 @@ const Cart = () => {
             }
           });
     }, [cartItemInfo])
-
-    useEffect(() => {
-        const cartItems = JSON.parse(localStorage.getItem("cartArray"))
-
-        if (cartItems?.length) {
-            if (porducts?.length) {
-                const filerProducts = porducts.filter(pd => {
-                    for (let i = 0; i < cartItems.length; i++) {
-                        if (cartItems[i] == pd.key) {
-                            return pd
-                        }
-                    }
-                })
-                setCartProducts(filerProducts)
-            }
-        }
-    }, [])
+ 
 
     const handleQuentity = (type, id) => {
         
