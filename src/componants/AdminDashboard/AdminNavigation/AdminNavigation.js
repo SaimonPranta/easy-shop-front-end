@@ -3,7 +3,7 @@ import { NavLink } from "react-router-dom";
 import { FaDonate, FaQrcode, FaUniversalAccess, FaUsersCog } from "react-icons/fa";
 import { BiCategory, BiLogOut } from "react-icons/bi";
 import { userContext } from "../../../App";
-import { MdOutlineViewCarousel, MdPostAdd, MdSupport } from "react-icons/md";
+import { MdOutlineAccountBalance, MdOutlineViewCarousel, MdPostAdd, MdSupport } from "react-icons/md";
 import { IoConstructOutline, IoNotifications } from "react-icons/io5";
 import { FaRegUserCircle } from "react-icons/fa";
 import { MdOutlineAddTask } from "react-icons/md";
@@ -101,6 +101,12 @@ const AdminNavigation = () => {
           <NavLink to="/admin/categories">
           <BiCategory />
             <span> Categories</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/admin/balance-transfer-config">
+            <MdOutlineAccountBalance />
+            <span> Balance Transfer Config</span>
           </NavLink>
         </li>
         <li>

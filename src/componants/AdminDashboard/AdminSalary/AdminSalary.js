@@ -8,7 +8,7 @@ import { dateToString, timeAgo } from "../../../shared/functions/dateConverter";
 import { useNavigate } from "react-router-dom";
 import { FaRegUserCircle } from "react-icons/fa";
 import getImageUrl from "../../../shared/functions/getImageUrl";
-import { imageContext } from "../../../App";
+import { configContext, imageContext } from "../../../App";
 
 const AdminSalary = () => {
   const [filterInput, setFilterInput] = useState({});
@@ -17,7 +17,9 @@ const AdminSalary = () => {
   const [tableItems, setTableItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
+  const [seeMoreID, setSeeMoreID] = useState("");
   const { setViewImage } = useContext(imageContext);
+  const [config] = useContext(configContext);
 
   const debounceState = useRef();
 
@@ -32,7 +34,7 @@ const AdminSalary = () => {
     resetTimeout();
     debounceState.current = setTimeout(() => {
       fetch(
-        `${process.env.REACT_APP_SERVER_HOST_URL}/admin-payments?page=${page}`,
+        `${process.env.REACT_APP_SERVER_HOST_URL}/admin-salary?page=${page}`,
         {
           method: "POST",
           headers: {
@@ -115,7 +117,7 @@ const AdminSalary = () => {
     });
   };
   const handleStatus = (status, id) => {
-    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/admin-payments/status`, {
+    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/admin-salary/status`, {
       method: "PUT",
       headers: {
         "content-type": "application/json; charset=UTF-8",
@@ -202,18 +204,14 @@ const AdminSalary = () => {
             <thead>
               <tr>
                 <th className="small">#</th>
-                <th className="img">Img</th>
                 <th className="big">User Name</th>
                 <th>User ID</th>
-                <th>Method</th>
-                <th>Number</th>
-                <th>Transaction Number</th>
-                <th>Amount</th>
+                <th>ID</th>
+                <th className="big"> Title </th>
+                <th className="big">Salary Amount</th>
                 <th className="big">Account Balance</th>
-                <th>Screen Short</th>
                 <th>Ago</th>
                 <th>Date</th>
-                <th>Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -231,40 +229,39 @@ const AdminSalary = () => {
                   return (
                     <tr key={index}>
                       <td className="small">{index + 1}</td>
-                      <td className="img">
-                        {reqInfo?.userID?.profilePicture && (
-                          <img
-                            src={getImageUrl(reqInfo?.userID?.profilePicture)}
-                            alt=""
-                            onDoubleClick={() =>
-                              setViewImage(
-                                getImageUrl(reqInfo?.userID?.profilePicture)
-                              )
-                            }
-                          />
-                        )}
-                        {!reqInfo?.userID?.profilePicture && (
-                          <FaRegUserCircle />
-                        )}
+                      <td className="img-name">
+                        <div>
+                          {reqInfo?.userID?.profilePicture && (
+                            <img
+                              src={getImageUrl(reqInfo?.userID?.profilePicture)}
+                              alt=""
+                              onDoubleClick={() =>
+                                setViewImage(
+                                  getImageUrl(reqInfo?.userID?.profilePicture)
+                                )
+                              }
+                            />
+                          )}
+                          {!reqInfo?.userID?.profilePicture && (
+                            <FaRegUserCircle />
+                          )}
+                          <p> {reqInfo?.userID?.fullName}</p>
+                        </div>
                       </td>
-                      <td>{reqInfo?.userID?.fullName}</td>
                       <td>{reqInfo?.userID?.phoneNumber}</td>
-                      <td>{reqInfo?.payments?.paymentMethod}</td>
-                      <td>{reqInfo?.payments?.paymentNumber}</td>
-                      <td>{reqInfo?.payments?.transitionNumber}</td>
-                      <td>৳{reqInfo?.amount}</td>
-                      <td>৳{accountBalance}</td>
-                      <td className="img big">
-                        <img
-                          src={getImageUrl(reqInfo?.payments?.img)}
-                          alt=""
-                          onDoubleClick={() =>
-                            setViewImage(
-                              getImageUrl(reqInfo?.payments?.img)
-                            )
-                          }
-                        />
+                      <td>{reqInfo?.id}</td>
+                      <td className={`big description`}>
+                        <div
+                          className={`${
+                            reqInfo._id === seeMoreID ? "" : "ellipsis"
+                          }`}
+                          onClick={() => setSeeMoreID(reqInfo._id)}
+                        >
+                          <p>{config?.salary?.salaryHistoryTitle}</p>
+                        </div>
                       </td>
+                      <td>৳{reqInfo?.amount}</td>
+                      <td>৳{reqInfo?.userID?.balance}</td>
                       <td className="date">{timeAgo(reqInfo.createdAt)}</td>
                       <td className="date">
                         {dateToString(reqInfo.createdAt)}
@@ -272,53 +269,16 @@ const AdminSalary = () => {
                       {/* <td className={`btn ${reqInfo.status.toLowerCase()}`}>
                       <button>{reqInfo.status}</button>
                     </td> */}
-                      <td>{reqInfo?.status}</td>
                       <td
                         className={`btn-container ${reqInfo.status.toLowerCase()}`}
                       >
                         <div>
-                          {reqInfo.status !== "Pending" && (
-                            <button
-                              onClick={() =>
-                                handleStatus("Pending", reqInfo._id)
-                              }
-                              disabled={reqInfo.status === "Cancel"}
-                            >
-                              Pending
-                            </button>
-                          )}
-                          {reqInfo.status !== "Reject" && (
-                            <button
-                              className="reject"
-                              onClick={() =>
-                                handleStatus("Reject", reqInfo._id)
-                              }
-                              disabled={reqInfo.status === "Cancel"}
-                            >
-                              Reject{" "}
-                            </button>
-                          )}
-                          {reqInfo.status !== "Approve" && (
-                            <button
-                              className="approve"
-                              onClick={() =>
-                                handleStatus("Approve", reqInfo._id)
-                              }
-                              disabled={reqInfo.status === "Cancel"}
-                            >
-                              Approve
-                            </button>
-                          )}
-                          {reqInfo.status === "Pending" && (
-                            <button
-                              onClick={() =>
-                                handleStatus("Delete", reqInfo._id)
-                              }
-                              disabled={reqInfo.status === "Cancel"}
-                            >
-                              Delete
-                            </button>
-                          )}
+                          <button
+                            onClick={() => handleStatus("Delete", reqInfo._id)}
+                            disabled={loading}
+                          >
+                            Delete
+                          </button>
                         </div>
                       </td>
                     </tr>

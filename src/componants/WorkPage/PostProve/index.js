@@ -17,7 +17,6 @@ const Index = () => {
   const [total, setTotal] = useState(0);
   const [search, setSearch] = useState("");
   const { setViewImage } = useContext(imageContext);
-  const [showLastElemt, setShowLastElemt] = useState(false);
 
   const lastElementRef = useRef(null);
   const debounceState = useRef();
@@ -128,7 +127,7 @@ const Index = () => {
         console.log("Observer detached from the last element"); // Debugging
       }
     };
-  }, [showLastElemt]);
+  }, []);
 
   return (
     <div className="prove-post">

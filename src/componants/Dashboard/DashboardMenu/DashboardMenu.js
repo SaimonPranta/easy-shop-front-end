@@ -19,7 +19,7 @@ import { FaUserEdit } from "react-icons/fa";
 import { FaUserCog } from "react-icons/fa";
 import { FaMedal } from "react-icons/fa";
 import { userContext } from "../../../App";
-import { MdAccountBalanceWallet, MdOutlineSelfImprovement, MdVolunteerActivism } from "react-icons/md";
+import { MdAccountBalanceWallet, MdOutlineAccountBalance, MdOutlineSelfImprovement, MdVolunteerActivism } from "react-icons/md";
 import { AiFillAccountBook } from "react-icons/ai";
 import { MdLiveHelp } from "react-icons/md";
 import { SiMicrosoftteams } from "react-icons/si";
@@ -258,6 +258,12 @@ const DashboardMenu = () => {
           <NavLink to="/withdraw">
             <FaDonate />
             <span> Withdraw </span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/balance-transfer">
+            <MdOutlineAccountBalance />
+            <span> Balance Transfer </span>
           </NavLink>
         </li>
         <li>

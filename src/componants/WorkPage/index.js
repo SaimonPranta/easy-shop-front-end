@@ -1,20 +1,12 @@
 import React from "react";
-import { useState } from "react";
 import { useEffect } from "react";
 import Footer from "../Footer/Footer";
 import Header from "../Header/Header";
 import TopHeader from "../TopHeader/TopHeader";
-import HotSale from "./HotSale/HotSale";
-import JustForYou from "./JustForYou/JustForYou";
 import Slider from "./Slider/Slider";
 import DisplayAdsOne from "../../GoogleADs/DisplayAdsOne";
-import DisplayAdsTwo from "../../GoogleADs/DisplayAdsTwo";
-import DisplayAdsThree from "../../GoogleADs/DisplayAdsThree";
 import MultiplexAdsOne from "../../GoogleADs/MultiplexAdsTwo";
-import MultiplexAdsTwo from "../../GoogleADs/MultiplexAdsTwo";
-import MultiplexAdsThree from "../../GoogleADs/MultiplexAdsThree";
 import PostProve from "./PostProve/index";
-import ECommerce from "./ECommerce/index";
 
 const Index = () => { 
  

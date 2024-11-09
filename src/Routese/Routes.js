@@ -10,6 +10,7 @@ import Dashboard from '../componants/Dashboard/Dashboard';
 import MyBalance from '../componants//Dashboard/Pages/MyBalance/index';
 import Generation from '../componants/Dashboard/Pages/Generation/Index';
 import Withdraw from '../componants/Dashboard/Pages/Withdraw/Index';
+import BalanceTransfer from '../componants/Dashboard/Pages/BalanceTransfer/Index.js';
 import Salary from '../componants/Dashboard/Pages/Salary/Index.js';
 import WIthdrawProve from '../componants/Dashboard/Pages/AddProve/Index';
 import Prove from '../componants/Dashboard/Pages/Prove/Index';
@@ -39,6 +40,7 @@ import AdminDailyTaskList from '../componants/AdminDashboard/AdminDailyTaskList/
 import AdminWithdraw from '../componants/AdminDashboard/AdminWithdraw/index';
 import AdminUser from '../componants/AdminDashboard/AdminUser/index';
 import AdminWithdrawConfig from '../componants/AdminDashboard/AdminWithdrawConfig/index';
+import AdminBalanceTransferConfig from '../componants/AdminDashboard/AdminBalanceTransferConfig/index.js';
 import AdminProvePost from '../componants/AdminDashboard/AdminProvePost/index';
 import AdminProvePostConfig from '../componants/AdminDashboard/AdminProvePostConfig/index';
 import AdminPaymentsConfig from '../componants/AdminDashboard/AdminPaymentsConfig/index';
@@ -119,6 +121,11 @@ const Routess = () => {
                             <Withdraw />
                         </PrivetRoute>
                     }></Route>
+                    <Route path="/balance-transfer" element={
+                        <PrivetRoute>
+                            <BalanceTransfer />
+                        </PrivetRoute>
+                    }></Route>
                     <Route path="/salary" element={
                         <PrivetRoute>
                             <Salary />
@@ -187,6 +194,11 @@ const Routess = () => {
                     <Route path="/admin/withdraw-config" element={
                         <AdminPrivetRoute>
                             <AdminWithdrawConfig />
+                        </AdminPrivetRoute>
+                    }></Route>
+                    <Route path="/admin/balance-transfer-config" element={
+                        <AdminPrivetRoute>
+                            <AdminBalanceTransferConfig />
                         </AdminPrivetRoute>
                     }></Route>
                      <Route path="/admin/prove-post" element={
