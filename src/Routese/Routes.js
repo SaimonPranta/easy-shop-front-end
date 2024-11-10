@@ -10,6 +10,7 @@ import Dashboard from '../componants/Dashboard/Dashboard';
 import MyBalance from '../componants//Dashboard/Pages/MyBalance/index';
 import Generation from '../componants/Dashboard/Pages/Generation/Index';
 import Withdraw from '../componants/Dashboard/Pages/Withdraw/Index';
+import Tutorial from '../componants/Dashboard/Pages/Tutorial/Index';
 import BalanceTransfer from '../componants/Dashboard/Pages/BalanceTransfer/Index.js';
 import Salary from '../componants/Dashboard/Pages/Salary/Index.js';
 import WIthdrawProve from '../componants/Dashboard/Pages/AddProve/Index';
@@ -119,6 +120,11 @@ const Routess = () => {
                     <Route path="/withdraw" element={
                         <PrivetRoute>
                             <Withdraw />
+                        </PrivetRoute>
+                    }></Route>
+                    <Route path="/tutorial" element={
+                        <PrivetRoute>
+                            <Tutorial />
                         </PrivetRoute>
                     }></Route>
                     <Route path="/balance-transfer" element={

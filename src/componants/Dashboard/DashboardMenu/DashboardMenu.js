@@ -20,7 +20,7 @@ import { FaUserCog } from "react-icons/fa";
 import { FaMedal } from "react-icons/fa";
 import { userContext } from "../../../App";
 import { MdAccountBalanceWallet, MdOutlineAccountBalance, MdOutlineSelfImprovement, MdVolunteerActivism } from "react-icons/md";
-import { AiFillAccountBook } from "react-icons/ai";
+import { AiFillAccountBook, AiOutlineYoutube } from "react-icons/ai";
 import { MdLiveHelp } from "react-icons/md";
 import { SiMicrosoftteams } from "react-icons/si";
 import { GiRank3 } from "react-icons/gi";
@@ -276,6 +276,12 @@ const DashboardMenu = () => {
           <NavLink to="/prove">
             <MdOutlineSelfImprovement />
             <span> Prove </span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/tutorial">
+            <AiOutlineYoutube />
+            <span> Tutorial </span>
           </NavLink>
         </li>
         {user.role === "admin" && (
