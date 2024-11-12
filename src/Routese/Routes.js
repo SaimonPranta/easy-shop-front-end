@@ -6,8 +6,9 @@ import AboutUs from '../componants/AboutUs/AboutUs';
 import HelpLine from '../componants/HelpLine/index';
 import Registration from '../componants/Registration/Registration';
 import Login from '../componants/Login/Login';
-import Dashboard from '../componants/Dashboard/Dashboard';
-import MyBalance from '../componants//Dashboard/Pages/MyBalance/index';
+// import Dashboard from '../componants/Dashboard/Pages/DashboardBody/index.js';
+import Dashboard from '../componants/Dashboard/Dashboard.js';
+import MyBalance from '../componants/Dashboard/Pages/MyBalance/index';
 import Generation from '../componants/Dashboard/Pages/Generation/Index';
 import Withdraw from '../componants/Dashboard/Pages/Withdraw/Index';
 import Tutorial from '../componants/Dashboard/Pages/Tutorial/Index';
@@ -39,9 +40,12 @@ import AdminSlider from '../componants/AdminDashboard/AdminSlider/index';
 import AdminCategories from '../componants/AdminDashboard/AdminCategories/index';
 import AdminDailyTaskList from '../componants/AdminDashboard/AdminDailyTaskList/index';
 import AdminWithdraw from '../componants/AdminDashboard/AdminWithdraw/index';
+import AdminDashboard from '../componants/AdminDashboard/AdminDashboard/index.js';
 import AdminUser from '../componants/AdminDashboard/AdminUser/index';
 import AdminWithdrawConfig from '../componants/AdminDashboard/AdminWithdrawConfig/index';
 import AdminBalanceTransferConfig from '../componants/AdminDashboard/AdminBalanceTransferConfig/index.js';
+import AminConfig from '../componants/AdminDashboard/AminConfig/index.js';
+import AminDashboardConfig from '../componants/AdminDashboard/AminDashboardConfig/index.js';
 import AdminProvePost from '../componants/AdminDashboard/AdminProvePost/index';
 import AdminProvePostConfig from '../componants/AdminDashboard/AdminProvePostConfig/index';
 import AdminPaymentsConfig from '../componants/AdminDashboard/AdminPaymentsConfig/index';
@@ -192,6 +196,11 @@ const Routess = () => {
                             <AdminWithdraw />
                         </AdminPrivetRoute>
                     }></Route>
+                      <Route path="/admin/dashboard" element={
+                        <AdminPrivetRoute>
+                            <AdminDashboard />
+                        </AdminPrivetRoute>
+                    }></Route>
                     <Route path="/admin/user" element={
                         <AdminPrivetRoute>
                             <AdminUser />
@@ -205,6 +214,16 @@ const Routess = () => {
                     <Route path="/admin/balance-transfer-config" element={
                         <AdminPrivetRoute>
                             <AdminBalanceTransferConfig />
+                        </AdminPrivetRoute>
+                    }></Route>
+                     <Route path="/admin/dashboard-config" element={
+                        <AdminPrivetRoute>
+                            <AminDashboardConfig />
+                        </AdminPrivetRoute>
+                    }></Route>
+                     <Route path="/admin/config" element={
+                        <AdminPrivetRoute>
+                            <AminConfig />
                         </AdminPrivetRoute>
                     }></Route>
                      <Route path="/admin/prove-post" element={

@@ -6,37 +6,43 @@
     margin: auto;
     background-color: #FFFFFF;
 }
+
 .authentication form .referral-section {
     position: relative;
 }
-.authentication form .referral-section input{
+
+.authentication form .referral-section input {
     color: var(--default-color);
 }
-.authentication form .referral-section  .user-list{
+
+.authentication form .referral-section .user-list {
     position: absolute;
     width: 100%;
     top: 35px;
     left: 10px;
     background-color: #FFF !important;
     display: flex;
-    flex-direction: column; 
+    flex-direction: column;
     box-shadow: 1px 1px 1px 1px #b0a0a076, 1px 1px 1px 3px #b0a0a049;
     height: 100px;
     overflow: auto;
 }
-.authentication form .referral-section  .user-list button{
-     outline: none;
-     border: none;
-     border-bottom: 1px solid #f4eeee;
-     text-align: start;
-     padding: 3px 5px;
-     background-color: transparent;
+
+.authentication form .referral-section .user-list button {
+    outline: none;
+    border: none;
+    border-bottom: 1px solid #f4eeee;
+    text-align: start;
+    padding: 3px 5px;
+    background-color: transparent;
 }
-.authentication form .referral-section  .user-list button:hover{
+
+.authentication form .referral-section .user-list button:hover {
     background-color: #e3d6d6;
 }
 
-.authentication form h6, p {
+.authentication form h6,
+p {
     padding: 0 10px;
 }
 
@@ -45,7 +51,8 @@
     font-size: 1.3rem;
 }
 
-.authentication .eye-container, .authentication .icon-container {
+.authentication .eye-container,
+.authentication .icon-container {
     position: relative;
 }
 
@@ -83,7 +90,8 @@
 }
 
 
-.authentication form input, .authentication form .notice-container {
+.authentication form input,
+.authentication form .notice-container {
     display: block;
     margin: 10px;
     width: 100%;
@@ -118,21 +126,24 @@
     align-items: center;
     gap: 5px;
 }
+
 .authentication form .remember-section .upline-container {
     display: flex;
     align-items: center;
     gap: 5px;
-    
+
 }
-.authentication form   .upline-container p{
-     color: #daa126 !important;
+
+.authentication form .upline-container p {
+    color: #daa126 !important;
     padding-top: 10px !important;
 
-    
+
 }
-.authentication form   .upline-container p span{
-     color: blue;
-    
+
+.authentication form .upline-container p span {
+    color: blue;
+
 }
 
 .authentication form .remember-section p {
@@ -236,6 +247,89 @@
     color: white;
 }
 
+.registration-page {
+    .tutorial-list {
+        margin-top: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 20px;
+        width: 100%;
+        padding: 10px !important;
+        background-color: #FFF ;
+        max-width: 570px;
+        width: 100%;
+        margin: auto;
+        margin-top: 20px;
+        border-radius: 10px;
+
+        .cart {
+            width: 100%;
+            background-color: #FFF;
+            box-shadow: 1px 1px 1px 2px #8e727233;
+            border-radius: 10px;
+            overflow: hidden;
+
+            .title {
+                background-color: var(--default-color);
+                padding: 10px 5px;
+
+                p {
+                    font-size: 22px;
+                    font-weight: 600;
+                    color: #FFF;
+
+                }
+            }
+
+            .video-container {
+                width: 100%;
+                min-width: 100%;
+                aspect-ratio: 1/.6 !important;
+                padding: 0px;
+
+                iframe {
+                    width: 100%;
+                    height: 100%;
+
+                    * {
+                        margin: 0px !important;
+                        padding: 0px !important;
+                    }
+
+                }
+            }
+
+            .button-section {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                padding: 10px;
+
+                button {
+                    background-color: var(--default-color);
+                    padding: 5px 15;
+                    font-weight: 700;
+                    outline: none;
+                    border: none;
+                    color: #FFF;
+                    border-radius: 4px;
+
+                    &:hover {
+                        opacity: .7;
+                    }
+
+                    &:active {
+                        transform: scale(.95);
+                    }
+                }
+            }
+        }
+    }
+}
+
 .form-navigation a {
     text-decoration: none;
 }
@@ -252,10 +346,14 @@
     .authentication form label {
         padding-top: 14px !important;
     }
-    .authentication form input, .authentication form .notice-container { 
-        margin: 10px 0px; 
+
+    .authentication form input,
+    .authentication form .notice-container {
+        margin: 10px 0px;
     }
-    .authentication form h6, p {
+
+    .authentication form h6,
+    p {
         padding: 0 2px;
     }
 
@@ -326,12 +424,14 @@
         font-size: 18px;
         margin: auto !important;
     }
+
     .authentication .icon-container svg {
         position: absolute;
         left: 5px;
         top: 50%;
         transform: translateY(-50%);
     }
+
     .form-navigation {
         font-size: 12px;
         height: 30px !important;

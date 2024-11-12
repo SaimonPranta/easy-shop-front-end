@@ -38,6 +38,12 @@ const AdminNavigation = () => {
           </NavLink>
         </li>
         <li>
+          <NavLink to="/admin/dashboard">
+            <FaQrcode />
+            <span>Dashboard Config</span>
+          </NavLink>
+        </li>
+        <li>
           <NavLink to="/admin/user">
           <FaUsersCog />
             <span> User List</span>
@@ -100,7 +106,7 @@ const AdminNavigation = () => {
         <li>
           <NavLink to="/admin/categories">
           <BiCategory />
-            <span> Categories</span>
+            <span>Categories</span>
           </NavLink>
         </li>
         <li>
@@ -110,7 +116,7 @@ const AdminNavigation = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/admin_panel">
+          <NavLink to="/admin/config">
             <IoConstructOutline />
             <span> Config</span>
           </NavLink>

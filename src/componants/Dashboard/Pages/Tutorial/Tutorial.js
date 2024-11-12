@@ -13,7 +13,7 @@ const Withdraw = () => {
   const [condition, setCondition] = useState({
     btnLoading: false,
   });
-  const [user, setUser] = useContext(userContext);
+  const [user] = useContext(userContext);
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/tutorial`, {

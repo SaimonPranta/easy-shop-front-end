@@ -1,51 +1,18 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./DashboardBody.scss";
-import { userContext } from "../../../../App";
+import {  userContext } from "../../../../App";
 import { userHeader } from "../../../../shared/cooki";
 import { FaShare, FaCopy } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
-import DashboardSlider from "./modal/DashboardSlider";
-
-const socialContainer = [
-  {
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png",
-    label: "FB page join korun",
-    link: "https:://facebook.com",
-  },
-  {
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png",
-    label: "FB page join korun",
-    link: "https:://facebook.com",
-  },
-  {
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png",
-    label: "FB page join korun",
-    link: "https:://facebook.com",
-  },
-  {
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png",
-    label: "FB page join korun",
-    link: "https:://facebook.com",
-  },
-  {
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png",
-    label: "FB page join korun",
-    link: "https:://facebook.com",
-  },
-  {
-    img: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/b8/2021_Facebook_icon.svg/2048px-2021_Facebook_icon.svg.png",
-    label: "FB page join korun",
-    link: "https:://facebook.com",
-  },
-];
+import getImageUrl from "../../../../shared/functions/getImageUrl";
 
 const DashboardBody = () => {
-  const [user, setUser] = useContext(userContext);
+  const [user] = useContext(userContext);
   const [notice, setNotice] = useState("");
   const [noticeInput, setNoticeInput] = useState("");
   const [message, setMessage] = useState({});
-  const [condition, setCondition] = useState(false);
-  const navigate = useNavigate();
+  const [socialItem, setSocialItem] = useState([]);
+  const navigate = useNavigate(); 
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/notice`)
@@ -53,6 +20,21 @@ const DashboardBody = () => {
       .then((data) => {
         if (data.data) {
           setNotice(data.data);
+        }
+      });
+    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/dashboard/get-list`, {
+      method: "POST",
+      headers: {
+        "content-type": "application/json; charset=UTF-8",
+        ...userHeader(),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.data) {
+          setSocialItem((state) => {
+            return [...data.data];
+          });
         }
       });
   }, []);
@@ -86,10 +68,13 @@ const DashboardBody = () => {
   const handleNavigation = () => {
     navigate("/payments", { replace: true });
   };
+  const handleNavigate = (link) => {
+    window.open(link, "_blank");
+  };
 
   return (
     <div>
-      <div className="balance-transfer-section m-auto">
+      <div className="user-dashboard-page m-auto">
         <h4>USER DASHBOARD</h4>
         {notice && (
           <div className="text-black withdraw-notice notice-section">
@@ -235,13 +220,19 @@ const DashboardBody = () => {
         <div className="dashboard-common-cart active-btn-section">
           <div className="inner-container">
             <div className="social-container">
-              {socialContainer.length > 0 &&
-                socialContainer.map((info, index) => {
+              {socialItem.length > 0 &&
+                socialItem.map((info, index) => {
                   return (
                     <div key={index}>
-                      <img src={info.img} alt="" />
-                      <button>Join Now</button>
-                      <h6>{info.label}</h6>
+                      <img
+                        src={getImageUrl(info?.socialMediaLogo)}
+                        alt=""
+                        // onDoubleClick={() =>
+                        //   setViewImage(getImageUrl(info?.socialMediaLogo))
+                        // }
+                      />
+                      <button onClick={ () =>handleNavigate(info.socialMediaLink)}>Join Now</button>
+                      <h6>{info.socialMediaTitle}</h6>
                     </div>
                   );
                 })}

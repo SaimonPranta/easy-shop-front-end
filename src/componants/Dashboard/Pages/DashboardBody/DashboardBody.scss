@@ -8,10 +8,14 @@
 .notice-section marquee {
     font-size: 1.4rem;
 }
-
-.balance-transfer-section .dashboard-common-cart {
+.user-dashboard-page{
+    max-width: 800px !important; 
+    background-color: #FFF;
+    padding: 10px;
+}
+.user-dashboard-page .dashboard-common-cart {
     width: 100%;
-    max-width: calc(100vw - 20px) !important;
+    // max-width: calc(100vw - 20px) !important;
     padding: 5px;
     border: 1px solid #deede4 !important;
     background-color: transparent !important;
@@ -19,9 +23,10 @@
     border-radius: 4px;
 
     .inner-container {
-        background-color: #deede4 !important; 
+        background-color: #deede4 !important;
         border-radius: 5px;
         display: inline-block;
+        width: 100%;
     }
 
 
@@ -30,6 +35,7 @@
 .active-btn-section {
     h5 {
         line-height: 30px;
+
         strong {
             // background-color: var(--default-color);
             color: yellowgreen;
@@ -122,7 +128,8 @@
     padding: 0px;
     padding-left: 150px;
     position: relative;
-    p{
+
+    p {
         position: absolute;
         left: 6px;
         background-color: #FFF;
@@ -147,7 +154,7 @@
     color: blue;
 }
 
-.balance-transfer-section .dashboard-user-info {
+.user-dashboard-page .dashboard-user-info {
     position: relative;
     width: 100%;
     height: 100%;
@@ -162,19 +169,19 @@
 
 }
 
-.balance-transfer-section .rafael-section {
+.user-dashboard-page .rafael-section {
     position: relative;
     width: 100%;
-    height: 100%; 
+    height: 100%;
     color: #3A476B;
     margin-bottom: 0px;
-    border-radius: 5px; 
+    border-radius: 5px;
     background-color: transparent !important;
     padding: 0px;
 
 }
 
-.balance-transfer-section .rafael-section h6 {
+.user-dashboard-page .rafael-section h6 {
     display: inline-block;
     text-align: center;
     width: 100%;
@@ -182,7 +189,7 @@
     font-weight: 700;
 }
 
-.balance-transfer-section .rafael-section p {
+.user-dashboard-page .rafael-section p {
     display: inline-block;
     text-align: center;
     width: 100%;
@@ -190,7 +197,7 @@
     color: #000;
 }
 
-.balance-transfer-section .rafael-section div {
+.user-dashboard-page .rafael-section div {
     display: flex;
     justify-content: center;
     gap: 15px;
@@ -202,7 +209,7 @@
 
 }
 
-.balance-transfer-section .rafael-section div button {
+.user-dashboard-page .rafael-section div button {
     border: none;
     outline: none;
     border-radius: 4px;
@@ -211,40 +218,42 @@
     padding: 5px 15px;
 }
 
-.balance-transfer-section .rafael-section div button:active {
+.user-dashboard-page .rafael-section div button:active {
     transform: scale(.9);
 }
 
-.balance-transfer-section .rafael-section div button:hover {
+.user-dashboard-page .rafael-section div button:hover {
     opacity: .9;
 }
 
-.balance-transfer-section .social-container {
+.user-dashboard-page .social-container {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     gap: 15px;
     background-color: #FFF;
 }
 
- 
 
-.balance-transfer-section .social-container div {
-    // padding: 10px;
+
+.user-dashboard-page .social-container div {
+ 
     display: flex;
     flex-direction: column;
     align-items: center;
     gap: 5px;
     background-color: #FFF;
     /* border: 1px solid #FFF; */
-}
-
-.balance-transfer-section .social-container div img {
+    padding: 5px;
     width: 100%;
-    height: auto;
-    padding: 2px 50px;
 }
 
-.balance-transfer-section .social-container div button {
+.user-dashboard-page .social-container div img {
+    height: 110px;
+    width: 110px;
+    border-radius: 50%; 
+}
+
+.user-dashboard-page .social-container div button {
     border: none;
     outline: none;
     border-radius: 4px;
@@ -254,7 +263,7 @@
     color: #FFF;
 }
 
-.balance-transfer-section .social-container div h6 {
+.user-dashboard-page .social-container div h6 {
     font-size: 20px;
     font-weight: 700;
     color: #000;
@@ -263,17 +272,17 @@
 
 
 
-.balance-transfer-section input {
+.user-dashboard-page input {
     height: 26px;
     width: 100%;
 }
 
-.balance-transfer-section form input {
+.user-dashboard-page form input {
     height: 26px;
     width: 100%;
 }
 
-.balance-transfer-section form select {
+.user-dashboard-page form select {
     height: 26px;
     width: 100%;
 }
@@ -340,7 +349,7 @@
 }
 
 @media only screen and (min-width:200px) and (max-width:1000px) {
-    .balance-transfer-section {
+    .user-dashboard-page {
         width: 85% !important;
     }
 
@@ -360,15 +369,17 @@
 
 
 @media only screen and (min-width:200px) and (max-width:790px) {
-    .balance-transfer-section {
-        width: 90% !important;
+    .user-dashboard-page {
+        width: 100vw !important;
     }
-    .balance-transfer-section .social-container {
+
+    .user-dashboard-page .social-container {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
         gap: 15px;
         background-color: #FFF;
     }
+
     .balance-transfer-history-section {
         width: 90% !important;
     }
@@ -389,11 +400,11 @@
         font-size: 1rem;
     }
 
-    .balance-transfer-section form {
+    .user-dashboard-page form {
         margin: auto;
     }
 
-    .balance-transfer-section form div {
+    .user-dashboard-page form div {
         flex-direction: column;
         margin: 0px !important;
     }
@@ -413,11 +424,11 @@
         display: flex !important;
     }
 
-    /* .balance-transfer-section form  .sim-contianer div{
+    /* .user-dashboard-page form  .sim-contianer div{
         flex-direction: row;
         margin: 0px !important;
     } */
-    .balance-transfer-section form .sim-contianer div {
+    .user-dashboard-page form .sim-contianer div {
         display: grid;
         grid-template-columns: 1fr 1fr 1fr;
     }
@@ -429,26 +440,24 @@
         padding: 0;
     }
 
-    .balance-transfer-section form .sim-contianer div div {
+    .user-dashboard-page form .sim-contianer div div {
         display: flex !important;
         flex-direction: column !important;
     }
 
-    .balance-transfer-section form .sim-conditon {
+    .user-dashboard-page form .sim-conditon {
         flex-direction: row;
         margin: 0px !important;
     }
 
-    .balance-transfer-section form div label {
+    .user-dashboard-page form div label {
         margin-bottom: 5px;
     }
 
 }
 
 @media only screen and (min-width:200px) and (max-width:690px) {
-    .balance-transfer-section {
-        width: 93% !important;
-    }
+     
 
     .balnce-section div {
         height: 125px;
@@ -468,11 +477,11 @@
         font-size: .9rem;
     }
 
-    .balance-transfer-section h4 {
+    .user-dashboard-page h4 {
         /* font-size: .9rem !important; */
     }
 
-    .balance-transfer-section marquee {
+    .user-dashboard-page marquee {
         /* font-size: .83rem !important; */
     }
 
@@ -490,9 +499,7 @@
 }
 
 @media only screen and (min-width:200px) and (max-width:550px) {
-    .balance-transfer-section {
-        width: 96% !important;
-    }
+   
 
     .dashboard-user-info h5 {
         font-size: .9rem;
@@ -502,11 +509,11 @@
         font-size: .8rem;
     }
 
-    .balance-transfer-section h4 {
+    .user-dashboard-page h4 {
         /* font-size: .8rem !important; */
     }
 
-    .balance-transfer-section marquee {
+    .user-dashboard-page marquee {
         /* font-size: .78rem !important; */
     }
 

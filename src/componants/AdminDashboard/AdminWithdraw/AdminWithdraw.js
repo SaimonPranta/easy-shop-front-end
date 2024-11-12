@@ -166,47 +166,9 @@ const AdminDailyTask = () => {
         <button onClick={handleConfigNavigation}>Set Config</button>
       </div>
       <div className="common-table-section">
-        <h4 className="dashboard-title">ADMIN WITHDRAW HISTORY</h4>
-        <div className="balance-section"></div>
-        <div className="filter-section">
-          <div className="input-section">
-            <div className="date">
-              <span>From</span>
-              <input
-                type="date"
-                name="fromDate"
-                value={filterInput.fromDate || ""}
-                onChange={handleInputChange}
-              />
-            </div>
-            <div className="date">
-              <span>To</span>
-              <input
-                type="date"
-                name="toDate"
-                value={filterInput.toDate || ""}
-                onChange={handleInputChange}
-              />
-            </div>
-            <select name="balance" onChange={handleInputChange}>
-              <option>Select Balance</option>
-              <option>Main Balance</option>
-              <option>Sales Balance</option>
-              <option>Task Balance</option>
-            </select>
-            <input
-              type="text"
-              placeholder="Search here ..."
-              name="search"
-              value={filterInput.search || ""}
-              onChange={handleInputChange}
-            />
-          </div>
+      <h4 className="dashboard-title">ADMIN WITHDRAW HISTORY</h4>
 
-          <div className="submit-section">
-            <button onClick={handleFilterSubmit}>Filter</button>
-          </div>
-        </div>
+   
         <div className="table-section" id="table-list" onScroll={handleScroll}>
           <table>
             <thead>

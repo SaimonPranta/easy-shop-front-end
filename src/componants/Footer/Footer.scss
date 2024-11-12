@@ -1,0 +1,218 @@
+.footer-section {
+    padding: 10px;
+
+    .inner-container {
+        display: grid;
+        grid-template-columns: 1fr 1fr 1fr;
+        gap: 20px;
+        // align-items: center;
+
+        .contact-section,
+        .payment-section,
+        .social-section {
+            h6 {
+                font-size: 22px;
+                font-weight: 500;
+            }
+        }
+
+        .contact-section {
+            ul {
+                padding: 0px;
+                margin: 0px;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+
+                li {
+                    padding: 0px;
+                    margin: 0px;
+                    list-style: none;
+                    display: flex;
+                    align-items: center;
+                    gap: 10px;
+
+                    svg {
+                        height: 25px;
+                        width: 25px;
+                        color: var(--default-color);
+
+                    }
+                }
+            }
+        }
+
+        .payment-section {
+            .payment-list {
+                width: 100%;
+                display: flex;
+                align-items: center;
+                // justify-content: center;
+                gap: 5px;
+
+                div {
+                    height: 40px;
+                    aspect-ratio: 13/9;
+                    border-radius: 4px;
+                    background-color: #fff;
+                    overflow: hidden;
+                    box-shadow: 1px 1px 1px 1px #b8adad6b;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    padding: 5px;
+
+                    img {
+                        height: 100%;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+        .social-section {
+            .social-list {
+                display: flex;
+                align-content: center;
+
+                // justify-content: center;
+                a {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    height: 44px;
+                    width: 44px;
+                    margin: 5px;
+                    padding: 8px;
+                    border-radius: 50%;
+                    background-color: #FFF;
+
+                    svg {
+                        text-align: center;
+                        height: 100%;
+                        width: 100%;
+
+                        &:hover {
+                            border: 1px solid;
+                            background-color: steelblue;
+                            color: #fff;
+
+                        }
+
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width:200px) and (max-width:850px) {
+    .footer-section {
+        padding: 10px;
+    
+        .inner-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 20px;
+            align-items: center;
+    
+            .contact-section,
+            .payment-section,
+            .social-section {
+                h6 {
+                    font-size: 22px;
+                    font-weight: 500;
+                }
+            }
+    
+            .contact-section {
+                ul {
+                    padding: 0px;
+                    margin: 0px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+    
+                    li {
+                        padding: 0px;
+                        margin: 0px;
+                        list-style: none;
+                        display: flex;
+                        align-items: center;
+                        gap: 10px;
+                        color: #725a5a;
+    
+                        svg {
+                            height: 30px;
+                            width: 40px;
+                            color: var(--default-color);
+    
+                        }
+                    }
+                }
+            }
+    
+            .payment-section {
+                .payment-list {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    // justify-content: center;
+                    gap: 5px;
+    
+                    div {
+                        height: 40px;
+                        aspect-ratio: 13/9;
+                        border-radius: 4px;
+                        background-color: #fff;
+                        overflow: hidden;
+                        box-shadow: 1px 1px 1px 1px #b8adad6b;
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        padding: 5px;
+    
+                        img {
+                            height: 100%;
+                            width: 100%;
+                        }
+                    }
+                }
+            }
+    
+            .social-section {
+                .social-list {
+                    display: flex;
+                    align-content: center;
+    
+                    // justify-content: center;
+                    a {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 44px;
+                        width: 44px;
+                        margin: 5px;
+                        padding: 8px;
+                        border-radius: 50%;
+                        background-color: #FFF;
+    
+                        svg {
+                            text-align: center;
+                            height: 100%;
+                            width: 100%;
+    
+                            &:hover {
+                                border: 1px solid;
+                                background-color: steelblue;
+                                color: #fff;
+    
+                            }
+    
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
