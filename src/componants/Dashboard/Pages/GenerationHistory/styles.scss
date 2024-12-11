@@ -1,0 +1,20 @@
+.generation-history {
+    display: flex !important;
+    justify-content: center;
+    width: 100%;
+
+    .inner-section {
+        width: 95%;
+        max-width: 800px;
+    }
+}
+
+
+
+@media only screen and (min-width:200px) and (max-width:750px) {
+    .generation-history {
+        width: 100vw;
+
+        .inner-section {}
+    }
+}

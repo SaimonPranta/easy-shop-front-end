@@ -18,7 +18,7 @@ const AdminDailyTask = () => {
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
   const debounceState = useRef();
-  const {setViewImage} = useContext(imageContext)
+  const { setViewImage } = useContext(imageContext);
 
   const navigate = useNavigate();
 
@@ -166,9 +166,8 @@ const AdminDailyTask = () => {
         <button onClick={handleConfigNavigation}>Set Config</button>
       </div>
       <div className="common-table-section">
-      <h4 className="dashboard-title">ADMIN WITHDRAW HISTORY</h4>
+        <h4 className="dashboard-title">ADMIN WITHDRAW HISTORY</h4>
 
-   
         <div className="table-section" id="table-list" onScroll={handleScroll}>
           <table>
             <thead>
@@ -208,7 +207,11 @@ const AdminDailyTask = () => {
                           <img
                             src={getImageUrl(reqInfo?.userID?.profilePicture)}
                             alt=""
-                            onDoubleClick={() => setViewImage(getImageUrl(reqInfo?.userID?.profilePicture))}
+                            onDoubleClick={() =>
+                              setViewImage(
+                                getImageUrl(reqInfo?.userID?.profilePicture)
+                              )
+                            }
                           />
                         )}
                         {!reqInfo?.userID?.profilePicture && (

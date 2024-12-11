@@ -421,7 +421,6 @@ const Withdraw = () => {
                           {dateToString(reqInfo.createdAt)}
                         </td>
                         <td>Completed</td>
-                       
                       </tr>
                     );
                   })}

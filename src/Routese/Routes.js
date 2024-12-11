@@ -13,6 +13,8 @@ import Generation from '../componants/Dashboard/Pages/Generation/Index';
 import Withdraw from '../componants/Dashboard/Pages/Withdraw/Index';
 import Tutorial from '../componants/Dashboard/Pages/Tutorial/Index';
 import BalanceTransfer from '../componants/Dashboard/Pages/BalanceTransfer/Index.js';
+import GenerationHistory from '../componants/Dashboard/Pages/GenerationHistory/Index.js';
+import GenerationList from '../componants/Dashboard/Pages/GenerationList/Index.js';
 import Salary from '../componants/Dashboard/Pages/Salary/Index.js';
 import WIthdrawProve from '../componants/Dashboard/Pages/AddProve/Index';
 import Prove from '../componants/Dashboard/Pages/Prove/Index';
@@ -24,7 +26,7 @@ import RankHistory from '../componants/Dashboard/Pages/RankHistory/index';
 import AdminPanel from "../componants/AdminDashboard/Admin/index";
 import PrivetRoute from './PrivetRoute/PrivetRoute';
 import AdminPrivetRoute from './AdminPrivetRoute/AdminPrivetRoute';
-import PerGenarationList from '../componants/Dashboard/Pages/Generation/PerGenarationList/index';
+// import PerGenarationList from '../componants/Dashboard/Pages/Generation/PerGenarationList/index';
 import UserDetails from '../componants/AdminDashboard/Admin/AdminPanelBody/UserDetails/Index';
 import EditUserDetails from '../componants/AdminDashboard/Admin/AdminPanelBody/EditUserDetails/EditUserDetails';
 import Cart from '../componants/Cart/Cart';
@@ -134,6 +136,11 @@ const Routess = () => {
                     <Route path="/balance-transfer" element={
                         <PrivetRoute>
                             <BalanceTransfer />
+                        </PrivetRoute>
+                    }></Route>
+                    <Route path="/generation-history" element={
+                        <PrivetRoute>
+                            <GenerationHistory />
                         </PrivetRoute>
                     }></Route>
                     <Route path="/salary" element={
@@ -289,7 +296,7 @@ const Routess = () => {
                     }></Route>
                     <Route path="/generation/:generation" element={
                         <PrivetRoute>
-                            <PerGenarationList />
+                            <GenerationList />
                         </PrivetRoute>
                     }></Route>
                     <Route path="/user/:id" element={

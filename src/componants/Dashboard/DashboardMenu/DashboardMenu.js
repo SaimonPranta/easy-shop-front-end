@@ -2,7 +2,12 @@ import React, { createContext, useContext } from "react";
 // import "./DashboardMenu.scss";
 import { NavLink } from "react-router-dom";
 
-import { FaHome, FaSearchDollar, FaUniversalAccess } from "react-icons/fa";
+import {
+  FaHome,
+  FaSearchDollar,
+  FaUniversalAccess,
+  FaUserClock,
+} from "react-icons/fa";
 import { FaMoneyCheckAlt } from "react-icons/fa";
 import { FaQrcode } from "react-icons/fa";
 import {
@@ -19,19 +24,22 @@ import { FaUserEdit } from "react-icons/fa";
 import { FaUserCog } from "react-icons/fa";
 import { FaMedal } from "react-icons/fa";
 import { userContext } from "../../../App";
-import { MdAccountBalanceWallet, MdOutlineAccountBalance, MdOutlineSelfImprovement, MdVolunteerActivism } from "react-icons/md";
+import {
+  MdAccountBalanceWallet,
+  MdOutlineAccountBalance,
+  MdOutlineSelfImprovement,
+  MdVolunteerActivism,
+} from "react-icons/md";
 import { AiFillAccountBook, AiOutlineYoutube } from "react-icons/ai";
 import { MdLiveHelp } from "react-icons/md";
 import { SiMicrosoftteams } from "react-icons/si";
 import { GiRank3 } from "react-icons/gi";
 import { MdCompost } from "react-icons/md";
-import { HiShoppingBag } from "react-icons/hi";
 import { FaRegUserCircle } from "react-icons/fa";
 import { MdOutlineEdit } from "react-icons/md";
 import { userHeader } from "../../../shared/cooki";
 import FailedTost from "../../../shared/components/FailedTost/FailedTost";
 import SuccessTost from "../../../shared/components/SuccessTost/SuccessTost";
-
 import { ToastContainer } from "react-toastify";
 import getImageUrl from "../../../shared/functions/getImageUrl";
 
@@ -233,7 +241,6 @@ const DashboardMenu = () => {
           </p>
         </li>
 
-      
         {/* <li>
           <NavLink to="/balance_transfer">
             <FaHandshake />
@@ -246,6 +253,12 @@ const DashboardMenu = () => {
           <NavLink to="/generation">
             <FaUsersCog />
             <span> Generation</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/generation-history">
+            <FaUserClock />
+            <span>Generation History</span>
           </NavLink>
         </li>
         <li>
@@ -292,7 +305,7 @@ const DashboardMenu = () => {
             </NavLink>
           </li>
         )}
-          {user.role === "admin" && (
+        {user.role === "admin" && (
           <li>
             <NavLink to="/admin/user">
               <FaUserCog />

@@ -246,10 +246,13 @@ const AdminDailyTask = () => {
                 <th className="small">#</th>
                 <th className="big"> Name</th>
                 <th>User Number</th>
-                <th className="big">Balance</th>
-                <th>Shopping Balance</th>
-                <th>Status</th>
+                <th className="big">Upline User Number</th>
+                <th className="big">Main Balance</th>
+                <th className="big">Sales Balance</th>
+                <th className="big">Task Balance</th>
+                <th className="big">Points</th>
                 <th>Join Date</th>
+                <th>Status</th>
                 <th>Actions</th>
               </tr>
             </thead>
@@ -267,22 +270,6 @@ const AdminDailyTask = () => {
                   return (
                     <tr key={index}>
                       <td className="small">{index + 1}</td>
-                      {/* <td className="img">
-                        {reqInfo?.userID?.profilePicture && (
-                          <img
-                            src={getImageUrl(reqInfo?.userID?.profilePicture)}
-                            alt=""
-                            onDoubleClick={() =>
-                              setViewImage(
-                                getImageUrl(reqInfo?.userID?.profilePicture)
-                              )
-                            }
-                          />
-                        )}
-                        {!reqInfo?.userID?.profilePicture && (
-                          <FaRegUserCircle />
-                        )}
-                      </td> */}
                       <td className="img-name">
                         <div>
                           {reqInfo?.userID?.profilePicture && (
@@ -303,10 +290,13 @@ const AdminDailyTask = () => {
                         </div>
                       </td>
                       <td>{reqInfo?.phoneNumber}</td>
-                      <td>{reqInfo?.balance}</td>
-                      <td className="big">{reqInfo?.shoppingBalance}</td>
-                      <td>{reqInfo?.isActive ? "Active" : "Inactive"}</td>
+                      <td>{reqInfo?.referUser?.phoneNumber || ""}</td> 
+                      <td className="big">{`$${reqInfo?.balance || 0}`}</td>
+                      <td className="big">{`$${reqInfo?.salesBalance || 0}`}</td>
+                      <td className="big">{`$${reqInfo?.taskBalance || 0}`}</td> 
+                      <td className="big">{reqInfo?.pointAmount || 0}</td> 
                       <td className="date">{dateToString(reqInfo.joinDate)}</td>
+                      <td>{reqInfo?.isActive ? "Active" : "Inactive"}</td>
                       {/* <td className="date">{timeAgo(reqInfo.createdAt)}</td> */}
 
                       {/* <td className={`btn ${reqInfo.status.toLowerCase()}`}>
