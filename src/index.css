@@ -19,9 +19,9 @@ body {
 
   .dashboard-title {
     background-color: var(--default-color);
-    padding: 5px;
-    font-weight: 600;
-    font-size: medium;
+    padding: 15px 10px;
+    font-weight: 700;
+    font-size: 20px;
     margin: 0px;
     color: #FFF;
 

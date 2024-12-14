@@ -34,7 +34,7 @@ const UpdateProfile = () => {
                 .then(data => {
                     if (data.data) {
                         const updatedUser = { ...data.data }
-                        setUser(updatedUser);
+                        setUser({...user, ...updatedUser});
                     }
                     if (data.message) {
                         setConditon(data.message);

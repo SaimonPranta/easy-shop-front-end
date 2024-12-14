@@ -466,7 +466,7 @@ const Withdraw = () => {
           </div>
         </div>
         <div className="common-table-section">
-          <h4 className="table-title">WITHDRAW HISTORY</h4>
+          <h4 className="table-title">Withdraw History</h4>
           <div className="balance-section">
             <div className="grid-section">
               {tableBalanceArray.map((item, index) => {

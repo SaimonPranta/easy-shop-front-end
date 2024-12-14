@@ -164,15 +164,16 @@
                 justify-content: center;
 
                 button {
-                    height: 30px;
+                    height: 40px;
                     background: (--default-color);
                     border: none;
                     outline: none;
-                    padding: 0px 20px;
+                    padding: 0px 30px;
                     background-color: var(--default-color);
                     color: #FFF;
                     font-weight: 800;
                     border-radius: 5px;
+                    font-size: 18px;
                 }
             }
         }
@@ -278,10 +279,10 @@
                         input,
                         select,
                         label {
-                            font-size: 12px;
+                            font-size: 14px;
 
                             option {
-                                font-size: 12px;
+                                font-size: 14px;
                             }
 
                         }

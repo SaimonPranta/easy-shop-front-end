@@ -1,10 +1,12 @@
 import React, { useContext, useEffect, useState } from "react";
 import "./DashboardBody.scss";
-import {  userContext } from "../../../../App";
+import { userContext } from "../../../../App";
 import { userHeader } from "../../../../shared/cooki";
 import { FaShare, FaCopy } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import getImageUrl from "../../../../shared/functions/getImageUrl";
+import { ToastContainer } from "react-toastify";
+import SuccessTost from "../../../../shared/components/SuccessTost/SuccessTost";
 
 const DashboardBody = () => {
   const [user] = useContext(userContext);
@@ -12,7 +14,7 @@ const DashboardBody = () => {
   const [noticeInput, setNoticeInput] = useState("");
   const [message, setMessage] = useState({});
   const [socialItem, setSocialItem] = useState([]);
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/notice`)
@@ -63,6 +65,8 @@ const DashboardBody = () => {
   };
 
   const handleCopy = (text) => {
+    SuccessTost("Successfully Copied");
+
     navigator.clipboard.writeText(text);
   };
   const handleNavigation = () => {
@@ -71,16 +75,17 @@ const DashboardBody = () => {
   const handleNavigate = (link) => {
     window.open(link, "_blank");
   };
-
+  console.log("user ==>", user);
   return (
     <div>
       <div className="user-dashboard-page m-auto">
-        <h4>USER DASHBOARD</h4>
+        <h4 className="dashboard-title">User Dashboard</h4>
+
         {notice && (
           <div className="text-black withdraw-notice notice-section">
             <div className="inner-notice">
               {" "}
-              <p>{user.firstName + " " + user.lastName}</p>{" "}
+              {/* <p>{user.firstName + " " + user.lastName}</p>{" "} */}
               <marquee>{notice}</marquee>
             </div>
           </div>
@@ -186,11 +191,12 @@ const DashboardBody = () => {
                   <FaShare /> Share{" "}
                 </button>
                 <button
-                  onClick={() =>
+                  onClick={() => {
+                    SuccessTost("Successfully Copied");
                     handleCopy(
                       `${window.location.protocol}${window.location.host}/registration?ref=${user.phoneNumber}`
-                    )
-                  }
+                    );
+                  }}
                 >
                   {" "}
                   <FaCopy /> Copy
@@ -219,9 +225,9 @@ const DashboardBody = () => {
         </div>
         <div className="dashboard-common-cart active-btn-section">
           <div className="inner-container">
-            <div className="social-container">
+            <div className="social-container single-item">
               {socialItem.length > 0 &&
-                socialItem.map((info, index) => {
+                socialItem.slice(0, 1).map((info, index) => {
                   return (
                     <div key={index}>
                       <img
@@ -231,7 +237,37 @@ const DashboardBody = () => {
                         //   setViewImage(getImageUrl(info?.socialMediaLogo))
                         // }
                       />
-                      <button onClick={ () =>handleNavigate(info.socialMediaLink)}>Join Now</button>
+                      <button
+                        onClick={() => handleNavigate(info.socialMediaLink)}
+                      >
+                        Join Now
+                      </button>
+                      <h6>{info.socialMediaTitle}</h6>
+                    </div>
+                  );
+                })}
+            </div>
+          </div>
+        </div>
+        <div className="dashboard-common-cart active-btn-section">
+          <div className="inner-container">
+            <div className="social-container">
+              {socialItem.length > 1 &&
+                socialItem.slice(1, socialItem.length).map((info, index) => {
+                  return (
+                    <div key={index}>
+                      <img
+                        src={getImageUrl(info?.socialMediaLogo)}
+                        alt=""
+                        // onDoubleClick={() =>
+                        //   setViewImage(getImageUrl(info?.socialMediaLogo))
+                        // }
+                      />
+                      <button
+                        onClick={() => handleNavigate(info.socialMediaLink)}
+                      >
+                        Join Now
+                      </button>
                       <h6>{info.socialMediaTitle}</h6>
                     </div>
                   );
@@ -240,6 +276,7 @@ const DashboardBody = () => {
           </div>
         </div>
       </div>
+      {/* <ToastContainer /> */}
     </div>
   );
 };

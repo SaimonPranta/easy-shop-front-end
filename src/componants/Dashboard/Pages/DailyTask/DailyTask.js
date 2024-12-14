@@ -4,7 +4,6 @@ import { FaCheck } from "react-icons/fa";
 import LuckySpinner from "./LuckySpinner/index";
 import { shortText } from "./utilities/index";
 import { getCooki } from "../../../../shared/cooki";
-import { FcAddImage } from "react-icons/fc";
 import { TiDeleteOutline, TiVideo } from "react-icons/ti";
 import SuccessTost from "../../../../shared/components/SuccessTost/SuccessTost";
 import FailedTost from "../../../../shared/components/FailedTost/FailedTost";
@@ -221,7 +220,7 @@ const DailyTask = () => {
             <h3>আজকের ডেইলি টাক্স এর কাজ হলো </h3>
 
             <div className="maximum-figure">
-              <span>{`বালেঞ্চ - ${user?.pointAmount || 0} পয়েন্ট`}</span>
+              <span>{`ব্যালেন্স - ${user?.pointAmount || 0} পয়েন্ট`}</span>
               <span>{`সর্বোচ্চ - ${
                 config?.dailyTask?.maximumAmount || 0
               } পয়েন্ট`}</span>
@@ -277,11 +276,11 @@ const DailyTask = () => {
                             })}
                           </div>
                         )}
-                        <div className="input-section">
-                          <button>
+                        <div className="upload-section">
+                          <label>
                             {/* <FcAddImage /> */}
-                            Upload Files
-                          </button>
+                            আজকের কাজের স্ক্রীনশর্ট আপলোড করুন
+                          </label>
                           <input
                             type="file"
                             accept="image/*"
@@ -415,6 +414,8 @@ const DailyTask = () => {
             <div className="main-tutorial-section">
               <div className="title-section">
                 <h3>Tutorial</h3>
+
+                <p>ডেইলি টাক্স কিভাবে কমপ্লিট করবেন || ভিডিও দেখুন।</p>
               </div>
               <div className="frame-container">
                 <iframe

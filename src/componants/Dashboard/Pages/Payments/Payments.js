@@ -11,6 +11,7 @@ import SuccessTost from "../../../../shared/components/SuccessTost/SuccessTost";
 import FailedTost from "../../../../shared/components/FailedTost/FailedTost";
 import { ToastContainer } from "react-toastify";
 import { IoMdCopy } from "react-icons/io";
+import { dateToString } from "../../../../shared/functions/dateConverter";
 
 const paymentNumberArray = [
   {
@@ -34,13 +35,13 @@ const paymentNumberArray = [
     bg: "#8F3893",
     img: roket,
   },
-  // {
-  //   title: "উপায়",
-  //   property: "upay",
-  //   label: "Upay",
-  //   bg: "#FED602",
-  //   img: upai,
-  // },
+  {
+    title: "উপায়",
+    property: "upay",
+    label: "Upay",
+    bg: "#FED602",
+    img: upai,
+  },
 ];
 const paymentArray = [
   {
@@ -169,13 +170,21 @@ const Withdraw = () => {
     };
   }, [page, filterInput.searchSubmit]);
 
+  useEffect(() => {
+    if (input.paymentMethod) {
+      const findPayment = paymentArray.find(
+        (item) => item.label === input.paymentMethod
+      );
+      setInput((state) => {
+        return {
+          ...state,
+          paymentMethodBng: findPayment.title || "",
+        };
+      });
+    }
+  }, [input.paymentMethod]);
+
   const handleScroll = () => {
-    console.log("Call scroll", {
-      currentPage,
-      page,
-      currentLength: tableItems.length,
-      total,
-    });
     if (loading) {
       return;
     }
@@ -194,9 +203,9 @@ const Withdraw = () => {
       }
     }
   };
- 
+
   const paymentsFormHandler = async (e) => {
-    e.preventDefault(); 
+    e.preventDefault();
 
     if (
       user.isActive ||
@@ -282,7 +291,7 @@ const Withdraw = () => {
   return (
     <div className="payments-page">
       <div className="inner-section">
-        <h4 className="dashboard-title">Payments</h4>
+        <h4 className="dashboard-title">Payments Request</h4>
         <div className="back-btn-section">
           <button onClick={goBack}>Back</button>
         </div>
@@ -337,19 +346,21 @@ const Withdraw = () => {
                 })}
               </select>
             </div>
-            <div className="input-section">
-              <label>বিকাশ এর কোন নম্বর থেকে টাকা পাঠিয়েছেন?</label>
-              <input
-                type="text"
-                name="paymentNumber"
-                value={input.paymentNumber || ""}
-                placeholder="বিকাশ এর যে নম্বর থেকে টাকা পাঠিয়েছেন সেই নম্বরটি লিখুন..."
-                onChange={handleInputChange}
-              />
-            </div>
+            {input.paymentMethodBng && (
+              <div className="input-section">
+                <label>{`${input.paymentMethodBng} এর কোন নম্বর থেকে টাকা পাঠিয়েছেন?`}</label>
+                <input
+                  type="text"
+                  name="paymentNumber"
+                  value={input.paymentNumber || ""}
+                  placeholder="বিকাশ এর যে নম্বর থেকে টাকা পাঠিয়েছেন সেই নম্বরটি লিখুন..."
+                  onChange={handleInputChange}
+                />
+              </div>
+            )}
 
-            <div className="input-section">
-              <label>বিকাশ সেন্ডমানি এর ট্রানজেকশন নম্বরটি কত?</label>
+           { input.paymentMethodBng && <div className="input-section">
+              <label>{`${input.paymentMethodBng} সেন্ডমানি এর ট্রানজেকশন নম্বরটি কত?`}</label>
               <input
                 type="text"
                 name="transitionNumber"
@@ -357,7 +368,7 @@ const Withdraw = () => {
                 placeholder="বিকাশ-সেন্ডমানি এর ট্রানজেকশন নম্বরটি লিখুন..."
                 onChange={handleInputChange}
               />
-            </div>
+            </div>}
             <div className="input-section">
               <label>কত টাকা সেন্ডমানি করেছেন?</label>
               <input
@@ -368,18 +379,20 @@ const Withdraw = () => {
                 onChange={handleInputChange}
               />
             </div>
-            <div className="input-section">
-              <label>বিকাশ- সেন্ডমানি সাকসেসফুল এর স্ক্রীনশট আপলোড দেন</label>
-              <input
-                type="file"
-                name="img"
-                placeholder="এমাউন্ট লিখুন..."
-                onChange={handleInputChange}
-              />
-            </div>
+            {input.paymentMethodBng && (
+              <div className="input-section">
+                <label>{`${input.paymentMethodBng}- সেন্ডমানি সাকসেসফুল এর স্ক্রীনশট আপলোড দেন`}</label>
+                <input
+                  type="file"
+                  name="img"
+                  placeholder="এমাউন্ট লিখুন..."
+                  onChange={handleInputChange}
+                />
+              </div>
+            )}
             <div className="submit-section">
               <button onClick={paymentsFormHandler} disabled={loading}>
-                Submit 
+                Submit
               </button>
             </div>
           </div>
@@ -399,9 +412,10 @@ const Withdraw = () => {
                   <th> Method</th>
                   <th> Number</th>
                   <th>Amount</th>
-                  <th>Transaction Number</th>
+                  <th className="big">Transaction Number</th>
                   {/* <th>Date</th> */}
                   <th>Status</th>
+                  <th>Date</th>
                   {/* <th>Actions</th> */}
                 </tr>
               </thead>
@@ -415,10 +429,15 @@ const Withdraw = () => {
                         <td>{reqInfo?.payments?.paymentNumber}</td>
                         <td>৳{reqInfo?.amount}</td>
                         <td>{reqInfo?.payments?.transitionNumber}</td>
-                        {/* <td className="date">
+
+                        <td className={`status ${reqInfo?.status}`}>
+                          <div>
+                            <p>{reqInfo?.status}</p>
+                          </div>
+                        </td>
+                        <td className="date">
                           {dateToString(reqInfo.createdAt)}
-                        </td> */}
-                        <td>{reqInfo?.status}</td>
+                        </td>
                       </tr>
                     );
                   })}

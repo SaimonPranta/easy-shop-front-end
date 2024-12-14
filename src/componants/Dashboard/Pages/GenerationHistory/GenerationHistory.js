@@ -8,6 +8,7 @@ import { useNavigate } from "react-router-dom";
 import SuccessTost from "../../../../shared/components/SuccessTost/SuccessTost";
 import FailedTost from "../../../../shared/components/FailedTost/FailedTost";
 import { ToastContainer } from "react-toastify";
+import { ImUsers } from "react-icons/im";
 
 const tableBalanceArray = [
   {
@@ -35,8 +36,6 @@ const Index = () => {
     totalIncome: 0,
     totalReferMember: 0,
   });
-  const [config] = useContext(configContext);
-  const [user, setUser] = useContext(userContext);
   const navigate = useNavigate();
 
   const debounceState = useRef();
@@ -140,7 +139,8 @@ const Index = () => {
                 return (
                   <div className="item" key={index}>
                     <div className="top">
-                      <img src={wallet} alt="" />
+                    {item.tk && <img src={wallet} alt="" />}
+                    {!item.tk && <ImUsers />}
                       <strong>{item.title}</strong>
                       <p>
                         {item.tk && <strong>৳</strong>}
@@ -188,7 +188,7 @@ const Index = () => {
               <thead>
                 <tr>
                   <th>Generation</th>
-                  <th>User</th>
+                  <th>Member</th>
                   <th>View User List</th>
                   <th>Commission</th>
                 </tr>

@@ -12,6 +12,7 @@ import { useParams } from "react-router-dom";
 import getImageUrl from "../../../../shared/functions/getImageUrl";
 import { FaRegUserCircle } from "react-icons/fa";
 import { useSearchParams } from "react-router-dom";
+import { ImUsers } from "react-icons/im";
 const tableBalanceArray = [
   {
     title: "Total User",
@@ -23,6 +24,18 @@ const tableBalanceArray = [
     tk: true,
   },
 ];
+const genMap = {
+  1: "One",
+  2: "Two",
+  3: "Three",
+  4: "Four",
+  5: "Five",
+  6: "Six",
+  7: "Seven",
+  8: "Eight",
+  9: "Nine",
+  10: "Ten",
+};
 
 const Index = () => {
   const [page, setPage] = useState(1);
@@ -63,7 +76,7 @@ const Index = () => {
             "content-type": "application/json; charset=UTF-8",
             ...userHeader(),
           },
-          body: JSON.stringify({fromDate, toDate}),
+          body: JSON.stringify({ fromDate, toDate }),
         }
       )
         .then((res) => res.json())
@@ -112,40 +125,22 @@ const Index = () => {
     }
   };
 
-  const handleFilterInputChange = (e) => {
-    const name = e.target.name;
-    const value = e.target.value;
-
-    setFilterInput((state) => {
-      return {
-        ...state,
-        [name]: value,
-      };
-    });
-  };
-
-  const handleFilterSubmit = () => {
-    setPage(1);
-    setFilterInput((state) => {
-      return {
-        ...state,
-        searchSubmit: !state?.searchSubmit,
-      };
-    });
-  };
-
   return (
     <div className="generation-history">
       <div className="inner-section">
         <div className="common-table-section">
-          <h4 className="table-title">Generation History</h4>
+          <h4 className="table-title">
+            {genMap[generation] || ""} Generation History
+          </h4>
           <div className="balance-section">
             <div className="grid-section">
               {tableBalanceArray.map((item, index) => {
                 return (
                   <div className="item" key={index}>
                     <div className="top">
-                      <img src={wallet} alt="" />
+                      {item.tk && <img src={wallet} alt="" />}
+                      {!item.tk && <ImUsers />}
+
                       <strong>{item.title}</strong>
                       <p>
                         {item.tk && <strong>৳</strong>}
@@ -158,7 +153,7 @@ const Index = () => {
               })}
             </div>
           </div>
-        
+
           <div
             className="table-section"
             id="table-list"
@@ -183,59 +178,64 @@ const Index = () => {
                         <td className="small">{index + 1}</td>
                         <td className="img-name">
                           <div>
-                            {reqInfo?.referByUser?.profilePicture && (
+                            {reqInfo?.referredUser?.profilePicture && (
                               <img
                                 src={getImageUrl(
-                                  reqInfo?.referByUser?.profilePicture
+                                  reqInfo?.referredUser?.profilePicture
                                 )}
                                 alt=""
                                 onDoubleClick={() =>
                                   setViewImage(
                                     getImageUrl(
-                                      reqInfo?.referByUser?.profilePicture
+                                      reqInfo?.referredUser?.profilePicture
                                     )
                                   )
                                 }
                               />
                             )}
-                            {!reqInfo?.referByUser?.profilePicture && (
+                            {!reqInfo?.referredUser?.profilePicture && (
                               <FaRegUserCircle />
                             )}
-                            <p>{`${reqInfo?.referByUser?.firstName} ${reqInfo?.referByUser?.lastName}`}</p>
+                            <p>{`${reqInfo?.referredUser?.firstName} ${reqInfo?.referredUser?.lastName}`}</p>
                           </div>
                         </td>
-                        <td>{reqInfo?.referByUser?.phoneNumber}</td>
-                       
+                        <td>{reqInfo?.referredUser?.phoneNumber}</td>
+
                         <td className="img-name">
-                          {reqInfo?.referByUser?.referUser && <div>
-                            {reqInfo?.referByUser?.referUser
-                              ?.profilePicture && (
-                              <img
-                                src={getImageUrl(
-                                  reqInfo?.referByUser?.referUser
-                                    ?.profilePicture
-                                )}
-                                alt=""
-                                onDoubleClick={() =>
-                                  setViewImage(
-                                    getImageUrl(
-                                      reqInfo?.referByUser?.referUser
-                                        ?.profilePicture
+                          {reqInfo?.referredUser?.referUser && (
+                            <div>
+                              {reqInfo?.referredUser?.referUser
+                                ?.profilePicture && (
+                                <img
+                                  src={getImageUrl(
+                                    reqInfo?.referredUser?.referUser
+                                      ?.profilePicture
+                                  )}
+                                  alt=""
+                                  onDoubleClick={() =>
+                                    setViewImage(
+                                      getImageUrl(
+                                        reqInfo?.referredUser?.referUser
+                                          ?.profilePicture
+                                      )
                                     )
-                                  )
-                                }
-                              />
-                            )}
-                            {!reqInfo?.referByUser?.referUser
-                              ?.profilePicture && <FaRegUserCircle />}
-                            <p>{`${reqInfo?.referByUser?.referUser?.firstName} ${reqInfo?.referByUser?.referUser?.lastName}`}</p>
-                          </div>}
+                                  }
+                                />
+                              )}
+                              {!reqInfo?.referredUser?.referUser
+                                ?.profilePicture && <FaRegUserCircle />}
+                              <p>{`${reqInfo?.referredUser?.referUser?.firstName} ${reqInfo?.referredUser?.referUser?.lastName}`}</p>
+                            </div>
+                          )}
                         </td>
                         <td>
-                          {reqInfo?.referByUser?.rankID?.rank || "No Rank"}
+                          {reqInfo?.referredUser?.rankID?.rank || "No Rank"}
                         </td>
-                      <td className="date">{reqInfo?.referByUser?.joinDate  ? dateToString(reqInfo?.referByUser?.joinDate) : "NAN"}</td>
-
+                        <td className="date">
+                          {reqInfo?.referredUser?.joinDate
+                            ? dateToString(reqInfo?.referredUser?.joinDate)
+                            : "NAN"}
+                        </td>
                       </tr>
                     );
                   })}

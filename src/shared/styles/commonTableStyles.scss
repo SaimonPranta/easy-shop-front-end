@@ -4,9 +4,9 @@
 
     .table-title {
         background-color: var(--default-color);
-        padding: 5px;
-        font-weight: 600;
-        font-size: medium;
+        padding: 15px 10px;
+        font-weight: 700;
+        font-size: 20px;
         margin: 0px;
         color: #FFF;
     }
@@ -95,14 +95,15 @@
             .date {
                 display: flex;
                 box-shadow: 1px 1px 1px -1px #ac979714;
-                border: 1px solid #e4e4e4;
+                border: 2px solid #2fbab3;
                 height: 30px !important;
                 border-radius: 4px;
                 overflow: hidden;
 
                 span {
-                    background-color: #e4e4e4;
+                    background-color: #2fbab3;
                     padding: 0px 4px;
+                    color: #FFF;
                 }
 
                 input {
@@ -112,23 +113,30 @@
 
             input,
             select {
-                border: 1px solid #e4e4e4;
+                border: 2px solid #2fbab3;
                 border-radius: 4px;
                 box-shadow: 1px 1px 1px -1px #ac979714;
                 height: 30px !important;
                 box-sizing: border-box;
                 padding: 5px;
             }
+
+            select {
+                color: #FFF;
+                background-color: #2fbab3;
+            }
         }
 
         .submit-section {
             button {
-                border: 1px solid #e4e4e4;
+                border: 1px solid #ac979714;
                 border-radius: 4px;
                 box-shadow: 1px 1px 1px -1px #ac979714;
                 height: 30px;
                 box-sizing: border-box;
                 padding: 0px 20px;
+                background: #2fbab3;
+                color: #FFF;
             }
         }
     }
@@ -153,10 +161,11 @@
 
                 th,
                 td {
-                    min-width: 100px;
+                    min-width: 150px;
                     padding: 5px;
                     border: 1px solid #e4e4e4;
                     text-align: center;
+                    font-size: 18px;
 
                     &.dotted {
 
@@ -186,11 +195,11 @@
                     }
 
                     &.big {
-                        min-width: 150px;
+                        min-width: 200px;
                     }
 
                     &.date {
-                        min-width: 200px;
+                        min-width: 250px;
                     }
 
                     &.img {
@@ -202,12 +211,14 @@
                     }
 
                     &.description {
-                        min-width: 400px; 
+                        min-width: 400px;
+
                         div {
-                            
-                            &.ellipsis{
+
+                            &.ellipsis {
                                 height: 40px;
                                 overflow: hidden;
+
                                 p {
                                     display: inline-block;
                                     width: 100%;
@@ -218,12 +229,12 @@
                                     -webkit-box-orient: vertical;
                                     -webkit-line-clamp: 2;
                                     line-height: 20px;
-                                     
-    
+
+
                                 }
                             }
 
-                           
+
                         }
                     }
 
@@ -241,12 +252,65 @@
                                 padding: 0px;
                             }
 
-                            img, svg{
+                            img,
+                            svg {
                                 height: 40px;
                                 width: 40px;
                                 border-radius: 4px;
                             }
                         }
+                    }
+
+                    &.status {
+                        div {
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+
+                            p {
+                                padding: 5px 10px;
+                                margin: 0px;
+                                color: #FFF;
+                                background-color: var(--default-color);
+                                border-radius: 5px;
+                                font-weight: 600;
+                            }
+                        }
+
+                        &.pending,
+                        &.Pending {
+                            div {
+                                p {
+                                    background-color: #ed5e11;
+                                }
+                            }
+                        }
+
+                        &.reject,
+                        &.Reject,
+                        &.rejected,
+                        &.Rejected {
+                            div {
+                                p {
+                                    background-color: red;
+
+                                }
+                            }
+                        }
+
+                        &.approve,
+                        &.Approve,
+                        &.approved,
+                        &.Approved {
+                            div {
+                                p {
+                                    background-color: #2bad07;
+
+                                }
+                            }
+                        }
+
+
                     }
 
                     &.btn-container,
@@ -267,12 +331,16 @@
                                 background-color: red;
                                 width: max-content;
 
+                                &.pending {
+                                    background-color: #ed5e11;
+                                }
+
                                 &.reject {
-                                    background-color: blue;
+                                    background-color: red;
                                 }
 
                                 &.approve {
-                                    background-color: green;
+                                    background-color: #2bad07;
                                 }
 
                                 &:hover,
@@ -319,7 +387,7 @@
         margin-top: 15px;
 
         .table-title {
-            font-size: 12px;
+            font-size: 18px;
         }
 
         .balance-section {
@@ -393,6 +461,8 @@
                     font-size: 12px;
                     height: 20px;
                     padding: 0px 15px;
+                    background: #2fbab3;
+                    color: #FFF;
                 }
             }
         }

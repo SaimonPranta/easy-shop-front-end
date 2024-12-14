@@ -1,4 +1,4 @@
-import React, { createContext, useContext } from "react";
+import React, {  useContext } from "react";
 // import "./DashboardMenu.scss";
 import { NavLink } from "react-router-dom";
 
@@ -107,8 +107,14 @@ const DashboardMenu = () => {
             <span> Dashboard</span>
           </NavLink>
         </li>
+        <li>
+          <NavLink to="/earn-money">
+            <FaHome />
+            <span> Home</span>
+          </NavLink>
+        </li>
 
-        <li className="nesting-menu">
+        {/* <li className="nesting-menu">
           <p>
             <FaHome />{" "}
             <span>
@@ -116,7 +122,7 @@ const DashboardMenu = () => {
               Home <p className="upcomming">Upcoming</p>
             </span>
           </p>
-        </li>
+        </li> */}
         <li className="nesting-menu">
           <p>
             <FaUserAlt /> <span onClick={handleSubMenu}> Profile</span>
@@ -147,12 +153,7 @@ const DashboardMenu = () => {
           </NavLink>
           {/* <p><span >My Balance <p className="upcomming">Upcoming</p></span></p> */}
         </li>
-        <li>
-          <NavLink to="/balance_request">
-            <FaMoneyCheckAlt />
-            <span> Balance request</span>
-          </NavLink>
-        </li>
+       
         <li className="nesting-menu">
           <NavLink to="/daily-task">
             <RiProfileFill />
