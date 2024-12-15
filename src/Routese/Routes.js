@@ -20,6 +20,7 @@ import WIthdrawProve from '../componants/Dashboard/Pages/AddProve/Index';
 import Prove from '../componants/Dashboard/Pages/Prove/Index';
 import ReferTeamMember from '../componants/Dashboard/Pages/ReferTeamMember/Index';
 import Payments from '../componants/Dashboard/Pages/Payments/Index';
+import Earnings from '../componants/Dashboard/Pages/Earnings/index.js';
 import ChangePassword from '../componants/Dashboard/Pages/ChangePassword/Index';
 import UpdateProfile from '../componants/Dashboard/Pages/UpdateProfile/Index';
 import RankHistory from '../componants/Dashboard/Pages/RankHistory/index';
@@ -161,6 +162,11 @@ const Routess = () => {
                     <Route path="/payments" element={
                         <PrivetRoute>
                             <Payments />
+                        </PrivetRoute>
+                    }></Route>
+                    <Route path="/earnings" element={
+                        <PrivetRoute>
+                            <Earnings />
                         </PrivetRoute>
                     }></Route>
                     <Route path="/porfile/change_password" element={

@@ -1,0 +1,132 @@
+.earnings-page {
+  width: 95%;
+  margin: 0px auto;
+  max-width: 800px;
+  padding: 20px;
+
+  .earning-form {
+    padding: 20px;
+
+    .balance-section {
+      background-color: #FFF;
+      border-radius: 20px;
+
+
+      .total-balance-section {
+        display: flex;
+        justify-content: space-between;
+        background-color: var(--default-color);
+        padding: 20px;
+        position: relative;
+        border-radius: 20px;
+
+        &::after {
+          position: absolute;
+          content: "";
+          left: 50%;
+          bottom: -29px;
+          border: 15px solid transparent;
+          border-left-width: 27px;
+          border-right-width: 27px;
+          border-top-color: var(--default-color);
+        }
+
+        .balance {
+          color: #FFF;
+
+          h6 {
+            font-size: 34px;
+            font-weight: 700;
+          }
+
+          p {
+            font-size: 22px;
+            font-weight: 700;
+          }
+        }
+
+        .date {
+          color: #FFF;
+
+          p {
+            font-size: 20px;
+            font-weight: 600;
+          }
+        }
+
+      }
+
+      .todays-balance-section {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+
+        .cart {
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          justify-content: center;
+          width: 100%;
+          aspect-ratio: 2/1;
+
+          h6 {
+            font-size: 34px;
+            font-weight: 700;
+            color: var(--default-color);
+          }
+
+          p {
+            font-size: 20px;
+            font-weight: 500;
+          }
+        }
+      }
+    }
+  }
+
+  .btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    button {
+      border: none;
+      outline: none;
+      padding: 5px 10px;
+      background-color: var(--default-color);
+      color: #FFF;
+      font-weight: 600;
+      border-radius: 5px;
+
+      &:hover {
+        opacity: .9;
+      }
+
+      &:active {
+        transform: scale(.9);
+      }
+    }
+  }
+
+  .common-table-section {
+    max-width: 1000px;
+
+    .table-section {
+      height: 400px;
+    }
+  }
+}
+
+@media only screen and (min-width:200px) and (max-width:750px) {
+  .earnings-page {
+    .btn-container {
+      button {
+        font-size: 12px;
+      }
+    }
+
+    .common-table-section {
+      max-width: 100vw !important;
+    }
+  }
+}

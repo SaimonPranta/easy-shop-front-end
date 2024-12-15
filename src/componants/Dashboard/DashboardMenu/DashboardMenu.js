@@ -8,7 +8,6 @@ import {
   FaUniversalAccess,
   FaUserClock,
 } from "react-icons/fa";
-import { FaMoneyCheckAlt } from "react-icons/fa";
 import { FaQrcode } from "react-icons/fa";
 import {
   RiProductHuntLine,
@@ -17,7 +16,7 @@ import {
 } from "react-icons/ri";
 import { FaUsersCog } from "react-icons/fa";
 import { FaUserAlt } from "react-icons/fa";
-import { BiLogOut } from "react-icons/bi";
+import { BiLogOut, BiSupport } from "react-icons/bi";
 import { FaDonate } from "react-icons/fa";
 import { FaUnlockAlt } from "react-icons/fa";
 import { FaUserEdit } from "react-icons/fa";
@@ -175,25 +174,24 @@ const DashboardMenu = () => {
             </span>
           </p>
         </li> */}
-        <li className="nesting-menu">
+        {/* <li className="nesting-menu">
           <p>
             <AiFillAccountBook />{" "}
             <span>
               Premium Account <p className="upcomming">Upcoming</p>
             </span>
           </p>
-        </li>
+        </li> */}
+    
         <li className="nesting-menu">
-          <p>
-            <FaSearchDollar />{" "}
-            <span>
-              Earnings <p className="upcomming">Upcoming</p>
-            </span>
-          </p>
+          <NavLink to="/earnings">
+          <FaSearchDollar />
+            <span> Earnings</span>
+          </NavLink>
         </li>
         <li className="nesting-menu">
           <NavLink to="/helpline">
-            <MdLiveHelp />
+          <BiSupport />
             <span> Help Line</span>
           </NavLink>
         </li>

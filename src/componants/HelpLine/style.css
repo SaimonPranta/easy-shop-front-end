@@ -7,10 +7,17 @@
 
 
 .helpline-section .main-container .title {
-    background-color: #f00e84;
+    background-color: var(--default-color);
     width: 100%;
-    padding: 5px;
+    padding: 10px;
     color: #FFF;
+    display: flex;
+    align-items: center;
+    h3{
+        margin: 0px;
+        font-size: 20px;
+        font-weight: 700;
+    }
 }
 
 .helpline-section .helpline-hero-section {
@@ -33,8 +40,17 @@
     width: 80%;
     margin: auto;
     display: grid !important; 
-    grid-template-columns: 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr;
+    align-items: center;
     gap: 15px;
+}
+.helpline-section .social-container .single-item {
+    width: 80%;
+    margin: auto;
+    display: grid !important; 
+    grid-template-columns: 1fr ;
+    gap: 15px;
+    margin-bottom: 15px;
 }
 
 .helpline-section .social-container .cart-container {
@@ -61,6 +77,11 @@
         font-weight: 800;
         font-size: 18px;
         display: flex;
+        text-align: center;
+        &.label{
+            justify-content: center;
+        }
+      
     }
 
     button {
@@ -72,6 +93,10 @@
         display: flex;
         align-items: center;
         justify-content: center;
+        background-color: #08a39e;
+        svg{
+            color: #FFF;
+        }
 
         &:active {
             transform: scale(.9);
@@ -83,17 +108,17 @@
 .helpline-section .social-container .cart-container>button {
     border: none;
     outline: none;
-    background-color: #f00e84;
+    background-color: #fc8032;
     color: #FFF;
     border-radius: 5px;
     font-size: 19px;
     font-weight: 700;
-    padding: 5px 10px;
+    padding: 5px 15px;
 }
 
 .helpline-section .helpline-hero-section img {
-    height: 130px;
-    width: 130px;
+    height: 150px;
+    width: 150px;
 }
 
 .helpline-section .helpline-hero-section button {

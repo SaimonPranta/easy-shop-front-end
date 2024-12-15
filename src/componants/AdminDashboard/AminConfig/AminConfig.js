@@ -7,21 +7,33 @@ import { configContext } from "../../../App";
 const AdminAddDailyTask = () => {
   const [input, setInput] = useState({
     registration: {},
+    headline: {},
   });
   const [config, setConfig] = useContext(configContext);
   const navigate = useNavigate();
 
   useEffect(() => {
-    if (config?.tutorial) {
-      setInput((state) => {
-        return {
-          ...state,
-          ...config.tutorial,
-        };
-      });
+    // if (config?.tutorial) {
+    if (!config.tutorial) {
+      config["tutorial"] = {};
     }
+    if (!config.headline) {
+      config["headline"] = {};
+    }
+    if (!config.tutorial) {
+      config["tutorial"] = {};
+    }
+    setInput((state) => {
+      return {
+        ...state,
+        ...config.tutorial,
+        headline: { ...config.headline },
+      };
+    });
+    // }
   }, [config]);
-  
+  console.log("config -->>", config);
+
   const handleChange = (e) => {
     let name = e.target.name;
     const value = e.target.value;
@@ -33,6 +45,18 @@ const AdminAddDailyTask = () => {
           ...state,
           registration: {
             ...state.registration,
+            [name]: value,
+          },
+        };
+      });
+    }
+    if (name.includes("headline")) {
+      name = name.replace("headline.", "");
+      setInput((state) => {
+        return {
+          ...state,
+          headline: {
+            ...state.headline,
             [name]: value,
           },
         };
@@ -94,6 +118,16 @@ const AdminAddDailyTask = () => {
               onChange={handleChange}
             />
             <span className="focus-input2">Registration Tutorial Video ID</span>
+          </div>
+          <div className="validate-input">
+            <input
+              className={`input2 ${input?.headline?.title ? "fill" : ""}`}
+              type="text"
+              value={input?.headline?.title || ""}
+              name="headline.title"
+              onChange={handleChange}
+            />
+            <span className="focus-input2">Headline Page Title</span>
           </div>
 
           <div className="container-contact2-form-btn">
