@@ -1,4 +1,4 @@
-import React, {  useContext } from "react";
+import React, { useContext } from "react";
 // import "./DashboardMenu.scss";
 import { NavLink } from "react-router-dom";
 
@@ -41,6 +41,7 @@ import FailedTost from "../../../shared/components/FailedTost/FailedTost";
 import SuccessTost from "../../../shared/components/SuccessTost/SuccessTost";
 import { ToastContainer } from "react-toastify";
 import getImageUrl from "../../../shared/functions/getImageUrl";
+import { FiShoppingBag } from "react-icons/fi";
 
 const DashboardMenu = () => {
   const [user, setUser] = useContext(userContext);
@@ -100,6 +101,14 @@ const DashboardMenu = () => {
           </button>
           <p>{`${user?.firstName} ${user?.lastName}`} </p>
         </div>
+        {user.role === "admin" && (
+          <li>
+            <NavLink to="/admin/user">
+              <FaUserCog />
+              <span> Admin Panel </span>
+            </NavLink>
+          </li>
+        )}
         <li>
           <NavLink to="/dashboard">
             <FaQrcode />
@@ -124,7 +133,7 @@ const DashboardMenu = () => {
         </li> */}
         <li className="nesting-menu">
           <p>
-            <FaUserAlt /> <span onClick={handleSubMenu}> Profile</span>
+            <FaUserAlt /> <span onClick={handleSubMenu}> My Profile</span>
           </p>
           <ul className="sub-menu" id="sub-menu">
             <li>
@@ -152,7 +161,7 @@ const DashboardMenu = () => {
           </NavLink>
           {/* <p><span >My Balance <p className="upcomming">Upcoming</p></span></p> */}
         </li>
-       
+
         <li className="nesting-menu">
           <NavLink to="/daily-task">
             <RiProfileFill />
@@ -182,88 +191,29 @@ const DashboardMenu = () => {
             </span>
           </p>
         </li> */}
-    
+
         <li className="nesting-menu">
           <NavLink to="/earnings">
-          <FaSearchDollar />
-            <span> Earnings</span>
+            <FaSearchDollar />
+            <span>My Earnings</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/generation">
+            <FaUsersCog />
+            <span>My Generation List</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/refer-team-member">
+            <SiMicrosoftteams />
+            <span>Referral Member List</span>
           </NavLink>
         </li>
         <li className="nesting-menu">
           <NavLink to="/helpline">
-          <BiSupport />
+            <BiSupport />
             <span> Help Line</span>
-          </NavLink>
-        </li>
-        <li className="nesting-menu">
-          <p>
-            <MdCompost />{" "}
-            <span>
-              Competitions <p className="upcomming">Upcoming</p>
-            </span>
-          </p>
-        </li>
-        <li className="nesting-menu">
-          <p>
-            <MdVolunteerActivism />{" "}
-            <span>
-              Active User <p className="upcomming">Upcoming</p>
-            </span>
-          </p>
-        </li>
-        <li className="nesting-menu">
-          <NavLink to="/">
-            <MdLiveHelp />
-            <span> Shop Now </span>
-          </NavLink>
-        </li>
-        {/* <li className="nesting-menu">
-          <p>
-            <SiMicrosoftteams />{" "}
-            <span>
-               <p className="upcomming">Upcoming</p>
-            </span>
-          </p>
-        </li> */}
-        <li>
-          <NavLink to="/refer-team-member">
-            <SiMicrosoftteams />
-            <span> Refer Team Members</span>
-          </NavLink>
-        </li>
-        <li className="nesting-menu">
-          <p>
-            <GiRank3 />{" "}
-            <span>
-              Rank Leaders <p className="upcomming">Upcoming</p>
-            </span>
-          </p>
-        </li>
-
-        {/* <li>
-          <NavLink to="/balance_transfer">
-            <FaHandshake />
-            <span> Balance transfer</span>
-          </NavLink>
-        </li> */}
-
-        {/* <li><NavLink to='/mobile_recharge'><FaMobileAlt /><span > Mobile recharge</span></NavLink></li> */}
-        <li>
-          <NavLink to="/generation">
-            <FaUsersCog />
-            <span> Generation</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/generation-history">
-            <FaUserClock />
-            <span>Generation History</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/rank_history">
-            <FaMedal />
-            <span> Rank History </span>
           </NavLink>
         </li>
         <li>
@@ -279,21 +229,83 @@ const DashboardMenu = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink to="/salary">
-            <FaUniversalAccess />
-            <span> Salary </span>
+          <NavLink to="/tutorial">
+            <AiOutlineYoutube />
+            <span> Works Tutorial </span>
           </NavLink>
         </li>
         <li>
           <NavLink to="/prove">
             <MdOutlineSelfImprovement />
-            <span> Prove </span>
+            <span> Payment Review </span>
           </NavLink>
         </li>
         <li>
-          <NavLink to="/tutorial">
-            <AiOutlineYoutube />
-            <span> Tutorial </span>
+          <NavLink to="/salary">
+            <FaUniversalAccess />
+            <span> Salary Bonus</span>
+          </NavLink>
+        </li>
+        <li>
+          <NavLink to="/rank_history">
+            <FaMedal />
+            <span>My Rank </span>
+          </NavLink>
+        </li>
+        <li className="nesting-menu">
+          <p>
+            <GiRank3 />{" "}
+            <span>
+              Rank Leaders <p className="upcomming">Upcoming</p>
+            </span>
+          </p>
+        </li>
+        {/* <li className="nesting-menu">
+          <p>
+            <MdCompost />{" "}
+            <span>
+              Competitions <p className="upcomming">Upcoming</p>
+            </span>
+          </p>
+        </li> */}
+        {/* <li className="nesting-menu">
+          <p>
+            <MdVolunteerActivism />{" "}
+            <span>
+              Active User <p className="upcomming">Upcoming</p>
+            </span>
+          </p>
+        </li> */}
+        <li className="nesting-menu">
+          <NavLink to="/">
+            <FiShoppingBag />
+            <span> Shop Now </span>
+          </NavLink>
+        </li>
+        {/* <li className="nesting-menu">
+          <p>
+            <SiMicrosoftteams />{" "}
+            <span>
+               <p className="upcomming">Upcoming</p>
+            </span>
+          </p>
+        </li> */}
+        
+       
+
+        {/* <li>
+          <NavLink to="/balance_transfer">
+            <FaHandshake />
+            <span> Balance transfer</span>
+          </NavLink>
+        </li> */}
+
+        {/* <li><NavLink to='/mobile_recharge'><FaMobileAlt /><span > Mobile recharge</span></NavLink></li> */}
+     
+        <li>
+          <NavLink to="/generation-history">
+            <FaUserClock />
+            <span>Generation History</span>
           </NavLink>
         </li>
         {user.role === "admin" && (
@@ -304,14 +316,7 @@ const DashboardMenu = () => {
             </NavLink>
           </li>
         )}
-        {user.role === "admin" && (
-          <li>
-            <NavLink to="/admin/user">
-              <FaUserCog />
-              <span> Admin Panel </span>
-            </NavLink>
-          </li>
-        )}
+    
         <li>
           <a onClick={hanleLogOut}>
             <BiLogOut />

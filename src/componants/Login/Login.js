@@ -149,7 +149,7 @@ const Login = () => {
                                 !message.sucess && message.failed && <p className='text-primary'>{message.failed}</p>
                             }
                         </div>
-                        <div className='form-navigation d-flex'><p>Don't have an account? <Link to="/registration"><span style={{ color: "blue", cursor: "pointer" }}>Register an account</span></Link></p></div>
+                        <div className='form-navigation d-flex'><p>Don't have an account? <Link to="/registration"><span style={{  cursor: "pointer" }}>Register an account</span></Link></p></div>
 
                     </form>
                 </section>

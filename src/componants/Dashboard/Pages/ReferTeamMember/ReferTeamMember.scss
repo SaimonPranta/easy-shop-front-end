@@ -7,6 +7,38 @@
         width: 95%;
         max-width: 800px;
 
+        .balance-section {
+            .grid-section {
+                .item {
+                    height: 180px;
+                    min-width: 280px !important;
+                    .top {
+                        gap: 0px;
+
+                        svg {
+                            height: 60px;
+                            width: 60px;
+                            padding: 10px;
+                            border-radius: 50%;
+                            background-color: var(--default-color);
+                      color: #FFF !important;
+                        }
+                        h6{
+                            font-size: 20px;
+                            margin: 0px;
+                            margin-top: 5px;
+                            color: #4a4a4a;
+
+                        }
+                        strong{
+                            font-size: 25px;
+                            font-weight: 800;
+                        }
+                    }
+                }
+            }
+        }
+
         .back-btn-section {
             padding: 10px 0px;
             display: flex;
@@ -28,24 +60,9 @@
 
 
 @media only screen and (min-width:200px) and (max-width:750px) {
-    .withdraw-page {
+    .refer-team-member-page {
         width: 100vw;
 
-        .inner-section {
-            .withdraw-notice {
-                p {
-                    font-size: 12px;
-                }
-            }
-
-            .back-btn-section {
-                button {
-                    padding: 3px 5px;
-                    font-size: 12px;
-
-                }
-            }
- 
-        }
+        
     }
 }

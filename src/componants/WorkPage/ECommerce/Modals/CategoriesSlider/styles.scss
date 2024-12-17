@@ -1,5 +1,4 @@
 .categories { 
-  background-color: #FFF;
   border-radius: 20px;
   margin: 0px auto;
   padding: 20px;
@@ -9,6 +8,7 @@
   justify-content: center;
   gap: 20px;
   width: 100%;
+  background-color: transparent !important;
 
   .category-creosol {
     width: 100%;

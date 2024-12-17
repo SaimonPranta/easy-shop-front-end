@@ -70,13 +70,18 @@ const MainPorduct = ({ product }) => {
             <h6>{product.title}</h6>
             <p className="price">
               <TbCurrencyTaka />
-              {Math.floor(product.price)}
-            </p>
-            <p className="old-price">
-              <TbCurrencyTaka />
               {Math.floor(
                 product.price - product.price * (product.discount / 100)
               )}
+              {/* {Math.floor(product.price)} */}
+            </p>
+            <p className="old-price">
+              <TbCurrencyTaka />
+              {/* {Math.floor(
+                product.price - product.price * (product.discount / 100)
+              )} */}
+              {Math.floor(product.price)}
+
             </p>
             <p className="point">
               Point: {Math.floor(Number(product.price) / 12)}

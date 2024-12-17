@@ -4,7 +4,7 @@ import MainPorduct from "../../SubComponents/MainPorduct/MainPorduct";
 
 const JustForYou = ({ allProducts, loading }) => {
   return (
-    <div>
+    <div className="just-for-you-container">
       <div className="just-for-you-head product-sction-titile">
         <h3>Just For You</h3>
       </div>

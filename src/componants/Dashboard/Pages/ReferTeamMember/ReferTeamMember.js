@@ -2,11 +2,11 @@ import React, { useContext, useEffect, useRef, useState } from "react";
 import { imageContext } from "../../../../App";
 import "./ReferTeamMember.scss";
 import { userHeader } from "../../../../shared/cooki";
-import { dateToString } from "../../../../shared/functions/dateConverter"; 
+import { dateToString } from "../../../../shared/functions/dateConverter";
 import { ToastContainer } from "react-toastify";
 import { AiOutlineTeam } from "react-icons/ai";
 import getImageUrl from "../../../../shared/functions/getImageUrl";
-import { FaRegUserCircle } from "react-icons/fa";
+import { FaRegUserCircle, FaUsers } from "react-icons/fa";
 
 const Withdraw = () => {
   const [page, setPage] = useState(1);
@@ -23,7 +23,7 @@ const Withdraw = () => {
     taskBalance: 0,
   });
   const [searchBalance, setSearchBalance] = useState({
-    totalReferUser: 0, 
+    totalReferUser: 0,
   });
   const { setViewImage } = useContext(imageContext);
 
@@ -57,15 +57,15 @@ const Withdraw = () => {
                 return [...data.data];
               });
               setSearchBalance({
-                totalReferUser: data.totalReferUser || 0
+                totalReferUser: data.totalReferUser || 0,
               });
             } else {
               setSearchBalance((state) => {
                 return {
                   ...state,
-                  totalReferUser : state.totalReferUser + data.totalReferUser
-                }
-              }) 
+                  totalReferUser: state.totalReferUser + data.totalReferUser,
+                };
+              });
               setTableItems((state) => {
                 return [...state, ...data.data];
               });
@@ -79,7 +79,6 @@ const Withdraw = () => {
           if (data.total) {
             setTotal(data.total);
           }
-         
         })
         .finally(() => {
           setLoading(false);
@@ -164,12 +163,13 @@ const Withdraw = () => {
     <div className="refer-team-member-page">
       <div className="inner-section">
         <div className="common-table-section">
-          <h4 className="table-title">Refer Team Members</h4>
+          <h4 className="table-title">Referral Member List </h4>
           <div className="balance-section">
             <div className="grid-section">
               <div className="item">
                 <div className="top">
-                  <AiOutlineTeam />
+                  <FaUsers />
+                  <h6>Total Refers</h6>
                   <strong>{searchBalance.totalReferUser}</strong>
                   <p>{/* {searchBalance[item.property]} */}</p>
                 </div>
@@ -197,6 +197,13 @@ const Withdraw = () => {
                     onChange={handleFilterInputChange}
                   />
                 </div>
+                <input
+                  type="text"
+                  placeholder="Search here ..."
+                  name="search"
+                  value={filterInput.search || ""}
+                  onChange={handleFilterInputChange}
+                />
               </div>
 
               <div className="submit-section">
@@ -215,9 +222,9 @@ const Withdraw = () => {
                   <tr>
                     <th className="small">#</th>
                     <th> Date</th>
-                    <th> Profile</th>
-                    <th> User Name</th>
-                    <th>User Account Number</th>
+                    {/* <th> Profile</th> */}
+                    <th> Member's Name</th>
+                    <th className="big">Member's Account Number</th>
                     <th>Reffer</th>
                     <th>Visit Reffer List</th>
                   </tr>
@@ -231,27 +238,30 @@ const Withdraw = () => {
                           <td className="date">
                             {dateToString(reqInfo.createdAt)}
                           </td>
-                          <td className="img">
-                            {reqInfo?.referredUser?.profilePicture && (
-                              <img
-                                src={getImageUrl(
-                                  reqInfo?.referredUser?.profilePicture
-                                )}
-                                alt=""
-                                onDoubleClick={() =>
-                                  setViewImage(
-                                    getImageUrl(
-                                      reqInfo?.referredUser?.profilePicture
+                          <td className="img-name">
+                            <div>
+                              {reqInfo?.referredUser?.profilePicture && (
+                                <img
+                                  src={getImageUrl(
+                                    reqInfo?.referredUser?.profilePicture
+                                  )}
+                                  alt=""
+                                  onDoubleClick={() =>
+                                    setViewImage(
+                                      getImageUrl(
+                                        reqInfo?.referredUser?.profilePicture
+                                      )
                                     )
-                                  )
-                                }
-                              />
-                            )}
-                            {!reqInfo?.referredUser?.profilePicture && (
-                              <FaRegUserCircle />
-                            )}
+                                  }
+                                />
+                              )}
+                              {!reqInfo?.referredUser?.profilePicture && (
+                                <FaRegUserCircle />
+                              )}
+                              <p>{`${reqInfo?.referredUser?.firstName} ${reqInfo?.referredUser?.lastName}`}</p>
+                            </div>
                           </td>
-                          <td className="big">{`${reqInfo?.referredUser?.firstName} ${reqInfo?.referredUser?.lastName}`}</td>
+
                           <td className="big">
                             {reqInfo?.referredUser?.phoneNumber}
                           </td>

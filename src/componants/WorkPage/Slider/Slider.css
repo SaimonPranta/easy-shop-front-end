@@ -1,9 +1,15 @@
 .slider-section img {
     /* width: 100%;
     height: 300px; */
-    width: 100%;
+    width: calc(100% - 40px);
     aspect-ratio: 16/7;
     max-height: 550px;
+    margin: auto;
+    margin-top: 30px;
+    box-sizing: border-box;
+    border-radius: 15px ;
+    overflow: hidden ;
+    
 }
 .slider-section .slide-item-skeleton { 
     width: 100%;

@@ -217,13 +217,7 @@ const DailyTask = () => {
             </div>
           )}
           <div className="heading-section">
-            {
-              disableSpin && <h3>অলরেডি আজকের কাজ কমপ্লিট করেছেন </h3> 
-            }
-            {
-              !disableSpin && <h3>আজকের ডেইলি টাক্স এর কাজ হলো </h3> 
-            }
-            
+            <h3>আজকের ডেইলি টাক্স এর কাজ হলো </h3>
 
             <div className="maximum-figure">
               <span>{`ব্যালেন্স - ${user?.pointAmount || 0} পয়েন্ট`}</span>
@@ -408,13 +402,13 @@ const DailyTask = () => {
               )}
             </div>
           )}
-          {/* {true && <div className='spinner-section'>
+          {true && <div className='spinner-section'>
                         <LuckySpinner handleSpinClick={handleSpinClick} disableSpin={disableSpin} />
                         {true && <div className='congress-section'>
                             <h5>অভিনন্দন 🎉</h5>
                             <p>{`আপনি ${rewardAmount} টাকা টাক্স বোনাস পেয়েছেন।`}</p>
                         </div>}
-                    </div>} */}
+                    </div>}
 
           {config?.dailyTask?.tutorialVideoId && (
             <div className="main-tutorial-section">

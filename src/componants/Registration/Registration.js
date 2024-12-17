@@ -11,6 +11,8 @@ import SuccessTost from "../../shared/components/SuccessTost/SuccessTost";
 import FailedTost from "../../shared/components/FailedTost/FailedTost";
 import { ToastContainer } from "react-toastify";
 import TopHeader from "../TopHeader/TopHeader";
+import getImageUrl from "../../shared/functions/getImageUrl";
+import { MdOutlineImage } from "react-icons/md";
 
 const Registation = () => {
   const [inputUser, setInputUser] = useState({});
@@ -260,11 +262,11 @@ const Registation = () => {
                 />
               )}
             </div>
-            <label>Your UPline Reference Number</label>
+            <label>Your Upline Reference Number</label>
             <div className="referral-section">
               <input
                 type="text"
-                placeholder="Enter reference number or name"
+                placeholder="Enter reference number"
                 autoComplete="off"
                 value={searchUser}
                 onChange={(e) => {
@@ -287,6 +289,7 @@ const Registation = () => {
                             return {
                               ...state,
                               referNumber: user.phoneNumber,
+                              profilePicture: user.profilePicture || false,
                               referName: `${user.firstName} ${user.lastName}`,
                             };
                           });
@@ -302,18 +305,33 @@ const Registation = () => {
             </div>
             {inputUser.referName && (
               <div className="upline-container">
+                <div className="img">
+
+                {
+                  !inputUser.profilePicture &&  <MdOutlineImage />
+                }
+                {
+                  inputUser.profilePicture &&  <img src={getImageUrl(inputUser?.profilePicture)}alt="" />
+                }
+                 
+                </div>
+                <div className="info">
                 <p>
                   Upline Name: <span>{inputUser.referName}</span>
                 </p>
+                <p>
+                  Upline Number: <span>{inputUser.phoneNumber}</span>
+                </p>
+                </div>
               </div>
             )}
 
-            <div className="notice-container">
+            {/* <div className="notice-container">
               <p>
                 আপনি যার মাধ্যমে রেজিষ্ট্রেশন করবেন তার থেকে রেফারেন্স নাম্বার
                 নিবেন
               </p>
-            </div>
+            </div> */}
 
             <input type="submit" value="Register account" />
             <div className="resposeContainer">
@@ -332,7 +350,7 @@ const Registation = () => {
               <p>
                 Already have an account?{" "}
                 <Link to="/login">
-                  <span style={{ color: "blue", cursor: "pointer" }}>
+                  <span style={{ cursor: "pointer" }}>
                     Login
                   </span>
                 </Link>

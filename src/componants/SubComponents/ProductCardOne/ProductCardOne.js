@@ -22,13 +22,17 @@ const ProductCardOne = ({porduct}) => {
             <h6>{porduct.title}</h6>
             <p className="price">
               <TbCurrencyTaka />
-              {Math.floor(porduct.price) * 100}
-            </p>
-            <p className="old-price">
-              <TbCurrencyTaka />
               {Math.floor(
                 porduct.price - porduct.price * (porduct.discount / 100)
               )}
+            </p>
+            <p className="old-price">
+              <TbCurrencyTaka />
+              {Math.floor(porduct.price) * 100}
+
+              {/* {Math.floor(
+                porduct.price - porduct.price * (porduct.discount / 100)
+              )} */}
             </p>
           </div>
         </Link>

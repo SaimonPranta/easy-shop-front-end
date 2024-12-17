@@ -21,12 +21,12 @@ body {
     background-color: var(--default-color);
     padding: 15px 10px;
     font-weight: 700;
-    font-size: 20px;
+    font-size: 22px;
     margin: 0px;
     color: #FFF;
 
     @media only screen and (min-width:200px) and (max-width:750px) {
-      font-size: 14px;
+      font-size: 19px;
     }
   }
 

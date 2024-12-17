@@ -239,7 +239,8 @@ const Withdraw = () => {
             <div className="history-section">
               {tableItems.map((itemInfo, index) => {
                 return (
-                  <div className="cart">
+                  <div className="cart" key={index}>
+                    <span className="count">{index + 1}</span>
                     <div className="salary-bonus">
                       <p>Salary Bonus</p>
                     </div>

@@ -13,10 +13,13 @@
 
         .withdraw-notice {
             background-color: #0F91DD;
+            padding: 10px 0px;
 
             p {
                 color: #FFF;
                 margin: 0px;
+                font-size: 18px;
+                font-weight: 500;
             }
         }
 
@@ -33,6 +36,7 @@
                 font-weight: 800;
                 background-color: #ffc106;
                 color: #FFF;
+                font-size: 18px;
             }
         }
 
@@ -51,11 +55,14 @@
 
                     p {
                         background-color: #FF9F00;
-                        font-weight: 500;
+                        width: 100%;
+                        font-weight: 600;
                         margin: 0px;
                         border-radius: 4px;
-                        font-size: 16px;
-                        padding: 5px;
+                        font-size: 18px;
+                        padding: 10px;
+                        text-align: center;
+                        color: #FFF;
                     }
                 }
 
@@ -148,11 +155,18 @@
                     margin-bottom: 15px;
                     gap: 5px;
 
+                    label {
+                        font-size: 18px;
+                        font-weight: 500;
+                    }
+
                     input,
                     select {
                         border: 1px solid #e4e4e4;
                         height: 40px;
                         padding: 0px 5px;
+                        font-size: 18px;
+
 
                     }
 
@@ -205,12 +219,7 @@
                 .select-section {
                     margin-bottom: 20px;
 
-                    .title-section {
 
-                        p {
-                            font-size: 14px;
-                        }
-                    }
 
                     .grid-section {
                         display: flex;
@@ -276,16 +285,7 @@
                         margin-bottom: 15px;
                         gap: 5px;
 
-                        input,
-                        select,
-                        label {
-                            font-size: 14px;
-
-                            option {
-                                font-size: 14px;
-                            }
-
-                        }
+                     
 
                     }
 

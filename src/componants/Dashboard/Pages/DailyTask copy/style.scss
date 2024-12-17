@@ -1,0 +1,568 @@
+.daily-task {
+    background-color: #f5f5f537;
+
+    .main-container {
+        width: 90%;
+        margin: auto;
+
+        .title-container {
+            background-color: var(--default-color);
+
+            h6 {
+                padding: 15px 10px;
+                font-weight: 800;
+                font-size: 18px;
+                color: #FFF;
+            }
+        }
+
+        .task-container {
+            width: 95%;
+            display: block;
+            margin: auto;
+
+            .notification-container {
+                background-color: #00A1FF;
+                margin: auto;
+                border-radius: 10px;
+                padding: 10px 5px;
+                color: #FFF;
+                font-size: 16px;
+            }
+
+            .heading-section {
+                padding: 15px;
+                padding-bottom: 30px;
+
+                h3 {
+                    width: fit-content;
+                    text-align: center;
+                    color: #C91FB7;
+                    font-size: 35px;
+                    font-weight: 800;
+                    position: relative;
+                    background-color: #FFF;
+                    border-radius: 10px;
+                    margin: auto;
+                    padding: 15px;
+                    box-shadow: 1px 1px 1px 1px #d2d1d18f;
+
+                }
+
+                .maximum-figure {
+                    display: flex;
+                    align-items: end;
+                    justify-content: end;
+                    gap: 10px;
+                    margin-top: 10px;
+
+                    span {
+                        // position: absolute;
+                        display: inline-block;
+                        background-color: #FFA300;
+                        font-size: 22px;
+                        font-weight: 600;
+                        color: #FFF;
+                        padding: 8px 10px;
+                        border-radius: 4px;
+                    }
+                }
+
+            }
+
+            .task-list {
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+
+                .task-item {
+                    border: 1px solid #B2B2B2;
+                    border-radius: 10px;
+                    padding: 8px;
+                    background-color: #FFF;
+
+                    .description-section {
+                        display: flex;
+
+                        .img-section {
+                            height: 65px;
+                            width: 65px;
+                            border-radius: 50%;
+                            position: relative;
+                            border: 1px solid #e4e4e4;
+
+                            img {
+                                height: 65px;
+                                width: 65px;
+                                border-radius: 50%;
+                            }
+
+                            .task-status {
+                                position: absolute;
+                                right: -5px;
+                                background-color: #2AA039;
+                                height: 25px;
+                                width: 25px;
+                                border-radius: 50%;
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                                color: #FFF;
+                                border: 1.5px solid #FFF;
+
+                                &.incomplete {
+                                    color: #ababab;
+                                    // border: 1.5px solid #000;
+
+                                }
+                            }
+                        }
+
+                        .description {
+                            padding-top: 20px;
+                            position: relative;
+
+                            p {
+                                font-size: 25px;
+                                font-weight: 500;
+
+                            }
+                        }
+                    }
+
+                    .upload-section {
+                        padding: 10px;
+
+                        .upload-list {
+                            height: 100px;
+                            display: flex;
+                            align-items: center;
+                            justify-content: center;
+                            gap: 20px;
+
+                            .img-container {
+                                height: 65px;
+                                width: 60px;
+                                position: relative;
+
+                                svg {
+                                    position: absolute;
+                                    right: -15px;
+                                    top: -15px;
+                                    color: #FC1415;
+                                    height: 30px;
+                                    width: 30px;
+                                    cursor: pointer;
+
+                                    &:hover,
+                                    &:active {
+                                        opacity: .8;
+                                    }
+
+                                }
+
+                                img {
+                                    height: 100%;
+                                    width: 100%;
+                                    border-radius: 4px;
+                                    border: 1px solid #b8abab;
+                                }
+                            }
+                        }
+
+                        .upload-section {
+                            display: flex;
+                            flex-direction: column;
+
+                            input {
+                                border: 1px solid #e4e4e4;
+                            }
+                        }
+
+                        .input-section {
+                            height: 60px;
+                            position: relative;
+
+                            button,
+                            input {
+                                margin: 0px;
+                                position: absolute;
+                                left: 50%;
+                                top: 50%;
+                                transform: translate(-50%, -50%);
+                                height: 50px;
+                                width: 150px;
+                                padding: 0px;
+                                border-radius: 10px;
+                            }
+
+                            input {
+                                opacity: 0;
+                            }
+
+                            button {
+                                // background-color: #79B6FF;
+                                border: 2px solid #79B6FF;
+                                font-weight: 600;
+
+                                svg {
+                                    height: 40px;
+                                    width: 40px;
+                                }
+                            }
+                        }
+                    }
+
+                    .action-section {
+
+                        width: 100%;
+                        padding-bottom: 10px;
+                        position: relative;
+
+                        .tutorial-btn {
+                            position: absolute;
+                            right: 10px;
+                            top: 10px;
+
+                            button {
+                                padding: 0px;
+                                height: 100%;
+                                width: 100%;
+                                background-color: transparent;
+                                border-radius: 0px;
+
+                                svg {
+                                    height: 35px;
+                                    width: 35px;
+                                    color: #ff0000
+                                }
+                            }
+                        }
+
+                        div {
+                            display: flex;
+                            gap: 20px;
+                            align-items: center;
+                            justify-content: center;
+
+                            button {
+                                outline: none;
+                                border: none;
+                                color: #FFF;
+                                background-color: var(--default-color);
+                                border-radius: 30px;
+                                padding: 5px 35px;
+                                font-weight: 800;
+
+                                &.complete {
+                                    background-color: #C4C4C4;
+                                    cursor: auto;
+                                }
+                            }
+                        }
+                    }
+                }
+
+            }
+
+            .spinner-section {
+                border: 1px solid #B2B2B2;
+                background-color: #FFF;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 50px;
+                margin-top: 20px;
+                padding: 20px 20px 60px 20px;
+                border-radius: 15px;
+
+                .congress-section {
+                    background-color: var(--default-color);
+                    padding: 12px;
+                    border-radius: 10px;
+                    width: 400px;
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    justify-content: center;
+                    color: #FFF;
+                    text-align: center;
+
+                    h5 {
+                        font-size: 30px;
+                        font-weight: 800;
+                    }
+
+                    p {
+                        font-size: 20px;
+                        font-weight: 600;
+                    }
+
+                }
+            }
+
+            .main-tutorial-section {
+                .title-section {
+                    margin-top: 15px;
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
+                    align-items: center;
+
+                    h3 {
+                        font-size: 22px;
+                        font-weight: 700;
+                        background-color: #FFF;
+                        padding: 10px 15px;
+                        border-radius: 5px;
+                        text-align: center;
+
+                    }
+
+                    p {
+                        background-color: var(--default-color);
+                        color: #FFF;
+                        padding: 5px 15px;
+                        border-radius: 5px;
+                        font-size: 18px;
+                        font-weight: 600;
+                        text-align: center;
+
+
+                    }
+                }
+
+                .frame-container {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+
+                    iframe {
+                        background-color: #fff;
+                        padding: 10px;
+                        border: 1px solid #e4e4e4;
+                        border-radius: 4px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media only screen and (min-width:200px) and (max-width:750px) {
+    .daily-task {
+        width: 100vw;
+
+        .main-container {
+            width: 95%;
+
+            .title-container {
+
+                h6 {
+                    font-size: 16px;
+
+                }
+            }
+
+            .task-container {
+
+                .notification-container {
+                    color: #FFF;
+
+                    h5 {
+                        font-size: 16px;
+                    }
+                }
+
+                .heading-section {
+                    padding: 10px 0px;
+                    padding-bottom: 20px;
+
+                    h3 {
+                        font-size: 25px;
+                    }
+
+                    .maximum-figure {
+
+                        span {
+                            padding: 4px 7px;
+                            font-size: 12px;
+                        }
+                    }
+
+                }
+
+                .task-list {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 15px;
+
+                    .task-item {
+                        border: 1px solid #B2B2B2;
+                        border-radius: 10px;
+                        padding: 8px;
+                        background-color: #FFF;
+
+                        .description-section {
+                            display: flex;
+
+                            .img-section {
+                                height: 45px;
+                                width: 45px;
+                                border-radius: 50%;
+
+                                img {
+                                    height: 45px;
+                                    width: 45px;
+                                }
+
+                                .task-status {
+                                    padding: 2px;
+                                    height: 18px;
+                                    width: 18px;
+
+                                    svg {
+                                        height: 16px;
+                                        width: 16px;
+                                    }
+                                }
+                            }
+
+                            .description {
+                                padding-top: 8px;
+                                margin-left: 10px;
+
+                                p {
+                                    font-size: 16px;
+
+                                }
+                            }
+                        }
+
+                        .upload-section {
+                            padding: 10px;
+
+                            .upload-list {
+                                height: 50px;
+                                gap: 15px;
+
+                                .img-container {
+                                    height: 40px;
+                                    width: 45px;
+
+                                    svg {
+                                        right: -10px;
+                                        top: -10px;
+                                        height: 20px;
+                                        width: 20px;
+                                    }
+
+                                    img {
+                                        height: 100%;
+                                        width: 100%;
+                                        border-radius: 4px;
+                                        border: 1px solid #b8abab;
+                                    }
+                                }
+                            }
+
+                            .input-section {
+                                height: 40px;
+                                position: relative;
+
+                                button,
+                                input {
+                                    height: 35px;
+                                    width: 90px;
+                                }
+
+                                button {
+
+                                    svg {
+                                        height: 30px;
+                                        width: 30px;
+                                    }
+                                }
+                            }
+                        }
+
+                        .action-section {
+
+                            .tutorial-btn {
+                                right: 0px;
+                                top: 16px;
+
+                                button {
+
+                                    svg {
+                                        height: 22px;
+                                        width: 22px;
+                                    }
+                                }
+                            }
+
+                            div {
+                                gap: 10px;
+
+                                button {
+                                    padding: 3px 20px;
+                                    font-weight: 600;
+                                    font-size: 12px;
+
+                                }
+                            }
+                        }
+                    }
+
+                }
+
+                .spinner-section {
+                    border: 1px solid #B2B2B2;
+                    background-color: #FFF;
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 50px;
+                    margin-top: 20px;
+                    padding: 8px;
+                    border-radius: 15px;
+
+                    .congress-section {
+                        width: 95%;
+                        gap: 5px;
+
+                        h5 {
+                            font-size: 22px;
+                            font-weight: 800;
+                        }
+
+                        p {
+                            font-size: 16px;
+                            font-weight: 600;
+                        }
+
+                    }
+                }
+
+                .main-tutorial-section {
+
+                    .frame-container {
+                        display: flex;
+                        align-items: center;
+                        justify-content: center;
+                        height: 200px;
+
+                        iframe {
+                            background-color: #fff;
+                            padding: 10px;
+                            border: 1px solid #e4e4e4;
+                            border-radius: 4px;
+                            height: 100%;
+                            max-height: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

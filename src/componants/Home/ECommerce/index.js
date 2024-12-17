@@ -38,11 +38,14 @@ const Index = () => {
       </div>
       <div className="categories common-width">
         <CategoriesSlider
-          categories={categories}
+          categories={categories.slice(0, categories.length / 2)}
           categoryLoading={categoryLoading}
         />
         <CategoriesSlider
-          categories={[...categories].reverse()}
+          categories={categories.slice(
+            categories.length / 2,
+            categories.length
+          )}
           categoryLoading={categoryLoading}
         />
       </div>

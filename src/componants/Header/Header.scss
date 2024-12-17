@@ -174,19 +174,21 @@
         .search-container {   
     
             .search-body {  
-                height: 35px;
-                width: 240px; 
+                height: 30px;
+                width: 210px; 
       
     
                 svg {
-                    height: 35px;
-                    width: 35px; 
+                    height: 30px;
+                    width: 30px; 
     
                 }
     
                 button { 
-                    padding: 0px 10px;
+                    padding: 0px 8px;
                     border-radius: 30px;  
+font-size: 14px;
+font-weight: 800;
     
                 }
             }

@@ -1,30 +1,39 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
 import "./style.scss";
-import SuccessTost from "../../../../shared/components/SuccessTost/SuccessTost";
-import FailedTost from "../../../../shared/components/FailedTost/FailedTost";
 import { ToastContainer } from "react-toastify";
 import { userHeader } from "../../../../shared/cooki";
-import {
-  dateToString,
-  timeAgo,
-} from "../../../../shared/functions/dateConverter";
-import { useNavigate } from "react-router-dom";
-import { FaRegUserCircle } from "react-icons/fa";
-import getImageUrl from "../../../../shared/functions/getImageUrl";
-import { imageContext } from "../../../../App";
+import { dateToString } from "../../../../shared/functions/dateConverter";
+import { userContext } from "../../../../App";
+import wallet from "../../../../assets/images/dashboard/wallet.png";
 
 const balanceArray = [
   {
-    amount: 0,
     property: "todayEarning",
     label: "Today's Earning",
   },
   {
-    amount: 0,
-    property: "YesterdayEarning",
+    property: "yesterdayEarning",
     label: "Yesterday's Earning",
   },
-]
+];
+const tableBalanceArray = [
+  {
+    title: "Main Balance",
+    property: "mainBalance",
+  },
+  {
+    title: "Task Balance",
+    property: "taskBalance",
+  },
+  {
+    title: "Sales Balance",
+    property: "salesBalance",
+  },
+  {
+    title: "Total Balance",
+    property: "totalBalance",
+  },
+];
 
 const Earnings = () => {
   const [filterInput, setFilterInput] = useState({});
@@ -33,11 +42,19 @@ const Earnings = () => {
   const [tableItems, setTableItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
-  const { setViewImage } = useContext(imageContext);
+  const [balance, setBalance] = useState({
+    todayEarning: 0,
+    yesterdayEarning: 0,
+  });
+  const [searchBalance, setsSearchBalance] = useState({
+    mainBalance: 0,
+    taskBalance: 0,
+    salesBalance: 0,
+    totalBalance: 0,
+  });
+  const [user] = useContext(userContext);
 
   const debounceState = useRef();
-
-  const navigate = useNavigate();
 
   const resetTimeout = () => {
     if (debounceState.current) {
@@ -47,17 +64,14 @@ const Earnings = () => {
   useEffect(() => {
     resetTimeout();
     debounceState.current = setTimeout(() => {
-      fetch(
-        `${process.env.REACT_APP_SERVER_HOST_URL}/admin-payments?page=${page}`,
-        {
-          method: "POST",
-          headers: {
-            "content-type": "application/json; charset=UTF-8",
-            ...userHeader(),
-          },
-          body: JSON.stringify(filterInput),
-        }
-      )
+      fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/earnings?page=${page}`, {
+        method: "POST",
+        headers: {
+          "content-type": "application/json; charset=UTF-8",
+          ...userHeader(),
+        },
+        body: JSON.stringify(filterInput),
+      })
         .then((res) => res.json())
         .then((data) => {
           if (data.data) {
@@ -76,8 +90,25 @@ const Earnings = () => {
           if (data.page) {
             setCurrentPage(Number(data.page - 1));
           }
-          if (data.total) {
-            setTotal(data.total);
+          if (data.totalBalance) {
+            if (page === 1) {
+              setsSearchBalance(data.totalBalance);
+            } else {
+              setsSearchBalance((state) => {
+                // data.totalBalance
+                state.mainBalance =
+                  state.mainBalance + data.totalBalance?.mainBalance;
+                state.taskBalance =
+                  state.taskBalance + data.totalBalance?.taskBalance;
+                state.salesBalance =
+                  state.salesBalance + data.totalBalance?.salesBalance;
+                state.totalBalance =
+                  state.totalBalance + data.totalBalance?.totalBalance;
+                return {
+                  ...state,
+                };
+              });
+            }
           }
         })
         .finally(() => {
@@ -90,6 +121,21 @@ const Earnings = () => {
     };
   }, [page, filterInput.searchSubmit]);
 
+  useEffect(() => {
+    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/earnings/init-balance`, {
+      method: "GET",
+      headers: {
+        "content-type": "application/json; charset=UTF-8",
+        ...userHeader(),
+      },
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.data) {
+          setBalance(data.data);
+        }
+      });
+  }, []);
   const handleScroll = () => {
     if (loading) {
       return;
@@ -130,243 +176,138 @@ const Earnings = () => {
       };
     });
   };
-  const handleStatus = (status, id) => {
-    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/admin-payments/status`, {
-      method: "PUT",
-      headers: {
-        "content-type": "application/json; charset=UTF-8",
-        ...userHeader(),
-      },
-      body: JSON.stringify({ status, id }),
-    })
-      .then((res) => res.json())
-      .then((data) => {
-        if (data.data) {
-          let updateTable = [];
-          if (status === "Delete") {
-            updateTable = tableItems.filter((item) => {
-              if (item._id === id) {
-                return false;
-              }
-              return true;
-            });
-            SuccessTost("Successfully removed transaction");
-          } else {
-            SuccessTost(`Transaction status updated to ${status}`);
-            updateTable = tableItems.map((item) => {
-              if (item._id === id) {
-                item.status = data.data?.status;
-              }
-              return item;
-            });
-          }
-          setTableItems(updateTable);
-        } else {
-          FailedTost(data.message || "Failed to update user status");
-        }
-      });
-  };
-
-  const handleConfigNavigation = () => {
-    navigate("/admin/payments-config");
-  };
 
   return (
     <div className="earnings-page">
-      <h4 className="dashboard-title">Earnings</h4>
-      <div className="earning-form">
-        <div className="balance-section">
-          <div className="total-balance-section">
-            <div className="balance">
-              <h6>
-                <strong>৳</strong> 292
-              </h6>
-              <p>Total Earning</p>
+      <div className="inner-container">
+        <h4 className="dashboard-title">Earnings</h4>
+        <div className="earning-form">
+          <div className="balance-section">
+            <div className="total-balance-section">
+              <div className="balance">
+                <h6>
+                  <strong>৳</strong>{" "}
+                  {user.balance + user.salesBalance + user.taskBalance}
+                </h6>
+                <p>Total Earning</p>
+              </div>
+              <dvi className="date">
+                <p>{`Date: ${dateToString(new Date()).split("||")[0]}`}</p>
+              </dvi>
             </div>
-            <dvi className="date">
-              <p>{`Date: ${dateToString(new Date()).split("||")[0]}`}</p>
-            </dvi>
+            <div className="todays-balance-section">
+              {balanceArray.map((item, index) => {
+                return (
+                  <div className="cart">
+                    <h6>
+                      {" "}
+                      <strong>৳</strong> {balance[item.property]}
+                    </h6>
+                    <p>{item.label}</p>
+                  </div>
+                );
+              })}
+            </div>
           </div>
-          <div className="todays-balance-section">
-            {
-              balanceArray.map((item, index) => {
-                return <div className="cart">
-                  <h6> <strong>৳</strong> {item.amount}</h6>
-                  <p>{item.label}</p>
-                </div>
-              })
-            }
-          </div>
+          <div></div>
         </div>
-        <div></div>
-      </div>
-      <div className="common-table-section">
-        <h4 className="dashboard-title">Earning History</h4>
-        <div className="balance-section"></div>
-        <div className="filter-section">
-          <div className="input-section">
-            <div className="date">
-              <span>From</span>
-              <input
-                type="date"
-                name="fromDate"
-                value={filterInput.fromDate || ""}
-                onChange={handleInputChange}
-              />
+        <div className="common-table-section">
+          <h4 className="dashboard-title">Earning History</h4>
+          <div className="balance-section">
+            <div className="grid-section">
+              {tableBalanceArray.map((item, index) => {
+                return (
+                  <div className="item" key={index}>
+                    <div className="top">
+                      <img src={wallet} alt="" />
+                      <strong>{item.title}</strong>
+                      <p>
+                        <strong>৳</strong>
+                        {searchBalance[item.property]}
+                      </p>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
-            <div className="date">
-              <span>To</span>
-              <input
-                type="date"
-                name="toDate"
-                value={filterInput.toDate || ""}
-                onChange={handleInputChange}
-              />
-            </div>
+          </div>
+          <div className="filter-section">
+            <div className="input-section">
+              <div className="date">
+                <span>From</span>
+                <input
+                  type="date"
+                  name="fromDate"
+                  value={filterInput.fromDate || ""}
+                  onChange={handleInputChange}
+                />
+              </div>
+              <div className="date">
+                <span>To</span>
+                <input
+                  type="date"
+                  name="toDate"
+                  value={filterInput.toDate || ""}
+                  onChange={handleInputChange}
+                />
+              </div>
 
-            <input
+              {/* <input
               type="text"
               placeholder="Search here ..."
               name="search"
               value={filterInput.search || ""}
               onChange={handleInputChange}
-            />
-          </div>
+            /> */}
+            </div>
 
-          <div className="submit-section">
-            <button onClick={handleFilterSubmit}>Filter</button>
+            <div className="submit-section">
+              <button onClick={handleFilterSubmit}>Filter</button>
+            </div>
           </div>
-        </div>
-        <div className="table-section" id="table-list" onScroll={handleScroll}>
-          <table>
-            <thead>
-              <tr>
-                <th className="small">#</th>
-                <th className="img">Img</th>
-                <th className="big">User Name</th>
-                <th>User ID</th>
-                <th>Method</th>
-                <th>Number</th>
-                <th>Transaction Number</th>
-                <th>Amount</th>
-                <th className="big">Account Balance</th>
-                <th>Screen Short</th>
-                <th>Ago</th>
-                <th>Date</th>
-                <th>Status</th>
-                <th>Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {tableItems?.length > 0 &&
-                tableItems.map((reqInfo, index) => {
-                  let accountBalance = 0;
-                  if (reqInfo.balanceType === "Main Balance") {
-                    accountBalance = reqInfo?.userID?.balance || 0;
-                  } else if (reqInfo.balanceType === "Sales Balance") {
-                    accountBalance = reqInfo?.userID?.salesBalance || 0;
-                  } else if (reqInfo.balanceType === "Task Balance") {
-                    accountBalance = reqInfo?.userID?.taskBalance || 0;
-                  }
-                  return (
-                    <tr key={index}>
-                      <td className="small">{index + 1}</td>
-                      <td className="img">
-                        {reqInfo?.userID?.profilePicture && (
-                          <img
-                            src={getImageUrl(reqInfo?.userID?.profilePicture)}
-                            alt=""
-                            onDoubleClick={() =>
-                              setViewImage(
-                                getImageUrl(reqInfo?.userID?.profilePicture)
-                              )
-                            }
-                          />
-                        )}
-                        {!reqInfo?.userID?.profilePicture && (
-                          <FaRegUserCircle />
-                        )}
-                      </td>
-                      <td>{reqInfo?.userID?.fullName}</td>
-                      <td>{reqInfo?.userID?.phoneNumber}</td>
-                      <td>{reqInfo?.payments?.paymentMethod}</td>
-                      <td>{reqInfo?.payments?.paymentNumber}</td>
-                      <td>{reqInfo?.payments?.transitionNumber}</td>
-                      <td>৳{reqInfo?.amount}</td>
-                      <td>৳{accountBalance}</td>
-                      <td className="img big">
-                        <img
-                          src={getImageUrl(reqInfo?.payments?.img)}
-                          alt=""
-                          onDoubleClick={() =>
-                            setViewImage(getImageUrl(reqInfo?.payments?.img))
-                          }
-                        />
-                      </td>
-                      <td className="date">{timeAgo(reqInfo.createdAt)}</td>
-                      <td className="date">
-                        {dateToString(reqInfo.createdAt)}
-                      </td>
-                      {/* <td className={`btn ${reqInfo.status.toLowerCase()}`}>
-                      <button>{reqInfo.status}</button>
-                    </td> */}
-                      <td>{reqInfo?.status}</td>
-                      <td
-                        className={`btn-container ${reqInfo.status.toLowerCase()}`}
-                      >
-                        <div>
-                          {reqInfo.status !== "Pending" && (
-                            <button
-                              onClick={() =>
-                                handleStatus("Pending", reqInfo._id)
-                              }
-                              disabled={reqInfo.status === "Cancel"}
-                            >
-                              Pending
-                            </button>
-                          )}
-                          {reqInfo.status !== "Reject" && (
-                            <button
-                              className="reject"
-                              onClick={() =>
-                                handleStatus("Reject", reqInfo._id)
-                              }
-                              disabled={reqInfo.status === "Cancel"}
-                            >
-                              Reject{" "}
-                            </button>
-                          )}
-                          {reqInfo.status !== "Approve" && (
-                            <button
-                              className="approve"
-                              onClick={() =>
-                                handleStatus("Approve", reqInfo._id)
-                              }
-                              disabled={reqInfo.status === "Cancel"}
-                            >
-                              Approve
-                            </button>
-                          )}
-                          {reqInfo.status === "Pending" && (
-                            <button
-                              onClick={() =>
-                                handleStatus("Delete", reqInfo._id)
-                              }
-                              disabled={reqInfo.status === "Cancel"}
-                            >
-                              Delete
-                            </button>
-                          )}
-                        </div>
-                      </td>
-                    </tr>
-                  );
-                })}
-            </tbody>
-          </table>
+          <div
+            className="table-section"
+            id="table-list"
+            onScroll={handleScroll}
+          >
+            <table>
+              <thead>
+                <tr>
+                  <th className="small">#</th>
+                  <th className="big">Date</th>
+                  <th className="big">Main Balance</th>
+                  <th className="big">Task Balance</th>
+                  <th className="big">Sales Balance</th>
+                  <th className="big">Total Balance</th>
+                </tr>
+              </thead>
+              <tbody>
+                {tableItems?.length > 0 &&
+                  tableItems.map((reqInfo, index) => {
+                    let accountBalance = 0;
+                    if (reqInfo.balanceType === "Main Balance") {
+                      accountBalance = reqInfo?.userID?.balance || 0;
+                    } else if (reqInfo.balanceType === "Sales Balance") {
+                      accountBalance = reqInfo?.userID?.salesBalance || 0;
+                    } else if (reqInfo.balanceType === "Task Balance") {
+                      accountBalance = reqInfo?.userID?.taskBalance || 0;
+                    }
+                    return (
+                      <tr key={index}>
+                        <td className="small">{index + 1}</td>
+                        <td className="date">{dateToString(reqInfo.date)}</td>
+                        <td>${reqInfo.mainBalance}</td>
+                        <td>${reqInfo.taskBalance}</td>
+                        <td>${reqInfo.salesBalance}</td>
+                        <td>${reqInfo.totalBalance}</td>
+                      </tr>
+                    );
+                  })}
+              </tbody>
+            </table>
+          </div>
         </div>
       </div>
-
       <ToastContainer />
     </div>
   );

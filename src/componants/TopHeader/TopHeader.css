@@ -57,7 +57,7 @@
     display: flex;
     align-items: center;
     gap: 5px;
-    background-color: #e4539e;
+    background-color: #ff7308;
     /* background-color: #00000016; */
     padding: 5px 10px;
     border-radius: 5px;
@@ -73,7 +73,7 @@
 .top-header-user svg {
     height: 30px;
     width: 30px;
-    color: #000;
+    color: #FFF;
 }
 
 .top-header-social div a svg {

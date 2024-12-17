@@ -278,7 +278,7 @@ const Withdraw = () => {
                       <strong>{item.title}</strong>
                       <p>
                         <strong>৳</strong>
-                        {user[item.mainProperty] || 0}
+                        {user[item.mainProperty]?.toFixed(2) || 0}
                       </p>
                     </div>
                     <div className="bottom">

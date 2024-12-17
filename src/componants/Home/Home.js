@@ -2,25 +2,20 @@ import React from "react";
 import { useState } from "react";
 import { useEffect } from "react";
 import Footer from "../Footer/Footer";
-import Header from "../Header/Header";
-import TopHeader from "../TopHeader/TopHeader";
+import Header from "../Header/Header"; 
 import HotSale from "./HotSale/HotSale";
-import JustForYou from "./JustForYou/JustForYou";
-import Slider from "./Slider/Slider";
+import JustForYou from "./JustForYou/JustForYou"; 
 import DisplayAdsOne from "../../GoogleADs/DisplayAdsOne";
-import DisplayAdsTwo from "../../GoogleADs/DisplayAdsTwo";
-import DisplayAdsThree from "../../GoogleADs/DisplayAdsThree";
+import DisplayAdsTwo from "../../GoogleADs/DisplayAdsTwo"; 
 import MultiplexAdsOne from "../../GoogleADs/MultiplexAdsTwo";
 import MultiplexAdsTwo from "../../GoogleADs/MultiplexAdsTwo";
-import MultiplexAdsThree from "../../GoogleADs/MultiplexAdsThree";
-import PostProve from "./PostProve/index";
+import MultiplexAdsThree from "../../GoogleADs/MultiplexAdsThree"; 
 import ECommerce from "./ECommerce/index";
 
 const Home = () => {
   const [allProducts, setAllProducts] = useState([]);
   const [loading, setLoading] = useState(true);
-  const [hotProductLoading, setHotProductLoading] = useState(true);
-  const [page, setPage] = useState("earn-page");
+  const [hotProductLoading, setHotProductLoading] = useState(true); 
   const [hotSales, setHotSales] = useState([]);
   useEffect(() => {
     fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/product`)

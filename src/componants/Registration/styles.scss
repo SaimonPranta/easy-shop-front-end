@@ -13,6 +13,7 @@
 
 .authentication form .referral-section input {
     color: var(--default-color);
+    height: 47px !important;
 }
 
 .authentication form .referral-section .user-list {
@@ -48,7 +49,7 @@ p {
 
 .authentication form h6 {
     font-weight: 700;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
 }
 
 .authentication .eye-container,
@@ -102,6 +103,14 @@ p {
     border: 1.7px solid #C5C5C5;
     border-radius: 4px;
     outline: yellow;
+    height: 85px;
+    font-size: 1.3rem;
+
+}
+
+.authentication form input {
+    height: 47px;
+
 }
 
 .authentication form label {
@@ -111,7 +120,8 @@ p {
     padding: 3px 4px 1px 4px;
     border: none;
     color: #000;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
+    font-weight: 600;
 }
 
 .authentication form .remember-section {
@@ -127,17 +137,41 @@ p {
     gap: 5px;
 }
 
-.authentication form .remember-section .upline-container {
-    display: flex;
+.authentication form .upline-container {
+    display: flex !important;
+    flex-direction: row !important;
     align-items: center;
-    gap: 5px;
-
+    gap: 10px;
 }
 
-.authentication form .upline-container p {
-    color: #daa126 !important;
-    padding-top: 10px !important;
+.authentication form  .upline-container .img {
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    overflow: hidden;
+    border: 1px solid #e4e4e4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    img,svg{
+        height: 35px;
+        width: 35px;
+        color: #e4e4e4;
+    border-radius: 50%;
 
+    }
+}
+.authentication form .upline-container .info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+}
+
+.authentication form .upline-container .info p {
+    color: #daa126 !important;
+    padding: 0px !important;
+    margin: 0px;
 
 }
 
@@ -148,6 +182,8 @@ p {
 
 .authentication form .remember-section p {
     margin: 0px 0px 1px 0px;
+    font-size: 18px;
+    font-weight: 500;
 }
 
 .authentication form .remember-section .forgot-password {
@@ -176,9 +212,10 @@ p {
     background-color: var(--default-color);
     color: #FFF;
     padding: 5px 0;
-    font-weight: 900;
+    font-weight: 700;
     border: none;
     margin-top: 10px !important;
+    height: 47px;
 }
 
 .socil-container {
@@ -257,7 +294,7 @@ p {
         gap: 20px;
         width: 100%;
         padding: 10px !important;
-        background-color: #FFF ;
+        background-color: #FFF;
         max-width: 570px;
         width: 100%;
         margin: auto;
@@ -330,8 +367,16 @@ p {
     }
 }
 
-.form-navigation a {
+.form-navigation a, .form-navigation p {
     text-decoration: none;
+    font-size: 17px;
+
+}
+.form-navigation a{
+    padding: 3px 5px;
+    background-color: var(--default-color);
+    color: #FFF !important;
+    border-radius: 4px;
 }
 
 .authentication form .resposeContainer {
@@ -433,7 +478,7 @@ p {
     }
 
     .form-navigation {
-        font-size: 12px;
+        font-size: 17px;
         height: 30px !important;
         width: 100% !important;
     }

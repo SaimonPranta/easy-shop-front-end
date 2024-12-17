@@ -123,8 +123,7 @@ const Withdraw = () => {
           };
         });
       });
-  };
-  console.log(" ============>>", tutorial);
+  }; 
   return (
     <div className="tutorial-page">
       <div className="inner-section">
@@ -170,7 +169,7 @@ const Withdraw = () => {
         )}
         <div className="form-container">
           <div className="notice-notice">
-            <p>কাজ সম্পর্কে বিস্তারিত জানার জন্য নিচের পিকচার গুলো দেখুন।</p>
+            <p>কাজ সম্পর্কে বিস্তারিত জানার জন্য নিচের ভিডিও গুলো দেখুন।</p>
           </div>
           <div className="tutorial-list">
             {tutorial.map((videoInfo, index) => {

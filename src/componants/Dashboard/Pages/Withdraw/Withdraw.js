@@ -304,7 +304,7 @@ const Withdraw = () => {
   return (
     <div className="withdraw-page">
       <div className="inner-section">
-        <h4 className="dashboard-title">Withdraw Request</h4>
+        <h4 className="dashboard-title">Withdraw</h4>
         <div className="withdraw-notice">
           <p>
             {`Percentage Withdraw Charge ${
@@ -337,7 +337,7 @@ const Withdraw = () => {
                       <strong>{item.title}</strong>
                       <p>
                         <strong>৳</strong>
-                        {user[item.mainProperty] || 0}
+                        {user[item.mainProperty]?.toFixed(2) || 0}
                       </p>
                     </div>
                     <div className="bottom">

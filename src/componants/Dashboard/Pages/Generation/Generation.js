@@ -83,9 +83,9 @@ const Generation = () => {
     );
     const data = await res.json();
     if (data.data) {
-        setAllUserContainer([...data.data])
-    }else{
-        setAllUserContainer([])
+      setAllUserContainer([...data.data]);
+    } else {
+      setAllUserContainer([]);
     }
 
     // .then((res) => )
@@ -98,132 +98,158 @@ const Generation = () => {
   };
 
   return (
-    <div className="generation-section m-3 text-white">
-      <div className="generation-top-section">
+    <div className="generation-section text-white">
+      <div className="inner-container">
         <div>
-          <h5>Your Reffer Number</h5> <span>{user.phoneNumber}</span>
+          <h4 className="dashboard-title">My Generation List </h4>
         </div>
-        <div>
-          <h5>Your Upline Reffer Number</h5> <span>{user.referNumber}</span>
+
+        <div className="generation-top-section">
+          <div>
+            <div>
+              <h5>Your Name</h5>{" "}
+              <span>{`${user.firstName} ${user.lastName}`}</span>
+            </div>
+            <div>
+              <h5>Your Reference Number</h5> <span>{user.phoneNumber}</span>
+            </div>
+          </div>
+          <div>
+            <div>
+              <h5>Upline Number</h5>{" "}
+              <span>
+                {user?.referUser
+                  ? `${user?.referUser?.firstName} ${user?.referUser?.lastName}`
+                  : "null"}
+              </span>
+            </div>
+            <div>
+              <h5>Upline Account Number</h5>{" "}
+              <span>{user?.referUser?.phoneNumber || "null"}</span>
+            </div>
+          </div>
+          <div>
+            <div className="gen-member">
+              <h5>Total Generation Members</h5> <span>{totalRefer}</span>
+            </div>
+          </div>
         </div>
-        <div>
-          <h5>Total Generation Members</h5> <span>{totalRefer}</span>
-        </div>
+        {!condition.search ? (
+          <div className="d-flex">
+            <button
+              type="button"
+              onClick={ElementControl}
+              className="btn btn-primary btn m-auto"
+            >
+              Generation Search Member
+            </button>
+          </div>
+        ) : (
+          <>
+            <div className="input-group admin-search">
+              <div className="d-flex">
+                <button
+                  type="button"
+                  onClick={ElementControl}
+                  className="btn btn-primary btn m-auto"
+                >
+                  Back to Generation
+                </button>
+              </div>
+              <input
+                type="text"
+                className="form-control m-auto"
+                aria-label="Text input with radio button"
+                onChange={seach_handler}
+                placeholder="Search by Phone Number"
+              />
+            </div>
+          </>
+        )}
+
+        {!condition.search && (
+          <div className="generation-list-container">
+            <div className="generation-title ">
+              <h4>My Generation Members</h4>
+            </div>
+            <div className="generation-items">
+              <div>
+                <h5>1st Generation</h5>{" "}
+                <span>{generationList.generation_1 || 0}</span>{" "}
+                <button>
+                  <Link to="/generation/1"> View List</Link>
+                </button>
+              </div>
+              <div>
+                <h5>2nd Generation</h5>{" "}
+                <span>{generationList.generation_2 || 0}</span>{" "}
+                <button>
+                  <Link to="/generation/2"> View List</Link>
+                </button>
+              </div>
+              <div>
+                <h5>3rd Generation</h5>{" "}
+                <span>{generationList.generation_3 || 0}</span>{" "}
+                <button>
+                  <Link to="/generation/3"> View List</Link>
+                </button>
+              </div>
+              <div>
+                <h5>4th Generation</h5>{" "}
+                <span>{generationList.generation_4 || 0}</span>{" "}
+                <button>
+                  <Link to="/generation/4"> View List</Link>
+                </button>
+              </div>
+              <div>
+                <h5>5th Generation</h5>{" "}
+                <span>{generationList.generation_6 || 0}</span>{" "}
+                <button>
+                  <Link to="/generation/5"> View List</Link>
+                </button>
+              </div>
+              <div>
+                <h5>6th Generation</h5>{" "}
+                <span>{generationList.generation_6 || 0}</span>{" "}
+                <button>
+                  <Link to="/generation/6"> View List</Link>
+                </button>
+              </div>
+              <div>
+                <h5>7th Generation</h5>{" "}
+                <span>{generationList.generation_7 || 0}</span>{" "}
+                <button>
+                  <Link to="/generation/7"> View List</Link>
+                </button>
+              </div>
+              <div>
+                <h5>8th Generation</h5>{" "}
+                <span>{generationList.generation_8 || 0}</span>{" "}
+                <button>
+                  <Link to="/generation/8"> View List</Link>
+                </button>
+              </div>
+              <div>
+                <h5>9th Generation</h5>{" "}
+                <span>{generationList.generation_9 || 0}</span>{" "}
+                <button>
+                  <Link to="/generation/9"> View List</Link>
+                </button>
+              </div>
+              <div>
+                <h5>10th Generation</h5>{" "}
+                <span>{generationList.generation_10 || 0}</span>{" "}
+                <button>
+                  <Link to="/generation/10"> View List</Link>
+                </button>
+              </div>
+            </div>
+          </div>
+        )}
+        {allUserContaienr.length && (
+          <SearchGenaration userr={allUserContaienr} />
+        )}
       </div>
-      {!condition.search ? (
-        <div className="d-flex">
-          <button
-            type="button"
-            onClick={ElementControl}
-            className="btn btn-primary btn m-auto"
-          >
-            Generation Search User
-          </button>
-        </div>
-      ) : (
-        <>
-          <div className="input-group admin-search">
-            <div className="d-flex">
-              <button
-                type="button"
-                onClick={ElementControl}
-                className="btn btn-primary btn m-auto"
-              >
-                Back to Generation
-              </button>
-            </div>
-            <input
-              type="text"
-              className="form-control m-auto"
-              aria-label="Text input with radio button"
-              onChange={seach_handler}
-              placeholder="Search by Phone Number"
-            />
-          </div>
-        </>
-      )}
-
-      {!condition.search && (
-        <>
-          <div className="generation-title mt-2">
-            <h4>Generation Status</h4>
-          </div>
-          <div className="generation-items">
-            <div>
-              <h5>1st Generation</h5>{" "}
-              <span>{generationList.generation_1 || 0}</span>{" "}
-              <button>
-                <Link to="/generation/1"> view list</Link>
-              </button>
-            </div>
-            <div>
-              <h5>2nd Generation</h5>{" "}
-              <span>{generationList.generation_2 || 0}</span>{" "}
-              <button>
-                <Link to="/generation/2"> view list</Link>
-              </button>
-            </div>
-            <div>
-              <h5>3rd Generation</h5>{" "}
-              <span>{generationList.generation_3 || 0}</span>{" "}
-              <button>
-                <Link to="/generation/3"> view list</Link>
-              </button>
-            </div>
-            <div>
-              <h5>4th Generation</h5>{" "}
-              <span>{generationList.generation_4 || 0}</span>{" "}
-              <button>
-                <Link to="/generation/4"> view list</Link>
-              </button>
-            </div>
-            <div>
-              <h5>5th Generation</h5>{" "}
-              <span>{generationList.generation_6 || 0}</span>{" "}
-              <button>
-                <Link to="/generation/5"> view list</Link>
-              </button>
-            </div>
-            <div>
-              <h5>6th Generation</h5>{" "}
-              <span>{generationList.generation_6 || 0}</span>{" "}
-              <button>
-                <Link to="/generation/6"> view list</Link>
-              </button>
-            </div>
-            <div>
-              <h5>7th Generation</h5>{" "}
-              <span>{generationList.generation_7 || 0}</span>{" "}
-              <button>
-                <Link to="/generation/7"> view list</Link>
-              </button>
-            </div>
-            <div>
-              <h5>8th Generation</h5>{" "}
-              <span>{generationList.generation_8 || 0}</span>{" "}
-
-              <button>
-                <Link to="/generation/8"> view list</Link>
-              </button>
-            </div>
-            <div>
-              <h5>9th Generation</h5>{" "}
-              <span>{generationList.generation_9 || 0}</span>{" "}
-              <button>
-                <Link to="/generation/9"> view list</Link>
-              </button>
-            </div>
-            <div>
-              <h5>10th Generation</h5>{" "}
-              <span>{generationList.generation_10 || 0}</span>{" "}
-              <button>
-                <Link to="/generation/10"> view list</Link>
-              </button>
-            </div>
-          </div>
-        </>
-      )}
-      {allUserContaienr.length && <SearchGenaration userr={allUserContaienr} />}
     </div>
   );
 };

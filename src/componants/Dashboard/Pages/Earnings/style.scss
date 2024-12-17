@@ -3,130 +3,172 @@
   margin: 0px auto;
   max-width: 800px;
   padding: 20px;
+  box-sizing: border-box;
 
-  .earning-form {
-    padding: 20px;
+  .inner-container {
+    .earning-form {
+      padding: 20px;
+      box-sizing: border-box;
 
-    .balance-section {
-      background-color: #FFF;
-      border-radius: 20px;
-
-
-      .total-balance-section {
-        display: flex;
-        justify-content: space-between;
-        background-color: var(--default-color);
-        padding: 20px;
-        position: relative;
+      .balance-section {
+        background-color: #FFF;
         border-radius: 20px;
 
-        &::after {
-          position: absolute;
-          content: "";
-          left: 50%;
-          bottom: -29px;
-          border: 15px solid transparent;
-          border-left-width: 27px;
-          border-right-width: 27px;
-          border-top-color: var(--default-color);
-        }
 
-        .balance {
-          color: #FFF;
-
-          h6 {
-            font-size: 34px;
-            font-weight: 700;
-          }
-
-          p {
-            font-size: 22px;
-            font-weight: 700;
-          }
-        }
-
-        .date {
-          color: #FFF;
-
-          p {
-            font-size: 20px;
-            font-weight: 600;
-          }
-        }
-
-      }
-
-      .todays-balance-section {
-        display: flex;
-        align-items: center;
-        gap: 20px;
-
-        .cart {
+        .total-balance-section {
           display: flex;
-          flex-direction: column;
-          align-items: center;
-          justify-content: center;
-          width: 100%;
-          aspect-ratio: 2/1;
+          justify-content: space-between;
+          background-color: var(--default-color);
+          padding: 20px;
+          position: relative;
+          border-radius: 20px;
 
-          h6 {
-            font-size: 34px;
-            font-weight: 700;
-            color: var(--default-color);
+          &::after {
+            position: absolute;
+            content: "";
+            left: 50%;
+            bottom: -29px;
+            border: 15px solid transparent;
+            border-left-width: 27px;
+            border-right-width: 27px;
+            border-top-color: var(--default-color);
           }
 
-          p {
-            font-size: 20px;
-            font-weight: 500;
+          .balance {
+            color: #FFF;
+
+            h6 {
+              font-size: 34px;
+              font-weight: 700;
+            }
+
+            p {
+              font-size: 22px;
+              font-weight: 700;
+            }
+          }
+
+          .date {
+            color: #FFF;
+
+            p {
+              font-size: 20px;
+              font-weight: 600;
+            }
+          }
+
+        }
+
+        .todays-balance-section {
+          display: flex;
+          align-items: center;
+          gap: 20px;
+
+          .cart {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            aspect-ratio: 2/1;
+
+            h6 {
+              font-size: 34px;
+              font-weight: 700;
+              color: var(--default-color);
+            }
+
+            p {
+              font-size: 20px;
+              font-weight: 500;
+            }
           }
         }
       }
     }
-  }
 
-  .btn-container {
-    display: flex;
-    align-items: center;
-    justify-content: center;
+    .btn-container {
+      display: flex;
+      align-items: center;
+      justify-content: center;
 
-    button {
-      border: none;
-      outline: none;
-      padding: 5px 10px;
-      background-color: var(--default-color);
-      color: #FFF;
-      font-weight: 600;
-      border-radius: 5px;
+      button {
+        border: none;
+        outline: none;
+        padding: 5px 10px;
+        background-color: var(--default-color);
+        color: #FFF;
+        font-weight: 600;
+        border-radius: 5px;
 
-      &:hover {
-        opacity: .9;
-      }
+        &:hover {
+          opacity: .9;
+        }
 
-      &:active {
-        transform: scale(.9);
+        &:active {
+          transform: scale(.9);
+        }
       }
     }
-  }
 
-  .common-table-section {
-    max-width: 1000px;
+    .common-table-section {
+      max-width: 1000px;
 
-    .table-section {
-      height: 400px;
+      .table-section {
+        height: 400px;
+      }
     }
   }
 }
 
 @media only screen and (min-width:200px) and (max-width:750px) {
   .earnings-page {
-    .btn-container {
-      button {
-        font-size: 12px;
+    width: calc(100vw);
+    max-width: calc(100vw);
+    padding: 0px;
+    margin: 0px auto;
+    box-sizing: border-box;
+
+    .inner-container {
+      padding: 20px;
+
+      .earning-form {
+
+        .balance-section {
+
+          .total-balance-section {
+            .balance {
+              h6 {
+                font-size: 28px;
+              }
+
+              p {
+                font-size: 20px;
+              }
+            }
+            .date {
+              p {
+                font-size: 16px;
+              }
+            }
+          }
+          .todays-balance-section { 
+            gap: 10px;
+  
+            .cart {   
+  
+              h6 {
+                font-size: 24px; 
+              }
+  
+              p {
+                font-size: 18px; 
+              }
+            }
+          }
+        }
       }
     }
 
-    .common-table-section {
-      max-width: 100vw !important;
-    }
   }
 }
