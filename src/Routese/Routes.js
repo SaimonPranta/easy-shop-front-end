@@ -24,6 +24,7 @@ import Earnings from '../componants/Dashboard/Pages/Earnings/index.js';
 import ChangePassword from '../componants/Dashboard/Pages/ChangePassword/Index';
 import UpdateProfile from '../componants/Dashboard/Pages/UpdateProfile/Index';
 import RankHistory from '../componants/Dashboard/Pages/RankHistory/index';
+import RankLeaders from '../componants/Dashboard/Pages/RankLeaders/index.js';
 import AdminPanel from "../componants/AdminDashboard/Admin/index";
 import PrivetRoute from './PrivetRoute/PrivetRoute';
 import AdminPrivetRoute from './AdminPrivetRoute/AdminPrivetRoute';
@@ -102,6 +103,11 @@ const Routess = () => {
                     <Route path="/rank_history" element={
                         <PrivetRoute>
                             <RankHistory />
+                        </PrivetRoute>
+                    }></Route>
+                    <Route path="/rank-leaders" element={
+                        <PrivetRoute>
+                            <RankLeaders />
                         </PrivetRoute>
                     }></Route>
                     <Route path="/daily-task" element={

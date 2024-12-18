@@ -7,6 +7,9 @@ import getImageUrl from "../../../../shared/functions/getImageUrl";
 
 const RankHistory = () => {
   const [user, setUser] = useContext(userContext);
+console.log("user?.rankID -----.>>", user?.rankID)
+
+
   return (
     <div className="rank-history-page">
       <div className="inner-container">

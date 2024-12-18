@@ -1,7 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import "./style.scss";
-import SuccessTost from "../../../shared/components/SuccessTost/SuccessTost";
-import FailedTost from "../../../shared/components/FailedTost/FailedTost";
+import "./style.scss"; 
 import { ToastContainer } from "react-toastify";
 import { userHeader } from "../../../shared/cooki";
 import { dateToString, timeAgo } from "../../../shared/functions/dateConverter";

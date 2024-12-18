@@ -1,22 +1,21 @@
 import React, { useContext } from "react";
-// import "./DashboardMenu.scss";
+import "./styles.scss";
 import { NavLink } from "react-router-dom";
 
 import {
   FaHome,
+  FaRegImage,
   FaSearchDollar,
   FaUniversalAccess,
   FaUserClock,
 } from "react-icons/fa";
+import {  BiLogOut } from "react-icons/bi";
+
 import { FaQrcode } from "react-icons/fa";
-import {
-  RiProductHuntLine,
-  RiProfileFill,
-  RiSecurePaymentFill,
-} from "react-icons/ri";
+import { RiProfileFill, RiSecurePaymentFill } from "react-icons/ri";
 import { FaUsersCog } from "react-icons/fa";
 import { FaUserAlt } from "react-icons/fa";
-import { BiLogOut, BiSupport } from "react-icons/bi";
+import { BiSupport } from "react-icons/bi";
 import { FaDonate } from "react-icons/fa";
 import { FaUnlockAlt } from "react-icons/fa";
 import { FaUserEdit } from "react-icons/fa";
@@ -26,28 +25,165 @@ import { userContext } from "../../../App";
 import {
   MdAccountBalanceWallet,
   MdOutlineAccountBalance,
+  MdOutlineArrowDropDown,
   MdOutlineSelfImprovement,
-  MdVolunteerActivism,
 } from "react-icons/md";
-import { AiFillAccountBook, AiOutlineYoutube } from "react-icons/ai";
-import { MdLiveHelp } from "react-icons/md";
+import { AiOutlineYoutube } from "react-icons/ai";
 import { SiMicrosoftteams } from "react-icons/si";
 import { GiRank3 } from "react-icons/gi";
-import { MdCompost } from "react-icons/md";
-import { FaRegUserCircle } from "react-icons/fa";
-import { MdOutlineEdit } from "react-icons/md";
 import { userHeader } from "../../../shared/cooki";
 import FailedTost from "../../../shared/components/FailedTost/FailedTost";
 import SuccessTost from "../../../shared/components/SuccessTost/SuccessTost";
 import { ToastContainer } from "react-toastify";
 import getImageUrl from "../../../shared/functions/getImageUrl";
 import { FiShoppingBag } from "react-icons/fi";
+import BlueBadgeSvg from "../../AdminDashboard/AdminNavigation/Modals/BlueBadgeSvg";
 
-const DashboardMenu = () => {
+const navItems = [
+  {
+    icon: <FaUserCog />,
+    label: "Admin Panel",
+    route: "/admin/user",
+    admin: true,
+  },
+  {
+    icon: <FaQrcode />,
+    label: "Dashboard",
+    route: "/dashboard",
+    admin: false,
+  },
+  {
+    icon: <FaHome />,
+    label: "Home",
+    route: "/earn-money",
+    admin: false,
+  },
+  {
+    icon: <FaUserAlt />,
+    label: "My Profile",
+    route: "/profile",
+    admin: false,
+    subNavItems: [
+      {
+        icon: <FaUserEdit />,
+        label: "Update Profile",
+        route: "/porfile/update_profile",
+        admin: false,
+      },
+      {
+        icon: <FaUnlockAlt />,
+        label: "Change Password",
+        route: "/porfile/change_password",
+        admin: false,
+      },
+    ],
+  },
+  {
+    icon: <MdAccountBalanceWallet />,
+    label: " My Balance",
+    route: "/my-balance",
+    admin: false,
+  },
+  {
+    icon: <RiProfileFill />,
+    label: "Daily Task",
+    route: "/daily-task",
+    admin: false,
+  },
+  {
+    icon: <RiSecurePaymentFill />,
+    label: "Payments",
+    route: "/payments",
+    admin: false,
+  },
+  {
+    icon: <FaSearchDollar />,
+    label: "My Earnings",
+    route: "/earnings",
+    admin: false,
+  },
+  {
+    icon: <FaUsersCog />,
+    label: "My Generation List",
+    route: "/generation",
+    admin: false,
+  },
+  {
+    icon: <SiMicrosoftteams />,
+    label: "Referral Member List",
+    route: "/refer-team-member",
+    admin: false,
+  },
+  {
+    icon: <BiSupport />,
+    label: "Help Line",
+    route: "/helpline",
+    admin: false,
+  },
+  {
+    icon: <FaDonate />,
+    label: "Withdraw",
+    route: "/withdraw",
+    admin: false,
+  },
+  {
+    icon: <MdOutlineAccountBalance />,
+    label: "Balance Transfer",
+    route: "/balance-transfer",
+    admin: false,
+  },
+  {
+    icon: <AiOutlineYoutube />,
+    label: "Works Tutorial",
+    route: "/tutorial",
+    admin: false,
+  },
+  {
+    icon: <MdOutlineSelfImprovement />,
+    label: "Payment Review",
+    route: "/prove",
+    admin: false,
+  },
+  {
+    icon: <FaUniversalAccess />,
+    label: "Salary Bonus",
+    route: "/salary",
+    admin: false,
+  },
+  {
+    icon: <FaMedal />,
+    label: "My Rank",
+    route: "/rank_history",
+    admin: false,
+  },
+  {
+    icon: <GiRank3 />,
+    label: "Rank Leaders",
+    route: "/rank-leaders",
+    admin: false,
+  },
+  {
+    icon: <FiShoppingBag />,
+    label: "Shop Now",
+    route: "/",
+    admin: false,
+  },
+  {
+    icon: <FaUserClock />,
+    label: "Generation History",
+    route: "/generation-history",
+    admin: false,
+  },
+  {
+    icon: <BiLogOut />,
+    label: "Log Out",
+    admin: false,
+  },
+];
+
+const Index = () => {
   const [user, setUser] = useContext(userContext);
-  const handleSubMenu = () => {
-    document.getElementById("sub-menu").classList.toggle("active-sub-menu");
-  };
+ 
   const hanleLogOut = () => {
     document.cookie = "token=";
     setUser({});
@@ -79,254 +215,79 @@ const DashboardMenu = () => {
 
   return (
     <>
-      <ul className="side-nav-container">
-        <div className="user-profile">
-          <button className="profile-pic-btn">
+      <div className="navigation-container">
+        <div className="inner-container">
+          <div className="user-profile">
             <div className="picture-container">
               {user.profilePicture && (
                 <img src={getImageUrl(user.profilePicture)} alt="" />
               )}
-              {!user.profilePicture && <FaRegUserCircle />}
+              {!user.profilePicture && <FaRegImage />}
+              <BlueBadgeSvg className="badge" />
             </div>
-            <>
-              <label htmlFor="fileUpload">
-                <MdOutlineEdit />
-              </label>
-              <input
-                type="file"
-                id="fileUpload"
-                onChange={handleProfileImgSubmit}
-              />
-            </>
-          </button>
-          <p>{`${user?.firstName} ${user?.lastName}`} </p>
+            {/* <>
+                <label htmlFor="fileUpload">
+                  <MdOutlineEdit />
+                </label>
+                <input
+                  type="file"
+                  id="fileUpload"
+                  onChange={handleProfileImgSubmit}
+                />
+              </> */}
+            <div className="info-container">
+              <p className="name">{`${user?.firstName} ${user?.lastName}`} </p>
+              <p className="rank">Start Member</p>
+            </div>
+          </div>
+          <div className="nav-section">
+            <ul className="rm-scroll-bar">
+              {navItems.map((item, index) => {
+                if (item.admin && user.role !== "admin") {
+                  return <></>;
+                }
+                return (
+                  <li key={index}>
+                    {!item.route && (
+                      <a onClick={hanleLogOut}>
+                        {item.icon} <span>{item.label}</span>
+                        {item.subNavItems?.length > 0 && (
+                          <MdOutlineArrowDropDown className="arrow" />
+                        )}
+                      </a>
+                    )}
+                    {item.route && (
+                      <NavLink to={item.route}>
+                        {" "}
+                        {item.icon} <span>{item.label}</span>
+                        {item.subNavItems?.length > 0 && (
+                          <MdOutlineArrowDropDown className="arrow" />
+                        )}
+                      </NavLink>
+                    )}
+                    {item.subNavItems?.length > 0 && (
+                      <ul>
+                        {item?.subNavItems.map((subItem, subIndex) => {
+                          return (
+                            <li>
+                              <NavLink to={subItem.route} key={subIndex}>
+                                {subItem.icon} <span>{subItem.label}</span>
+                              </NavLink>
+                            </li>
+                          );
+                        })}
+                      </ul>
+                    )}
+                  </li>
+                );
+              })}
+            </ul>
+          </div>
         </div>
-        {user.role === "admin" && (
-          <li>
-            <NavLink to="/admin/user">
-              <FaUserCog />
-              <span> Admin Panel </span>
-            </NavLink>
-          </li>
-        )}
-        <li>
-          <NavLink to="/dashboard">
-            <FaQrcode />
-            <span> Dashboard</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/earn-money">
-            <FaHome />
-            <span> Home</span>
-          </NavLink>
-        </li>
-
-        {/* <li className="nesting-menu">
-          <p>
-            <FaHome />{" "}
-            <span>
-              {" "}
-              Home <p className="upcomming">Upcoming</p>
-            </span>
-          </p>
-        </li> */}
-        <li className="nesting-menu">
-          <p>
-            <FaUserAlt /> <span onClick={handleSubMenu}> My Profile</span>
-          </p>
-          <ul className="sub-menu" id="sub-menu">
-            <li>
-              <NavLink to="/porfile/update_profile">
-                <span>
-                  <FaUserEdit /> Update Profile
-                </span>
-              </NavLink>
-            </li>
-            <li>
-              <NavLink to="/porfile/change_password">
-                <span>
-                  {" "}
-                  <FaUnlockAlt /> Change Password
-                </span>
-              </NavLink>
-            </li>
-          </ul>
-        </li>
-        <li className="nesting-menu">
-          <NavLink to="/my-balance">
-            <span>
-              <MdAccountBalanceWallet /> My Balance
-            </span>
-          </NavLink>
-          {/* <p><span >My Balance <p className="upcomming">Upcoming</p></span></p> */}
-        </li>
-
-        <li className="nesting-menu">
-          <NavLink to="/daily-task">
-            <RiProfileFill />
-            <span> Daily Task</span>
-          </NavLink>
-          {/* <p><RiProfileFill /> <span >  Daily Jobs <p className="upcomming">Upcoming</p></span></p> */}
-        </li>
-        <li className="nesting-menu">
-          <NavLink to="/payments">
-            <RiSecurePaymentFill />
-            <span> Payments</span>
-          </NavLink>
-        </li>
-        {/* <li className="nesting-menu">
-          <p>
-            <RiSecurePaymentFill />{" "}
-            <span>
-              Payment Reviews <p className="upcomming">Upcoming</p>
-            </span>
-          </p>
-        </li> */}
-        {/* <li className="nesting-menu">
-          <p>
-            <AiFillAccountBook />{" "}
-            <span>
-              Premium Account <p className="upcomming">Upcoming</p>
-            </span>
-          </p>
-        </li> */}
-
-        <li className="nesting-menu">
-          <NavLink to="/earnings">
-            <FaSearchDollar />
-            <span>My Earnings</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/generation">
-            <FaUsersCog />
-            <span>My Generation List</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/refer-team-member">
-            <SiMicrosoftteams />
-            <span>Referral Member List</span>
-          </NavLink>
-        </li>
-        <li className="nesting-menu">
-          <NavLink to="/helpline">
-            <BiSupport />
-            <span> Help Line</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/withdraw">
-            <FaDonate />
-            <span> Withdraw </span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/balance-transfer">
-            <MdOutlineAccountBalance />
-            <span> Balance Transfer </span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/tutorial">
-            <AiOutlineYoutube />
-            <span> Works Tutorial </span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/prove">
-            <MdOutlineSelfImprovement />
-            <span> Payment Review </span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/salary">
-            <FaUniversalAccess />
-            <span> Salary Bonus</span>
-          </NavLink>
-        </li>
-        <li>
-          <NavLink to="/rank_history">
-            <FaMedal />
-            <span>My Rank </span>
-          </NavLink>
-        </li>
-        <li className="nesting-menu">
-          <p>
-            <GiRank3 />{" "}
-            <span>
-              Rank Leaders <p className="upcomming">Upcoming</p>
-            </span>
-          </p>
-        </li>
-        {/* <li className="nesting-menu">
-          <p>
-            <MdCompost />{" "}
-            <span>
-              Competitions <p className="upcomming">Upcoming</p>
-            </span>
-          </p>
-        </li> */}
-        {/* <li className="nesting-menu">
-          <p>
-            <MdVolunteerActivism />{" "}
-            <span>
-              Active User <p className="upcomming">Upcoming</p>
-            </span>
-          </p>
-        </li> */}
-        <li className="nesting-menu">
-          <NavLink to="/">
-            <FiShoppingBag />
-            <span> Shop Now </span>
-          </NavLink>
-        </li>
-        {/* <li className="nesting-menu">
-          <p>
-            <SiMicrosoftteams />{" "}
-            <span>
-               <p className="upcomming">Upcoming</p>
-            </span>
-          </p>
-        </li> */}
-        
-       
-
-        {/* <li>
-          <NavLink to="/balance_transfer">
-            <FaHandshake />
-            <span> Balance transfer</span>
-          </NavLink>
-        </li> */}
-
-        {/* <li><NavLink to='/mobile_recharge'><FaMobileAlt /><span > Mobile recharge</span></NavLink></li> */}
-     
-        <li>
-          <NavLink to="/generation-history">
-            <FaUserClock />
-            <span>Generation History</span>
-          </NavLink>
-        </li>
-        {user.role === "admin" && (
-          <li>
-            <NavLink to="/product">
-              <RiProductHuntLine />
-              <span>Product</span>
-            </NavLink>
-          </li>
-        )}
-    
-        <li>
-          <a onClick={hanleLogOut}>
-            <BiLogOut />
-            <span> Log Out</span>
-          </a>
-        </li>
-      </ul>
+      </div>
       <ToastContainer />
     </>
   );
 };
 
-export default DashboardMenu;
+export default Index;

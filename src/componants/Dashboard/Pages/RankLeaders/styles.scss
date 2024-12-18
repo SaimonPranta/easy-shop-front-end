@@ -1,4 +1,4 @@
- .rank-history-page {
+ .rank-leaders {
      display: flex;
      align-items: center !important;
      justify-content: center !important;
@@ -19,13 +19,64 @@
              width: 100%;
          }
 
+         .grid-section {
+             display: flex;
+             justify-content: center;
+             margin-top: 20px;
+
+             .cart { 
+                 width: 180px;
+                 aspect-ratio: 1.9/2;
+                 border-radius: 10px;
+                 display: flex;
+                 flex-direction: column;
+                 align-items: center;
+                 justify-content: center;
+                 box-shadow: 0px 0px 1px 2px #d1c4c446,
+                 0px 0px 1px 3px #d1c4c424;
+
+                 .img-section {
+                     height: 50px;
+                     width: 50px;
+                     background-color: var(--default-color);
+                     padding: 5px;
+                     display: flex;
+                     align-items: center;
+                     justify-content: center;
+                     border-radius: 50%;
+
+                     svg,
+                     img {
+                         height: 100%;
+                         width: 100%;
+                         color: #FFF;
+                     }
+                 }
+                 .des-section{
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+                    p{
+                        font-size: 18px;
+                        font-weight: 600;
+                        margin: 0px;
+                    }
+                    h6{
+                        font-size: 25px;
+                        font-weight: 800;
+                    }
+                 }
+
+             }
+
+         }
+
          .no-rank {
              width: 100%;
              margin-top: 120px;
              display: flex;
              align-items: center;
              justify-content: center;
-
              .cart {
                  position: relative;
                  background-color: #0ea284;
@@ -85,7 +136,7 @@
          }
 
          .rank-info-grid {
-            margin-top: 20px;
+             margin-top: 20px;
              width: 100%;
              display: flex;
              flex-direction: column;
@@ -204,7 +255,7 @@
 
  @media only screen and (min-width:200px) and (max-width:750px) {
 
-     .rank-history-page {
+     .rank-leaders {
          width: 100vw;
          display: flex !important;
 
