@@ -174,7 +174,7 @@ const Index = () => {
   // };
   return (
     <>
-      <div className="navigation-container">
+      <div className="navigation-container rm-scroll-bar">
         <div className="inner-container">
           <div className="user-profile">
             <div className="picture-container">

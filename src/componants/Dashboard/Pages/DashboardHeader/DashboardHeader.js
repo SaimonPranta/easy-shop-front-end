@@ -3,8 +3,6 @@ import './DashboardHeader.css';
 import { Link, NavLink } from 'react-router-dom';
 import { FaAlignLeft } from "react-icons/fa";
 import { IoNotifications } from 'react-icons/io5';
-// import logo from "../../../../assets/images/logo.png";
-import Notice from '../Notice/Notice';
 import { getCooki } from '../../../../shared/cooki';
 
 const DashboardHeader = () => {
@@ -34,7 +32,7 @@ const DashboardHeader = () => {
             })
     }, [])
 
-    const dashboardMenuHndller = () => {
+    const dashboardMenuHandller = () => {
         const dashbordContaienr = document.getElementById("dastbord-menu-controler-contaienr")
         dashbordContaienr.classList.toggle("dashbord-active")
     }
@@ -42,10 +40,10 @@ const DashboardHeader = () => {
 
 
     return (
-        <section className=' mb-1 dashbord-header'>
-            <nav className="navbar navbar-expand-lg navbar-light text-white px-2 m-auto">
+        <section className='mb-1 dashbord-header'>
+            <nav className="navbar navbar-expand-lg navbar-light text-white">
                 <div className="container-fluid">
-                    <div className='dashbord-control-icon d-md-none' onClick={dashboardMenuHndller}>
+                    <div className='dashbord-control-icon' onClick={dashboardMenuHandller}>
                         <FaAlignLeft />
                     </div>
                     {/* <Link className="navbar-brand " to="/"><img src={logo} alt="EasyShop50" className='logo' /></Link> */}

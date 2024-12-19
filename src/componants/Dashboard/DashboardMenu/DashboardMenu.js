@@ -1,5 +1,4 @@
 import React, { useContext } from "react";
-import "./styles.scss";
 import { NavLink } from "react-router-dom";
 
 import {
@@ -215,7 +214,7 @@ const Index = () => {
 
   return (
     <>
-      <div className="navigation-container">
+      <div className="navigation-container rm-scroll-bar">
         <div className="inner-container">
           <div className="user-profile">
             <div className="picture-container">

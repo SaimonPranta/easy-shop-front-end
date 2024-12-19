@@ -5,7 +5,7 @@
 }
 
 @import url('./shared/styles/commonTableStyles.scss');
-@import url('./shared/styles/DashboardMenu.scss');
+/* @import url('./shared/styles/DashboardMenu.scss'); */
 
 body {
   margin: 0;

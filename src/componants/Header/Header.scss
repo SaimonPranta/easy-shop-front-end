@@ -14,7 +14,7 @@
             height: 50px;
             width: 400px;
             border-radius: 30px;
-            border: 1px solid  var(--default-color);
+            border: 1px solid var(--default-color);
 
             input,
             button {
@@ -31,7 +31,7 @@
             svg {
                 height: 35px;
                 width: 35px;
-                color:  var(--default-color);
+                color: var(--default-color);
 
             }
 
@@ -42,21 +42,28 @@
                 background-color: var(--default-color);
                 color: #FFF;
                 font-weight: 700;
-                &:hover{
+
+                &:hover {
                     opacity: .8;
                 }
-                &:active{
+
+                &:active {
                     transform: scale(.95);
                 }
 
             }
         }
-       
+
     }
-    .nav-item{
-        a{
+
+    .nav-item {
+        a {
             width: max-content;
         }
+    }
+
+    .nav-logo {
+        display: none;
     }
 }
 
@@ -70,8 +77,8 @@
     background-color: #217e97;
     color: #FFF !important;
     border-radius: 4px;
-    margin-right: 10px; 
-    height: 100%; 
+    margin-right: 10px;
+    height: 100%;
 
 }
 
@@ -85,14 +92,14 @@
     color: #FFF !important;
     font-size: 1.1rem;
     font-weight: 600;
-    
+
 }
 
 .navbar .help-section a {
     padding: 5px 15px;
     display: flex !important;
     align-items: center;
-    height: 100%; 
+    height: 100%;
 }
 
 .navbar .help-section svg {
@@ -144,56 +151,145 @@
 
 @media only screen and (min-width:200px) and (max-width:1000px) {
     .navbar {
-        .search-container {  
-            width: max-content; 
-    
-            .search-body { 
+        max-width: 100vw;
+
+        .search-container {
+            width: max-content;
+
+            .search-body {
                 padding: 4px 4px;
                 height: 40px;
-                width: 300px; 
-      
-    
+                width: 300px;
+
+
                 svg {
                     height: 35px;
-                    width: 35px; 
-    
+                    width: 35px;
+
                 }
-    
-                button { 
+
+                button {
                     padding: 0px 10px;
-                    border-radius: 30px;  
-    
+                    border-radius: 30px;
+
+                }
+            }
+        }
+
+        .navbar-container {
+            position: fixed;
+            left: 0px;
+            top: 0px;
+            background-color: #FFF;
+            width: calc(100vw - 150px);
+            min-width: 350px;
+            height: 100vh;
+            z-index: 999;
+            padding: 10px;
+            border-right: 2px solid #cbc9c9;
+            height: 100% !important;
+
+            .nav-logo {
+                display: inline-block;
+                width: 100%;
+                position: relative;
+
+                img {
+                    height: 80px;
+                    width: 120px;
+                }
+
+                .close-btn {
+                    position: absolute;
+                    right: 10px;
+                    top: 50%;
+                    transform: translateY(-50%);
+                    border: none;
+                    outline: none;
+                    padding: 0px;
+                    background-color: transparent;
+
+                    svg {
+                        height: 30px;
+                        width: 30px;
+                    }
+                }
+            }
+
+            .navbar-nav {
+                margin-top: 20px;
+                display: flex;
+                flex-direction: column;
+                width: 100%;
+
+                li {
+                    &.menu-icons {
+                        margin-top: 20px;
+                        margin-left: 10px;
+                    }
+
+                    a {
+                        display: block;
+                        width: 100%;
+                        padding: 10px 15px;
+                        border-bottom: 1px solid #e4e4e4;
+                        font-weight: 600;
+                        color: #595959;
+
+                        &.active {
+                            background-color: var(--default-color);
+                            color: #FFF;
+                        }
+
+                        &.cart-link {
+                            height: 55px;
+                            width: 55px;
+                            display: flex;
+                            min-height: 55px;
+                            align-items: center;
+                            justify-content: center;
+                            border: none;
+
+                            svg {
+                                height: 30px;
+                                width: 30px;
+                            }
+                        }
+                    }
                 }
             }
         }
     }
 
 }
+
 @media only screen and (min-width:200px) and (max-width:650px) {
     .navbar {
-        .search-container {   
-    
-            .search-body {  
+
+        .search-container {
+
+            .search-body {
                 height: 30px;
-                width: 210px; 
-      
-    
+                width: 210px;
+
+
                 svg {
                     height: 30px;
-                    width: 30px; 
-    
+                    width: 30px;
+
                 }
-    
-                button { 
+
+                button {
                     padding: 0px 8px;
-                    border-radius: 30px;  
-font-size: 14px;
-font-weight: 800;
-    
+                    border-radius: 30px;
+                    font-size: 14px;
+                    font-weight: 800;
+
                 }
             }
         }
     }
+
     .navbar .help-section.mobile {
         display: block;
 

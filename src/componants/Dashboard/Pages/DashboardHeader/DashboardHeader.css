@@ -1,9 +1,26 @@
  
-
-.dashbord-header div {
+.dashbord-header{ 
+    width: 100vw;
+    height: 75px;
+}
+.dashbord-header .navbar{
+    background-color: #f5f5f5;
+    z-index: 99;
+    width: 100vw;
+    height: 75px;
+    position: fixed ;
+    top: 0px ;
+    left: 0px ;
+    display: flex;
+    justify-content: center;
+}
+.dashbord-header .container-fluid {
     background-color: #FFF;
     color: #000;
-    padding: 5px;
+    padding: 5px 10px;  
+    width: 100%;
+    box-sizing: border-box;
+
 }
 .dashbord-header .notification-icon-container {
    color: #000;
@@ -46,30 +63,26 @@
     background-image: url('../../../../assets/images/nav_icon/icons8-menu-64.png') !important;
 }
 
+.dashbord-control-icon  {
+    
+}
 .dashbord-control-icon svg {
     height: 26px;
     width: 26px;
-}
-
-.dashbord-active ul li span {
     display: none;
+
+
 }
 
-
-@media only screen and (min-width:200px) and (max-width:650px) {
-    .logo {
-        height: 35px;
-        width: 80px;
+ 
+ @media only screen and (min-width:200px) and (max-width:800px) {
+    .dashbord-control-icon svg {
+        height: 26px;
+        width: 26px;
+        display: block;
+    
+    
     }
-    .notification-icon-container-mobile{
-        display: inline-block !important;
-    }
-    .dashbord-header .notification-icon-container-pc { 
-        display: none !important;
-     }
+ }
 
-    .dashbord-header ul li a {
-        font-size: .8rem;
-    }
-
-}
+ 

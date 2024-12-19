@@ -1,5 +1,5 @@
 import React from 'react';
-import './Dashboard.css';
+import './Dashboard.scss';
 import DashboardMenu from './DashboardMenu/DashboardMenu';
 import DashboardBody from './Pages/DashboardBody/DashboardBody';
 import DashboardHeader from './Pages/DashboardHeader/DashboardHeader';
