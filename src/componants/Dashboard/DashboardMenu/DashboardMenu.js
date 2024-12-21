@@ -8,7 +8,7 @@ import {
   FaUniversalAccess,
   FaUserClock,
 } from "react-icons/fa";
-import {  BiLogOut } from "react-icons/bi";
+import { BiLogOut } from "react-icons/bi";
 
 import { FaQrcode } from "react-icons/fa";
 import { RiProfileFill, RiSecurePaymentFill } from "react-icons/ri";
@@ -182,7 +182,7 @@ const navItems = [
 
 const Index = () => {
   const [user, setUser] = useContext(userContext);
- 
+
   const hanleLogOut = () => {
     document.cookie = "token=";
     setUser({});
@@ -222,7 +222,9 @@ const Index = () => {
                 <img src={getImageUrl(user.profilePicture)} alt="" />
               )}
               {!user.profilePicture && <FaRegImage />}
-              <BlueBadgeSvg className="badge" />
+              {user?.blueTickInfo?.blurTick && (
+                <BlueBadgeSvg className="badge" />
+              )}
             </div>
             {/* <>
                 <label htmlFor="fileUpload">

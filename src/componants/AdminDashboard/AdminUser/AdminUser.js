@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useRef, useState } from "react";
-import "./style.scss"; 
+import "./style.scss";
 import { ToastContainer } from "react-toastify";
 import { userHeader } from "../../../shared/cooki";
 import { dateToString, timeAgo } from "../../../shared/functions/dateConverter";
@@ -8,6 +8,8 @@ import { FaRegUserCircle, FaUsers } from "react-icons/fa";
 import getImageUrl from "../../../shared/functions/getImageUrl";
 import { imageContext } from "../../../App";
 import wallet from "../../../assets/images/dashboard/wallet.png";
+import SuccessTost from "../../../shared/components/SuccessTost/SuccessTost";
+import FailedTost from "../../../shared/components/FailedTost/FailedTost";
 
 const tableBalanceArray = [
   {
@@ -26,12 +28,41 @@ const tableBalanceArray = [
     user: true,
   },
   {
-    title: "Active User Balance",
+    title: "Blue Tick User",
+    property: "blueTickUser",
+    user: true,
+  },
+  {
+    title: "Main Balance",
     property: "totalUserBalance",
   },
   {
-    title: "Active User Income Balance",
-    property: "totalActiveUserBalance",
+    title: "Task Balance",
+    property: "taskBalance",
+  },
+  {
+    title: "Sales Balance",
+    property: "salesBalance",
+  },
+  {
+    title: "Point Balance",
+    property: "pointBalance",
+    point: true,
+
+  },
+  {
+    title: "Total Income Main Balance",
+    property: "mainBalanceIncome",
+  },
+  {
+    title: "Total Income Task Balance",
+    property: "taskBalanceIncome",
+  },
+  {
+    title: "Total Income Points",
+    property: "pointIncome",
+    point: true,
+
   },
 ];
 const AdminDailyTask = () => {
@@ -42,8 +73,14 @@ const AdminDailyTask = () => {
     total: 0,
     activeUser: 0,
     unactiveUser: 0,
+    blueTickUser: 0,
     totalUserBalance: 0,
-    totalActiveUserBalance: 0,
+    taskBalance: 0,
+    salesBalance: 0,
+    pointBalance: 0,
+    mainBalanceIncome: 0,
+    taskBalanceIncome: 0, 
+    pointIncome: 0, 
   });
   const [tableItems, setTableItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -68,7 +105,9 @@ const AdminDailyTask = () => {
           filterInput.search || ""
         }&fromDate=${filterInput.fromDate || ""}&toDate=${
           filterInput.toDate || ""
-        }&userType=${filterInput.userType || ""}`,
+        }&userType=${filterInput.userType || ""}&blueTick=${
+          filterInput.blueTick
+        }`,
         {
           method: "GET",
           headers: {
@@ -169,10 +208,51 @@ const AdminDailyTask = () => {
     navigate(`/user/${userID}`);
   };
   const handleEditDetails = (userID) => {
-    navigate(`/edit_user/${userID}`);
+    navigate(`/admin/user/edit/${userID}`);
   };
   const handleSetRank = (userID) => {
     navigate(`/admin/add-ranks/${userID}`);
+  };
+  const handleAddBlueTick = (userID, status) => {
+    fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/admin-profile/blue-tick`, {
+      method: "POST",
+      headers: {
+        "Content-type": "application/json; charset=UTF-8",
+        ...userHeader(),
+      },
+      body: JSON.stringify({ userID, status }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.data) {
+          const updateList = tableItems.map((user) => {
+            if (user._id === userID) {
+              if (status === "add") {
+                SuccessTost("Blue Tick added successfully");
+                user["blueTickInfo"] = {
+                  blurTick: true,
+                  date: new Date(),
+                };
+              } else {
+                SuccessTost("Blue Tick remove successfully");
+                user["blueTickInfo"] = {
+                  blurTick: false,
+                };
+              }
+            }
+
+            return { ...user };
+          });
+          setTableItems((state) => {
+            return [...updateList];
+          });
+        } else {
+          FailedTost("Failed to update blue tick");
+        }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
   };
 
   return (
@@ -189,9 +269,9 @@ const AdminDailyTask = () => {
                     {!item.user && <img src={wallet} alt="" />}
                     <strong>{item.title}</strong>
                     <p>
-                      {!item.user && <strong>৳</strong>}
+                      {(!item.user && !item.point) && <strong>৳</strong>}
 
-                      {balance[item.property]}
+                      {balance[item.property]?.toFixed(2)?.replace(".00", "")}
                     </p>
                   </div>
                 </div>
@@ -224,6 +304,11 @@ const AdminDailyTask = () => {
               <option>Active</option>
               <option>Inactive</option>
             </select>
+            <select name="blueTick" onChange={handleInputChange}>
+              <option hidden>Select Blue Tick</option>
+              <option>Blue Tick User</option>
+              <option>Unblue Tick User</option>
+            </select>
             <input
               type="text"
               placeholder="Search here ..."
@@ -249,6 +334,8 @@ const AdminDailyTask = () => {
                 <th className="big">Sales Balance</th>
                 <th className="big">Task Balance</th>
                 <th className="big">Points</th>
+                <th>Blue Tick</th>
+                <th className="big">Blue Tick Added Date</th>
                 <th>Join Date</th>
                 <th>Status</th>
                 <th>Actions</th>
@@ -288,11 +375,18 @@ const AdminDailyTask = () => {
                         </div>
                       </td>
                       <td>{reqInfo?.phoneNumber}</td>
-                      <td>{reqInfo?.referUser?.phoneNumber || ""}</td> 
+                      <td>{reqInfo?.referUser?.phoneNumber || ""}</td>
                       <td className="big">{`$${reqInfo?.balance || 0}`}</td>
-                      <td className="big">{`$${reqInfo?.salesBalance || 0}`}</td>
-                      <td className="big">{`$${reqInfo?.taskBalance || 0}`}</td> 
-                      <td className="big">{reqInfo?.pointAmount || 0}</td> 
+                      <td className="big">{`$${
+                        reqInfo?.salesBalance || 0
+                      }`}</td>
+                      <td className="big">{`$${reqInfo?.taskBalance || 0}`}</td>
+                      <td className="big">{reqInfo?.pointAmount || 0}</td>
+                      <td>{reqInfo?.blueTickInfo?.date ? "Yes" : "No"}</td>
+                      <td className="date">
+                        {reqInfo?.blueTickInfo?.date &&
+                          dateToString(reqInfo?.blueTickInfo?.date)}
+                      </td>
                       <td className="date">{dateToString(reqInfo.joinDate)}</td>
                       <td>{reqInfo?.isActive ? "Active" : "Inactive"}</td>
                       {/* <td className="date">{timeAgo(reqInfo.createdAt)}</td> */}
@@ -302,11 +396,11 @@ const AdminDailyTask = () => {
                     </td> */}
                       <td className={`btn-container `}>
                         <div>
-                          <button
+                          {/* <button
                             onClick={() => handleViewDetails(reqInfo._id)}
                           >
                             View Details
-                          </button>
+                          </button> */}
                           <button
                             onClick={() => handleEditDetails(reqInfo._id)}
                           >
@@ -315,6 +409,24 @@ const AdminDailyTask = () => {
                           <button onClick={() => handleSetRank(reqInfo._id)}>
                             Set Rank
                           </button>
+                          {reqInfo?.blueTickInfo?.blurTick && (
+                            <button
+                              onClick={() =>
+                                handleAddBlueTick(reqInfo._id, "remove")
+                              }
+                            >
+                              Remove Blue Tack
+                            </button>
+                          )}
+                          {!reqInfo?.blueTickInfo?.blurTick && (
+                            <button
+                              onClick={() =>
+                                handleAddBlueTick(reqInfo._id, "add")
+                              }
+                            >
+                              Add Blue Tack
+                            </button>
+                          )}
                         </div>
                       </td>
                     </tr>

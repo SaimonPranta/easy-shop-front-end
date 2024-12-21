@@ -182,7 +182,9 @@ const Index = () => {
                 <img src={getImageUrl(user.profilePicture)} alt="" />
               )}
               {!user.profilePicture && <FaRegImage />}
-              <BlueBadgeSvg className="badge" />
+              {user?.blueTickInfo?.blurTick && (
+                <BlueBadgeSvg className="badge" />
+              )}
             </div>
             {/* <>
                 <label htmlFor="fileUpload">

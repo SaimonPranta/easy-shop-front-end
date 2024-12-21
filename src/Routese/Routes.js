@@ -30,7 +30,6 @@ import PrivetRoute from './PrivetRoute/PrivetRoute';
 import AdminPrivetRoute from './AdminPrivetRoute/AdminPrivetRoute';
 // import PerGenarationList from '../componants/Dashboard/Pages/Generation/PerGenarationList/index';
 import UserDetails from '../componants/AdminDashboard/Admin/AdminPanelBody/UserDetails/Index';
-import EditUserDetails from '../componants/AdminDashboard/Admin/AdminPanelBody/EditUserDetails/EditUserDetails';
 import Cart from '../componants/Cart/Cart';
 import ProductDetails from '../componants/ProductDetails/ProductDetails';
 import Product from '../componants/Dashboard/Pages/Product/index';
@@ -43,6 +42,7 @@ import AdminDailyTask from '../componants/AdminDashboard/AdminDailyTask/index';
 import AdminSlider from '../componants/AdminDashboard/AdminSlider/index';
 import AdminCategories from '../componants/AdminDashboard/AdminCategories/index';
 import AdminDailyTaskList from '../componants/AdminDashboard/AdminDailyTaskList/index';
+import AdminEditUser from '../componants/AdminDashboard/AdminEditUser/index.js';
 import AdminWithdraw from '../componants/AdminDashboard/AdminWithdraw/index';
 import AdminDashboard from '../componants/AdminDashboard/AdminDashboard/index.js';
 import AdminUser from '../componants/AdminDashboard/AdminUser/index';
@@ -280,6 +280,7 @@ const Routess = () => {
                             <AdminAddDailyTask />
                         </AdminPrivetRoute>
                     }></Route>
+                   
                     <Route path="/admin/slider" element={
                         <AdminPrivetRoute>
                             <AdminSlider />
@@ -316,9 +317,10 @@ const Routess = () => {
                             <UserDetails />
                         </PrivetRoute>
                     }></Route>
-                    <Route path="/edit_user/:id" element={
+                
+                    <Route path="/admin/user/edit/:id" element={
                         <PrivetRoute>
-                            <EditUserDetails />
+                            <AdminEditUser />
                         </PrivetRoute>
                     }></Route>
                     <Route path="/*" element={<Home />}></Route>

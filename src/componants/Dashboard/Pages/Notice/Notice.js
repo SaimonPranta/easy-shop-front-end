@@ -1,18 +1,19 @@
 import React, { useEffect, useState } from 'react';
 import "./style.scss"
-import { getCooki } from '../../../../shared/cooki';
+import {  userHeader } from '../../../../shared/cooki';
 import { dateToString } from '../../../../shared/functions/dateConverter';
 
  
 
 const Notice = () => {
     const [notificationList, setNotificationList] = useState([])
+    
     useEffect(() => {
         fetch(`${process.env.REACT_APP_SERVER_HOST_URL}/user/notification`, {
             method: "GET",
             headers: {
                 'Content-type': 'application/json; charset=UTF-8',
-                authorization: `Bearer ${getCooki()}`
+                ...userHeader()
 
             },
         }).then(res => res.json())

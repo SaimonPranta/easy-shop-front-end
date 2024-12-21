@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import "./style.scss"
 
-const AddSocialForm = ({ showModal, setShowModal, onSubmit }) => {
+const AddSocialForm = ({ showModal, setShowModal, onSubmit, loading }) => {
     const [input, setInput] = useState({})
 
     const handleChange = (e) => {
@@ -25,8 +25,7 @@ const AddSocialForm = ({ showModal, setShowModal, onSubmit }) => {
         }
 
     }
-
-    console.log("input", input)
+ 
 
     if (!showModal) {
         return <></>
@@ -57,7 +56,7 @@ const AddSocialForm = ({ showModal, setShowModal, onSubmit }) => {
 
                 <div className='action-btn-container'>
                     <button onClick={() => setShowModal(false)} >Cancel</button>
-                    <button type='button' onClick={(e) => onSubmit(e, input)}>Submit</button>
+                    <button type='button' onClick={(e) => onSubmit(e, input)} disabled={loading}>Submit</button>
                 </div>
             </form>
         </div>
