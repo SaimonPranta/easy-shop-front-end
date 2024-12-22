@@ -20,8 +20,7 @@
   .daily-task-list-section {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    padding-top: 60px;
+    align-items: center; 
 
     .daily-task-table {
       .title-section {
@@ -83,11 +82,15 @@
             &.big {
               min-width: 280px;
             }
+            &.ext-big {
+              min-width: 320px;
+            }
           }
 
           td {
             border-left: 1px solid #f4ebeb;
             border-right: 1px solid #f4ebeb;
+            font-size: 18px;
           }
 
           th,

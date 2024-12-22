@@ -60,7 +60,6 @@ const navItems = [
   {
     icon: <FaUserAlt />,
     label: "My Profile",
-    route: "/profile",
     admin: false,
     subNavItems: [
       {
@@ -225,6 +224,9 @@ const Index = () => {
               {user?.blueTickInfo?.blurTick && (
                 <BlueBadgeSvg className="badge" />
               )}
+              {user?.blueTickInfo?.blurTick && (
+                <BlueBadgeSvg className="badge" />
+              )}
             </div>
             {/* <>
                 <label htmlFor="fileUpload">
@@ -238,7 +240,10 @@ const Index = () => {
               </> */}
             <div className="info-container">
               <p className="name">{`${user?.firstName} ${user?.lastName}`} </p>
-              <p className="rank">Start Member</p>
+              {user.isActive && user?.rankID?.rank && (
+                <p className="rank">{user?.rankID?.rank}</p>
+              )}
+              {!user.isActive && <p className="rank">Not Active</p>}
             </div>
           </div>
           <div className="nav-section">
@@ -250,10 +255,11 @@ const Index = () => {
                 return (
                   <li key={index}>
                     {!item.route && (
-                      <a onClick={hanleLogOut}>
+                      <a>
                         {item.icon} <span>{item.label}</span>
                         {item.subNavItems?.length > 0 && (
                           <MdOutlineArrowDropDown className="arrow" />
+
                         )}
                       </a>
                     )}

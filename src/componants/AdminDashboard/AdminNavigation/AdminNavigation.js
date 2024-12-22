@@ -198,7 +198,10 @@ const Index = () => {
               </> */}
             <div className="info-container">
               <p className="name">{`${user?.firstName} ${user?.lastName}`} </p>
-              <p className="rank">Start Member</p>
+              {user.isActive && user?.rankID?.rank && (
+                <p className="rank">{user?.rankID?.rank}</p>
+              )}
+              {!user.isActive && <p className="rank">Not Active</p>}
             </div>
           </div>
           <div className="nav-section">

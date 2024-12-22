@@ -258,7 +258,7 @@ const AdminDailyTask = () => {
   return (
     <div className="admin-user">
       <div className="common-table-section">
-        <h4 className="dashboard-title">ADMIN USER</h4>
+        <h4 className="dashboard-title">Admin User</h4>
         <div className="balance-section">
           <div className="grid-section">
             {tableBalanceArray.map((item, index) => {

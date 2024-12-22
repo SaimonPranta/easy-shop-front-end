@@ -124,7 +124,7 @@ const AdminDailyTaskList = () => {
   };
   const handleSelectDailyTask = (taskID, taskGroupID) => {
     fetch(
-      `${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/select-daily-task`,
+      `${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/delete-daily-task`,
       {
         method: "POST",
         headers: {
@@ -139,6 +139,27 @@ const AdminDailyTaskList = () => {
         console.log("data ==>>", data);
         if (data.data) {
           setReRender((state) => !state);
+        }
+      });
+  };
+  const handleDeleteDailyTask = (taskID, taskGroupID) => {
+    fetch(
+      `${process.env.REACT_APP_SERVER_HOST_URL}/daily-task/select-daily-task`,
+      {
+        method: "POST",
+        headers: {
+          "content-type": "application/json; charset=UTF-8",
+          ...userHeader(),
+        },
+        body: JSON.stringify({ taskID, taskGroupID }),
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+        console.log("data ==>>", data);
+        if (data.data) {
+          const updateList = tableItems.filter((item) => item._id !== taskID)
+          setTableItems(updateList)
         }
       });
   };
@@ -305,6 +326,16 @@ const AdminDailyTaskList = () => {
                               }
                             >
                               Edit
+                            </button>
+                            <button
+                              onClick={() =>
+                                handleSelectDailyTask(
+                                  reqInfo._id,
+                                  reqInfo?.taskListID?._id
+                                )
+                              }
+                            >
+                              Delete
                             </button>
                           </div>
                         </td>
