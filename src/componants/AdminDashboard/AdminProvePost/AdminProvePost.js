@@ -6,9 +6,12 @@ import { ToastContainer } from "react-toastify";
 import { userHeader } from "../../../shared/cooki";
 import { dateToString, timeAgo } from "../../../shared/functions/dateConverter";
 import { useNavigate } from "react-router-dom";
-import { FaRegUserCircle } from "react-icons/fa";
+import { FaRegUserCircle, FaUsers } from "react-icons/fa";
 import getImageUrl from "../../../shared/functions/getImageUrl";
 import { imageContext } from "../../../App";
+import wallet from "../../../assets/images/dashboard/wallet.png";
+
+
 
 const AdminProvePost = () => {
   const [filterInput, setFilterInput] = useState({});
@@ -18,6 +21,9 @@ const AdminProvePost = () => {
   const [loading, setLoading] = useState(false);
   const [seeMoreID, setSeeMoreID] = useState("");
   const [total, setTotal] = useState(0);
+  const [balance, setBalance] = useState({});
+
+
   const debounceState = useRef();
   const { setViewImage } = useContext(imageContext);
 
@@ -28,6 +34,7 @@ const AdminProvePost = () => {
       clearTimeout(debounceState.current);
     }
   };
+
   useEffect(() => {
     resetTimeout();
     debounceState.current = setTimeout(() => {
@@ -176,7 +183,7 @@ const AdminProvePost = () => {
       </div>
       <div className="common-table-section">
         <h4 className="dashboard-title">PROVE POST HISTORY</h4>
-        <div className="balance-section"></div>
+      
         <div className="filter-section">
           <div className="input-section">
             <div className="date">
@@ -200,7 +207,7 @@ const AdminProvePost = () => {
             <select name="postType" onChange={handleInputChange}>
               <option hidden>Select Post</option>
               <option>Enable Post</option>
-              <option>Disable Post</option> 
+              <option>Disable Post</option>
             </select>
             <input
               type="text"
@@ -221,8 +228,8 @@ const AdminProvePost = () => {
               <tr>
                 <th className="small">#</th>
                 <th className="big">User Name</th>
-                <th>User ID</th> 
-                <th>Screen Shorts</th> 
+                <th>User ID</th>
+                <th>Screen Shorts</th>
                 <th className="big"> Description </th>
                 <th> Status </th>
                 <th>Ago</th>
@@ -265,8 +272,12 @@ const AdminProvePost = () => {
                       </td>
                       <td>{reqInfo?.userID?.phoneNumber}</td>
                       <td className="img">
-                          <img src={getImageUrl(reqInfo.images)} onDoubleClick={() => setViewImage(reqInfo.images)} alt="" />
-                        </td>
+                        <img
+                          src={getImageUrl(reqInfo.images)}
+                          onDoubleClick={() => setViewImage(reqInfo.images)}
+                          alt=""
+                        />
+                      </td>
                       <td className={`big description`}>
                         <div
                           className={`${

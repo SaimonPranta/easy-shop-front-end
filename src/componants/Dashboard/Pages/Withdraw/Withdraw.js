@@ -420,21 +420,27 @@ const Withdraw = () => {
                 {config?.withdraw?.withdrawAmounts?.length > 0 &&
                   config?.withdraw?.withdrawAmounts.map((item, index) => {
                     let disabled = true;
-                    if (
-                      input.balanceType === "Main Balance" &&
-                      lastBalance.lastMainBalance < item.balance
-                    ) {
-                      disabled = false;
-                    } else if (
-                      input.balanceType === "Sales Balance" &&
-                      lastBalance.lastSalesBalance < item.balance
-                    ) {
-                      disabled = false;
-                    } else if (
-                      input.balanceType === "Task Balance" &&
-                      lastBalance.lastTaskBalance < item.balance
-                    ) {
-                      disabled = false;
+                    console.log("0000>>>>", {
+                      maximumWithdrawAmount:config.withdraw.maximumWithdrawAmount,
+                      itemBAlance: item.balance
+                    })
+                    if (config.withdraw.maximumWithdrawAmount <= item.balance) {
+                      if (
+                        input.balanceType === "Main Balance" &&
+                        lastBalance.lastMainBalance < item.balance
+                      ) {
+                        disabled = false;
+                      } else if (
+                        input.balanceType === "Sales Balance" &&
+                        lastBalance.lastSalesBalance < item.balance
+                      ) {
+                        disabled = false;
+                      } else if (
+                        input.balanceType === "Task Balance" &&
+                        lastBalance.lastTaskBalance < item.balance
+                      ) {
+                        disabled = false;
+                      }
                     }
                     return (
                       <option

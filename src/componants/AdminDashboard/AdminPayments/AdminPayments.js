@@ -6,10 +6,77 @@ import { ToastContainer } from "react-toastify";
 import { userHeader } from "../../../shared/cooki";
 import { dateToString, timeAgo } from "../../../shared/functions/dateConverter";
 import { useNavigate } from "react-router-dom";
-import { FaRegUserCircle } from "react-icons/fa";
+import { FaRegUserCircle, FaUsers } from "react-icons/fa";
 import getImageUrl from "../../../shared/functions/getImageUrl";
 import { imageContext } from "../../../App";
+import wallet from "../../../assets/images/dashboard/wallet.png";
 
+const tableBalanceArray = [
+  {
+    title: "Today Approve Payment Request",
+    property: "todayApprovePaymentRequest",//done
+    user: true,
+
+  },
+  {
+    title: "Today Pending Payment Request",
+    property: "todayPendingPaymentRequest",
+    user: true,
+
+  },
+  {
+    title: "Today Total Payment Request",
+    property: "totalTotalPaymentRequest",
+    user: true,
+
+  },
+  {
+    title: "Total Approve Payment Request",
+    property: "totalApprovePaymentRequest", 
+    user: true,
+
+  },
+  {
+    title: "Total Pending Payment Request",
+    property: "totalPendingPaymentRequest",  
+    user: true,
+
+  },
+  {
+    title: "Total Payment Request",
+    property: "totalPaymentRequest", 
+    user: true,
+
+  },
+
+  {
+    title: "Today Approve Payment Balance",
+    property: "todayApprovePaymentBalance",    
+  },
+  {
+    title: "Today Pending Payment Balance",
+    property: "todayPendingPaymentBalance",   
+  },
+  {
+    title: "Today Total Payment Balance",
+    property: "totalTotalPaymentBalance",   
+  },
+  {
+    title: "Total Approve Payment Balance",
+    property: "totalApprovePaymentBalance",  
+
+  },
+  {
+    title: "Total Pending Payment Balance",
+    property: "totalPendingPaymentBalance",   
+
+  },
+  {
+    title: "Total Payment Balance",
+    property: "totalPaymentBalance",  
+  },
+ 
+];
 const AdminPayments = () => {
   const [filterInput, setFilterInput] = useState({});
   const [page, setPage] = useState(1);
@@ -17,6 +84,7 @@ const AdminPayments = () => {
   const [tableItems, setTableItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
+  const [balance, setBalance] = useState({});
   const { setViewImage } = useContext(imageContext);
 
   const debounceState = useRef();
@@ -28,6 +96,28 @@ const AdminPayments = () => {
       clearTimeout(debounceState.current);
     }
   };
+  useEffect(() => {
+    fetch(
+      `${process.env.REACT_APP_SERVER_HOST_URL}/admin-payments/init-balance`,
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json; charset=UTF-8",
+          ...userHeader(),
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+         if (data.data) {
+          setBalance(data.data)
+         }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+
+  }, [])
   useEffect(() => {
     resetTimeout();
     debounceState.current = setTimeout(() => {
@@ -156,13 +246,32 @@ const AdminPayments = () => {
   };
 
   return (
-    <div className="admin-withdraw">
+    <div className="admin-Payment">
       <div className="btn-container">
         <button onClick={handleConfigNavigation}>Set Config</button>
       </div>
       <div className="common-table-section">
         <h4 className="dashboard-title">ADMIN PAYMENTS HISTORY</h4>
-        <div className="balance-section"></div>
+        <div className="balance-section">
+          <div className="grid-section">
+            {tableBalanceArray.map((item, index) => {
+              return (
+                <div className="item" key={index}>
+                  <div className="top">
+                    {item.user && <FaUsers/>}
+                    {!item.user && <img src={wallet} alt="" />}
+                    <strong>{item.title}</strong>
+                    <p>
+                      {(!item.user && !item.point) && <strong>৳</strong>}
+
+                      {balance[item.property]?.toFixed(2)?.replace(".00", "")}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
         <div className="filter-section">
           <div className="input-section">
             <div className="date">
@@ -259,9 +368,7 @@ const AdminPayments = () => {
                           src={getImageUrl(reqInfo?.payments?.img)}
                           alt=""
                           onDoubleClick={() =>
-                            setViewImage(
-                              getImageUrl(reqInfo?.payments?.img)
-                            )
+                            setViewImage(getImageUrl(reqInfo?.payments?.img))
                           }
                         />
                       </td>
@@ -272,12 +379,16 @@ const AdminPayments = () => {
                       {/* <td className={`btn ${reqInfo.status.toLowerCase()}`}>
                       <button>{reqInfo.status}</button>
                     </td> */}
-                      <td>{reqInfo?.status}</td>
+                      <td className={`status ${reqInfo?.status}`}>
+                        <div>
+                          <p>{reqInfo?.status}</p>
+                        </div>
+                      </td>
                       <td
                         className={`btn-container ${reqInfo.status.toLowerCase()}`}
                       >
                         <div>
-                          {reqInfo.status !== "Pending" && (
+                          {/* {reqInfo.status !== "Pending" && (
                             <button
                               onClick={() =>
                                 handleStatus("Pending", reqInfo._id)
@@ -308,16 +419,37 @@ const AdminPayments = () => {
                             >
                               Approve
                             </button>
-                          )}
+                          )} */}
                           {reqInfo.status === "Pending" && (
-                            <button
-                              onClick={() =>
-                                handleStatus("Delete", reqInfo._id)
-                              }
-                              disabled={reqInfo.status === "Cancel"}
-                            >
-                              Delete
-                            </button>
+                            <>
+                              <button
+                                className="approve"
+                                onClick={() =>
+                                  handleStatus("Approve", reqInfo._id)
+                                }
+                                disabled={reqInfo.status === "Cancel"}
+                              >
+                                Approve
+                              </button>
+                               
+                              <button
+                                className="reject"
+                                onClick={() =>
+                                  handleStatus("Reject", reqInfo._id)
+                                }
+                                disabled={reqInfo.status === "Cancel"}
+                              >
+                                Reject{" "}
+                              </button>
+                              <button
+                                onClick={() =>
+                                  handleStatus("Delete", reqInfo._id)
+                                }
+                                disabled={reqInfo.status === "Cancel"}
+                              >
+                                Delete
+                              </button>
+                            </>
                           )}
                         </div>
                       </td>

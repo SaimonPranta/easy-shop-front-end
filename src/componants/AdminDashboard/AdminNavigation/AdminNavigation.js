@@ -90,7 +90,7 @@ const navItems = [
   },
   {
     icon: <MdPostAdd />,
-    label: "Prove Post",
+    label: "Payment Review",
     route: "/admin/prove-post",
     admin: false,
   },

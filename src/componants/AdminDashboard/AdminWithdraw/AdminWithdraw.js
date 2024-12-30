@@ -6,9 +6,15 @@ import { ToastContainer } from "react-toastify";
 import { userHeader } from "../../../shared/cooki";
 import { dateToString, timeAgo } from "../../../shared/functions/dateConverter";
 import { useNavigate } from "react-router-dom";
-import { FaRegUserCircle } from "react-icons/fa";
+import { FaRegUserCircle, FaUsers } from "react-icons/fa";
 import getImageUrl from "../../../shared/functions/getImageUrl";
 import { imageContext } from "../../../App";
+import wallet from "../../../assets/images/dashboard/wallet.png";
+
+
+
+
+
 
 const AdminDailyTask = () => {
   const [filterInput, setFilterInput] = useState({});
@@ -17,16 +23,104 @@ const AdminDailyTask = () => {
   const [tableItems, setTableItems] = useState([]);
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
+  const [balance, setBalance] = useState({});
   const debounceState = useRef();
   const { setViewImage } = useContext(imageContext);
 
   const navigate = useNavigate();
-
+  const tableBalanceArray = [
+    {
+      title: "Today Approve Withdraw Request",
+      property: "todayApproveWithdrawRequest",//done
+      user: true,
+  
+    },
+    {
+      title: "Today Pending Withdraw Request",
+      property: "todayPendingWithdrawRequest",
+      user: true,
+  
+    },
+    {
+      title: "Today Total Withdraw Request",
+      property: "totalTotalWithdrawRequest",
+      user: true,
+  
+    },
+    {
+      title: "Total Approve Withdraw Request",
+      property: "totalApproveWithdrawRequest", 
+      user: true,
+  
+    },
+    {
+      title: "Total Pending Withdraw Request",
+      property: "totalPendingWithdrawRequest",  
+      user: true,
+  
+    },
+    {
+      title: "Total Withdraw Request",
+      property: "totalWithdrawRequest", 
+      user: true,
+  
+    },
+  
+    {
+      title: "Today Approve Withdraw Balance",
+      property: "todayApproveWithdrawBalance",    
+    },
+    {
+      title: "Today Pending Withdraw Balance",
+      property: "todayPendingWithdrawBalance",   
+    },
+    {
+      title: "Today Total Withdraw Balance",
+      property: "totalTotalWithdrawBalance",   
+    },
+    {
+      title: "Total Approve Withdraw Balance",
+      property: "totalApproveWithdrawBalance",  
+  
+    },
+    {
+      title: "Total Pending Withdraw Balance",
+      property: "totalPendingWithdrawBalance",   
+  
+    },
+    {
+      title: "Total Withdraw Balance",
+      property: "totalWithdrawBalance",  
+    },
+   
+  ];
   const resetTimeout = () => {
     if (debounceState.current) {
       clearTimeout(debounceState.current);
     }
   };
+  useEffect(() => {
+    fetch(
+      `${process.env.REACT_APP_SERVER_HOST_URL}/admin-withdraw/init-balance`,
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json; charset=UTF-8",
+          ...userHeader(),
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+         if (data.data) {
+          setBalance(data.data)
+         }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+
+  }, [])
   useEffect(() => {
     resetTimeout();
     debounceState.current = setTimeout(() => {
@@ -167,7 +261,59 @@ const AdminDailyTask = () => {
       </div>
       <div className="common-table-section">
         <h4 className="dashboard-title">ADMIN WITHDRAW HISTORY</h4>
+        <div className="balance-section">
+          <div className="grid-section">
+            {tableBalanceArray.map((item, index) => {
+              return (
+                <div className="item" key={index}>
+                  <div className="top">
+                    {item.user && <FaUsers />}
+                    {!item.user && <img src={wallet} alt="" />}
+                    <strong>{item.title}</strong>
+                    <p>
+                      {(!item.user && !item.point) && <strong>৳</strong>}
 
+                      {balance[item.property]?.toFixed(2)?.replace(".00", "")}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <div className="filter-section">
+          <div className="input-section">
+            <div className="date">
+              <span>From</span>
+              <input
+                type="date"
+                name="fromDate"
+                value={filterInput.fromDate || ""}
+                onChange={handleInputChange}
+              />
+            </div>
+            <div className="date">
+              <span>To</span>
+              <input
+                type="date"
+                name="toDate"
+                value={filterInput.toDate || ""}
+                onChange={handleInputChange}
+              />
+            </div>
+            <input
+              type="text"
+              placeholder="Search here ..."
+              name="search"
+              value={filterInput.search || ""}
+              onChange={handleInputChange}
+            />
+          </div>
+
+          <div className="submit-section">
+            <button onClick={handleFilterSubmit}>Filter</button>
+          </div>
+        </div>
         <div className="table-section" id="table-list" onScroll={handleScroll}>
           <table>
             <thead>
@@ -179,7 +325,6 @@ const AdminDailyTask = () => {
                 <th className="big">Balance</th>
                 <th>Method</th>
                 <th>Number</th>
-                <th>PIN</th>
                 <th>Amount</th>
                 <th className="big">Account Balance</th>
                 <th>Ago</th>
@@ -223,7 +368,6 @@ const AdminDailyTask = () => {
                       <td>{reqInfo?.balanceType}</td>
                       <td>{reqInfo?.withdraw?.provider}</td>
                       <td>{reqInfo?.withdraw?.phoneNumber}</td>
-                      <td>{reqInfo?.withdraw?.accountPIN}</td>
                       <td>৳{reqInfo?.amount}</td>
                       <td>৳{accountBalance}</td>
                       <td className="date">{timeAgo(reqInfo.createdAt)}</td>
@@ -233,12 +377,16 @@ const AdminDailyTask = () => {
                       {/* <td className={`btn ${reqInfo.status.toLowerCase()}`}>
                       <button>{reqInfo.status}</button>
                     </td> */}
-                      <td>{reqInfo?.status}</td>
+                      <td className={`status ${reqInfo?.status}`}>
+                        <div>
+                          <p>{reqInfo?.status}</p>
+                        </div>
+                      </td>
                       <td
                         className={`btn-container ${reqInfo.status.toLowerCase()}`}
                       >
                         <div>
-                          {reqInfo.status !== "Pending" && (
+                          {/* {reqInfo.status !== "Pending" && (
                             <button
                               onClick={() =>
                                 handleStatus("Pending", reqInfo._id)
@@ -269,16 +417,36 @@ const AdminDailyTask = () => {
                             >
                               Approve
                             </button>
-                          )}
+                          )} */}
                           {reqInfo.status === "Pending" && (
-                            <button
+                            <>
+                              <button
+                                className="approve"
+                                onClick={() =>
+                                  handleStatus("Approve", reqInfo._id)
+                                }
+                                disabled={reqInfo.status === "Cancel"}
+                              >
+                                Approve
+                              </button>
+                              <button
+                              className="reject"
                               onClick={() =>
-                                handleStatus("Delete", reqInfo._id)
+                                handleStatus("Reject", reqInfo._id)
                               }
                               disabled={reqInfo.status === "Cancel"}
                             >
-                              Delete
+                              Reject{" "}
                             </button>
+                              <button
+                                onClick={() =>
+                                  handleStatus("Delete", reqInfo._id)
+                                }
+                                disabled={reqInfo.status === "Cancel"}
+                              >
+                                Delete
+                              </button>
+                            </>
                           )}
                         </div>
                       </td>

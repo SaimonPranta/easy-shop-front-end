@@ -1,4 +1,4 @@
-.admin-withdraw{
+.admin-Payment{
   .btn-container{
     display: flex;
     align-items: center;
@@ -23,6 +23,9 @@
     max-width: 1000px;
     .table-section{ 
         height: 400px;
+    }
+    .grid-section{
+      flex-wrap: wrap;
     }
   }
 }

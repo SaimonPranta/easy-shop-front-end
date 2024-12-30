@@ -6,10 +6,26 @@ import { ToastContainer } from "react-toastify";
 import { userHeader } from "../../../shared/cooki";
 import { dateToString, timeAgo } from "../../../shared/functions/dateConverter";
 import { useNavigate } from "react-router-dom";
-import { FaRegUserCircle } from "react-icons/fa";
+import { FaRegUserCircle, FaUsers } from "react-icons/fa";
 import getImageUrl from "../../../shared/functions/getImageUrl";
 import { configContext, imageContext } from "../../../App";
+import wallet from "../../../assets/images/dashboard/wallet.png";
 
+const tableBalanceArray = [
+  {
+    title: "Total User",
+    property: "totalUser",//done
+    user: true,
+
+  },
+  {
+    title: "Total Salary Balance",
+    property: "totalSalaryBalance",
+
+  },
+   
+ 
+];
 const AdminSalary = () => {
   const [filterInput, setFilterInput] = useState({});
   const [page, setPage] = useState(1);
@@ -18,6 +34,8 @@ const AdminSalary = () => {
   const [loading, setLoading] = useState(false);
   const [total, setTotal] = useState(0);
   const [seeMoreID, setSeeMoreID] = useState("");
+  const [balance, setBalance] = useState({});
+
   const { setViewImage } = useContext(imageContext);
   const [config] = useContext(configContext);
 
@@ -30,6 +48,28 @@ const AdminSalary = () => {
       clearTimeout(debounceState.current);
     }
   };
+  useEffect(() => {
+    fetch(
+      `${process.env.REACT_APP_SERVER_HOST_URL}/admin-salary/init-balance`,
+      {
+        method: "GET",
+        headers: {
+          "content-type": "application/json; charset=UTF-8",
+          ...userHeader(),
+        },
+      }
+    )
+      .then((res) => res.json())
+      .then((data) => {
+         if (data.data) {
+          setBalance(data.data)
+         }
+      })
+      .finally(() => {
+        setLoading(false);
+      });
+
+  }, [])
   useEffect(() => {
     resetTimeout();
     debounceState.current = setTimeout(() => {
@@ -164,7 +204,26 @@ const AdminSalary = () => {
       </div>
       <div className="common-table-section">
         <h4 className="dashboard-title">ADMIN SALARY HISTORY</h4>
-        <div className="balance-section"></div>
+        <div className="balance-section">
+          <div className="grid-section">
+            {tableBalanceArray.map((item, index) => {
+              return (
+                <div className="item" key={index}>
+                  <div className="top">
+                    {item.user && <FaUsers/>}
+                    {!item.user && <img src={wallet} alt="" />}
+                    <strong>{item.title}</strong>
+                    <p>
+                      {(!item.user && !item.point) && <strong>৳</strong>}
+
+                      {balance[item.property]?.toFixed(2)?.replace(".00", "")}
+                    </p>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
         <div className="filter-section">
           <div className="input-section">
             <div className="date">
@@ -227,7 +286,7 @@ const AdminSalary = () => {
                     accountBalance = reqInfo?.userID?.taskBalance || 0;
                   }
                   return (
-                    <tr key={index}>
+                  <tr key={index}>
                       <td className="small">{index + 1}</td>
                       <td className="img-name">
                         <div>

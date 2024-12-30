@@ -255,7 +255,7 @@ const Withdraw = () => {
                     </div>
                     <div className="footer-section">
                       <p>{`ID ${itemInfo?.id || ""}`}</p>
-                      <button>weekly</button>
+                      {/* <button>weekly</button> */}
                     </div>
                   </div>
                 );

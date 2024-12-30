@@ -160,9 +160,13 @@ const AdminAddDailyTask = () => {
                 input.withdrawAmounts.map((item, index) => {
                   return <li key={index}>{item.balance}TK <button onClick={() => removeWithdrawAmount(index)} type='button'>x</button></li>
                 })
-              }
+            }
             </ul>
           </div>}
+          <div className="validate-input">
+            <input className={`input2 ${input.maximumWithdrawAmount ? "fill" : ""}`} type="text" value={input.maximumWithdrawAmount || ""} name="maximumWithdrawAmount" onChange={handleChange} />
+            <span className="focus-input2">Set Maximum Withdraw Amount </span>
+          </div>
           <div className="validate-input auto-approve" >
             <span className="focus-input2">Bikash Payment</span>
             <input className="input2" checked={input?.paymentMethods?.bikash || false} name="bikash" onChange={handleChange} type="checkbox" />
